@@ -1,0 +1,147 @@
+@media only screen and (max-width: 1024px) {
+	#main-menu>.container>ul>li>a{
+		padding:10px;
+	}
+	.item-product .add-cart a{
+		    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+	}
+	}
+@media only screen and (max-width: 768px) {
+.hc-nav-trigger.hc-nav-1{
+	display: block!important;
+}
+.second-nav{
+	display: block;
+}
+.logo{
+	    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.search-shop-holine .search input[type=text]{
+	margin-bottom: 5px;
+}
+.search-shop-holine .holine{
+	margin-top: 10px;
+}
+#main-menu{
+	display: none;
+}
+.nav-product .item-product{
+	padding-bottom: 20px;
+}
+.title-primary .title1{
+	    padding: 10px 6px;
+    font-size: 12px;
+}
+.top-footer .item{
+	width: 100%;
+}
+.bottom-content .item{
+	margin-bottom: 10px;
+}
+.nav-img-detail .js-qty input[type=number]{
+	margin-bottom: 10px;
+}
+.other-product .item-other{
+	width: calc((100% - 20px ) / 2);
+	margin-right: 20px;
+	display: inline-block;
+	float: left;
+}
+.other-product .item-other:nth-child(2n){
+	margin-right: 0;
+}
+.support .nav-icon .sp2{
+	font-size: 10px;
+}
+}
+
+
+@media only screen and (max-width: 736px){
+	.top-header{
+		display: none;
+	}
+	.hc-nav-trigger{
+		top: 60px;
+	}
+	.sale{
+		margin-top: 10px;
+	}
+	.slider-sale .sale img{
+		width: 100%;
+		height: auto;
+	}
+	.item-product .image .thubmail-img img{
+		width: 100%;
+		height: 360px;
+	}
+	.nav-right-new .item .image img{
+		height: auto;
+	}
+	.sidebar .nav-product-sb .item .image img{
+		height: auto;
+	}
+	.banner img{
+		height: auto;
+	}
+.main-content>.container>.row{
+		    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    margin: auto;
+	}
+	.main-content>.container>.row>.col-md-9{
+		order: 1;
+        width: 100%;
+	}
+		.main-content>.container>.row>.col-md-3{
+		order: 2;
+        width: 100%;
+	}
+	.content-detail-product .nav-img-detail{
+		padding-top: 15px;
+	}
+	.title-primary .title1:before{
+		display: none;
+	}
+
+	
+
+}
+@media only screen and (max-width: 667px){
+.slider-large .item img{
+	height: 300px;
+}
+.item-product .image .thubmail-img img{
+	height: 150px;
+}
+.title-primary ul{
+	display: none;
+}
+.product-tabs ul li a{
+	    padding: 5px 7px;
+    font-size: 13px;
+}
+.support .images img{
+	width: 100%;
+}
+.content-detail-new h1{
+	font-size: 18px;
+}
+.new-home .item-new .image img{
+	height: 140px;
+}
+#main-contact .form-contat{
+	padding-top: 15px;
+}
+.title-primary .title1{
+	width: 100%;
+}
+}
+@media only screen and (max-width: 414px){
+	
+
+}
