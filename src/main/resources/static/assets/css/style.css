@@ -264,8 +264,9 @@ a {
 
 }
 .slider-sale .sale img {
+  margin-left: 3px;
   width: 100%;
-  height: 192px;
+  height: 190px;
   object-fit: cover;
 }
 .title-primary .title1 {
@@ -1441,7 +1442,7 @@ div.list-menu {
   position: absolute;
   background: #fff;
   z-index: 1;
-  width: 100%;
+  width: 97%;
   display: none;
 }
 .nav-category-home ul {
