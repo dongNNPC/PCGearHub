@@ -62,18 +62,58 @@
                       <button class="btn">Search</button>
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="holine" style="margin-top: 10px;font-weight: bold;" >
-                     <h3> <a href="#" >
-                     Tài Khoản của tôi</a></h3>
-                  </div>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="cart">
-                      <a href="#" rel="nofollow"><img src="#" alt="">Giỏ hàng
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        (<span class="stt" id="total-cart">0</span>)</a>
+                  <script type="text/javascript">
+                    $(function () {
+                      $('#searchForm').on('submit', function () {
+                        var keyword = $('.keyword').val();
+                        if (keyword == '') {
+                          alert('Bạn phải nhập từ khóa');
+                          return false;
+                        }
+                      });
+                    });
+                  </script>
+                  <div class="col-md-2" style="margin-left: 20px;">
+                    <div class="item-top right-top">
+
+                        <ul>
+                            <img src="../static/assets/images/logo/user.png" alt="">
+                            <li><a href="#" rel="nofollow">Đăng nhập</a></li>
+                            <li><a href="">/</a></li>
+                            <li><a href="#" rel="nofollow">Đăng ký</a></li>
+
+
+                            <li><a href="#" rel="nofollow">Tài Khoản Của Tôi</a></li>
+
+                        </ul>
+                        <div class="col-md-2">
+                            <div class="header__cart">
+                                <ul>
+                                    <li class="hi"><a href="#"><i class="fa fa-shopping-bag"></i>
+                                            <span>3</span></a></li>
+
+
+                                </ul>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="header__cart">
+                                <ul>
+                                    <li class="hu"><a href="#">Giỏ hàng
+                                        </a></li>
+
+
+                                </ul>
+
+
+                            </div>
+
+                        </div>
                     </div>
+
                 </div>
               </div>
             </div>
