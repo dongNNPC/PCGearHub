@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(view)">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Corona Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/admin/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/vendors/css/vendor.bundle.base.css}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link th:href="@{/fonts/fontawesome-free-6.4.0-web/css/all.css}"
+	href="/fonts/fontawesome-free-6.4.0-web/css/all.css" rel="stylesheet"
+	type="text/css" media="all" />
+    <link rel="stylesheet" th:href="@{/admin/vendors/jvectormap/jquery-jvectormap.css}" type="text/css" media="all" >
+    <link rel="stylesheet" th:href="@{/admin/vendors/flag-icon-css/css/flag-icon.min.css}" type="text/css" media="all" >
+    <link rel="stylesheet" th:href="@{/admin/vendors/owl-carousel-2/owl.carousel.min.css}" type="text/css" media="all" >
+    <link rel="stylesheet" th:href="@{/admin/vendors/owl-carousel-2/owl.theme.default.min.css}" type="text/css" media="all" >
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" th:href="@{/admin/css/style.css}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="@{/admin/images/favicon.png}" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+    <nav th:replace="~{/admin/layout/sidebar :: sidebar}"></nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_navbar.html -->
+        <nav th:replace="~{/admin/layout/_nav :: nav}"></nav>
+        <!-- partial -->
+        <div class="main-panel">
+         <main th:replace ="${view}"></main>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer" th:replace="~{/admin/layout/_footer :: footer}">
+          
+          </footer>
+        
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script th:src="@{/admin/vendors/js/vendor.bundle.base.js}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script th:src="@{/admin/vendors/chart.js/Chart.min.js}"></script>
+    <script th:src="@{/admin/vendors/progressbar.js/progressbar.min.js}"></script>
+    <script th:src="@{/admin/vendors/jvectormap/jquery-jvectormap.min.js}"></script>
+    <script th:src="@{/admin/vendors/jvectormap/jquery-jvectormap-world-mill-en.js}"></script>
+    <script th:src="@{/admin/vendors/owl-carousel-2/owl.carousel.min.js}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script th:src="@{/admin/js/off-canvas.js}"></script>
+    <script th:src="@{/admin/js/hoverable-collapse.js}"></script>
+    <script th:src="@{/admin/js/misc.js}"></script>
+    <script th:src="@{/admin/js/settings.js}"></script>
+    <script th:src="@{/admin/js/todolist.js}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script th:src="@{/admin/js/dashboard.js}"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>
