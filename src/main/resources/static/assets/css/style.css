@@ -2167,6 +2167,7 @@ i.fa.fa-plus.css-icon-plus.show:before {
   transition: all 0.5s;
   border-radius: 5px;
   height: 450px;
+  margin-bottom: 10px;
 }
 .product-grid:hover{ box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3); }
 .product-grid .product-image{
@@ -2388,7 +2389,7 @@ i.fa.fa-plus.css-icon-plus.show:before {
  }
  /* Pagination */
  .pagination-container {
-  margin: 100px auto;
+  margin: 50px auto;
   text-align: center;
 }
 .pagination {
@@ -2481,3 +2482,54 @@ i.fa.fa-plus.css-icon-plus.show:before {
    background: #F1B501;
 
   }
+/* thông báo thêm thành công */
+#success-notification {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #fffbfb;
+  color: #000000;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  width: 300px;
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.close-btnaddtoCart {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #F1B501;
+  margin-top: -5px;
+  transition: color 0.3s ease;
+}
+
+.close-btnaddtoCart:hover {
+  border-radius: 20px;
+  color: #ff0000;
+}
+
+.text-succAddtocartP {
+  max-width: 100px;
+  word-break: normal;
+}
+.table.table-borderless td.text-succAddtocart,
+.table.table-borderless td.text-succAddtocart strong {
+    border: none;
+}
+
