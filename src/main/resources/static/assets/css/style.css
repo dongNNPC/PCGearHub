@@ -835,6 +835,12 @@ i {
   font-size: 14px;
   margin-bottom: 5px;
 }
+#btn-top{
+  position: fixed;
+  bottom: 50px;
+  right: 71px;
+  cursor: pointer;
+}
 .footer-bottom .nav-bottom p span {
   font-weight: bold;
 }
