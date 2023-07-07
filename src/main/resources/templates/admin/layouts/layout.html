@@ -28,17 +28,17 @@
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
-    <nav th:replace="~{/admin/layout/sidebar :: sidebar}"></nav>
+    <nav th:replace="~{/admin/fragment/sidebar :: sidebar}"></nav>
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_navbar.html -->
-        <nav th:replace="~{/admin/layout/_nav :: nav}"></nav>
+        <nav th:replace="~{/admin/fragment/_nav :: nav}"></nav>
         <!-- partial -->
         <div class="main-panel">
          <main th:replace ="${view}"></main>
           <!-- content-wrapper ends -->
           <!-- partial:partials/_footer.html -->
-          <footer class="footer" th:replace="~{/admin/layout/_footer :: footer}">
+          <footer class="footer" th:replace="~{/admin/fragment/_footer :: footer}">
           
           </footer>
         
