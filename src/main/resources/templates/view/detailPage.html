@@ -1,5 +1,7 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+     th:replace="~{/layouts/layout :: dynamic(~{::body})}"
+>
 
 <head>
     <title>Title</title>
@@ -12,98 +14,67 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-
-        body {
-            background-color: #F5F5F5;
-            font-family: "Quicksand";
-        }
-
-        .form-Product {
-            background-color: #ffffff;
-            height: 520px;
-            width: 1250px;
-            border-radius: 5px;
-        }
-
-        .PriceProdcut {
-            background-color: #F5F5F5;
-            height: 60px;
-            width: 27   0px;
-            border-radius: 5px;
-        }
-
-        .PriceProdcut h6 {
-            padding: 10px;
-        }
-
-        .PriceProdcut i {
-            font-size: 28px;
-            font-weight: 600;
-            line-height: 40.6px;
-            color: red;
-            font-size: 30px;
-            font-weight: bold;
-            font-style: normal;
-            margin-left: 20px;
-        }
     </style>
 </head>
 
-<body>
+<body style="font-family: Quicksand;">
     <header>
         <!-- place navbar here -->
     </header>
-    <main>
-        <form action="" class="form-Product container-fluid mt-2">
+    <main style="background-color: #ffffff; height: 700px;">
+        <form action="" class="form-Product container-fluid mt-2" style="  margin-top: 10px;">
             <div class="row">
                 <div class="col-md-5">
-                    <img src="../" alt="">
+                    <img th:src="@{/assets/images/balo.png}" width="500px" height="400px" >
                 </div>
                 <div class="col-md-7">
                     <h4>PC ZOTAC GAMING Type2 Super VGA qua sử dụng -Linh kiện còn lại all new</h4>
                     <div class="row">
                         <div class="col-md-7">
-                            <p>Tình trạng: <i class="text-warning fw-bold">Còn hàng</i></p>
+                            <p>Tình trạng: <i style="color: #F1B501;font-family: Quicksand;font-weight: bold;font-size: 20px;">Còn hàng</i></p>
 
-                            <div class="PriceProdcut">
-                                <h6>Giá: <i>1,000,000đ</i> </h6>
+                            <div class="PriceProdcut" style=" background-color: #F5F5F5;
+                            height: 60px;
+                            width: 27   0px;
+                            border-radius: 5px;">
+                                <h6 style="  padding: 10px;">Giá: <i style="color: red;font-family: Quicksand;font-weight: bold; font-size: 30px;">1,000,000đ</i> </h6>
                             </div>
 
-                            <div class="input-group mt-3">
+                            <div class="input-group mt-3" style="margin-top: 20px;">
                                 <p class="mt-2 fw-bold"> Số lượng : &ensp;</p>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        onclick="decreaseQuantity()">-</button>
-                                </span>
-                                <input style="border: 1px black; width: 50px; margin-top: -10px;" type="text"
-                                    class="text-center" readonly id="quantity" value="1">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-outline-secondary"
-                                        onclick="increaseQuantity()">+</button>
-                                </span>
+                               
+                                    <span class="input-group-btn" style="margin-right: 100px;">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            onclick="decreaseQuantity()">-</button>
+                                    </span>
+                                    <input style="border: 1px black; width: 130px;text-align: center; color: black;margin-left: 50px;" type="text"
+                                        class="text-center" readonly id="quantity" value="1" min="0">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            onclick="increaseQuantity()">+</button>
+                                    </span>
+                              
                             </div>
 
-                            <div class="mt-3">
-                                <button style="width: 250px; height: 50px;" type="button"
-                                    class="btn btn-outline-success">Thêm vào giỏ</button>
-                            </div>
+
                             <div class="mt-5">
-                                <div class="fw-bold">Chia sẻ : 
-                                    <a href=""> <img src="../" alt=""></a>
-
+                                <div class="fw-bold" style="margin-top: 20px;">Chia sẻ : 
+                                    <a href=""> <img th:src="@{/assets/Icon/Facebook.svg}" width="30px"></a>
+                                    <a href=""> <img th:src="@{/assets/Icon/Facebook Messenger.svg}" width="30px"></a>
+                                    <a href=""> <img th:src="@{/assets/Icon/Twitter Circled.svg}" width="30px"></a>
                                 </div> 
                             </div>
                         </div>
-                        <div class="col-md-4" style="border: 1px solid black;width: 260px;">
-                            <p class="text-center fw-bold">Chính sách bán hàng</p>
-                            <div class="text-center">
+                        <div class="col-md-4" style="border: 1px solid black;width: 260px; ">
+                            <p class="fw-bold text-center" style="color: black;font-weight: bold;text-align: center;">Chính sách bán hàng</p>
+                            <div class="text-center" style="color: black;">
                                 <p><i class="fa-brands fa-shopify"></i> Cam kết 100% chính hãng</p>
-                                <p>Hỗ trợ 24/7Hỗ trợ 24/7 </p>
-                                <p class="fw-bold text-center">Thông tin thêm </p>
-                                <p> Hoàn tiền 111% nếu hàng giả</p>
-                                <p> Mở hộp kiểm tra nhận hàng</p>
-                                <p> Đổi trả trong 7 ngày </p>
-                                <p class="text-center">-------------0-------------</p>
+                                <p><i class="fa-solid fa-phone"></i> Hỗ trợ 24/7 </p>
+                                <p class="fw-bold text-center" style="color: black;font-weight: bold;text-align: center;">Thông tin thêm </p>
+                                <p> <i class="fa-solid fa-check"></i> Hoàn tiền 111% nếu hàng giả</p>
+                                <p> <i class="fa-solid fa-thumbs-up"></i> Mở hộp kiểm tra nhận hàng</p>
+                                <p> <i class="fa-solid fa-7"></i> Đổi trả trong 7 ngày </p>
+                              
                             </div>
 
                         </div>

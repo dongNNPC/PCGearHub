@@ -1,15 +1,16 @@
 <div class="container-fluid " th:fragment="product" style="margin-top: 20px; margin-bottom: 300px;">
       <h2 style="font-weight: bold;">TOP NHỮNG SẢN PHẨM BÁN CHẠY NHẤT</h2>
       <div class="row">
+        <a  th:href="@{/pcgearhub/detail-page}"></a>
         <div class="col-md-3 col-sm-6" style="margin-top: 10px;">
           <div class="product-grid">
             <div class="product-image">
-              <a href="#" class="image">
+              <a th:href="@{/pcgearhub/detail-page}" class="image">
                 <img class="pic-1" src="../assets/images/balo.png">
                 <img class="pic-2" src="../assets/images/balo2.png">
               </a>
               <ul class="social">
-                <li><a href="#" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                <li><a th:href="@{/pcgearhub/detail-page}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
                 <li><a href="#" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
               </ul>
 
@@ -39,6 +40,7 @@
             </a>
 
           </div>
+        </a>
         </div>
         <div class="col-md-3 col-sm-6" style="margin-top: 10px;">
           <div class="product-grid">

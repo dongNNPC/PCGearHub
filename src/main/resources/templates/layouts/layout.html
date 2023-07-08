@@ -14,6 +14,14 @@
   <link rel="stylesheet" type="text/css" th:href="@{/assets/css/owl.carousel.min.css}">
   <link rel="stylesheet" th:href="@{/fontawesome-free-6.4.0-web/css/all.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+  <style>
+     .nav-category-home {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+  </style>
 </head>
  <body>
   <div class="page-body-buong">
@@ -73,6 +81,19 @@
     var notification = document.getElementById('success-notification');
     notification.classList.remove('show');
   }
+
+
+  // Get the elements
+var titleCategory = document.querySelector('.title-category');
+var navCategoryHome = document.querySelector('.nav-category-home');
+
+// Add event listener to the titleCategory element
+titleCategory.addEventListener('click', function() {
+  // Toggle the visibility of the navCategoryHome element
+  navCategoryHome.classList.toggle('hello');
+});
+
+  
 </script>
 
 <script th:src="@{/assets/js/bootstrap.min.js}"></script>

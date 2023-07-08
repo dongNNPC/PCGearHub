@@ -16,6 +16,6 @@ public class IndexController {
 	@RequestMapping("/detail-page")
 	public String detailPage() {
 
-		return "/index";
+		return "/view/detailPage";
 	}
 }
