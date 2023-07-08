@@ -12,4 +12,10 @@ public class IndexController {
 
 		return "/index";
 	}
+
+	@RequestMapping("/detail-page")
+	public String detailPage() {
+
+		return "/view/detailPage";
+	}
 }
