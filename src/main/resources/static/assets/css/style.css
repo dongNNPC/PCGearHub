@@ -2547,3 +2547,14 @@ i.fa.fa-plus.css-icon-plus.show:before {
   transform: translateY(-3px);
   color: #000;
 }
+
+/*  dropdown*/
+#dropdownMenu {
+    position: absolute;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ccc;
+    z-index: 9999;
+}
+
+
