@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(view)">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Shop Phụ kiện Máy Tính</title>
+  <link rel="shortcut icon" th:href="@{/assets/Icon/logo1.jpg}" type="image/x-icon">
+  <meta http-equiv="content-language" content="vi" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--   <meta name="viewport" th:content="width=device-width, initial-scale=1.0, user-scalable=yes" /> -->
+  <meta http-equiv="refresh" content="1800" />
+  <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/css/owl.carousel.min.css}">
+  <link rel="stylesheet" th:href="@{/fontawesome-free-6.4.0-web/css/all.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+</head>
+ <body>
+  <div class="page-body-buong">
+    <!-- header -->
+     <header th:replace="~{/fragment/_header :: header}"></header>
+    <!-- /header -->
+
+    <!-- Danh mục , sản phẩm -->
+    <div id="main" class="wrapper">
+     
+  <div th:replace="~{/fragment/category-menu :: category}"></div>
+
+
+
+      <!-- /SlideShow -->
+
+    </div>
+
+
+    <!-- sản phẩm -->
+        <main th:replace ="${view}"></main>
+    <!-- thông báo thêm thành công -->
+    <div id="success-notification">
+      <span class="close-btnaddtoCart" onclick="closeNotification()">&times;</span>
+      <p style="color: #F1B501;font-weight: bold;">Đã thêm vào giỏ hàng thành công !</p>
+
+      <div style="border: none;" class="col-md-5"> <img src="../assets/images/ChuotKhongDay1.png" width="500px"
+          height="100px"></div>
+      <div style="border: none;" class="text-succAddtocart col-md-7">Logitech G604 LIGHTSPEED Wireless Optical
+        Gaming Mouse 25000 DPI HERO sensor
+        <br>
+        1 x <span style="color: red;font-weight: bold;"> 200,000đ</span>
+      </div>
+    </div>
+
+
+
+   
+        <footer class="footer" th:replace="~{/fragment/_footer :: footer}">
+          
+          </footer>
+
+</body>
+
+<script th:inline="javascript">
+  /* Thêm các dòng JavaScript tại đây */
+  function showNotification() {
+    var notification = document.getElementById('success-notification');
+    notification.classList.add('show');
+
+    setTimeout(function () {
+      notification.classList.remove('show');
+    }, 1000); // Tự động đóng thông báo sau 5 giây
+  }
+
+  function closeNotification() {
+    var notification = document.getElementById('success-notification');
+    notification.classList.remove('show');
+  }
+</script>
+
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/js/wow.min.js}"></script>
+<script th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/assets/js/BannerFloat.js}"></script>
+<script th:src="@{/assets/js/hc-offcanvas-nav.js}"></script>
+<script th:src="@{/assets/js/buong.js}"></script>
+</html>
