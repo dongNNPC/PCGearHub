@@ -1,112 +1,149 @@
 <header id="header-site" class="header">
-      <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="item-top left-top">
-                <div class="box-left d-flex flex-wrap align-items-center">
-                  <div class="hotline">
-                    <span>Hotline: <b>0389307257</b> * Tư vấn build PC: <b>0389307257</b> * Địa chỉ:
-                      <b>Cần Thơ</b></span>
-                  </div>
-                </div>
+  <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="item-top left-top">
+            <div class="box-left d-flex flex-wrap align-items-center">
+              <div class="hotline">
+                <span>Hotline: <b>0389307257</b> * Tư vấn build PC: <b>0389307257</b> * Địa chỉ:
+                  <b>Cần Thơ</b></span>
               </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tìm kiếm , giỏ hàng -->
+  <div class="main-logo-shop">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <a href="" class="logo"><img height="35px" th:src="@{/assets/images/logo/logo.jpg}">
+
+          </a>
+        </div>
+        <div class="col-md-9 col-sm-12 col-xs-12">
+          <div class="search-shop-holine">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="search">
+                  <i class="fa fa-search"></i>
+                  <input type="text" class="form-control" placeholder="tìm kiếm sản phẩm ...">
+                  <button class="btn">Search</button>
+                </div>
+              </div>
+              <script type="text/javascript">
+                $(function () {
+                  $('#searchForm').on('submit', function () {
+                    var keyword = $('.keyword').val();
+                    if (keyword == '') {
+                      alert('Bạn phải nhập từ khóa');
+                      return false;
+                    }
+                  });
+                });
+              </script>
+              <div class="col-md-2" style="margin-left: 20px;">
+                <div class="item-top right-top">
+
+                  <ul>
+                    <img src="../static/assets/images/logo/user.png" alt="">
+                    <li><a href="#" rel="nofollow">Đăng nhập</a></li>
+                    <li><a href="">/</a></li>
+                    <li><a href="#" rel="nofollow">Đăng ký</a></li>
+
+
+                    <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp; Tài
+                      Khoản Của Tôi</a>
+                    <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
+                      style="list-style: none; display: none;">
+                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Trang cá
+                          nhân </a></li>
+                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Đổi mật
+                          khẩu </a></li>
+                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Quên mật
+                          khẩu </a></li>
+                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
+                    </ul>
+
+
+
+                  </li>
+
+                  </ul>
+
+
+                </div>
+
+              </div>
+              <div class="col-md-2">
+                <div class="header__cart_hi">
+
+                  <li class="hm-minicart">
+                    <div class="hm-minicart-trigger">
+                      <span class="item-icon"></span>
+                      <span class="item-text">Giỏ hàng
+                        <span class="cart-item-count">2</span>
+                      </span>
+                    </div>
+                    <span></span>
+                    <div class="minicart">
+                      <ul class="minicart-product-list">
+                        <li>
+                          <a href="single-product.html" class="minicart-product-image">
+                            <img src="..//static/assets/images/balo.png" alt="cart products">
+                          </a>
+                          <div class="minicart-product-details">
+                            <h6><a href="single-product.html">Aenean eu tristique</a></h6>
+                            <span>£40 x 1</span>
+                          </div>
+                          <button class="close" title="Remove">
+                            <i class="fa fa-close"></i>
+                          </button>
+                        </li>
+                        <li>
+                          <a href="single-product.html" class="minicart-product-image">
+                            <img src="..//static/assets/images/balo.png" alt="cart products">
+                          </a>
+                          <div class="minicart-product-details">
+                            <h6><a href="single-product.html">Aenean eu tristique</a></h6>
+                            <span>£40 x 1</span>
+                          </div>
+                          <button class="close" title="Remove">
+                            <i class="fa fa-close"></i>
+                          </button>
+                        </li>
+                      </ul>
+                      <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
+                      <div class="minicart-button">
+                        <a href="shopping-cart.html" class="li-button li-button-fullwidth li-button-dark">
+                          <span>Xem giỏ hàng</span>
+                        </a>
+                        <a href="checkout.html" class="li-button li-button-fullwidth">
+                          <span>Thanh Toán</span>
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+
+
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Tìm kiếm , giỏ hàng -->
-      <div class="main-logo-shop">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-3 col-sm-12 col-xs-12">
-              <a href="" class="logo"><img height="35px" src="..//assets/images/logo/logo.jpg ">
-
-              </a>
-            </div>
-            <div class="col-md-9 col-sm-12 col-xs-12">
-              <div class="search-shop-holine">
-                <div class="row">
-                  <div class="col-md-7">
-                    <div class="search">
-                      <i class="fa fa-search"></i>
-                      <input type="text" class="form-control" placeholder="tìm kiếm sản phẩm ...">
-                      <button class="btn">Search</button>
-                    </div>
-                  </div>
-                  <script type="text/javascript">
-                    $(function () {
-                      $('#searchForm').on('submit', function () {
-                        var keyword = $('.keyword').val();
-                        if (keyword == '') {
-                          alert('Bạn phải nhập từ khóa');
-                          return false;
-                        }
-                      });
-                    });
-                  </script>
-                  <div class="col-md-2" style="margin-left: 20px;">
-                    <div class="item-top right-top">
-
-                      <ul style="margin-right: 30px;">
-                        <i class="fa-regular fa-user fa-xl" style="margin-top: 20px;"></i>
-                        <li><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
-                        <li><a href="">/</a></li>
-                        <li><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
+</div>
+    <!-- /Tìm kiếm , giỏ hàng -->
 
 
-                        <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow" > &ensp; Tài Khoản Của Tôi</a>
-<ul id="dropdownMenu" class="dropdown-menu fade-up bg-light" style="list-style: none; display: none;">
-    <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Trang cá nhân </a></li>
-       <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Đổi mật khẩu </a></li>
-             <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Quên mật khẩu </a></li>
-          <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
-</ul>
-
-
-                        
-                        </li>
-
-                      </ul>
-                      <div class="col-md-2" style="margin-left: 10px;">
-                        <div class="header__cart">
-                          <ul>
-                            <li class="hi"><a href="#"><i class="fa fa-shopping-bag"></i>
-                                <span>3</span></a></li>
-
-
-                          </ul>
-
-
-                        </div>
-
-                      </div>
-                      <div class="col-md-2">
-                        <div class="header__cart">
-                          <ul>
-                            <li class="hu"><a href="#">Giỏ hàng
-                              </a></li>
-
-
-                          </ul>
-
-
-                        </div>
-
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /Tìm kiếm , giỏ hàng -->
-
-
-    </header>
+</header>
