@@ -1,0 +1,263 @@
+<!doctype html>
+<html xmlns:div="http://www.thymeleaf.org" lang="en" th:replace="~{/layouts/layout :: dynamic(~{::body})}">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <header>
+    <!-- place navbar here -->
+  </header>
+  <main style="height: 1000px ; 
+  font-family: Quicksand ;background-color: #fffdff;">
+    <section class="h-100 h-custom" style="background-color: #ffffff;">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12">
+            <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+              <div class="card-body p-0" style="height: 200px;">
+                <div class="row g-0">
+                  <div class="col-lg-8">
+                    <div class="p-5">
+                      <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h3  style="font-weight: bold;font-size: 20px;">Giỏ hàng của bạn</h3>
+                        <h4 class="mb-0 text-muted">Bạn đang có <span style="color: black;font-weight: bold;"> 2 sản phẩm </span> trong giỏ hàng</h4>
+                        <input class="form-check-input" type="checkbox" value="" id="">
+                        <label for="">Chọn tất cả</label>
+                      </div>
+                      
+                      <hr class="my-4">
+
+                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
+                        <div class="col-md-1  col-lg-1 col-xl-1">
+                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
+                    
+                        </div>
+                        <div class="col-md-1  col-lg-2 col-xl-2">
+                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                         
+                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
+                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
+                          </h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
+                            class="form-control form-control-sm" />
+
+                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
+                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
+                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                        </div>
+                      </div>
+
+                      <hr class="my-4">
+                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
+                        <div class="col-md-1  col-lg-1 col-xl-1">
+                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
+                    
+                        </div>
+                        <div class="col-md-1  col-lg-2 col-xl-2">
+                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                         
+                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
+                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
+                          </h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
+                            class="form-control form-control-sm" />
+
+                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
+                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
+                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
+                        <div class="col-md-1  col-lg-1 col-xl-1">
+                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
+                    
+                        </div>
+                        <div class="col-md-1  col-lg-2 col-xl-2">
+                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                         
+                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
+                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
+                          </h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
+                            class="form-control form-control-sm" />
+
+                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
+                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
+                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
+                        <div class="col-md-1  col-lg-1 col-xl-1">
+                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
+                    
+                        </div>
+                        <div class="col-md-1  col-lg-2 col-xl-2">
+                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                         
+                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
+                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
+                          </h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
+                            class="form-control form-control-sm" />
+
+                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
+                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
+                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                      <div class="pt-5">
+                        <h6 class="mb-0"><a th:href="@{/pcgearhub/index}" class="text-body">Quay lại trang chủ</a></h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 bg-grey" style="height:500px;margin-top: 70px;">
+                    <div class="p-5">
+                      <h3 class="fw-bold mb-5 mt-2 pt-1" style="font-weight: bold;">Thông tin đơn hàng</h3>
+                      <hr class="my-4">
+                    
+                        <h3 style="font-size: 20px;margin-top: 50px;">Tổng tiền : <span style="color: red;font-weight: bold;margin-left: 150px"> 4,000,000đ</span></h3>
+                        <hr class="my-4">
+                        <span style="font-weight: bold;"><span style="color: red;">Lưu ý</span> : <span>tích vào các sản phẩm mà bạn muốn thanh toán</span></span>
+
+                        <a type="button" class="btn btn-dark btn-block btn-lg" th:href="@{/pcgearhub/confirm-information}"
+                          data-mdb-ripple-color="dark" style="background-color: red;color: white;margin-bottom: 10px;margin-top: 20px">Thanh toán</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer>
+
+  </footer>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+    
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
+
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+      font-size: 1rem;
+      line-height: 2.15;
+      padding-left: .75em;
+      padding-right: .75em;
+    }
+
+    .card-registration .select-arrow {
+      top: 13px;
+    }
+
+    .bg-grey {
+      background-color: #fffdfd;
+    }
+
+    @media (min-width: 992px) {
+      .card-registration-2 .bg-grey {
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .card-registration-2 .bg-grey {
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+    }
+  </style>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
