@@ -59,7 +59,7 @@
                         <li><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
 
 
-                        <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow" > &ensp; Tài Khoản Của Tôi</a>
+                        <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow" > &ensp; Tài Khoản Của Tôi <i class="fa-solid fa-angle-down"></i></a>
 <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light" style="list-style: none; display: none;">
     <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Trang cá nhân </a></li>
        <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Đổi mật khẩu </a></li>
@@ -72,7 +72,7 @@
                         </li>
 
                       </ul>
-                      <div class="col-md-2" style="margin-left: 10px;">
+                      <div class="col-md-2" style="margin-left: 15px;">
                         <div class="header__cart">
                           <ul>
                             <li class="hi"><a href="#"><i class="fa fa-shopping-bag"></i>
@@ -88,7 +88,7 @@
                       <div class="col-md-2">
                         <div class="header__cart">
                           <ul>
-                            <li class="hu"><a href="#">Giỏ hàng
+                            <li class="hu"><a th:href="@{/pcgearhub/cart}">Giỏ hàng
                               </a></li>
 
 
