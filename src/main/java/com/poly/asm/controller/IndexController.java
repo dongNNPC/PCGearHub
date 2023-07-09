@@ -18,4 +18,10 @@ public class IndexController {
 
 		return "/view/detailPage";
 	}
+
+	@RequestMapping("/profile")
+	public String profile() {
+
+		return "/view/profile";
+	}
 }
