@@ -42,12 +42,12 @@ public class UserHistoryRestController {
 
 	@PostMapping("/rest/UserHistory")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<UserHistory> post(@RequestBody UserHistory UserHistory) {
-		if (dao.existsById(UserHistory.getId())) {
+	public ResponseEntity<UserHistory> post(@RequestBody UserHistory userHistory) {
+		if (dao.existsById(userHistory.getId_history())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(UserHistory);
-		return ResponseEntity.ok(UserHistory);
+		dao.save(userHistory);
+		return ResponseEntity.ok(userHistory);
 	}
 
 	@PutMapping("/rest/UserHistory/{id}")
