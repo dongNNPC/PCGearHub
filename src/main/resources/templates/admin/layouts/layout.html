@@ -24,6 +24,7 @@
     <link rel="stylesheet" th:href="@{/admin/css/style.css}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="@{/admin/images/favicon.png}" />
+ 
   </head>
   <body>
     <div class="container-scroller">
@@ -50,6 +51,7 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    
     <script th:src="@{/admin/vendors/js/vendor.bundle.base.js}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
@@ -69,5 +71,18 @@
     <!-- Custom js for this page -->
     <script th:src="@{/admin/js/dashboard.js}"></script>
     <!-- End custom js for this page -->
+    
+    <!--for Form -->
+    	<script th:inline="javascript"
+				th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+			<script th:inline="javascript"
+				th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+			<!-- Custom js for form -->
+			<script th:inline="javascript"
+				th:src="@{/admin/vendors/js/file-upload.js}">
+				
+			</script>
+			<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
+			<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
   </body>
 </html>

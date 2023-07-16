@@ -93,6 +93,19 @@
   
         }
     </style>
+    <script>
+      // Lấy URL trang hiện tại
+      var currentPage = window.location.pathname;
+    
+      // Lấy phần tử <div>
+      var divElement = document.querySelector('.nav-category-home');
+    
+      // Xóa lớp 'hello' nếu trang hiện tại không phải trang index
+      if (currentPage !== '/') {
+          divElement.classList.remove('hello');
+      }
+    
+    </script>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

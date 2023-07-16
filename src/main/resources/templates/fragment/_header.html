@@ -1,4 +1,6 @@
-<header id="header-site" class="header">
+<header id="header-site" class="header" style="position: -webkit-sticky;
+position: sticky;
+top: 0;">
   <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
     <div class="container-fluid">
       <div class="row">
@@ -24,7 +26,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12">
-          <a href="" class="logo"><img height="35px" th:src="@{/assets/images/logo/logo.jpg}">
+          <a th:href="@{/pcgearhub/index}" class="logo"><img height="35px" th:src="@{/assets/images/logo/logo.jpg}">
 
           </a>
         </div>
@@ -54,9 +56,9 @@
 
                   <ul>
                     <img src="../static/assets/images/logo/user.png" alt="">
-                    <li><a href="#" rel="nofollow">Đăng nhập</a></li>
+                    <li><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
                     <li><a href="">/</a></li>
-                    <li><a href="#" rel="nofollow">Đăng ký</a></li>
+                    <li><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
 
 
                     <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp; Tài
@@ -65,9 +67,9 @@
                       style="list-style: none; display: none;">
                       <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá
                           nhân </a></li>
-                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Đổi mật
+                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi mật
                           khẩu </a></li>
-                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"> Quên mật
+                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/forgot-password}"> Quên mật
                           khẩu </a></li>
                       <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
                     </ul>

@@ -12,4 +12,16 @@ public class AdminController {
 
 		return "/admin/index";
 	}
+
+	@RequestMapping("/form-user")
+	public String formUser() {
+
+		return "/admin/views/form-user";
+	}
+
+	@RequestMapping("/form-product")
+	public String formProduct() {
+
+		return "/admin/views/form-product";
+	}
 }

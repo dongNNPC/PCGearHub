@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<link rel="stylesheet" th:href="@{/admin/css/style.css}">
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet"
+		th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css"
+		media="all">
+	<link rel="stylesheet"
+		th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
+		type="text/css" media="all">
+		
+	<div class="content-wrapper">
+		<div class="content-wrapper">
+			<div class="page-header">
+				<h3 class="page-title">Chỉnh sửa người dùng</h3>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Forms</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Form
+							elements</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xl-4 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Ảnh đại diện</h4>
+							<hr style="background-color: white;">
+							<div>
+								<img th:src="@{/admin/images/dashboard/Rectangle.jpg}"
+									style="max-width: 300px" alt="">
+									
+									            <div class="form-group mt-3" style="max-width: 304px">
+                        <input type="file" name="img[]" class="file-upload-default">
+                        <div class="input-group col-xs-12">
+                          <input type="text" class="form-control file-upload-info" disabled placeholder="Tải ảnh lên">
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Tải ảnh</button>
+                          </span>
+                        </div>
+                      </div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6 grid-margin stretch-card ms-5">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Nhập thông tin</h4>
+							<hr style="background-color: white;">
+							<p class="card-description">Giao diện chỉnh sửa người dùng</p>
+							<form class="forms-sample">
+								<div class="form-group row">
+									<label for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">Tên tài khoản</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											id="exampleInputUsername2" placeholder="Tên tài khoản">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">Họ và tên</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											id="exampleInputUsername2" placeholder="Họ và tên">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">Mật khẩu</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											id="exampleInputUsername2" placeholder="Mật khẩu">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Email</label>
+									<div class="col-sm-9">
+										<input type="email" class="form-control"
+											id="exampleInputEmail2" placeholder="Email">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Số
+										điện thoại</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											id="exampleInputMobile" placeholder="Số điện thoại">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Địa
+										chỉ</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control"
+											id="exampleInputMobile" placeholder="Địa chỉ">
+									</div>
+								</div>
+
+								<div class="row form-group">
+								<label for="exampleInputMobile" class="col-sm-3 col-form-label">Chức vụ</label>
+									<div class="form-check col-4 ms-2">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="optionsRadios"
+											id="admin" value=""> Admin
+										</label>
+									</div>
+									<div class="form-check col-4">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="optionsRadios"
+											id="admin" value="option2" checked> User
+										</label>
+									</div>
+								</div>
+								
+								<div class="row form-group">
+								<label for="exampleInputMobile" class="col-sm-3 col-form-label">Hoạt động</label>
+									<div class="form-check col-4 ms-2">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="optionsRadios"
+											id="status" value=""> Còn hoạt động
+										</label>
+									</div>
+									<div class="form-check col-4 ">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="optionsRadios"
+											id="status" value="option2" checked> Ngừng hoạt động
+										</label>
+									</div>
+								</div>
+								
+								<div class="row form-group">
+								<label for="exampleInputMobile" class="col-sm-3 col-form-label">Xác nhận</label>
+									<div class="form-check col-4 ms-2">
+										<label class="form-check-label">    
+										  <input type="radio" class="form-check-input" name="optionsRadio2" id="check" value="option4" disabled checked> Đã xác nhận</label> 
+								
+									</div>
+									<div class="form-check col-4 ">
+										<label class="form-check-label">   <input type="radio" class="form-check-input" name="optionsRadios2" id="check" value="option3" disabled> Chưa xác nhận </label>
+									</div>
+								</div>
+								
+<hr style="background-color: white;">
+								<button type="submit" class="btn btn-primary mr-2">Thêm</button>
+								<button type="submit" class="btn btn-success mr-2">Sửa</button>
+								<button type="submit" class="btn btn-danger mr-2">Xóa</button>
+								
+								<button class="btn btn-dark">Làm mới</button>
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			</div>
+			</div>
+			
+			<!-- Plugin js for this page -->
+			<script th:inline="javascript"
+				th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+			<script th:inline="javascript"
+				th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+			<!-- Custom js for this page -->
+			<script th:inline="javascript"
+				th:src="@{/admin/vendors/js/file-upload.js}">
+				
+			</script>
+			<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
+			<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
+</body>
+</html>

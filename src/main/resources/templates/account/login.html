@@ -87,6 +87,19 @@ th:replace="~{/layouts/layout :: dynamic(~{::body})}">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
+  <script>
+    // Lấy URL trang hiện tại
+    var currentPage = window.location.pathname;
+  
+    // Lấy phần tử <div>
+    var divElement = document.querySelector('.nav-category-home');
+  
+    // Xóa lớp 'hello' nếu trang hiện tại không phải trang index
+    if (currentPage !== '/') {
+        divElement.classList.remove('hello');
+    }
+  
+  </script>
 </body>
 
 </html>

@@ -1,11 +1,11 @@
 ﻿	use master
 
-	Create database shoeshop404
+	Create database pcgearhub
 
-	drop database shoeshop404
+--	drop database pcgearhub
 
 	go
-	use shoeshop404
+	use pcgearhub
 	go
 	--I. TAO BẢNG
 	-- Tạo bảng Users
@@ -19,6 +19,7 @@
 	  image NVARCHAR(200),
 	  admin BIT NOT NULL,
 	  status BIT DEFAULT 1,
+	  confirm bit,
 	  OTP varchar(20),
 	);
 	go
@@ -37,10 +38,34 @@
 	  price float not null,
 	 description NVARCHAR(max),
 	  status BIT NOT NULL,
-	  category_id VARCHAR(20) NOT NULL,
-	  brand_id VARCHAR(20) NOT NULL,
+	  image1 nvarchar(max),
+	  image2 nvarchar(max),
+	  category_id VARCHAR(20) NOT NULL
 	);
+
+	-- Tạo bảng distinctive
+	CREATE TABLE distinctives (
+	  id VARCHAR(20) NOT NULL,
+	 name nvarchar(max),
+	);
+		-- Tạo bảng products_distinctives
+	CREATE TABLE products_distinctives (
+	id INT IDENTITY(1,1),
+	product_id varchar(20) not null,
+	distinctive_id varchar(20) not null
+	);
+
+
 	go
+		-- Tạo bảng comments
+	CREATE TABLE comments (
+	  id VARCHAR(20) NOT NULL,
+	 content nvarchar(max),
+	 user_id varchar(20) not null,
+	product_id varchar(20) not null,
+
+	);
+
 	-- Tạo bảng Invoices
 	CREATE TABLE Invoices (
 	  id VARCHAR(20) NOT NULL,
@@ -50,7 +75,7 @@
 	);
 	go
 	-- Tạo bảng DetailedInvoices
-	CREATE TABLE Detailed_invoices (
+	CREATE TABLE detailed_invoices (
 		id int Identity(1,1) not null,
 	  invoice_id VARCHAR(20) NOT NULL,
 	  product_id VARCHAR(20) NOT NULL,
@@ -72,32 +97,36 @@
 	CREATE TABLE Brands (
 	  id VARCHAR(20) NOT NULL,
 	  name NVARCHAR(200) NOT NULL,
-	  address NVARCHAR(200) NOT NULL
+	  phone_number varchar(10) not null,
+	  email nvarchar(100),
+	  address nvarchar(max)
 	);
 	go
+
+	--Tạo bảng suppliers
+		CREATE TABLE suppliers (
+	  id VARCHAR(20) NOT NULL,
+	  name NVARCHAR(200) NOT NULL,
+	  phone_number varchar(10) not null,
+	  email nvarchar(100),
+	    address nvarchar(max)
+	);
+
 	-- Tạo bảng StockReceipts
 	CREATE TABLE stock_receipts (
 	  id VARCHAR(20) NOT NULL,
-	  brand_id VARCHAR(20) NOT NULL,
 	  product_id VARCHAR(20) NOT NULL,
+	   supplier_id varchar(20) not null,
+	  brand_id varchar(20) not null,
+	 
 	  quantity INT NOT NULL,
 	  price FLOAT NOT NULL,
 	  order_date Date not null,
 	
 	);
 	go
-	-- Tạo bảng Detailed_Images
-	CREATE TABLE Detailed_Images (
-		id_image int Identity(1,1) not null,
-	  product_id VARCHAR(20),
-	  main_image NVARCHAR(200),
-	  detailed_one NVARCHAR(200),
-	  detailed_two NVARCHAR(200),
-	  detailed_three NVARCHAR(200),
-	);
-	go
 	--Tạo bảng user histories
-	create table User_Histories(
+	create table user_Histories(
 	id_history int Identity(1,1) not null,
 	note Nvarchar(200),
 	history_date date not null,
@@ -114,9 +143,12 @@
 	ADD CONSTRAINT PK_User PRIMARY KEY (id);
 
 	go
+	
+	--Thêm khóa chính cho bảng suppliers
+	alter table  suppliers add constraint PK_suppliers primary key (id);
 
 	--Thêm khóa chính cho bảng history
-	alter table  User_Histories add constraint PK_history primary key (id_history);
+	alter table  user_Histories add constraint PK_history primary key (id_history);
 
 	-- Thêm khóa chính cho bảng Categories
 	ALTER TABLE Categories
@@ -126,6 +158,19 @@
 	-- Thêm khóa chính cho bảng Products
 	ALTER TABLE Products
 	ADD CONSTRAINT PK_Products PRIMARY KEY (id);
+		-- Thêm khóa chính cho bảng comments
+	ALTER TABLE comments
+	ADD CONSTRAINT PK_Comments PRIMARY KEY (id);
+
+	go
+			-- Thêm khóa chính cho bảng distinctives
+	ALTER TABLE distinctives
+	ADD CONSTRAINT PK_distinctives PRIMARY KEY (id);
+
+	go
+				-- Thêm khóa chính cho bảng products_distinctives
+	ALTER TABLE  products_distinctives
+	ADD CONSTRAINT PK_products_distinctives PRIMARY KEY (id);
 
 	go
 
@@ -145,28 +190,27 @@
 
 	-- Thêm khóa chính cho bảng DetailedInvoices
 	ALTER TABLE Detailed_invoices
-	ADD CONSTRAINT PK_Detailed_invoices PRIMARY KEY (id);
+	ADD CONSTRAINT PK_detailed_invoices PRIMARY KEY (id);
 
-	-- Thêm khóa chính cho bảng  Detailed_Images
-	ALTER TABLE Detailed_Images
-	ADD CONSTRAINT PK_Detailed_Images PRIMARY KEY (id_image);
-
-	go
 	--III. Tạo khóa ngoại 
 
 
 	-- Thêm liên kết khóa ngoại cho bảng Products
 	ALTER TABLE Products
 	ADD CONSTRAINT FK_Product_Categories FOREIGN KEY (category_id) REFERENCES Categories(id)
-
-	ALTER TABLE Products ADD CONSTRAINT FK_Products_Brands FOREIGN KEY (brand_id) REFERENCES Brands(id);
-
 	go
 
 	-- Thêm liên kết khóa ngoại cho bảng Invoices
 	ALTER TABLE Invoices
 	ADD CONSTRAINT FK_Invoices_Users FOREIGN KEY (user_id) REFERENCES Users(id);
 
+
+	go
+	-- Thêm liên kết khóa ngoại cho bảng comments
+	ALTER TABLE comments
+	ADD CONSTRAINT FK_Comments_Users FOREIGN KEY (user_id) REFERENCES Users(id);
+		ALTER TABLE comments
+	ADD CONSTRAINT FK_Comments_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 	go
 
 	-- Thêm liên kết khóa ngoại cho bảng DetailedInvoices
@@ -186,17 +230,17 @@
 	go
 
 	-- Thêm liên kết khóa ngoại cho bảng StockReceipts
-	ALTER TABLE stock_receipts ADD CONSTRAINT FK_stock_receipts_Products FOREIGN KEY (product_id) REFERENCES Products(id)   ON DELETE CASCADE;;
-
-	-- Thêm liên kết khóa ngoại cho bảng Detailed_Images
-	ALTER TABLE Detailed_Images
-	ADD CONSTRAINT FK_Detailed_Images_Products FOREIGN KEY (product_id) REFERENCES Products(id);
-
+	ALTER TABLE stock_receipts ADD CONSTRAINT FK_stock_receipts_Products FOREIGN KEY (product_id) REFERENCES Products(id)   ON DELETE CASCADE;
+	ALTER TABLE stock_receipts ADD CONSTRAINT FK_stock_receipts_suppliers FOREIGN KEY (supplier_id) REFERENCES suppliers(id)   ON DELETE CASCADE;
+	ALTER TABLE stock_receipts ADD CONSTRAINT FK_stock_receipts_brands FOREIGN KEY (brand_id) REFERENCES brands(id)   ON DELETE CASCADE;
 	go
 
 	-- thêm liên kết khóa ngoại cho bảng history
-	alter table  User_Histories add constraint FK_User_Histories_Users FOREIGN KEY (user_id) REFERENCES users(id)
+	alter table  user_Histories add constraint FK_user_Histories_Users FOREIGN KEY (user_id) REFERENCES users(id)
 
+		-- thêm liên kết khóa ngoại cho bảng products_distinctives
+	alter table  products_distinctives add constraint FK_products_distinctives_product FOREIGN KEY (product_id) REFERENCES products(id)
+	alter table  products_distinctives add constraint FK_products_distinctives_distinctives FOREIGN KEY (distinctive_id) REFERENCES distinctives(id)
 	--III. Thêm dữ liệu
 
 	-- Thêm dữ liệu vào bảng Users
@@ -220,56 +264,59 @@
 	  ('C001', N'Giày thể thao', N'Mô tả danh mục 1'),
 	  ('C002', N'Giày cao gót', N'Mô tả danh mục 2')
 
+		-- Thêm dữ liệu vào bảng distinctives
+	INSERT INTO distinctives(id, name)
+	VALUES 
+	  ('D001', N'Đặt trưng 1'),
+	  ('D002', N'Đặt trưng 2')
+
+
 	-- Thêm dữ liệu vào bảng Brands
-	INSERT INTO Brands (id, name, address)
+	INSERT INTO Brands (id, name, phone_number,email,address)
 	VALUES
-	  ('B001', 'Nike', N'Địa chỉ Nike'),
-	  ('B002', 'Gucci', N'Địa chỉ Gucci'),
-	  ('B003', 'Adidas', N'Địa chỉ Adidas'),
-	  ('B004', 'Puma', N'Địa chỉ Puma'),
-	  ('B005', 'Vans', N'Địa chỉ Vans'),
-	  ('B006', 'Converse', N'Địa chỉ Converse'),
-	  ('B007', 'Reebok', N'Địa chỉ Reebok'),
-	  ('B008', 'New Balance', N'Địa chỉ New Balance'),
-	  ('B009', 'Under Armour', N'Địa chỉ Under Armour'),
-	  ('B010', 'Balenciaga', N'Địa chỉ Balenciaga'),
-	  ('B011', 'Salomon', N'Địa chỉ Salomon'),
-	  ('B012', 'Skechers', N'Địa chỉ Skechers'),
-	  ('B013', 'Fila', N'Địa chỉ Fila'),
-	  ('B014', 'ASICS', N'Địa chỉ ASICS'),
-	  ('B015', 'DC Shoes', N'Địa chỉ DC Shoes'),
-	  ('B016', 'Palladium', N'Địa chỉ Palladium'),
-	  ('B017', 'Timberland', N'Địa chỉ Timberland'),
-	  ('B018', 'Clarks', N'Địa chỉ Clarks'),
-	  ('B019', 'Birkenstock', N'Địa chỉ Birkenstock'),
-	  ('B020', 'Dr. Martens', N'Địa chỉ Dr. Martens');
+	  ('B001', 'Nike', '0829232859','Nike@gmail.com','Địa chỉ nike'),
+	 ('B002', 'Guci', '0829232858','Gu@gmail.com','Địa chỉ gu')
+
+	 	-- Thêm dữ liệu vào bảng suppliers
+	INSERT INTO suppliers(id, name, phone_number,email,address)
+
+	VALUES
+	  ('S001', 'nhà cung cấp 1', '0829232822','ncc1@gmail.com','Địa chỉ ncc1'),
+	 ('S002', 'Nhà Cung cấp 2', '0829232833','ncc2@gmail.com','Địa chỉ ncc2')
 
 
 
 	-- Thêm dữ liệu vào bảng Products
-	INSERT INTO Products (id, name, quantity, price, description, status, category_id, brand_id)
+	INSERT INTO Products (id, name, quantity, price, description, status, category_id)
 	VALUES 
-	  ('P001', N'Nike Air Max 97 Mschf x Inri Jesus Shoes', 100, 150, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí. ', 1, 'C001', 'B001'),
-	  ('P002', N'Giày Thể Thao Nam Bitis Hunter Core Refreshing Collection Marios DSMH06700', 50, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B001'),
-	  ('P003', N'Giày Thể Thao Nam Hunter X - X-NITE 22 Collection DSMH10500', 80, 180, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B001'),
-	  ('P004', N'Giày Thể Thao Nam Hunter Street DSMH10400', 120, 160, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B001'),
-	  ('P005', N'Giày Thể Thao Nam Hunter Tennis DSMH10200', 30, 220,N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P006', N'Giày Thể Thao Nam Hunter X - X-NITE 22 Collection DSMH10500', 60, 190, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P007', N'Giày Thể Thao Nam Hunter X - SPIKY COLLAR Collection DSMH10600', 100, 250, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P008', N'Giày Thể Thao Nam Hunter Core - Meteor Collection DSMH10800', 40, 280, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P009', N'Giày Thể Thao Nam Bitis Hunter X Festive Aurora DSMH03401', 70, 170, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P010', N'Giày Thể Thao Nữ Bitis Hunter X "CÒN-GÌ-DÙNG-ĐÓ" Colletion – Random 100 RSWH00100', 90, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P011', N'Giày Thể Thao Nữ Biti’s Hunter X Z Collection InPink DSWH06300', 60, 220, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P012', N'Giày Bóng Đá Nam Bitis Hunter Football Gen 2K21 Futsal DSMH07300', 50, 260, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P013', N'Giày Thể Thao Trẻ Em Bitis Hunter Street JUNIOR x Vietmax Hanoi Culture Patchwork - Old Wall DSBH00500', 10, 240, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P014', N'Giày Thể Thao Nam Bitis Hunter Core Refreshing Collection Contras DSMH06700', 80, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P015', N'Giày Thể Thao Nam Bitis Hunter X Festive Frosty-White DSMH03500', 40, 180, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P016', N'Giày Thể Thao Cao Cấp Nữ Bitis Hunter Layered Upper DSWH02800', 70, 190, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P017', N'Giày Thể Thao Nam Bitis Hunter X Festive Spice Pumpkin DSMH03500', 90, 230, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B003'),
-	  ('P018', N'Giày Thể Thao Nam Bitis Hunter Street Z Collection High White DSMH06200', 60, 250, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P019', N'Giày Thể Thao Nam Biti’s Hunter Core Z Collection Stone DSMH06400', 30, 280, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002'),
-	  ('P020', N'Giày Thể Thao Nam Bitis Hunter X Festive Frosty-White DSMH03500', 50, 260, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001', 'B002')
+	  ('P001', N'Nike Air Max 97 Mschf x Inri Jesus Shoes', 100, 150, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí. ', 1, 'C001'),
+	  ('P002', N'Giày Thể Thao Nam Bitis Hunter Core Refreshing Collection Marios DSMH06700', 50, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P003', N'Giày Thể Thao Nam Hunter X - X-NITE 22 Collection DSMH10500', 80, 180, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P004', N'Giày Thể Thao Nam Hunter Street DSMH10400', 120, 160, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P005', N'Giày Thể Thao Nam Hunter Tennis DSMH10200', 30, 220,N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P006', N'Giày Thể Thao Nam Hunter X - X-NITE 22 Collection DSMH10500', 60, 190, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P007', N'Giày Thể Thao Nam Hunter X - SPIKY COLLAR Collection DSMH10600', 100, 250, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P008', N'Giày Thể Thao Nam Hunter Core - Meteor Collection DSMH10800', 40, 280, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P009', N'Giày Thể Thao Nam Bitis Hunter X Festive Aurora DSMH03401', 70, 170, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P010', N'Giày Thể Thao Nữ Bitis Hunter X "CÒN-GÌ-DÙNG-ĐÓ" Colletion – Random 100 RSWH00100', 90, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P011', N'Giày Thể Thao Nữ Biti’s Hunter X Z Collection InPink DSWH06300', 60, 220, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P012', N'Giày Bóng Đá Nam Bitis Hunter Football Gen 2K21 Futsal DSMH07300', 50, 260, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P013', N'Giày Thể Thao Trẻ Em Bitis Hunter Street JUNIOR x Vietmax Hanoi Culture Patchwork - Old Wall DSBH00500', 10, 240, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P014', N'Giày Thể Thao Nam Bitis Hunter Core Refreshing Collection Contras DSMH06700', 80, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P015', N'Giày Thể Thao Nam Bitis Hunter X Festive Frosty-White DSMH03500', 40, 180, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P016', N'Giày Thể Thao Cao Cấp Nữ Bitis Hunter Layered Upper DSWH02800', 70, 190, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P017', N'Giày Thể Thao Nam Bitis Hunter X Festive Spice Pumpkin DSMH03500', 90, 230, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P018', N'Giày Thể Thao Nam Bitis Hunter Street Z Collection High White DSMH06200', 60, 250, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P019', N'Giày Thể Thao Nam Biti’s Hunter Core Z Collection Stone DSMH06400', 30, 280, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
+	  ('P020', N'Giày Thể Thao Nam Bitis Hunter X Festive Frosty-White DSMH03500', 50, 260, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001')
  
+ 
+	  		-- Thêm dữ liệu vào bảng products_distinctives
+	INSERT INTO products_distinctives(product_id,distinctive_id)
+	VALUES 
+	  ( N'P001','D001'),
+	  (N'P002','D001')
+
 	-- Thêm dữ liệu vào bảng Invoices
 	INSERT INTO Invoices (id, order_date, status, user_id)
 	VALUES 
@@ -338,7 +385,7 @@
 	UNION ALL SELECT 'INV0112', '2023-11-01', 'delivered', 'U004'
 	UNION ALL SELECT 'INV0122', '2023-12-01', 'delivered', 'U002';
 	-- Thêm dữ liệu vào bảng DetailedInvoices
-	INSERT INTO Detailed_invoices (invoice_id, product_id, quantity, payment_method)
+	INSERT INTO detailed_invoices (invoice_id, product_id, quantity, payment_method)
 	VALUES 
 	  ('I001', 'P001', 2, N'Thanh toán khi nhận hàng'),
 	  ('I001', 'P002', 1, N'Thanh toán qua ví điện tử'),
@@ -363,58 +410,34 @@
 
 
 	-- Thêm dữ liệu vào bảng StockReceipts
-	INSERT INTO stock_receipts(id, brand_id, product_id, quantity, price, order_date)
+	INSERT INTO stock_receipts(id, product_id,supplier_id,brand_id, quantity, price, order_date)
 	VALUES 
-	('R001', 'P001', 100, 150, '2023-06-30'),
-	('R002', 'P002', 50, 400, '2023-06-29'),
-	('R003', 'P003', 120, 200, '2023-06-28'),
-	('R004','P004', 80, 300, '2023-06-27'),
-	('R005','P005', 60, 250, '2023-06-26'),
-	('R006', 'P006', 90, 350, '2023-06-25'),
-	('R007',  'P007', 110, 180, '2023-06-24'),
-	('R008', 'P008', 70, 400, '2023-06-23'),
-	('R009', 'P009', 95, 220, '2023-6-22'),
-	('R010', 'P010', 120, 250, '2023-06-21'),
-	('R011', 'P011', 80, 300, '2023-10-20'),
-	('R012', 'P012', 65, 350, '2023-11-19'),
-	('R013', 'P013', 105, 190, '2023-12-18'),
-	('R014', 'P014', 75, 400, '2023-04-17'),
-	('R015',  'P015', 100, 230, '2023-06-16'),
-	('R016', 'P016', 115, 270, '2023-06-15'),
-	('R017', 'P017', 85, 320, '2023-06-14'),
-	('R018',  'P018', 55, 400, '2023-06-13'),
-	('R019', 'P019', 70, 200, '2023-06-12'),
-	('R020', 'P020', 90, 350, '2023-12-11')
+	('R001', 'P001','S001','B001', 100, 150, '2023-06-30'),
+	('R002', 'P002','S001','B001', 50, 400, '2023-06-29'),
+	('R003', 'P003','S001','B001', 120, 200, '2023-06-28'),
+	('R004','P004','S001','B001', 80, 300, '2023-06-27'),
+	('R005','P005','S001','B001', 60, 250, '2023-06-26'),
+	('R006', 'P006','S001','B001', 90, 350, '2023-06-25'),
+	('R007',  'P007','S001','B001', 110, 180, '2023-06-24'),
+	('R008', 'P008','S001','B001', 70, 400, '2023-06-23'),
+	('R009', 'P009','S001','B001', 95, 220, '2023-6-22'),
+	('R010', 'P010','S002','B002', 120, 250, '2023-06-21'),
+	('R011', 'P011','S002','B002', 80, 300, '2023-10-20'),
+	('R012', 'P012','S002','B002', 65, 350, '2023-11-19'),
+	('R013', 'P013','S002','B002', 105, 190, '2023-12-18'),
+	('R014', 'P014','S002','B002', 75, 400, '2023-04-17'),
+	('R015',  'P015','S002','B002', 100, 230, '2023-06-16'),
+	('R016', 'P016','S002','B002', 115, 270, '2023-06-15'),
+	('R017', 'P017','S002','B002', 85, 320, '2023-06-14'),
+	('R018',  'P018','S002','B002', 55, 400, '2023-06-13'),
+	('R019', 'P019','S002','B002', 70, 200, '2023-06-12'),
+	('R020', 'P020','S002','B002', 90, 350, '2023-12-11')
 
 
 
-	-- Thêm dữ liệu vào bảng Detailed_Images
-	INSERT INTO Detailed_Images (product_id, main_image, detailed_one, detailed_two, detailed_three)
-	VALUES 
-	  ('P001', 'INRIJesus.png', 'INRIJesus-CT1.png', 'INRIJesus-CT2.png', 'INRIJesus-CT3.png'),
-	  ('P002', 'AdidasSmith.png', 'AdidasSmith-CT1.png', 'AdidasSmith-CT2.png', 'AdidasSmith-CT3.png'),
-	  ('P003', 'Alphabounce.png', 'Alphabounce-CT1.png', 'Alphabounce-CT2.png', 'Alphabounce-CT3.png'),
-	  ('P004', 'Nike.png', 'Nike-CT1.png', 'Nike-CT2.png', 'Nike-CT3.png'),
-	  ('P005', 'ArmyDC.png', 'ArmyDC-CT1.png', 'ArmyDC-CT2.png', 'ArmyDC-CT3.png'),
-	  ('P006', 'NikeHong.png', 'NikeHong-CT1.png', 'NikeHong-CT2.png', 'NikeHong-CT3.png'),
-	  ('P007', 'BitisDSM.png', 'BitisDSM-CT1.png', 'BitisDSM-CT2.png', 'BitisDSM-CT3.png'),
-	  ('P008', 'BitisHunter.png', 'BitisHunter-CT1.png', 'BitisHunter-CT2.png', 'BitisHunter-CT3.png'),
-	  ('P009', 'CoreBlack.png', 'CoreBlack-CT1.png', 'CoreBlack-CT2.png', 'CoreBlack-CT3.png'),
-	  ('P010', 'DSM.png', 'DSM-CT1.png', 'DSM-CT2.png', 'DSM-CT3.png'),
-	  ('P011', 'FestiveArmor.png', 'FestiveArmor-CT1.png', 'FestiveArmor-CT2.png', 'FestiveArmor-CT3.png'),
-	  ('P012', 'HovrMega.png', 'HovrMega-CT1.png', 'HovrMega-CT2.png', 'HovrMega-CT3.png'),
-	  ('P013', 'RedLike.png', 'RedLike-CT1.png', 'RedLike-CT2.png', 'RedLike-CT3.png'),
-	  ('P014', 'HunterNu.png', 'HunterNu-CT1.png', 'HunterNu-CT2.png', 'HunterNu-CT3.png'),
-	  ('P015', 'HunterRunning.png', 'HunterRunning-CT1.png', 'HunterRunning-CT2.png', 'HunterRunning-CT3.png'),
-	  ('P016', 'HunterStreet.png', 'HunterStreet-CT1.png', 'HunterStreet-CT2.png', 'HunterStreet-CT3.png'),
-	  ('P017', 'HunterTiger.png', 'HunterTiger-CT1.png', 'HunterTiger-CT2.png', 'HunterTiger-CT3.png'),
-	  ('P018', 'HunterXOTP.png', 'HunterXOTP-CT1.png', 'HunterXOTP-CT2.png', 'HunterXOTP-CT3.png'),
-	  ('P019', 'JodanXam.png', 'JodanXam-CT1.png', 'JodanXam-CT2.png', 'JodanXam-CT3.png'),
-	  ('P020', 'JordanDo.png', 'JordanDo-CT1.png', 'JordanDo-CT2.png', 'JordanDo-CT3.png');
-
-
--- Insert data into Detailed_invoices table
-INSERT INTO Detailed_invoices (invoice_id, product_id, quantity, payment_method)
+	
+-- Insert data into detailed_invoices table
+INSERT INTO detailed_invoices (invoice_id, product_id, quantity, payment_method)
 SELECT 'INV001', 'P001', 2, 'Thanh toán khi nhận hàng'
 UNION ALL SELECT 'INV002', 'P002', 1, N'Thanh toán khi nhận hàng'
 UNION ALL SELECT 'INV003', 'P003', 3, N'Thanh toán khi nhận hàng'
