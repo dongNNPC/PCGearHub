@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.UserHistory;
-import com.poly.asm.respository.UserHistoryRepository;
+import com.poly.asm.model.Supplier;
+import com.poly.asm.respository.SupplierRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class UserHistoryRestController {
+public class SupplierRestController {
 	@Autowired
-	UserHistoryRepository dao;
+	SupplierRepository dao;
 
-	@GetMapping("/rest/UserHistory")
-	public ResponseEntity<List<UserHistory>> getAll(Model model) {
+	@GetMapping("/rest/supplier")
+	public ResponseEntity<List<Supplier>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/UserHistory/{id}")
-	public ResponseEntity<UserHistory> getOne(@PathVariable("id") int id) {
+	@GetMapping("/rest/supplier/{id}")
+	public ResponseEntity<Supplier> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,27 +40,27 @@ public class UserHistoryRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/UserHistory")
+	@PostMapping("/rest/supplier")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<UserHistory> post(@RequestBody UserHistory userHistory) {
-		if (dao.existsById(userHistory.getId_history())) {
+	public ResponseEntity<Supplier> post(@RequestBody Supplier supplier) {
+		if (dao.existsById(supplier.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(userHistory);
-		return ResponseEntity.ok(userHistory);
+		dao.save(supplier);
+		return ResponseEntity.ok(supplier);
 	}
 
-	@PutMapping("/rest/UserHistory/{id}")
-	public ResponseEntity<UserHistory> put(@PathVariable("id") int id, @RequestBody UserHistory UserHistory) {
-		if (!dao.existsById(id /* UserHistory.getId() */)) {
+	@PutMapping("/rest/Supplier/{id}")
+	public ResponseEntity<Supplier> put(@PathVariable("id") String id, @RequestBody Supplier supplier) {
+		if (!dao.existsById(id /* Supplier.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(UserHistory);
-		return ResponseEntity.ok(UserHistory);
+		dao.save(supplier);
+		return ResponseEntity.ok(supplier);
 	}
 
-	@DeleteMapping("/rest/UserHistory/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+	@DeleteMapping("/rest/Supplier/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

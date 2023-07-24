@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Comment;
-import com.poly.asm.respository.CommentRepository;
+import com.poly.asm.model.Cart;
+import com.poly.asm.respository.CartRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class CommentRestController {
+public class CartRestController {
 	@Autowired
-	CommentRepository dao;
+	CartRepository dao;
 
-	@GetMapping("/rest/comment")
-	public ResponseEntity<List<Comment>> getAll(Model model) {
+	@GetMapping("/rest/cart")
+	public ResponseEntity<List<Cart>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/comment/{id}")
-	public ResponseEntity<Comment> getOne(@PathVariable("id") String id) {
+	@GetMapping("/rest/cart/{id}")
+	public ResponseEntity<Cart> getOne(@PathVariable("id") int id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,27 +40,27 @@ public class CommentRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/comment")
+	@PostMapping("/rest/cart")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<Comment> post(@RequestBody Comment comment) {
-		if (dao.existsById(comment.getId())) {
+	public ResponseEntity<Cart> post(@RequestBody Cart cart) {
+		if (dao.existsById(cart.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(comment);
-		return ResponseEntity.ok(comment);
+		dao.save(cart);
+		return ResponseEntity.ok(cart);
 	}
 
-	@PutMapping("/rest/comment/{id}")
-	public ResponseEntity<Comment> put(@PathVariable("id") String id, @RequestBody Comment comment) {
-		if (!dao.existsById(id /* comment.getId() */)) {
+	@PutMapping("/rest/cart/{id}")
+	public ResponseEntity<Cart> put(@PathVariable("id") int id, @RequestBody Cart cart) {
+		if (!dao.existsById(id /* cart.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(comment);
-		return ResponseEntity.ok(comment);
+		dao.save(cart);
+		return ResponseEntity.ok(cart);
 	}
 
-	@DeleteMapping("/rest/comment/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+	@DeleteMapping("/rest/cart/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

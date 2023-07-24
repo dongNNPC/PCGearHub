@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Distinctive;
-import com.poly.asm.respository.DistinctiveRepository;
+import com.poly.asm.model.UserHistory;
+import com.poly.asm.respository.UserHistoryRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class DistinctiveRestController {
+public class UserHistoryRestController {
 	@Autowired
-	DistinctiveRepository dao;
+	UserHistoryRepository dao;
 
-	@GetMapping("/rest/distinctive")
-	public ResponseEntity<List<Distinctive>> getAll(Model model) {
+	@GetMapping("/rest/UserHistory")
+	public ResponseEntity<List<UserHistory>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/distinctive/{id}")
-	public ResponseEntity<Distinctive> getOne(@PathVariable("id") String id) {
+	@GetMapping("/rest/UserHistory/{id}")
+	public ResponseEntity<UserHistory> getOne(@PathVariable("id") int id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,27 +40,27 @@ public class DistinctiveRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/distinctive")
+	@PostMapping("/rest/UserHistory")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<Distinctive> post(@RequestBody Distinctive distinctive) {
-		if (dao.existsById(distinctive.getId())) {
+	public ResponseEntity<UserHistory> post(@RequestBody UserHistory userHistory) {
+		if (dao.existsById(userHistory.getId_history())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(distinctive);
-		return ResponseEntity.ok(distinctive);
+		dao.save(userHistory);
+		return ResponseEntity.ok(userHistory);
 	}
 
-	@PutMapping("/rest/distinctive/{id}")
-	public ResponseEntity<Distinctive> put(@PathVariable("id") String id, @RequestBody Distinctive distinctive) {
-		if (!dao.existsById(id /* Distinctive.getId() */)) {
+	@PutMapping("/rest/UserHistory/{id}")
+	public ResponseEntity<UserHistory> put(@PathVariable("id") int id, @RequestBody UserHistory UserHistory) {
+		if (!dao.existsById(id /* UserHistory.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(distinctive);
-		return ResponseEntity.ok(distinctive);
+		dao.save(UserHistory);
+		return ResponseEntity.ok(UserHistory);
 	}
 
-	@DeleteMapping("/rest/distinctive/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+	@DeleteMapping("/rest/UserHistory/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

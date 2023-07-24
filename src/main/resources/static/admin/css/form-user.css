@@ -1,0 +1,19 @@
+  /* Điều chỉnh vị trí hiển thị của modal */
+  .modal {
+  max-width:350px;
+    position: fixed;
+    transform: translateX(310%);
+    z-index: 1050; /* Đảm bảo hiển thị trên tất cả các phần khác trên trang */
+  }
+
+  /* Điều chỉnh kích thước của modal */
+  .modal-dialog {
+    margin: 0;
+    min-width: auto; /* Tùy chỉnh kích thước tối thiểu của modal */
+    max-width: 90%; /* Tùy chỉnh kích thước tối đa của modal */
+  }
+
+  /* Điều chỉnh chiều rộng của modal content */
+  .modal-content {
+    width: 100%; /* Đảm bảo nội dung modal chiếm hết chiều rộng */
+  }

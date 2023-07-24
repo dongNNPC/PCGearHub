@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,51 +15,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Category;
-import com.poly.asm.respository.CategoryRepository;
+import com.poly.asm.model.Comment;
+import com.poly.asm.respository.CommentRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class CategoryRestController {
+public class CommentRestController {
 	@Autowired
-	CategoryRepository dao;
+	CommentRepository dao;
 
-	@GetMapping("/rest/categories")
-	public ResponseEntity<List<Category>> getAll(Model model) {
+	@GetMapping("/rest/comment")
+	public ResponseEntity<List<Comment>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/categories/{id}")
-	public ResponseEntity<Category> getOne(@PathVariable("id") String id) {
+	@GetMapping("/rest/comment/{id}")
+	public ResponseEntity<Comment> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
-
 		}
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/categories")
+	@PostMapping("/rest/comment")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<Category> post(@RequestBody Category category) {
-		if (dao.existsById(category.getId())) {
+	public ResponseEntity<Comment> post(@RequestBody Comment comment) {
+		if (dao.existsById(comment.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(category);
-		return ResponseEntity.ok(category);
+		dao.save(comment);
+		return ResponseEntity.ok(comment);
 	}
 
-	@PutMapping("/rest/categories/{id}")
-	public ResponseEntity<Category> put(@PathVariable("id") String id, @RequestBody Category category) {
-		if (!dao.existsById(id /* category.getId() */)) {
+	@PutMapping("/rest/comment/{id}")
+	public ResponseEntity<Comment> put(@PathVariable("id") String id, @RequestBody Comment comment) {
+		if (!dao.existsById(id /* comment.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(category);
-		return ResponseEntity.ok(category);
+		dao.save(comment);
+		return ResponseEntity.ok(comment);
 	}
 
-	@DeleteMapping("/rest/categories/{id}")
+	@DeleteMapping("/rest/comment/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();

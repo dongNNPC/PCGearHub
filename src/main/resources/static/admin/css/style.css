@@ -8604,7 +8604,7 @@ pre {
   background-color: #000000; }
 
 .table-hover tbody tr:hover {
-  color: #212529;
+   color: #ffffff;
   background-color: #000000; }
 
 .table-primary,
@@ -8619,6 +8619,7 @@ pre {
   border-color: #7ac5f3; }
 
 .table-hover .table-primary:hover {
+	
   background-color: #0074bc; }
   .table-hover .table-primary:hover > td,
   .table-hover .table-primary:hover > th {
@@ -21133,3 +21134,7 @@ div.tagsinput {
   flex-grow: 1; }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+.error-message{
+	color:red;
+}

@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.DetailedInvoice;
-import com.poly.asm.respository.DetailedInvoiceRepository;
+import com.poly.asm.model.StockReceipt;
+import com.poly.asm.respository.StockReceiptRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class DetailedInvoiceRestController {
+public class StockReceiptStockReceiptRestController {
 	@Autowired
-	DetailedInvoiceRepository dao;
+	StockReceiptRepository dao;
 
-	@GetMapping("/rest/detailedInvoice")
-	public ResponseEntity<List<DetailedInvoice>> getAll(Model model) {
+	@GetMapping("/rest/stockReceipt")
+	public ResponseEntity<List<StockReceipt>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/detailedInvoice/{id}")
-	public ResponseEntity<DetailedInvoice> getOne(@PathVariable("id") int id) {
+	@GetMapping("/rest/stockReceipt/{id}")
+	public ResponseEntity<StockReceipt> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,28 +40,27 @@ public class DetailedInvoiceRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/detailedInvoice")
+	@PostMapping("/rest/stockReceipt")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<DetailedInvoice> post(@RequestBody DetailedInvoice DetailedInvoice) {
-		if (dao.existsById(DetailedInvoice.getId())) {
+	public ResponseEntity<StockReceipt> post(@RequestBody StockReceipt stockReceipt) {
+		if (dao.existsById(stockReceipt.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(DetailedInvoice);
-		return ResponseEntity.ok(DetailedInvoice);
+		dao.save(stockReceipt);
+		return ResponseEntity.ok(stockReceipt);
 	}
 
-	@PutMapping("/rest/detailedInvoice/{id}")
-	public ResponseEntity<DetailedInvoice> put(@PathVariable("id") int id,
-			@RequestBody DetailedInvoice DetailedInvoice) {
-		if (!dao.existsById(id /* DetailedInvoice.getId() */)) {
+	@PutMapping("/rest/stockReceipt/{id}")
+	public ResponseEntity<StockReceipt> put(@PathVariable("id") String id, @RequestBody StockReceipt stockReceipt) {
+		if (!dao.existsById(id /* StockReceipt.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(DetailedInvoice);
-		return ResponseEntity.ok(DetailedInvoice);
+		dao.save(stockReceipt);
+		return ResponseEntity.ok(stockReceipt);
 	}
 
-	@DeleteMapping("/rest/detailedInvoice/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+	@DeleteMapping("/rest/stockReceipt/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

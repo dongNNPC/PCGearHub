@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Cart;
-import com.poly.asm.respository.CartRepository;
+import com.poly.asm.model.Distinctive;
+import com.poly.asm.respository.DistinctiveRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class CartRestController {
+public class DistinctiveRestController {
 	@Autowired
-	CartRepository dao;
+	DistinctiveRepository dao;
 
-	@GetMapping("/rest/cart")
-	public ResponseEntity<List<Cart>> getAll(Model model) {
+	@GetMapping("/rest/distinctive")
+	public ResponseEntity<List<Distinctive>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/cart/{id}")
-	public ResponseEntity<Cart> getOne(@PathVariable("id") int id) {
+	@GetMapping("/rest/distinctive/{id}")
+	public ResponseEntity<Distinctive> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,27 +40,27 @@ public class CartRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/cart")
+	@PostMapping("/rest/distinctive")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<Cart> post(@RequestBody Cart cart) {
-		if (dao.existsById(cart.getId())) {
+	public ResponseEntity<Distinctive> post(@RequestBody Distinctive distinctive) {
+		if (dao.existsById(distinctive.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(cart);
-		return ResponseEntity.ok(cart);
+		dao.save(distinctive);
+		return ResponseEntity.ok(distinctive);
 	}
 
-	@PutMapping("/rest/cart/{id}")
-	public ResponseEntity<Cart> put(@PathVariable("id") int id, @RequestBody Cart cart) {
-		if (!dao.existsById(id /* cart.getId() */)) {
+	@PutMapping("/rest/distinctive/{id}")
+	public ResponseEntity<Distinctive> put(@PathVariable("id") String id, @RequestBody Distinctive distinctive) {
+		if (!dao.existsById(id /* Distinctive.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(cart);
-		return ResponseEntity.ok(cart);
+		dao.save(distinctive);
+		return ResponseEntity.ok(distinctive);
 	}
 
-	@DeleteMapping("/rest/cart/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
+	@DeleteMapping("/rest/distinctive/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

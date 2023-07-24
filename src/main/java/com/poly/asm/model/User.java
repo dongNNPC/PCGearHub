@@ -21,23 +21,14 @@ public class User {
 	@Id
 	private String id;
 	private String name;
-
 	private String password;
-
 	private String phone;
-
 	private String email;
-
 	private String address;
-
 	private String image;
-
 	private boolean admin;
-
 	private boolean status;
-
 	private Boolean confirm;
-
 	private String otp;
 
 	@OneToMany(mappedBy = "user")
@@ -55,6 +46,14 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<UserHistory> userHistories;
+
+	@Override
+	public String toString() {
+		return "User{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", password='" + password + '\'' + ", phone='"
+				+ phone + '\'' + ", email='" + email + '\'' + ", address='" + address + '\'' + ", image='" + image
+				+ '\'' + ", admin=" + admin + ", status=" + status + ", confirm=" + confirm + ", otp='" + otp + '\''
+				+ '}';
+	}
 
 	// constructors, getters, and setters
 }

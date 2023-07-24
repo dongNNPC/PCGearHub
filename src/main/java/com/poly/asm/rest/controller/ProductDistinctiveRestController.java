@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Brand;
-import com.poly.asm.respository.BrandRepository;
+import com.poly.asm.model.ProductDistinctive;
+import com.poly.asm.respository.ProductDistinctiveRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class BrandRestController {
+public class ProductDistinctiveRestController {
 	@Autowired
-	BrandRepository dao;
+	ProductDistinctiveRepository dao;
 
-	@GetMapping("/rest/brand")
-	public ResponseEntity<List<Brand>> getAll(Model model) {
+	@GetMapping("/rest/productDistinctive")
+	public ResponseEntity<List<ProductDistinctive>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/brand/{id}")
-	public ResponseEntity<Brand> getOne(@PathVariable("id") String id) {
+	@GetMapping("/rest/productDistinctive/{id}")
+	public ResponseEntity<ProductDistinctive> getOne(@PathVariable("id") int id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,27 +40,28 @@ public class BrandRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/brand")
+	@PostMapping("/rest/productDistinctive")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<Brand> post(@RequestBody Brand brand) {
-		if (dao.existsById(brand.getId())) {
+	public ResponseEntity<ProductDistinctive> post(@RequestBody ProductDistinctive productDistinctive) {
+		if (dao.existsById(productDistinctive.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(brand);
-		return ResponseEntity.ok(brand);
+		dao.save(productDistinctive);
+		return ResponseEntity.ok(productDistinctive);
 	}
 
-	@PutMapping("/rest/brand/{id}")
-	public ResponseEntity<Brand> put(@PathVariable("id") String id, @RequestBody Brand brand) {
-		if (!dao.existsById(id /* brand.getId() */)) {
+	@PutMapping("/rest/productDistinctive/{id}")
+	public ResponseEntity<ProductDistinctive> put(@PathVariable("id") int id,
+			@RequestBody ProductDistinctive productDistinctive) {
+		if (!dao.existsById(id /* productDistinctive.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(brand);
-		return ResponseEntity.ok(brand);
+		dao.save(productDistinctive);
+		return ResponseEntity.ok(productDistinctive);
 	}
 
-	@DeleteMapping("/rest/brand/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+	@DeleteMapping("/rest/productDistinctive/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

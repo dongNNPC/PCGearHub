@@ -1,4 +1,4 @@
-package com.poly.asm.rest;
+package com.poly.asm.rest.controller;
 
 import java.util.List;
 
@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.User;
-import com.poly.asm.respository.UserRepository;
+import com.poly.asm.model.Brand;
+import com.poly.asm.respository.BrandRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class UserRestController {
+public class BrandRestController {
 	@Autowired
-	UserRepository dao;
+	BrandRepository dao;
 
-	@GetMapping("/rest/user")
-	public ResponseEntity<List<User>> getAll(Model model) {
+	@GetMapping("/rest/brand")
+	public ResponseEntity<List<Brand>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/user/{id}")
-	public ResponseEntity<User> getOne(@PathVariable("id") String id) {
+	@GetMapping("/rest/brand/{id}")
+	public ResponseEntity<Brand> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -40,26 +40,26 @@ public class UserRestController {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/user")
+	@PostMapping("/rest/brand")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<User> post(@RequestBody User User) {
-		if (dao.existsById(User.getId())) {
+	public ResponseEntity<Brand> post(@RequestBody Brand brand) {
+		if (dao.existsById(brand.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
-		dao.save(User);
-		return ResponseEntity.ok(User);
+		dao.save(brand);
+		return ResponseEntity.ok(brand);
 	}
 
-	@PutMapping("/rest/user/{id}")
-	public ResponseEntity<User> put(@PathVariable("id") String id, @RequestBody User User) {
-		if (!dao.existsById(id /* User.getId() */)) {
+	@PutMapping("/rest/brand/{id}")
+	public ResponseEntity<Brand> put(@PathVariable("id") String id, @RequestBody Brand brand) {
+		if (!dao.existsById(id /* brand.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(User);
-		return ResponseEntity.ok(User);
+		dao.save(brand);
+		return ResponseEntity.ok(brand);
 	}
 
-	@DeleteMapping("/rest/user/{id}")
+	@DeleteMapping("/rest/brand/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
