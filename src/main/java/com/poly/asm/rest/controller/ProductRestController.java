@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.model.Product;
@@ -23,12 +24,14 @@ import com.poly.asm.respository.ProductRepository;
 @RequestMapping("/pcgearhub")
 public class ProductRestController {
 	@Autowired
-	ProductRepository dao;
+	ProductRepository dao; 
 
 	@GetMapping("/rest/product")
 	public ResponseEntity<List<Product>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
+
+
 
 	@GetMapping("/rest/product/{id}")
 	public ResponseEntity<Product> getOne(@PathVariable("id") String id) {

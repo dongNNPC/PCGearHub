@@ -1,5 +1,6 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" th:replace="~{/layouts/layout :: dynamic(~{::body})}">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      th:replace="~{/layouts/layout :: dynamic(~{::body})}">
 
 <head>
     <title>Title</title>
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
@@ -16,131 +17,120 @@
 </head>
 
 <body style="font-family: Quicksand;">
-    <header>
-        <!-- place navbar here -->
-    </header>
-    <main style="background-color: #ffffff; height: 700px;">
-        <form action="" class="form-Product container-fluid mt-2" style="  margin-top: 10px;">
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-md-5">
-                    <img th:src="@{/assets/images/balo.png}" width="600px" height="400px" >
-                </div>
-                <div class="col-md-7">
-                    <h4>PC ZOTAC GAMING Type2 Super VGA qua sử dụng -Linh kiện còn lại all new</h4>
-                    <div class="row">
-                        <div class="col-md-7">
-                            <p>Tình trạng: <i
-                                    style="color: #F1B501;font-family: Quicksand;font-weight: bold;font-size: 20px;">Còn
-                                    hàng</i></p>
+<header>
+    <!-- place navbar here -->
+</header>
+<main style="background-color: #ffffff; height: 700px;">
+    <form action="" th:object="${itemDetailPage}" class="form-Product container-fluid mt-2" style="margin-top: 10px;">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-5">
+                <img th:src="@{|/assets/images/products/*{image1}}" width="600px" height="450px">
+            </div>
+            <div class="col-md-7">
+                <h4 style="font-weight: bold;font-size:26px" th:text="*{name}">Product Name</h4>
+                <div class="row">
+                    <div class="col-md-7">
+                        <p>Tình trạng: <i style="color: #F1B501;font-family: Quicksand;font-weight: bold;font-size: 20px;"
+                            th:text="*{status} ? 'Còn hàng' : 'Hết hàng'">Còn hàng</i></p>
 
-                            <div class="PriceProdcut" style=" background-color: #F5F5F5;
-                            height: 60px;
-                            width: 27   0px;
-                            border-radius: 5px;">
-                                <h6 style="  padding: 10px;">Giá: <i
-                                        style="color: red;font-family: Quicksand;font-weight: bold; font-size: 30px;">1,000,000đ</i>
-                                </h6>
-                            </div>
+                        <div class="PriceProduct"
+                             style="background-color: #F5F5F5; height: 60px; width: 400px; border-radius: 5px;">
+                            <h6 style="padding: 10px;">Giá: <i style="color: red;font-family: Quicksand;font-weight: bold; font-size: 30px;margin-left:60px;"
+                                th:text="*{#numbers.formatDecimal(price , 0, 'WHITESPACE', 0, 'POINT') + ' vnđ'}"></i></h6>
+                        </div>
 
-                            <div class="input-group mt-3" style="margin-top: 20px;">
-                                <p class="mt-2 fw-bold"> Số lượng : &ensp;</p>
+                        <div class="input-group mt-3" style="margin-top: 20px;">
+                            <p class="mt-2 fw-bold">Số lượng :</p>
 
-                                <span class="input-group-btn" style="margin-right: 100px;">
-                                    <button type="button" class="btn btn-outline-secondary"
+                            <span class="input-group-btn" style="margin-right: 100px;">
+                                <button type="button" class="btn btn-outline-secondary"
                                         onclick="decreaseQuantity()">-</button>
-                                </span>
-                                <input
+                            </span>
+                            <input
                                     style="border: 1px black; width: 130px;text-align: center; color: black;margin-left: 50px;"
                                     type="text" class="text-center" readonly id="quantity" value="1" min="0">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-outline-secondary"
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-outline-secondary"
                                         onclick="increaseQuantity()">+</button>
-                                </span>
-
-                            </div>
-
-
-                            <div class="mt-5">
-                                <div class="fw-bold" style="margin-top: 20px;">Chia sẻ :
-                                    <a href=""> <img th:src="@{/assets/Icon/Facebook.svg}" width="30px"></a>
-                                    <a href=""> <img th:src="@{/assets/Icon/Facebook Messenger.svg}" width="30px"></a>
-                                    <a href=""> <img th:src="@{/assets/Icon/Twitter Circled.svg}" width="30px"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="border: 1px solid black;width: 260px; ">
-                            <p class="fw-bold text-center" style="color: black;font-weight: bold;text-align: center;">
-                                Chính sách bán hàng</p>
-                            <div class="text-center" style="color: black;">
-                                <p><i class="fa-brands fa-shopify"></i> Cam kết 100% chính hãng</p>
-                                <p><i class="fa-solid fa-phone"></i> Hỗ trợ 24/7 </p>
-                                <p class="fw-bold text-center"
-                                    style="color: black;font-weight: bold;text-align: center;">Thông tin thêm </p>
-                                <p> <i class="fa-solid fa-check"></i> Hoàn tiền 111% nếu hàng giả</p>
-                                <p> <i class="fa-solid fa-thumbs-up"></i> Mở hộp kiểm tra nhận hàng</p>
-                                <p> <i class="fa-solid fa-7"></i> Đổi trả trong 7 ngày </p>
-
-                            </div>
+                            </span>
 
                         </div>
-                        <div class="col-md-12 mt-2">
-                            <h3>Mô tả sản phẩm </h3>
-                            <p>
-                                CPU Intel Core i3 10105F 3.7Ghz
-                                Mainboard ASROCK H470M-HDV
-                                Team Vulcan 8Gb Bus 3200Mhz
-                                GIGABYTE 240GB SATA 3
-                                NVIDIA GTX 1660Ti/Super bảo hành 24 tháng
-                                ANTEC ATOM 550
-                                Vỏ case Xigmatek LUX M 3FR// DUKE 3 Fan
-                            </p>
+                        <a class="btn-login" th:href="@{/pcgearhub/Thank-you}" style="margin-top: 20px;width: 400px;">Thêm vào giỏ </a>
+
+                        <div class="mt-5">
+                            <div class="fw-bold" style="margin-top: 20px;">Chia sẻ :
+                                <a href=""> <img th:src="@{/assets/Icon/Facebook.svg}" width="30px"></a>
+                                <a href=""> <img th:src="@{/assets/Icon/Facebook Messenger.svg}" width="30px"></a>
+                                <a href=""> <img th:src="@{/assets/Icon/Twitter Circled.svg}" width="30px"></a>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-4" style="border: 1px solid black;width: 260px; ">
+                        <p class="fw-bold text-center"
+                           style="color: black;font-weight: bold;text-align: center;">Chính sách bán hàng</p>
+                        <div class="text-center" style="color: black;">
+                            <p><i class="fa-brands fa-shopify"></i> Cam kết 100% chính hãng</p>
+                            <p><i class="fa-solid fa-phone"></i> Hỗ trợ 24/7 </p>
+                            <p class="fw-bold text-center"
+                               style="color: black;font-weight: bold;text-align: center;">Thông tin thêm</p>
+                            <p> <i class="fa-solid fa-check"></i> Hoàn tiền 111% nếu hàng giả</p>
+                            <p> <i class="fa-solid fa-thumbs-up"></i> Mở hộp kiểm tra nhận hàng</p>
+                            <p> <i class="fa-solid fa-7"></i> Đổi trả trong 7 ngày </p>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <h3>Mô tả sản phẩm </h3>
+                        <p th:text="*{description}"></p>
                     </div>
                 </div>
             </div>
-        </form>
-    </main>
-    <footer>
+        </div>
+    </form>
+</main>
+<footer>
 
-    </footer>
-    <script>
-        function increaseQuantity() {
-            var quantityInput = document.getElementById("quantity");
-            var quantity = parseInt(quantityInput.value);
-            quantityInput.value = quantity + 1;
-        }
+</footer>
+<script>
+    function increaseQuantity() {
+        var quantityInput = document.getElementById("quantity");
+        var quantity = parseInt(quantityInput.value);
+        quantityInput.value = quantity + 1;
+    }
 
-        function decreaseQuantity() {
-            var quantityInput = document.getElementById("quantity");
-            var quantity = parseInt(quantityInput.value);
-            if (quantity > 1) {
-                quantityInput.value = quantity - 1;
-            }
+    function decreaseQuantity() {
+        var quantityInput = document.getElementById("quantity");
+        var quantity = parseInt(quantityInput.value);
+        if (quantity > 1) {
+            quantityInput.value = quantity - 1;
         }
-    </script>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    }
+</script>
+<link rel="stylesheet" th:href="@{/assets/css/login.css}">
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-        </script>
+</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-        </script>
+</script>
 
 
 <script>
     // Lấy URL trang hiện tại
     var currentPage = window.location.pathname;
-  
+
     // Lấy phần tử <div>
     var divElement = document.querySelector('.nav-category-home');
-  
+
     // Xóa lớp 'hello' nếu trang hiện tại không phải trang index
     if (currentPage !== '/') {
         divElement.classList.remove('hello');
     }
-  
-  </script>
+
+</script>
 
 </body>
 
