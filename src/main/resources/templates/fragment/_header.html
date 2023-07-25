@@ -91,7 +91,7 @@ top: 0;">
                     <div class="hm-minicart-trigger">
                       <span class="item-icon"></span>
                       <span class="item-text">Giỏ hàng
-                        <span class="cart-item-count">2</span>
+                        <span class="cart-item-count">{{cart.count}}</span>
                       </span>
                     </div>
                     <span></span>
@@ -121,8 +121,9 @@ top: 0;">
                             <i class="fa fa-close"></i>
                           </button>
                         </li>
-                      </ul>
-                      <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
+                      </ul> 
+                     
+                      <p class="minicart-total">SUBTOTAL: <span ng-bind="(cart.amount | number:0) + 'vnđ'">  <!-- toán tử pipe (|), number : định dạng số ,  -->  </span></p> 
                       <div class="minicart-button">
                         <a th:href="@{/pcgearhub/cart}" class="li-button li-button-fullwidth li-button-dark">
                           <span>Xem giỏ hàng</span>

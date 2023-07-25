@@ -1,0 +1,37 @@
+[33m8ffe49c[m[33m ([m[1;36mHEAD -> [m[1;32mHandlingShoppingCart[m[33m, [m[1;32mnhutDong[m[33m)[m Hoành thành đổ db vào trang index và hiển thị trang chi tiết
+[33m9f00e43[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Xong user admin
+[33mcbbe5c9[m tranKhanh - đã thêm model, rest API, và các lớp controller cho nhánh tranKhanh
+[33m7c7c624[m tranKhanh - đã thêm model, rest API, và các lớp controller
+[33m3bd1ce7[m Sức mạnh tình bạn
+[33m7066731[m dđ
+[33mba4c243[m merge hoangDinh
+[33ma903951[m merge nhutDong
+[33m0499baa[m[33m ([m[1;31morigin/hoangDinh[m[33m)[m Hoàng Dinh - sửa lỗi khi hiển thị danh mục
+[33mb3bea46[m[33m ([m[1;32mmaster[m[33m)[m Hoàng Dinh - sửa lỗi khi nhấp vào danh mục
+[33m7277a92[m Hoàng Dinh - Thêm js ẩn hiện danh mục sản phẩm
+[33m27ef63b[m tranKhanh thêm profile
+[33m7e5d6c7[m Hoàng Dinh - Thêm Giỏ hàng mini
+[33m7521490[m tranKhanh - hoàn thành dropdown
+[33maf7df96[m Merge branch 'nhutDong'
+[33mba434cb[m Merge branch 'master' of https://github.com/dongNNPC/PCGearHub
+[33m76e5a82[m[33m ([m[1;32mgop[m[33m)[m nhutDong - hoàn thành cắt giao diện và chuyển đổi qua thymeleaf cho các form acccount
+[33mebc6e11[m Merge branch 'nhutDong' of https://github.com/dongNNPC/PCGearHub into nhutDong
+[33m16c24de[m Chỉnh sửa trang index
+[33m948c64c[m tranKhanh - đã cắt giao diện phần index
+[33m6e3a33f[m Merge branch 'nhutDong'
+[33me23b6f5[m nhutDong - hoàn thành form quên mật khẩu , đổi mật khẩu
+[33m68b6f19[m hoàn thành trang chi tiết sản phẩm
+[33m34e2851[m tranKhanh đã làm và cắt thành công giao diện admin
+[33m8fa41d9[m merge nhutDong - hoàn thành form login , sign in , những sản phẩm mới vềvà thông báo thêm sản phẩm thành công
+[33mdf8bb72[m merge nhutDong - hoàn thành form login , sign in , những sản phẩm mới vềvà thông báo thêm sản phẩm thành công
+[33m4ae2ef3[m nhutDong - hoàn thành form login , sign in , những sản phẩm mới về trong trang index , và thông báo thêm thành công
+[33m28003ee[m Hoàng Dinh - Thêm thuộc tính btn-top để trở lại đầu trang
+[33m9e3f0f0[m Hoàng Dinh - Thêm thông tin liên hệ holine
+[33m2faa340[m Hoàng Dinh - sửa Bố cục container , sửa footer cho cân đối
+[33m0fcd03d[m[33m ([m[1;32mhoangDinh[m[33m)[m Hoàng Dinh - Làm xong Trang footer
+[33m9f98251[m Hoàng Dinh - Chỉnh sửa bố cục của giỏ hàng , đăng kí , đăng nhập
+[33m0d8704b[m hoangDinh - Sửa lại danh mục sản phẩm cho phù hợp kích thước
+[33m37ecebb[m merge nhutDong - TOP NHỮNG SẢN PHẨM BÁN CHẠY NHẤT vào trong index
+[33m95909d8[m NhutDong - TOP NHỮNG SẢN PHẨM BÁN CHẠY NHẤT trong index
+[33m82cdb74[m Hoàng Dinh - làm trang header , danh mục sản phẩm , SlideShow , Menu xong 80%
+[33m6fdbcaa[m[33m ([m[1;31morigin/tranKhanh[m[33m)[m first push

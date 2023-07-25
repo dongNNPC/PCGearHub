@@ -1,4 +1,4 @@
-<div class="container-fluid "  ng-controller="ProductController" th:fragment="product" style="margin-top: 20px; margin-bottom: 300px;">
+<div class="container-fluid "  th:fragment="product" style="margin-top: 20px; margin-bottom: 300px;">
     
         <!-- nhũng sản phẩm mới về-->
         <div class="container-fluid " style="margin-top: -20px;" >
@@ -34,12 +34,13 @@
     
                   </div>
                 </div>
-                <a class="button-addtocart" style="margin-bottom: -30px; cursor: pointer; text-align: start;" onclick="showNotification()">
-                  <span class="span-bt-addtocart" style="margin-top: -20px;"><i
+                <!-- onclick="showNotification()" -->
+                <button  th:attr="ng-click='cart.add(\'' + ${p.id} + '\')'"  class="button-addtocart" style="margin-bottom: -40px; cursor: pointer; text-align: start;" > 
+                  <span class="span-bt-addtocart" style="margin-top: -30px;"><i
                       class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
                     <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span></span>
     
-                </a>
+                </button>
     
               </div>
             </div>
