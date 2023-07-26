@@ -18,11 +18,11 @@
     
                 </div>
                 <div class="product-content">
-                  <h3 class="title"><span class="text-overflow" th:text="${p.name}"> </span></h3>
+                  <h3 style="text-align: start;" class="title"><span class="text-overflow" th:text="${p.name}"> </span></h3>
     
                   <div class="row">
                     <div class="col-md-12">
-                      <h4> <del style="color: #898888;margin-right: 130px; font-size: 13px;">1,000,000đ</del></h4>
+                      <h4> <del style="color: #898888;margin-right: 290px; font-size: 13px;">1,000,000đ</del></h4>
                       <h4 style="font-weight: bold;text-align: start; color: red;"
                       th:text="${#numbers.formatDecimal(p.price , 0, 'WHITESPACE', 0, 'POINT') + ' vnđ'}">  </h4>
                     </div>
@@ -34,9 +34,9 @@
     
                   </div>
                 </div>
-                <!-- onclick="showNotification()" -->
-                <button  th:attr="ng-click='cart.add(\'' + ${p.id} + '\')'"  class="button-addtocart" style="margin-bottom: -40px; cursor: pointer; text-align: start;" > 
-                  <span class="span-bt-addtocart" style="margin-top: -30px;"><i
+                
+                <button   onclick="showNotification()"   th:attr="ng-click='cart.add(\'' + ${p.id} + '\')'"  class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;" > 
+                  <span class="span-bt-addtocart" style="margin-top: -40px;"><i
                       class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
                     <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span></span>
     
