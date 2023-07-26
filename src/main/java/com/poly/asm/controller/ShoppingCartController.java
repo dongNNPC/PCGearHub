@@ -26,6 +26,4 @@ public class ShoppingCartController {
 
 		return "/fragment/thankforShop";
 	}
-
-	
 }
