@@ -1,65 +1,52 @@
-<div class="container-fluid "  th:fragment="product" style="margin-top: 20px; margin-bottom: 300px;">
-    
-        <!-- nhũng sản phẩm mới về-->
-        <div class="container-fluid " style="margin-top: -20px;" >
-          <h2 style="font-weight: bold;">TOP NHỮNG SẢN PHẨM MỚI VỀ  </h2>
-          <div class="row">
-            <div class="col-md-3 col-sm-6" style="margin-top: 10px;"  th:each="p : ${itemsAll}">
-              <div class="product-grid">
-                <div class="product-image">
-                  <a th:href="@{|/pcgearhub/detail-page/${p.id}|}" class="image">
-                    <img class="pic-1" th:src="@{|/assets/images/products/${p.image1}}">
-                    <img class="pic-2" th:src="@{|/assets/images/products/${p.image2}}">
-                  </a>
-                  <ul class="social">
-                    <li><a th:href="@{|/pcgearhub/detail-page/${p.id}|}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
-                    <li><a href="#" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
-                  </ul>
-    
-                </div>
-                <div class="product-content">
-                  <h3 style="text-align: start;" class="title"><span class="text-overflow" th:text="${p.name}"> </span></h3>
-    
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h4> <del style="color: #898888;margin-right: 290px; font-size: 13px;">1,000,000đ</del></h4>
-                      <h4 style="font-weight: bold;text-align: start; color: red;"
-                      th:text="${#numbers.formatDecimal(p.price , 0, 'WHITESPACE', 0, 'POINT') + ' vnđ'}">  </h4>
-                    </div>
-                    <!-- <div class="col-md-6">
-    
-                      <span class="badge"
-                        style="margin-top: 30px; background-color:red; border-radius: 3px; font-size: 13px;">-20%</span>
-                    </div> -->
-    
-                  </div>
-                </div>
-                
-                <button   onclick="showNotification()"   th:attr="ng-click='cart.add(\'' + ${p.id} + '\')'"  class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;" > 
-                  <span class="span-bt-addtocart" style="margin-top: -40px;"><i
-                      class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
-                    <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span></span>
-    
-                </button>
-    
-              </div>
-            </div>
-           
-            <!-- phân trang -->
-            <nav class="pagination-container">
-              <div class="pagination">
-                  <a class="pagination-newer" href="#" ng-click="changePage(currentPage - 1)">PREV</a>
-                  <span class="pagination-inner">
-                      <a ng-repeat="page in pages" href="#" ng-click="changePage(page)" ng-class="{ 'pagination-active': currentPage === page }">{{ page }}</a>
-                  </span>
-                  <a class="pagination-older" href="#" ng-click="changePage(currentPage + 1)">NEXT</a>
-              </div>
-          </nav>
-          </div>
-    
-          
+<div class="container-fluid"  th:fragment="product" style="margin-top: -20px;margin-bottom: 300px;">
+  <h2 style="font-weight: bold;">TOP NHỮNG SẢN PHẨM MỚI VỀ</h2>
+  <div class="row">
+    <div class="col-md-3 col-sm-6" style="margin-top: 10px;" ng-repeat="p in getCurrentPageProducts()">
+      <div class="product-grid">
+        <div class="product-image">
+          <a ng-href="/pcgearhub/detail-page/{{p.id}}" class="image">
+            <img class="pic-1" ng-src="/assets/images/products/{{p.image1}}" alt="{{p.name}}">
+            <img class="pic-2" ng-src="/assets/images/products/{{p.image2}}" alt="{{p.name}}">
+          </a>
+          <ul class="social">
+            <li><a ng-href="/pcgearhub/detail-page/{{p.id}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+            <li><a href="#" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
+          </ul>
         </div>
+        <div class="product-content">
+          <h3 style="text-align: start;" class="title">
+            <span class="text-overflow">{{p.name}}</span>
+          </h3>
+          <div class="row">
+            <div class="col-md-12">
+              <h4>
+                <del style="color: #898888;margin-right: 290px; font-size: 13px;">1,000,000đ</del>
+              </h4>
+              <h4 style="font-weight: bold;text-align: start; color: red;">
+                {{p.price | number: 0}} vnđ
+              </h4>
+            </div>
+          </div>
+        </div>
+        <button ng-click="cart.add(p.id)" onclick="showNotification()" class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;">
+          <span class="span-bt-addtocart" style="margin-top: -40px;">
+            <i class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
+            <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span>
+          </span>
+        </button>
       </div>
-
-
     </div>
+  </div>
+
+  <!-- Phân trang -->
+  <nav class="pagination-container">
+    <div class="pagination">
+        <a class="pagination-newer"  ng-click="changePage(currentPage - 1)" ng-disabled="currentPage === 1">PREV</a>
+        <span class="pagination-inner">
+            <a ng-repeat="page in getPagesArray()" ng-click="changePage(page)" ng-class="{ 'pagination-active': currentPage === page }">{{ page }}</a>
+        </span>
+        <a class="pagination-older"ng-click="changePage(currentPage + 1)" ng-disabled="currentPage === totalPages">NEXT</a>
+    </div>
+</nav>
+
+</div>
