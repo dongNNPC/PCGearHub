@@ -1,34 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
-<body>
-	<!--modal thư xóa  -->
-	<link rel="stylesheet"
-		th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+
+<body> <!--modal thư xóa  -->
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
 	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
-	<!-- modal -->
-
-
-
 	<link rel="stylesheet" th:href="@{/admin/css/form-user.css}">
-	<link rel="stylesheet" th:href="@{/admin/css/style.css}">
-	<!-- Plugin css for this page -->
-	<link rel="stylesheet"
-		th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css"
-		media="all">
-	<link rel="stylesheet"
-		th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
+	<link rel="stylesheet" th:href="@{/admin/css/style.css}"> <!-- Plugin css for this page -->
+	<link rel="stylesheet" th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
 		type="text/css" media="all">
-
 	<div class="content-wrapper" ng-app="myApp">
 		<div class="content-wrapper" ng-controller="loadForm">
 			<div class="page-header">
-				<h3 class="page-title">Chỉnh sửa người dùng</h3>
+				<h3 class="page-title">Chỉnh sửa Danh mục</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Forms</a></li>
@@ -38,220 +28,141 @@
 				</nav>
 			</div>
 			<div class="row">
-				<div class="col-md-6 col-xl-4 grid-margin stretch-card">
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title">Ảnh đại diện</h4>
-							<hr style="background-color: white;">
-							<div>
-								<label for="" ng-repeat="filename in filenames"
-									title="Double click to detete"> <img
-									ng-src="{{url(filename)}}" ng-click="download(filename)"
-									ng-dblclick="delete(filename)" alt="">
-									
-								</label>
-								<div class="form-group mt-3" style="max-width: 304px">
-									<div class="input-group col-xs-12">
-										<input type="file" accept="image/*" ng-model="user.image"
-											onchange="angular.element(this).scope().upload(this.files)">
-										<span class="input-group-append"> </span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
 				<div class="col-md-6 grid-margin stretch-card ms-5">
-
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title">Nhập thông tin</h4>
 							<hr style="background-color: white;">
-							<p class="card-description">Giao diện chỉnh sửa người dùng</p>
+							<p class="card-description">Giao diện chỉnh sửa Danh mục
+							</p>
 							<form class="forms-sample">
-								<div class="form-group row">
-									<label for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Mã tài khoản</label>
+								<div class="form-group row"> <label
+										for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">ID</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" ng-model="user.id"
-											id="exampleInputUsername2" placeholder="Tên tài khoản">
 
-										<p ng-show="showErrorID" class="error-message">{{errorMessage}}</p>
+										<input type="text"
+											class="form-control"
+											ng-model="supplier.id"
+											id="exampleInputUsername2"
+											placeholder="ID">
+										<!-- <p ng-show="showErrorID"
+											class="error-message">
+											{{errorMessage}}</p> -->
 									</div>
 								</div>
-								<div class="form-group row">
-									<label for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Họ và tên</label>
+								<div class="form-group row"> <label
+										for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">
+										Tên nhà cung cấp</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control" ng-model="user.name"
-											id="exampleInputUsername2" placeholder="Họ và tên">
+
+										<input type="text"
+											class="form-control"
+											ng-model="supplier.name"
+											id="exampleInputUsername2"
+											placeholder="Tên Thương hiệuc">
 									</div>
 								</div>
-								<div class="form-group row">
-									<label for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Mật khẩu</label>
+								<div class="form-group row"> <label
+										for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">
+										Số Điện thoại</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control"
-											ng-model="user.password" id="exampleInputUsername2"
-											placeholder="Mật khẩu">
+
+										<input type="text"
+											class="form-control"
+											ng-model="supplier.phoneNumber"
+											id="exampleInputUsername2"
+											placeholder="SDT">
 									</div>
 								</div>
-								<div class="form-group row">
-									<label for="exampleInputEmail2" class="col-sm-3 col-form-label">Email</label>
+
+								<div class="form-group row"> <label 
+										for="exampleInputdescription2"
+										class="col-sm-3 col-form-label">email</label>
 									<div class="col-sm-9">
-										<input type="email" class="form-control" ng-model="user.email"
-											id="exampleInputEmail2" placeholder="Email">
-										<p ng-show="showErrorEmail" class="error-message">{{errorMessage}}</p>
+
+										<input type="email"
+											class="form-control"
+											ng-model="supplier.email"
+											id="exampleInputdescription2"
+											placeholder="email">
+										<p ng-show="showErrordescription"
+											class="error-message">
 									</div>
 								</div>
-								<div class="form-group row">
-									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Số
-										điện thoại</label>
-									<div class="col-sm-9">
-										<input type="text" class="form-control" ng-model="user.phone"
-											id="exampleInputMobile" placeholder="Số điện thoại">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Địa
+								<div class="form-group row"> <label
+										for="exampleInputdescription2"
+										class="col-sm-3 col-form-label">Địa
 										chỉ</label>
 									<div class="col-sm-9">
-										<input type="text" class="form-control"
-											ng-model="user.address" id="exampleInputMobile"
-											placeholder="Địa chỉ">
+
+										<input type="description"
+											class="form-control"
+											ng-model="supplier.address"
+											id="exampleInputdescription2"
+											placeholder="Mô tả">
+										<p ng-show="showErrordescription"
+											class="error-message">
 									</div>
 								</div>
-
-
-
-								<div class="row form-group">
-									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Chức
-										vụ</label>
-									<div class="form-check col-lg-4 ms-2">
-										<label class="form-check-label"> <input type="radio"
-											class="form-check-input" name="admin" ng-model="user.admin"
-											ng-value="true" id="admin_true"> Admin
-										</label>
-									</div>
-									<div class="form-check col-lg-4">
-										<label class="form-check-label"> <input type="radio"
-											class="form-check-input" name="admin" ng-model="user.admin"
-											ng-value="false" id="admin_false"> User
-										</label>
-									</div>
-								</div>
-
-								<div class="row form-group">
-									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Hoạt
-										động</label>
-									<div class="form-check col-lg-4 ms-2">
-										<label class="form-check-label"> <input type="radio"
-											class="form-check-input" name="status" ng-model="user.status"
-											ng-value="true" id="status_true"> Còn hoạt động
-										</label>
-									</div>
-									<div class="form-check col-lg-4">
-										<label class="form-check-label"> <input type="radio"
-											class="form-check-input" name="status" ng-model="user.status"
-											ng-value="false" id="status_false"> Ngừng hoạt động
-										</label>
-									</div>
-								</div>
-								<div class="row form-group">
-									<label for="exampleInputMobile" class="col-sm-3 col-form-label">Xác
-										nhận</label>
-									<div class="form-check col-lg-4 ms-2">
-										<label class="form-check-label"> <input type="radio"
-											class="form-check-input" name="optionsRadio2" id="check"
-											ng-value="true" ng-model="user.confirm"> Đã xác nhận
-										</label>
-									</div>
-									<div class="form-check col-lg-4 ">
-										<label class="form-check-label"> <input type="radio"
-											class="form-check-input" name="optionsRadios2" id="check"
-											ng-value="false" ng-model="user.confirm"> Chưa xác
-											nhận
-										</label>
-									</div>
-								</div>
-
-								<hr style="background-color: white;">
-								<button ng-click="create()" type="submit"
+								<hr style="background-color: white;"> <button
+									ng-click="create()" type="submit"
 									class="btn btn-primary mr-2">Thêm</button>
 								<button ng-click="update()" type="submit"
 									class="btn btn-success mr-2">Sửa</button>
-
-								<a href="#myModal" data-toggle="modal"><button type="submit"
+								<a href="#myModal" data-toggle="modal"><button
+										type="submit"
 										class="btn btn-danger mr-2">Xóa</button></a>
-								<button ng-click="reset()" class="btn btn-dark">Làm mới</button>
+								<button ng-click="reset()"
+									class="btn btn-dark">Làm mới</button>
 							</form>
-
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- Thêm template Modal thông báo Bootstrap vào phần body -->
-			<div class="modal" id="successModal" tabindex="-1" role="dialog"
-				data-backdrop="false">
+			</div> <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
+			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content" style="background-color: #28a745">
 						<div class="modal-body">{{ successMessageModal }}</div>
 					</div>
 				</div>
-			</div>
-
-
-			<!-- Modal cảnh báo HTML -->
+			</div> <!-- Modal cảnh báo HTML -->
 			<div id="myModal" class="modal fade">
 				<div class="modal-dialog modal-confirm">
 					<div class="modal-content">
 						<div class="modal-header flex-column">
-							<div class="icon-box">
-								<i class="material-icons">&#xE5CD;</i>
+							<div class="icon-box"> <i
+									class="material-icons">&#xE5CD;</i>
 							</div>
-							<h4 class="modal-title w-100">Are you sure?</h4>
-							<button type="button" class="close" data-dismiss="modal"
+							<h4 class="modal-title w-100">Are you sure?</h4> <button
+								type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<p>Do you really want to delete these records? This process
-								cannot be undone.</p>
+							<p>Do you really want to delete these records? This
+								process cannot be undone.</p>
 						</div>
-						<div class="modal-footer justify-content-center">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button>
-							<button ng-click="delete(user.id)" type="submit"
-								class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
-						</div>
+						<div class="modal-footer justify-content-center"> <button
+								type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancel</button> <button
+								ng-click="delete(supplier.id)" type="submit"
+								class="btn btn-danger mr-2"
+								data-dismiss="modal">Xóa</button> </div>
 					</div>
 				</div>
 			</div>
-
 		</div>
-	</div>
-
-
-
-
-	<!-- Plugin js for this page -->
-	<script th:inline="javascript"
-		th:src="@{/admin/vendors/select2/select2.min.js}"></script>
-	<script th:inline="javascript"
-		th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+	</div> <!-- Plugin js for this page -->
+	<script th:inline="javascript" th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
 	<!-- Custom js for this page -->
-	<script th:inline="javascript"
-		th:src="@{/admin/vendors/js/file-upload.js}">
-		
-	</script>
+	<script th:inline="javascript" th:src="@{/admin/vendors/js/file-upload.js}"> </script>
 	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
-	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
-	<!-- angular -->
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
-	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
-
-
+	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script> <!-- angular -->
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/supplier.js}"></script>
 </body>
+
 </html>

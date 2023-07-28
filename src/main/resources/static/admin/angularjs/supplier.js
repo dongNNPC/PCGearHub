@@ -6,14 +6,14 @@
 
          // Định nghĩa controller cho ứng dụng
          app.controller("ctrl", function ($scope, $http, $window) {
-	// Khởi tạo biến $scope.pageCount, $scope.brand, và $scope.items
+	// Khởi tạo biến $scope.pageCount, $scope.supplier, và $scope.items
 	$scope.pageCount;
-	$scope.brand = {};
+	$scope.supplier = {};
 	$scope.items = [];
 
 	// Hàm load_all thực hiện tải danh sách danh mục từ máy chủ
 	$scope.load_all = function () {
-		var url = `${host}/brand`;
+		var url = `${host}/supplier`;
 
 		// Gửi yêu cầu GET đến máy chủ để lấy danh sách danh mục
 		$http.get(url).then(resp => {
@@ -34,7 +34,7 @@
 	// Hàm edit chuyển hướng người dùng đến trang chỉnh sửa danh mục với id tương ứng
 	$scope.edit = function (id) {
 		// Chuyển hướng đến trang chỉnh sửa danh mục bằng cách thay đổi địa chỉ URL
-		$window.location.href = '/pcgearhub/admin/form-brand/' + id;
+		$window.location.href = '/pcgearhub/admin/form-supplier/' + id;
 	}
 
 	//Thực hiện tải toàn bộ danh mục khi trang được tải
@@ -78,15 +78,15 @@
 });
 
 /**
- * Controller cho chức năng quản lý danh mục (brands).
+ * Controller cho chức năng quản lý danh mục (supplier).
  */
 
          // Định nghĩa controller và các dependencies ($scope, $location, $http)
          app.controller("loadForm", function ($scope, $location, $http) {
-	// Khởi tạo biến $scope.pageCount, $scope.brand, $scope.items
-	$scope.pageCount;	
-	$scope.brand = {};
-	$scope.brand.image; // Khởi tạo trường image của brand
+	// Khởi tạo biến $scope.pageCount, $scope.supplier, $scope.items
+	$scope.pageCount;
+	$scope.supplier = {};
+	$scope.supplier.image; // Khởi tạo trường image của supplier
 	$scope.items = [];
 
 	$scope.oneImage;
@@ -104,16 +104,16 @@
 	}
 
 	/*reset*/
-	// Hàm reset dùng để reset biến $scope.brand và gọi lại hàm load_all để tải lại danh sách danh mục
+	// Hàm reset dùng để reset biến $scope.supplier và gọi lại hàm load_all để tải lại danh sách danh mục
 	$scope.reset = () => {
-		$scope.brand = { confirm: true, status: true, admin: false };
+		$scope.supplier = { confirm: true, status: true, admin: false };
 		$scope.load_all();
 	};
 
 	/*load all*/
 	// Hàm load_all dùng để tải danh sách danh mục từ máy chủ và gán vào biến $scope.items
 	$scope.load_all = function () {
-		var url = `${host}/brand`;
+		var url = `${host}/supplier`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
@@ -129,28 +129,28 @@
 	};
 
 	/*edit*/
-	// Hàm edit dùng để tải thông tin danh mục có id tương ứng và gán vào biến $scope.brand
+	// Hàm edit dùng để tải thông tin danh mục có id tương ứng và gán vào biến $scope.supplier
 	$scope.edit = function () {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
 		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
 		const id = parts[parts.length - 1];
-		var url = `${host}/brand/${id}`;
+		var url = `${host}/supplier/${id}`;
 		$http.get(url).then(resp => {
-			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.brand
-			$scope.brand = resp.data;
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.supplier
+			$scope.supplier = resp.data;
 			console.log("Success", resp);
 		}).catch(error => {
 			console.log("Error", error);
 		});
 	};
 
-	// Hàm validation dùng để kiểm tra trường ID của brand có trùng lặp hay không
+	// Hàm validation dùng để kiểm tra trường ID của supplier có trùng lặp hay không
 	$scope.validation = function () {
-		var item = angular.copy($scope.brand);
+		var item = angular.copy($scope.supplier);
 		// Kiểm tra trùng lặp 
-		var indexID = $scope.items.findIndex(item => item.id === $scope.brand.id);
+		var indexID = $scope.items.findIndex(item => item.id === $scope.supplier.id);
 		if (indexID !== -1) {
 			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
 			$scope.showErrorID = true;
@@ -170,8 +170,8 @@
 
 	// Hàm create dùng để thêm danh mục mới vào máy chủ
 	$scope.create = function () {
-		var item = angular.copy($scope.brand);
-		var url = `${host}/brand`;
+		var item = angular.copy($scope.supplier);
+		var url = `${host}/supplier`;
 
 		if ($scope.validation() == false) {
 			return;
@@ -199,12 +199,12 @@
 
 	// Hàm update dùng để cập nhật thông tin danh mục
 	$scope.update = function () {
-		var item = angular.copy($scope.brand);
-		var url = `${host}/brand/${$scope.brand.id}`;
+		var item = angular.copy($scope.supplier);
+		var url = `${host}/supplier/${$scope.supplier.id}`;
 		$http.put(url, item).then(resp => {
 			/*Cập nhật lại danh mục trong mảng items*/
 			/*Tìm xem index so sánh ID cũ và ID trên form*/
-			var index = $scope.items.findIndex(item => item.id == $scope.brand.id);
+			var index = $scope.items.findIndex(item => item.id == $scope.supplier.id);
 
 			/*Tìm được vị trí thì cập nhật lại danh mục*/
 			$scope.items[index] = resp.data;
@@ -227,9 +227,9 @@
 
 	// Hàm delete dùng để xóa danh mục có id tương ứng
 	$scope.delete = function (id) {
-		var url = `${host}/brand/${id}`;
+		var url = `${host}/supplier/${id}`;
 		$http.delete(url).then(resp => {
-			var index = $scope.items.findIndex(item => item.id == $scope.brand.id);
+			var index = $scope.items.findIndex(item => item.id == $scope.supplier.id);
 			// Tại vị trí index xóa 1 phần tử trong mảng items
 			$scope.items.splice(index, 1);
 			$scope.reset();
