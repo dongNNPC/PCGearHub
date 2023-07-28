@@ -29,17 +29,20 @@ public class AdminController {
 		return "/admin/views/form-user";
 	}
 
-	@RequestMapping("/form-product")
-	public String formProduct() {
+	@RequestMapping("/form-product/{id}")
+	public String formProduct(Model model, @PathVariable("id") String key) {
 
 		return "/admin/views/form-product";
 	}
 
 //Table
 	@RequestMapping("/table-user")
-	public String tableUsser() {
-
+	public String tableUser(Model model) {
 		return "/admin/views/table-user";
+	}
+		@RequestMapping("/table-product")
+	public String tableProduct(Model model) {
+		return "/admin/views/table-product";
 	}
 
 }

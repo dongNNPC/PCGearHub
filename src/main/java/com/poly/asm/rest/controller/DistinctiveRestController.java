@@ -25,7 +25,7 @@ public class DistinctiveRestController {
 	@Autowired
 	DistinctiveRepository dao;
 
-	@GetMapping("/rest/distinctive")
+	@GetMapping("/rest/distinctives")
 	public ResponseEntity<List<Distinctive>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}

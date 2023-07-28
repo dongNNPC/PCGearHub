@@ -25,7 +25,7 @@ public class StockReceiptStockReceiptRestController {
 	@Autowired
 	StockReceiptRepository dao;
 
-	@GetMapping("/rest/stockReceipt")
+	@GetMapping("/rest/stockReceipts")
 	public ResponseEntity<List<StockReceipt>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}

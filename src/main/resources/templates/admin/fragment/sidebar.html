@@ -65,17 +65,62 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false" aria-controls="ui-user">
               <span class="menu-icon">
                 <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Quản Lý Chung</span>
+              <span class="menu-title">Quản Lý Người Dùng</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="ui-user">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-user}">Quản lý người dùng</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-user/null}">Form nhập liệu</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-product" aria-expanded="false" aria-controls="ui-product">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+              <span class="menu-title">Quản Lý Sản Phẩm</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-product">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-product/null}">Form nhập liệu</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false" aria-controls="ui-category">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+              <span class="menu-title">Quản Lý Danh mục</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-category">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Form nhập liệu</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-brand" aria-expanded="false" aria-controls="ui-brand">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+              <span class="menu-title">Quản Lý nhãn hàng</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-brand">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Form nhập liệu</a></li>
               </ul>
             </div>
           </li>
@@ -129,6 +174,8 @@
               </ul>
             </div>
           </li>
+
+          
           <li class="nav-item menu-items">
             <a class="nav-link" href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
               <span class="menu-icon">

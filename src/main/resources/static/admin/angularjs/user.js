@@ -87,7 +87,6 @@ app.controller("loadForm", function($scope, $location, $http) {
 	/*reset*/
 	$scope.reset = function() {
 		$scope.user = { confirm: true, status: true, admin: false };
-		$scope.load_all();
 	};
 	/*load all*/
 	$scope.load_all = function() {
@@ -172,9 +171,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			console.log("Success", resp);
 			// Ẩn thông báo lỗi nếu không có lỗi
 			$scope.hideError();
-
-
-
+			$scope.user = item;
 			$scope.successMessageModal = "Thêm người dùng thành công.";
 			// Hiển thị Modal thông báo thành công
 			$("#successModal").modal('show');

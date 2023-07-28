@@ -25,7 +25,7 @@ public class BrandRestController {
 	@Autowired
 	BrandRepository dao;
 
-	@GetMapping("/rest/brand")
+	@GetMapping("/rest/brands")
 	public ResponseEntity<List<Brand>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}

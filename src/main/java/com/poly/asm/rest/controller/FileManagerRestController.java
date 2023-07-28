@@ -27,7 +27,6 @@ public class FileManagerRestController {
 
 	@GetMapping("/rest/files/{folder}/{file}")
 	public byte[] dowload(@PathVariable("folder") String folder, @PathVariable("file") String file) {
-
 		return fileService.read(folder, file);
 	}
 
@@ -46,6 +45,7 @@ public class FileManagerRestController {
 		return fileService.list(folder);
 	}
 
+// 1 hình nền gọi thằng đến tên tấm hình đó
 	@GetMapping("/rest/files/{folder}/one/{filename}")
 	public List<String> getSingleImage(@PathVariable("folder") String folder,
 			@PathVariable("filename") String filename) {

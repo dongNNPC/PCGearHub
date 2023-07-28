@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.asm.model.Category;
 import com.poly.asm.model.Product;
 import com.poly.asm.respository.ProductRepository;
 
@@ -25,7 +26,7 @@ public class ProductRestController {
 	@Autowired
 	ProductRepository dao;
 
-	@GetMapping("/rest/product")
+	@GetMapping("/rest/products")
 	public ResponseEntity<List<Product>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
@@ -38,6 +39,21 @@ public class ProductRestController {
 
 		}
 		return ResponseEntity.ok(dao.findById(id).get());
+	}
+//	Tìm danh mục theo category
+
+	@GetMapping("/rest/product/{id}/category")
+	public ResponseEntity<Category> getCategoryByProductId(@PathVariable("id") String id) {
+		if (!dao.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
+
+		Category category = dao.findCategoryByProductId(id);
+		if (category == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		return ResponseEntity.ok(category);
 	}
 
 	@PostMapping("/rest/product")
