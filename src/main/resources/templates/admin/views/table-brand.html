@@ -1,0 +1,118 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+         th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+
+<head>
+         <meta charset="UTF-8">
+         <title>Insert title here</title>
+</head>
+
+<body>
+
+         <div class="main-panel">
+                  <div class="content-wrapper">
+                           <div class="page-header">
+                                    <h3 class="page-title">Basic Tables</h3>
+                                    <nav aria-label="breadcrumb">
+                                             <ol class="breadcrumb">
+                                                      <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                                                      <li class="breadcrumb-item active" aria-current="page">Basic
+                                                               tables</li>
+                                             </ol>
+                                    </nav>
+                           </div>
+                           <div class="row">
+
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                             <div class="card" ng-app="myApp">
+                                                      <div class="card-body" ng-controller="ctrl">
+                                                               <h4 class="card-title">Hoverable Table</h4>
+                                                               <p class="card-description">
+                                                                        Add class
+                                                                        <code>.table-hover</code>
+                                                               </p>
+                                                               <div class="table-responsive">
+                                                                        <table class="table table-hover">
+                                                                                 <thead>
+                                                                                          <tr>
+                                                                                                   <th
+                                                                                                            ng-click="sortBy('id')">
+                                                                                                            Tên Danh mục
+                                                                                                   </th>
+                                                                                                   <th
+                                                                                                            ng-click="sortBy('name')">
+                                                                                                            Loại Danh
+                                                                                                            mục </th>
+                                                                                                   <th
+                                                                                                            ng-click="sortBy('phoneNumber')">
+                                                                                                            Mô tả</th>
+                                                                                                   <th
+                                                                                                            ng-click="sortBy('email')">
+                                                                                                            Mô tả</th>
+                                                                                                   <th
+                                                                                                            ng-click="sortBy('address')">
+                                                                                                            Mô tả</th>
+
+                                                                                                   <th style="">Edit
+                                                                                                   </th>
+
+                                                                                          </tr>
+                                                                                 </thead>
+                                                                                 <tbody>
+                                                                                          <tr
+                                                                                                   ng-repeat="brand in items | orderBy:prop |limitTo:5:begin">
+                                                                                                   <td>{{brand.id}}
+                                                                                                   </td>
+                                                                                                   <td>{{brand.name}}
+                                                                                                   </td>
+                                                                                                   <td>{{brand.phoneNumber}}
+                                                                                                   <td>{{brand.email}}
+
+                                                                                                   <td>{{brand.address}}
+
+                                                                                                   </td>
+
+                                                                                                   <td
+                                                                                                            ng-click="edit(brand.id)">
+                                                                                                            <a href="#">edit
+                                                                                                            </a>
+                                                                                                   </td>
+                                                                                          </tr>
+                                                                                 </tbody>
+                                                                        </table>
+                                                                        <!-- Phần phân trang -->
+
+
+                                                               </div>
+                                                               <div class="row">
+                                                                        <div class="col-sm-4"></div>
+                                                                        <ul class="pagination col-sm-4">
+                                                                                 <li class="btn"><a href="#"
+                                                                                                   ng-click="first()"><i
+                                                                                                            class="fas fa-angle-double-left"></i></a>
+                                                                                 </li>
+                                                                                 <li class="btn"><a href="#"
+                                                                                                   ng-click="prev()"><i
+                                                                                                            class="fas fa-angle-left"></i></a>
+                                                                                 </li>
+                                                                                 <li class="btn"><a href="#"
+                                                                                                   ng-click="next()"><i
+                                                                                                            class="fas fa-angle-right"></i></a>
+                                                                                 </li>
+                                                                                 <li class="btn"><a href="#"
+                                                                                                   ng-click="last()"><i
+                                                                                                            class="fas fa-angle-double-right"></i></a>
+                                                                                 </li>
+                                                                        </ul>
+                                                                        <div class="col-sm-4"></div>
+                                                               </div>
+                                                      </div>
+                                             </div>
+                                    </div>
+                           </div>
+                  </div>
+         </div>
+         <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+         <script th:inline="javascript" th:src="@{/admin/angularjs/brand.js}"></script>
+</body>
+
+</html>
