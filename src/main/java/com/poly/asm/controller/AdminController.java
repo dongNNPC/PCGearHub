@@ -62,7 +62,7 @@ public class AdminController {
 	
 
 
-	// Form category
+
 
 	@RequestMapping("/form-supplier/{id}")
 	public String formSupplier(Model model, @PathVariable("id") String key) {
@@ -70,14 +70,14 @@ public class AdminController {
 		return "/admin/views/form-supplier";
 	}
 
-	// table category
+
 	@RequestMapping("/table-supplier")
 	public String tableSupplier() {
 
 		return "/admin/views/table-supplier";
 	}
 
-	// Form category
+
 
 	@RequestMapping("/form-brand/{id}")
 	public String formbrand(Model model, @PathVariable("id") String key) {
