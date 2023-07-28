@@ -77,5 +77,20 @@ public class AdminController {
 		return "/admin/views/table-supplier";
 	}
 
+	// Form category
+
+	@RequestMapping("/form-brand/{id}")
+	public String formbrand(Model model, @PathVariable("id") String key) {
+
+		return "/admin/views/form-brand";
+	}
+
+	// table category
+	@RequestMapping("/table-brand")
+	public String tablebrand() {
+
+		return "/admin/views/table-brand";
+	}
+
 
 }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body> <!--modal thư xóa  -->
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
+	<link rel="stylesheet" th:href="@{/admin/css/form-user.css}">
+	<link rel="stylesheet" th:href="@{/admin/css/style.css}"> <!-- Plugin css for this page -->
+	<link rel="stylesheet" th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
+		type="text/css" media="all">
+	<div class="content-wrapper" ng-app="myApp">
+		<div class="content-wrapper" ng-controller="loadForm">
+			<div class="page-header">
+				<h3 class="page-title">Chỉnh sửa Danh mục</h3>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Forms</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Form
+							elements</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="row">
+				<div class="col-md-6 grid-margin stretch-card ms-5">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Nhập thông tin</h4>
+							<hr style="background-color: white;">
+							<p class="card-description">Giao diện chỉnh sửa Danh mục
+							</p>
+							<form class="forms-sample">
+								<div class="form-group row"> <label
+										for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">ID</label>
+									<div class="col-sm-9">
+
+										<input type="text"
+											class="form-control"
+											ng-model="brand.id"
+											id="exampleInputUsername2"
+											placeholder="ID">
+										<!-- <p ng-show="showErrorID"
+											class="error-message">
+											{{errorMessage}}</p> -->
+									</div>
+								</div>
+								<div class="form-group row"> <label
+										for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">
+										Tên Thương hiệu</label>
+									<div class="col-sm-9">
+
+										<input type="text"
+											class="form-control"
+											ng-model="brand.name"
+											id="exampleInputUsername2"
+											placeholder="Tên Thương hiệuc">
+									</div>
+								</div>
+								<div class="form-group row"> <label
+										for="exampleInputUsername2"
+										class="col-sm-3 col-form-label">
+										Số Điện thoại</label>
+									<div class="col-sm-9">
+
+										<input type="text"
+											class="form-control"
+											ng-model="brand.phoneNumber"
+											id="exampleInputUsername2"
+											placeholder="SDT">
+									</div>
+								</div>
+
+								<div class="form-group row"> <label 
+										for="exampleInputdescription2"
+										class="col-sm-3 col-form-label">email</label>
+									<div class="col-sm-9">
+
+										<input type="email"
+											class="form-control"
+											ng-model="brand.email"
+											id="exampleInputdescription2"
+											placeholder="email">
+										<p ng-show="showErrordescription"
+											class="error-message">
+									</div>
+								</div>
+								<div class="form-group row"> <label
+										for="exampleInputdescription2"
+										class="col-sm-3 col-form-label">Địa
+										chỉ</label>
+									<div class="col-sm-9">
+
+										<input type="description"
+											class="form-control"
+											ng-model="brand.address"
+											id="exampleInputdescription2"
+											placeholder="Mô tả">
+										<p ng-show="showErrordescription"
+											class="error-message">
+									</div>
+								</div>
+								<hr style="background-color: white;"> <button
+									ng-click="create()" type="submit"
+									class="btn btn-primary mr-2">Thêm</button>
+								<button ng-click="update()" type="submit"
+									class="btn btn-success mr-2">Sửa</button>
+								<a href="#myModal" data-toggle="modal"><button
+										type="submit"
+										class="btn btn-danger mr-2">Xóa</button></a>
+								<button ng-click="reset()"
+									class="btn btn-dark">Làm mới</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div> <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
+			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content" style="background-color: #28a745">
+						<div class="modal-body">{{ successMessageModal }}</div>
+					</div>
+				</div>
+			</div> <!-- Modal cảnh báo HTML -->
+			<div id="myModal" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header flex-column">
+							<div class="icon-box"> <i
+									class="material-icons">&#xE5CD;</i>
+							</div>
+							<h4 class="modal-title w-100">Are you sure?</h4> <button
+								type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p>Do you really want to delete these records? This
+								process cannot be undone.</p>
+						</div>
+						<div class="modal-footer justify-content-center"> <button
+								type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancel</button> <button
+								ng-click="delete(brand.id)" type="submit"
+								class="btn btn-danger mr-2"
+								data-dismiss="modal">Xóa</button> </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- Plugin js for this page -->
+	<script th:inline="javascript" th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+	<!-- Custom js for this page -->
+	<script th:inline="javascript" th:src="@{/admin/vendors/js/file-upload.js}"> </script>
+	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script> <!-- angular -->
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/brand.js}"></script>
+</body>
+
+</html>
