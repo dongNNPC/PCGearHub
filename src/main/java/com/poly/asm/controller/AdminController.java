@@ -21,7 +21,7 @@ public class AdminController {
 		return "/admin/index";
 	}
 
-//Form
+	// Form
 
 	@RequestMapping("/form-user/{id}")
 	public String formUser(Model model, @PathVariable("id") String key) {
@@ -35,14 +35,12 @@ public class AdminController {
 		return "/admin/views/form-product";
 	}
 
-//Table
+	// Table
 	@RequestMapping("/table-user")
 	public String tableUsser() {
 
 		return "/admin/views/table-user";
 	}
-
-
 
 	// Form category
 
@@ -59,9 +57,6 @@ public class AdminController {
 		return "/admin/views/table-category";
 	}
 
-	
-
-
 	// Form category
 
 	@RequestMapping("/form-supplier/{id}")
@@ -77,5 +72,31 @@ public class AdminController {
 		return "/admin/views/table-supplier";
 	}
 
+	 // Form category
+
+	 @RequestMapping("/form-user_id/{id}")
+	 public String formuser_id(Model model, @PathVariable("id") String key) {
+
+	 return "/admin/views/form-user_id";
+	 }
+
+
+	@RequestMapping("/table-user_id")
+	public String tableuser_id() {
+
+		return "/admin/views/table-user_id";
+	}
+
+	@RequestMapping("/form-brand/{id}")
+	public String formubrand(Model model, @PathVariable("id") String key) {
+
+		return "/admin/views/form-brand";
+	}
+
+	@RequestMapping("/table-brand")
+	public String tablebrand() {
+
+		return "/admin/views/table-brand";
+	}
 
 }
