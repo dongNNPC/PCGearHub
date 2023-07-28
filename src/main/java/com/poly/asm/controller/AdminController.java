@@ -42,4 +42,40 @@ public class AdminController {
 		return "/admin/views/table-user";
 	}
 
+
+
+	// Form category
+
+	@RequestMapping("/form-category/{id}")
+	public String formCategory(Model model, @PathVariable("id") String key) {
+
+		return "/admin/views/form-category";
+	}
+
+	// table category
+	@RequestMapping("/table-category")
+	public String tableCategory() {
+
+		return "/admin/views/table-category";
+	}
+
+	
+
+
+	// Form category
+
+	@RequestMapping("/form-supplier/{id}")
+	public String formSupplier(Model model, @PathVariable("id") String key) {
+
+		return "/admin/views/form-supplier";
+	}
+
+	// table category
+	@RequestMapping("/table-supplier")
+	public String tableSupplier() {
+
+		return "/admin/views/table-supplier";
+	}
+
+
 }
