@@ -121,10 +121,10 @@
                       <span style="font-weight: bold;"><span style="color: red;">Lưu ý</span> : <span>tích vào các sản
                           phẩm mà bạn muốn thanh toán</span></span>
 
-                      <a type="button" class="btn btn-dark btn-block btn-lg" th:href="@{/pcgearhub/confirm-information}"
+                      <a  class="btn btn-dark btn-block btn-lg" 
                         data-mdb-ripple-color="dark"
                         style="background-color: red; color: white; margin-bottom: 10px; margin-top: 20px"
-                        ng-disabled="!hasCheckedItems()">Thanh toán</a>
+                        ng-click="getSelectedItems()" ng-disabled="!hasCheckedItems()">Thanh toán</a>
 
                     </div>
                   </div>
