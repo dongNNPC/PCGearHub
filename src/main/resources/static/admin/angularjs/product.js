@@ -163,17 +163,15 @@ app.controller("loadForm", function($scope, $location, $http) {
 			$scope.productsDistinctives = resp.data;
 
 			angular.forEach($scope.productsDistinctives, function(productDistinctive) {
-				// lọc những cái tên đã có rồi
+
 				var isIdExist = $scope.distinctives.some(function(item) {
 					return item.id === productDistinctive.distinctive.id;
 				});
-
-				// Nếu id không tồn tại, thêm receipt vào mảng brand
 				if (!isIdExist) {
-					$scope.productsDistinctives2.push(productDistinctive)
-					// Thêm tên các $scope.distinctives để lọc 
-					$scope.distinctives.push(productDistinctive.distinctive);
-					console.log($scope.productsDistinctives2)
+					if ($scope.product.id == productDistinctive.product.id) {
+						$scope.productsDistinctives2.push(productDistinctive)
+						$scope.distinctives.push(productDistinctive.distinctive);
+					}
 				}
 			}
 
@@ -228,8 +226,62 @@ app.controller("loadForm", function($scope, $location, $http) {
 		$scope.showErrorEmail = false;
 		$scope.errorMessage = "";
 	}
-	// Phần sản phẩm
 
+
+	/*selected đăt trưng*/
+	// Hàm để lấy các tùy chọn đã chọn và đưa vào mảng bên JavaScript
+	$scope.selectedOptions = [];
+	function getSelectedOptions() {
+		var selectElement = document.getElementById('distinctive');
+		var selectedOptions = [];
+		for (var i = 0; i < selectElement.options.length; i++) {
+			var option = selectElement.options[i];
+			if (option.selected) {
+				selectedOptions.push({
+					id: option.value,
+					name: option.text
+				});
+			}
+		}
+		return selectedOptions;
+	}
+
+	$scope.showSelectedOptions = function() {
+		$scope.selectedOptions = getSelectedOptions();
+		console.log($scope.selectedOptions);
+		$scope.selectedOptions.forEach(function(pds) {
+			console.log(pds);
+		});
+	};
+		/*selected phiếu nhập kho*/
+	// Hàm để lấy các tùy chọn đã chọn và đưa vào mảng bên JavaScript
+	$scope.stockOptions = [];
+	function getstockOptions() {
+		var selectElement = document.getElementById('stock');
+		var stockOptions = [];
+		for (var i = 0; i < selectElement.options.length; i++) {
+			var option = selectElement.options[i];
+			if (option.selected) {
+				stockOptions.push({
+					id: option.value,
+					name: option.text
+				});
+			}
+		}
+		return stockOptions;
+	}
+
+	$scope.showSelectedOptions = function() {
+		$scope.stockOptionsOptions = getstockOptions();
+		console.log($scope.selectedOptions);
+		$scope.stockOptions.forEach(function(pds) {
+			console.log(pds);
+		});
+	};
+
+
+
+	// Phần sản phẩm
 	$scope.create = function() {
 		// Thêm product và danh mục
 		var item = angular.copy($scope.product);
@@ -249,103 +301,89 @@ app.controller("loadForm", function($scope, $location, $http) {
 			// Tự động ẩn Modal sau 2 giây
 			// Hiển thị Modal thông báo lỗi mượt mà
 			showSuccessModal();
-			
-		// Thêm đặt trưng
-		var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/productDistinctive";
-		$scope.productsDistinctives2.forEach(function(pds) {
-			console.log(item.id)
-			console.log(item.name)
-			var newData = {
-				product: {
-					id: item.id,
-					name: item.name,
-					price: item.price,
-					quantity: item.quantity,
-					description: item.description,
-					image1: item.image1,
-					image2: item.image2,
-					status: true,
-					category: {
-						id: item.category.id,
-						name: item.category.name,
-						description: item.category.description
-					}
-				},
-				distinctive: pds.distinctive
 
-			};
-			
-
-			$http.post(distinctiveUrl, newData).then(resp => {
-				console.log("Success", resp);
-			}).catch(error => {
-				console.log("Error", error);
+			// Thêm đặt trưng
+			$scope.showSelectedOptions();
+			var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/productDistinctive";
+			$scope.selectedOptions.forEach(function(pds) {
+				console.log(pds.id)
+				console.log(pds.id)
+				console.log(pds.name)
+				var newData = {
+					product: {
+						id: item.id,
+						name: item.name,
+						price: item.price,
+						quantity: item.quantity,
+						description: item.description,
+						image1: item.image1,
+						image2: item.image2,
+						status: true,
+						category: {
+							id: item.category.id,
+							name: item.category.name,
+							description: item.category.description
+						}
+					},
+					distinctive: pds
+				};
+				$http.post(distinctiveUrl, newData).then(resp => {
+					console.log("Success", resp);
+				}).catch(error => {
+					console.log("Error", error);
+				});
 			});
-		});
-		
-		// Thêm phiếu nhập kho
+
+			// Thêm phiếu nhập kho
 			var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/stockReceipt/";
-		$scope.productsDistinctives2.forEach(function(pds) {
-			var newData = {
-				product: {
-					id: item.id,
-					name: item.name,
-					price: item.price,
-					quantity: item.quantity,
-					description: item.description,
-					image1: item.image1,
-					image2: item.image2,
-					status: true,
-					category: {
-						id: item.category.id,
-						name: item.category.name,
-						description: item.category.description
-					}
-				},
-				
-				distinctive: pds.distinctive
+			$scope.productsDistinctives2.forEach(function(pds) {
+				var newData = {
+					product: {
+						id: item.id,
+						name: item.name,
+						price: item.price,
+						quantity: item.quantity,
+						description: item.description,
+						image1: item.image1,
+						image2: item.image2,
+						status: true,
+						category: {
+							id: item.category.id,
+							name: item.category.name,
+							description: item.category.description
+						}
+					},
 
-			};
-			
+					distinctive: pds.distinctive
 
-			$http.post(distinctiveUrl, newData).then(resp => {
-				console.log("Success", resp);
-			}).catch(error => {
-				console.log("Error", error);
+				};
+
+
+				$http.post(distinctiveUrl, newData).then(resp => {
+					console.log("Success", resp);
+				}).catch(error => {
+					console.log("Error", error);
+				});
 			});
-		});
-			
-			
-			
-			
-			
-			
-			
 		}).catch(error => {
 			console.log("Error", error);
 		});
-
-	
-
-
-
-
 	};
-	
-  // Hàm xử lý khi có sự thay đổi trong select element
-    $scope.handleSelectedOption = function () {
-        // Lấy option đã chọn thông qua ng-selected
-        var selectedOption = $scope.stockReceipts2.find(function (stockReceipt) {
-            return stockReceipt.brand.id === $scope.selectedBrandId;
-        });
 
-        // Xử lý dữ liệu đã chọn ở đây (ví dụ: gửi request lên server, thực hiện tính toán, v.v.)
-        if (selectedOption) {
-            console.log("Thông tin của stockReceipt đã chọn:");
-            console.log("Tên:", selectedOption.brand.name);
-            console.log("ID:", selectedOption.brand.id);
-        }
-    };
+	// Hàm xử lý khi có sự thay đổi trong select element
+	$scope.handleSelectedOption = function() {
+		// Lấy option đã chọn thông qua ng-selected
+		var selectedOption = $scope.stockReceipts2.find(function(stockReceipt) {
+			return stockReceipt.brand.id === $scope.selectedBrandId;
+		});
+
+		// Xử lý dữ liệu đã chọn ở đây (ví dụ: gửi request lên server, thực hiện tính toán, v.v.)
+		if (selectedOption) {
+			console.log("Thông tin của stockReceipt đã chọn:");
+			console.log("Tên:", selectedOption.brand.name);
+			console.log("ID:", selectedOption.brand.id);
+		}
+	};
 
 	$scope.update = function() {
 		var item = angular.copy($scope.product);
