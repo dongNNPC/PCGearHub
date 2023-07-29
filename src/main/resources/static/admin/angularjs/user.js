@@ -212,6 +212,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 	}
 
 	$scope.delete = function(id) {
+		console.log("-----------------------------------")
 		var url = `${host}/users/${id}`;
 		$http.delete(url).then(resp => {
 

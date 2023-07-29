@@ -225,6 +225,7 @@
                       >Nhãn hàng</label
                     >
                     <select
+                    id="brand"
                       class="form-select form-check col-4 ms-2"
                       style="
                         background-color: black;
@@ -236,11 +237,12 @@
                       <option
                         ng-repeat="stockReceipt in stockReceipts2"
                         ng-selected="product.id === stockReceipt.product.id"
-                        value="{{stockReceipt.brand.id}}"
+                        value="{{stockReceipt.brand}}"
                       >
                         {{stockReceipt.brand.name}}
                       </option>
                     </select>
+                     <!--   <button ng-click="showBrandOptions()">Hiển thị mảng</button> -->
                   </div>
 
                   <div class="row form-group">
@@ -249,7 +251,8 @@
                       class="col-sm-3 col-form-label"
                       >Nhà Cung Cấp</label
                     >
-                    <select
+                    <select 
+                    id="supplier"
                       class="form-select form-check col-4 ms-2"
                       style="
                         background-color: black;
@@ -261,11 +264,13 @@
                       <option
                         ng-repeat="stockReceipt in stockReceipts2"
                         ng-selected="product.id === stockReceipt.product.id"
-                        value="{{stockReceipt.supplier.id}}"
+                        value="{{stockReceipt.supplier}}"
                       >
                         {{stockReceipt.supplier.name}}
                       </option>
+                      
                     </select>
+                    <!--  <button ng-click="showSupplierOptions()">Hiển thị mảng</button> -->
                   </div>
 
                   <div class="form-group">
@@ -280,12 +285,11 @@
                         ng-repeat="distinctive in productsDistinctives2"
                         ng-selected="product.id == distinctive.product.id"
                         value="{{distinctive.distinctive.id}}"
-                        onmousedown="addToSelectedOptions(this)"
                       >
                         {{distinctive.distinctive.name}}
                       </option>
                     </select>
-                     <button ng-click="showSelectedOptions()">Hiển thị mảng</button>
+                    <!--  <button ng-click="showSelectedOptions()">Hiển thị mảng</button> -->
                   </div>
 
                   <hr style="background-color: white" />
@@ -304,11 +308,11 @@
                     Sửa
                   </button>
 
-                  <a href="#myModal" data-toggle="modal"
+              <!--     <a href="#myModal" data-toggle="modal"
                     ><button type="submit" class="btn btn-danger mr-2">
                       Xóa
                     </button></a
-                  >
+                  > -->
                   <button ng-click="reset()" class="btn btn-dark">
                     Làm mới
                   </button>

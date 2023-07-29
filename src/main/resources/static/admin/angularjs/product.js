@@ -157,25 +157,37 @@ app.controller("loadForm", function($scope, $location, $http) {
 
 	// Phần Đặt trưng
 
+	$scope.itemDistinctiveDelete = [];
+
 	$scope.listProductDistinctive = function() {
 		var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/productDistinctives";
 		$http.get(distinctiveUrl).then(resp => {
 			$scope.productsDistinctives = resp.data;
-
 			angular.forEach($scope.productsDistinctives, function(productDistinctive) {
-
 				var isIdExist = $scope.distinctives.some(function(item) {
 					return item.id === productDistinctive.distinctive.id;
 				});
 				if (!isIdExist) {
 					if ($scope.product.id == productDistinctive.product.id) {
 						$scope.productsDistinctives2.push(productDistinctive)
+						$scope.itemDistinctiveDelete.push(productDistinctive)
 						$scope.distinctives.push(productDistinctive.distinctive);
 					}
+
 				}
 			}
-
 			);
+			angular.forEach($scope.productsDistinctives, function(productDistinctive) {
+				var isIdExist = $scope.distinctives.some(function(item) {
+					return item.id === productDistinctive.distinctive.id;
+				});
+				if (!isIdExist) {
+					$scope.productsDistinctives2.push(productDistinctive)
+					$scope.distinctives.push(productDistinctive.distinctive);
+				}
+			}
+			);
+
 
 			console.log("Success", resp);
 		}).catch(error => {
@@ -197,10 +209,30 @@ app.controller("loadForm", function($scope, $location, $http) {
 
 				// Nếu id không tồn tại, thêm receipt vào mảng brand và thêm receipt(nhiều) thành stockReceipts2(một)
 				if (!isIdExist) {
-					$scope.stockReceipts2.push(receipt)
-					$scope.brands.push(receipt.brand);
+					if ($scope.product.id == receipt.product.id) {
+						$scope.stockReceipts2.push(receipt)
+						$scope.brands.push(receipt.brand);
+					}
+
 				}
 			});
+
+			angular.forEach($scope.stockReceipts, function(receipt) {
+				// lọc những cái tên đã có rồi
+				var isIdExist = $scope.brands.some(function(item) {
+					return item.id === receipt.brand.id;
+				});
+
+				// Nếu id không tồn tại, thêm receipt vào mảng brand và thêm receipt(nhiều) thành stockReceipts2(một)
+				if (!isIdExist) {
+
+					$scope.stockReceipts2.push(receipt)
+					$scope.brands.push(receipt.brand);
+
+
+				}
+			});
+
 			console.log("Success", resp);
 		}).catch(error => {
 			console.log("Error", error);
@@ -253,30 +285,49 @@ app.controller("loadForm", function($scope, $location, $http) {
 			console.log(pds);
 		});
 	};
-		/*selected phiếu nhập kho*/
+	/*selected nhà cung cấp  */
 	// Hàm để lấy các tùy chọn đã chọn và đưa vào mảng bên JavaScript
-	$scope.stockOptions = [];
-	function getstockOptions() {
-		var selectElement = document.getElementById('stock');
-		var stockOptions = [];
+	$scope.supplierOptions = {};
+	function getSupplierOptions() {
+		var selectElement = document.getElementById('supplier');
+
+		var supplierOptions = {}; // Đã sửa thành một biến cục bộ (local variable) là một đối tượng rỗng
 		for (var i = 0; i < selectElement.options.length; i++) {
 			var option = selectElement.options[i];
-			if (option.selected) {
-				stockOptions.push({
-					id: option.value,
-					name: option.text
-				});
-			}
+			var supplier = option.value;
+			supplierOptions = supplier
 		}
-		return stockOptions;
+		var supplierObject = JSON.parse(supplierOptions);
+		return supplierObject;
 	}
 
-	$scope.showSelectedOptions = function() {
-		$scope.stockOptionsOptions = getstockOptions();
-		console.log($scope.selectedOptions);
-		$scope.stockOptions.forEach(function(pds) {
-			console.log(pds);
-		});
+
+	$scope.showSupplierOptions = function() {
+		$scope.supplierOptions = getSupplierOptions();
+		console.log($scope.supplierOptions);
+	};
+
+	/*selected nhản hàng  */
+	// Hàm để lấy các tùy chọn đã chọn và đưa vào mảng bên JavaScript
+	function getBrandOptions() {
+		var selectElement = document.getElementById('brand');
+		var brandOptions = {}; // Đã sửa thành một biến cục bộ (local variable) là một đối tượng rỗng
+		for (var i = 0; i < selectElement.options.length; i++) {
+			var option = selectElement.options[i];
+
+			var brand = option.value;
+			brandOptions = brand
+		}
+		var brandObject = JSON.parse(brandOptions);
+		return brandObject;
+	}
+
+
+	$scope.brandOptions = {}
+
+	$scope.showBrandOptions = function() {
+		$scope.brandOptions = getBrandOptions();
+		console.log($scope.brandOptions);
 	};
 
 
@@ -286,6 +337,8 @@ app.controller("loadForm", function($scope, $location, $http) {
 		// Thêm product và danh mục
 		var item = angular.copy($scope.product);
 		var url = `${host}/product`;
+		item.image1 = $scope.fileNames[0]
+		item.image2 = $scope.fileNames[1]
 		if ($scope.validation() == false) {
 			return
 		}
@@ -335,36 +388,51 @@ app.controller("loadForm", function($scope, $location, $http) {
 			});
 
 			// Thêm phiếu nhập kho
-			var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/stockReceipt/";
-			$scope.productsDistinctives2.forEach(function(pds) {
-				var newData = {
-					product: {
-						id: item.id,
-						name: item.name,
-						price: item.price,
-						quantity: item.quantity,
-						description: item.description,
-						image1: item.image1,
-						image2: item.image2,
-						status: true,
-						category: {
-							id: item.category.id,
-							name: item.category.name,
-							description: item.category.description
-						}
-					},
+			var stockUrl = "http://localhost:8088/pcgearhub/rest/stockReceipt";
+			var brand = getBrandOptions();
+			var supplier = getSupplierOptions();
+			var currentDate = new Date();
+			var year = currentDate.getFullYear();
+			var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Thêm số 0 vào trước tháng nếu cần
+			var day = currentDate.getDate().toString().padStart(2, '0'); // Thêm số 0 vào trước ngày nếu cần
 
-					distinctive: pds.distinctive
+			var formattedDate = year + '-' + month + '-' + day;
 
-				};
+			console.log(formattedDate);
 
 
-				$http.post(distinctiveUrl, newData).then(resp => {
-					console.log("Success", resp);
-				}).catch(error => {
-					console.log("Error", error);
-				});
+			var newData = {
+				product: {
+					id: item.id,
+					name: item.name,
+					price: item.price,
+					quantity: item.quantity,
+					description: item.description,
+					image1: item.image1,
+					image2: item.image2,
+					status: true,
+					category: {
+						id: item.category.id,
+						name: item.category.name,
+						description: item.category.description
+					}
+				},
+
+				brand: brand,
+				supplier: supplier,
+				price: item.price,
+				quantity: item.quantity,
+				orderDate: formattedDate
+
+			};
+
+
+			$http.post(stockUrl, newData).then(resp => {
+				console.log("Success", resp);
+			}).catch(error => {
+				console.log("Error", error);
 			});
+			;
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -388,14 +456,57 @@ app.controller("loadForm", function($scope, $location, $http) {
 	$scope.update = function() {
 		var item = angular.copy($scope.product);
 		var url = `${host}/product/${$scope.product.id}`;
+		item.image1 = $scope.fileNames[0]
+		item.image2 = $scope.fileNames[1]
 		$http.put(url, item).then(resp => {
-			/*Cập nhật lại sinh viên trong mảng*/
-			/*Tìm xem index so sánh email cũ và emial trên form*/
 			var index = $scope.items.findIndex(item => item.id == $scope.product.id)
 
 			/*Tìm được vị trí thì cập nhật lại sinh viên*/
 			$scope.items[index] = resp.data;
 			console.log("Success", resp);
+
+			angular.forEach($scope.itemDistinctiveDelete, function(distinctive) {
+				var url = `${host}/productDistinctive/${distinctive.id}`;
+				$http.delete(url).then(resp => {
+					console.log("Xóa thành công", resp)
+				}).catch(error => {
+					console.log("Error", error);
+				});
+			});
+			// Thêm đặt trưng
+			$scope.showSelectedOptions();
+			var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/productDistinctive";
+			$scope.selectedOptions.forEach(function(pds) {
+				console.log(pds.id)
+				console.log(pds.id)
+				console.log(pds.name)
+				var newData = {
+					product: {
+						id: item.id,
+						name: item.name,
+						price: item.price,
+						quantity: item.quantity,
+						description: item.description,
+						image1: item.image1,
+						image2: item.image2,
+						status: true,
+						category: {
+							id: item.category.id,
+							name: item.category.name,
+							description: item.category.description
+						}
+					},
+					distinctive: pds
+				};
+				$http.post(distinctiveUrl, newData).then(resp => {
+					console.log("Success", resp);
+				}).catch(error => {
+					console.log("Error", error);
+				});
+			});
+
+
+
 			/*Thông báo thành công*/
 			$scope.successMessageModal = "Cập nhật người dùng thành công.";
 			// Hiển thị Modal thông báo thành công
@@ -466,6 +577,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			headers: { 'Content-Type': undefined }
 		}).then(resp => {
 			$scope.fileNames = [];
+			console.log($scope.fileNames)
 			$scope.fileNames.push(...resp.data)
 		}).catch(error => {
 			console.log("Errors", error)

@@ -43,9 +43,6 @@ public class StockReceiptStockReceiptRestController {
 	@PostMapping("/rest/stockReceipt")
 //	đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<StockReceipt> post(@RequestBody StockReceipt stockReceipt) {
-		if (dao.existsById(stockReceipt.getId())) {
-			return ResponseEntity.badRequest().build();
-		}
 		dao.save(stockReceipt);
 		return ResponseEntity.ok(stockReceipt);
 	}
