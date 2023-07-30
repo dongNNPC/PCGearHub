@@ -20,10 +20,12 @@ import com.poly.asm.model.Category;
 import com.poly.asm.model.Product;
 import com.poly.asm.respository.ProductRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class ProductRestController {
+public class ProductRestController extends HttpServlet {
 	@Autowired
 	ProductRepository dao; 
 

@@ -1,11 +1,11 @@
-         // Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
-         let host = "http://localhost:8088/pcgearhub/rest";
+// Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
+let host = "http://localhost:8088/pcgearhub/rest";
 
-         // Tạo ứng dụng AngularJS và đặt tên là "myApp"
-         const app = angular.module("myApp", []);
+// Tạo ứng dụng AngularJS và đặt tên là "myApp"
+const app = angular.module("myApp", []);
 
-         // Định nghĩa controller cho ứng dụng
-         app.controller("ctrl", function ($scope, $http, $window) {
+// Định nghĩa controller cho ứng dụng
+app.controller("ctrl", function ($scope, $http, $window) {
 	// Khởi tạo biến $scope.pageCount, $scope.categorie, và $scope.items
 	$scope.pageCount;
 	$scope.categorie = {};
@@ -81,8 +81,8 @@
  * Controller cho chức năng quản lý danh mục (categories).
  */
 
-         // Định nghĩa controller và các dependencies ($scope, $location, $http)
-         app.controller("loadForm", function ($scope, $location, $http) {
+// Định nghĩa controller và các dependencies ($scope, $location, $http)
+app.controller("loadForm", function ($scope, $location, $http) {
 	// Khởi tạo biến $scope.pageCount, $scope.category, $scope.items
 	$scope.pageCount;
 	$scope.category = {};
@@ -151,6 +151,12 @@
 		var item = angular.copy($scope.category);
 		// Kiểm tra trùng lặp 
 		var indexID = $scope.items.findIndex(item => item.id === $scope.category.id);
+		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		if (!$scope.category.id || $scope.category.id.trim() === '') {
+			$scope.errorMessage = "ID không được bỏ trống.";
+			$scope.showErrorID = true;
+			return false;
+		}
 		if (indexID !== -1) {
 			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
 			$scope.showErrorID = true;
@@ -159,8 +165,17 @@
 			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
+		if (specialChars.test($scope.category.id)) {
+			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+			$scope.showErrorID = true;
+			return false;
+		}
 		return true;
 	};
+
+
+
+
 
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {

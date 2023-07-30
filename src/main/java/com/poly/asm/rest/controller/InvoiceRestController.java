@@ -20,10 +20,12 @@ import com.poly.asm.controller.service.OrderService;
 import com.poly.asm.model.Invoice;
 import com.poly.asm.respository.InvoiceRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class InvoiceRestController {
+public class InvoiceRestController extends HttpServlet {
 	@Autowired
 	InvoiceRepository dao;
 

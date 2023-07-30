@@ -55,15 +55,14 @@ public class AdminController {
 		return "/admin/views/table-category";
 	}
 
-	// Form category
-
+	
 	@RequestMapping("/form-supplier/{id}")
 	public String formSupplier(Model model, @PathVariable("id") String key) {
 
 		return "/admin/views/form-supplier";
 	}
 
-	// table category
+
 	@RequestMapping("/table-supplier")
 	public String tableSupplier() {
 
@@ -84,16 +83,35 @@ public class AdminController {
 		return "/admin/views/table-user_id";
 	}
 
+
+
 	@RequestMapping("/form-brand/{id}")
-	public String formubrand(Model model, @PathVariable("id") String key) {
+	public String formbrand(Model model, @PathVariable("id") String key) {
 
 		return "/admin/views/form-brand";
 	}
 
+	// table brand
 	@RequestMapping("/table-brand")
 	public String tablebrand() {
 
 		return "/admin/views/table-brand";
 	}
+
+
+	
+	@RequestMapping("/form-Distinctive/{id}")
+	public String formDistinctive(Model model, @PathVariable("id") String key) {
+
+		return "/admin/views/form-Distinctive";
+	}
+
+	// table category
+	@RequestMapping("/table-Distinctive")
+	public String tableDistinctive() {
+
+		return "/admin/views/table-Distinctive";
+	}
+
 
 }
