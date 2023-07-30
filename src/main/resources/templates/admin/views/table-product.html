@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="page-header">
@@ -33,32 +34,30 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th ng-click="sortBy('id')">Mã người dùng</th>
-											<th ng-click="sortBy('name')">Tên người dùng	</th>
+											<!-- <th ng-click="sortBy('id')">Mã Sản Phẩm</th> -->
+											<th ng-click="sortBy('name')">Tên Sản phẩm </th>
 											<!-- <th ng-click="sortBy('phone')">Số điện thoại	</th> -->
-											<th ng-click="sortBy('email')">Email</th>
+											<th ng-click="sortBy('quantity')">Số lượng</th>
 										
-											<th ng-click="sortBy('image')">Hình ảnh</th>
-											<th ng-click="sortBy('admin')">Chức vụ</th>
+											<th ng-click="sortBy('price')">Giá</th>
 											<th ng-click="sortBy('status')">Trạng thái</th>
-											<th ng-click="sortBy('confirm')">Tài khoản</th>
-									<th style="">Edit</th>
+											<th ng-click="sortBy('category')">Tên danh mục</th>
+									<th>Edit</th>
 											
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="user in items | orderBy:prop |limitTo:5:begin">
-											<td>{{user.id}}</td>
-											<td>{{user.name}}</td>
-										<!-- 	<td>{{user.phone}}</td> -->
-											<td>{{user.email}}</td>
-											<td>{{user.image}}</td>
-											<td>{{user.admin}}</td>
-											<td>{{user.status}}</td>
-											<td>{{user.confirm}}</td>
+										<tr ng-repeat="product in items | orderBy:prop |limitTo:5:begin">
+											<!-- <td>{{product.id}}</td> -->
+											<td>{{product.name}}</td>
+											<td>{{product.quantity}}</td>
+											<td>{{product.price}}</td>
+											<td>{{product.status}}</td>
+											<td>{{product.category.name}}</td>
+											<!-- <td>{{user.distinctives}}</td> -->
 											
 								<!-- 	<td><a ng-click="edit(user.id)" th:href="@{|/pcgearhub/admin/form-user/{{user.id}}|}" class="btn btn-primary">Edit</a></td> -->
-									<td ng-click="edit(user.id)"><a href="#">edit </a></td>
+									<td ng-click="edit(product.id)"><a href="#">edit </a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -84,6 +83,6 @@
 	</div>
 	<script
 		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
-	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/product.js}"></script>
 </body>
 </html>

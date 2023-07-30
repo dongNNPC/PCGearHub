@@ -106,8 +106,11 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	/*reset*/
 	// Hàm reset dùng để reset biến $scope.category và gọi lại hàm load_all để tải lại danh sách danh mục
 	$scope.reset = () => {
-		$scope.category = { confirm: true, status: true, admin: false };
-		$scope.load_all();
+		$scope.category = { id: "", name: "",description: ""};
+		// Ẩn thông báo lỗi
+		$scope.showError = false;
+		$scope.errorMessage = "";
+	
 	};
 
 	/*load all*/

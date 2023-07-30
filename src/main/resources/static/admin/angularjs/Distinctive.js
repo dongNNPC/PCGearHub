@@ -30,7 +30,7 @@ app.controller("ctrl", function ($scope, $http, $window) {
 		});
 	};
 
-	/*edit*/
+
 	// Hàm edit chuyển hướng người dùng đến trang chỉnh sửa danh mục với id tương ứng
 	$scope.edit = function (id) {
 		// Chuyển hướng đến trang chỉnh sửa danh mục bằng cách thay đổi địa chỉ URL
@@ -40,14 +40,12 @@ app.controller("ctrl", function ($scope, $http, $window) {
 	//Thực hiện tải toàn bộ danh mục khi trang được tải
 	$scope.load_all();
 
-	/*Thực hiện sắp xếp*/
+
 
 	// Hàm sortBy sắp xếp danh sách danh mục dựa trên thuộc tính được chỉ định (prop)
 	$scope.sortBy = function (prop) {
 		$scope.prop = prop;
 	}
-
-	// Khởi tạo biến $scope.begin và $scope.pageCount
 	$scope.begin = 0;
 	$scope.pageCount = Math.ceil($scope.items.length / 5);
 	console.log($scope.pageCount);
@@ -77,19 +75,14 @@ app.controller("ctrl", function ($scope, $http, $window) {
 	}
 });
 
-/**
- * Controller cho chức năng quản lý danh mục (distinctive).
- */
-
 // Định nghĩa controller và các dependencies ($scope, $location, $http)
 app.controller("loadForm", function ($scope, $location, $http) {
 	// Khởi tạo biến $scope.pageCount, $scope.distinctive, $scope.items
 	$scope.pageCount;
 	$scope.distinctive = {};
-	$scope.distinctive.image; // Khởi tạo trường image của distinctive
 	$scope.items = [];
 
-	$scope.oneImage;
+
 	$scope.errorMessage = "";
 	$scope.successMessageModal = "";
 
@@ -103,14 +96,18 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		$("#successModal").modal('hide');
 	}
 
-	/*reset*/
+
 	// Hàm reset dùng để reset biến $scope.distinctive và gọi lại hàm load_all để tải lại danh sách danh mục
 	$scope.reset = () => {
-		$scope.distinctive = { confirm: true, status: true, admin: false };
-		$scope.load_all();
+		$scope.distinctive = { id: "", name: "" };
+		// Ẩn thông báo lỗi
+		$scope.showErrorId = false;
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
 	};
 
-	/*load all*/
+
 	// Hàm load_all dùng để tải danh sách danh mục từ máy chủ và gán vào biến $scope.items
 	$scope.load_all = function () {
 		var url = `${host}/distinctive`;
@@ -149,46 +146,55 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	// Hàm validation dùng để kiểm tra trường ID của distinctive có trùng lặp hay không
 	$scope.validation = function () {
 		var item = angular.copy($scope.distinctive);
-		// Kiểm tra trùng lặp 
-		var indexID = $scope.items.findIndex(item => item.id === $scope.distinctive.id);
-		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		$scope.showErrorID = false;
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
+
 		if (!$scope.distinctive.id || $scope.distinctive.id.trim() === '') {
-			$scope.errorMessage = "ID không được bỏ trống.";
+			$scope.errorMessageID = "Mã không được bỏ trống.";
 			$scope.showErrorID = true;
-			return false;
-		}
-		if (indexID !== -1) {
-			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
+
+		} else if (/[^a-zA-Z0-9]/.test($scope.distinctive.id)) {
+			$scope.errorMessageID = "Mã không được chứa kí tự đặc biệt.";
 			$scope.showErrorID = true;
-			return false;
-		} else {
-			$scope.showErrorID = false;
-			$scope.errorMessageID = "";
 		}
-		if (specialChars.test($scope.distinctive.id)) {
-			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+
+		if (!$scope.distinctive.name || $scope.distinctive.name.trim() === '') {
+			$scope.errorMessageName = "Tên đặc trưng không được bỏ trống.";
+			$scope.showErrorName = true;
+		}
+
+		// Check for duplicates in the items array
+		var duplicateIndex = $scope.items.findIndex(function (item) {
+			return item.id === $scope.distinctive.id;
+		});
+
+		if (duplicateIndex !== -1) {
+			$scope.errorMessageID = "Mã đã tồn tại. Vui lòng chọn mã khác.";
 			$scope.showErrorID = true;
-			return false;
 		}
-		return true;
+		//
+
+
+		return !$scope.showErrorID && !$scope.showErrorName;
 	};
-
-
-
-
 
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {
 		$scope.showErrorID = false;
-		$scope.errorMessage = "";
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
 	};
 
-	// Hàm create dùng để thêm danh mục mới vào máy chủ
+
 	$scope.create = function () {
 		var item = angular.copy($scope.distinctive);
 		var url = `${host}/distinctive`;
 
-		if ($scope.validation() == false) {
+		// Kiểm tra dữ liệu trước khi thêm
+		if (!$scope.validation()) {
 			return;
 		}
 
@@ -200,7 +206,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			// Ẩn thông báo lỗi nếu không có lỗi
 			$scope.hideError();
 
-			$scope.successMessageModal = "Thêm danh mục thành công.";
+			$scope.successMessageModal = "Thêm đặc trưng thành công.";
 			// Hiển thị Modal thông báo thành công
 			$("#successModal").modal('show');
 
@@ -210,6 +216,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		}).catch(error => {
 			console.log("Error", error);
 		});
+
 	};
 
 	// Hàm update dùng để cập nhật thông tin danh mục
@@ -217,8 +224,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		var item = angular.copy($scope.distinctive);
 		var url = `${host}/distinctive/${$scope.distinctive.id}`;
 		$http.put(url, item).then(resp => {
-			/*Cập nhật lại danh mục trong mảng items*/
-			/*Tìm xem index so sánh ID cũ và ID trên form*/
+
 			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id);
 
 			/*Tìm được vị trí thì cập nhật lại danh mục*/
@@ -240,18 +246,18 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	};
 
-	// Hàm delete dùng để xóa danh mục có id tương ứng
 	$scope.delete = function (id) {
 		var url = `${host}/distinctive/${id}`;
 		$http.delete(url).then(resp => {
-			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id);
-			// Tại vị trí index xóa 1 phần tử trong mảng items
-			$scope.items.splice(index, 1);
+
+			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id)
+			//Tại vị trí index xóa 1 phần tử
+			$scope.items.splice(index, 1)
 			$scope.reset();
 			console.log("Success", resp);
 			/*Thông báo thành công*/
 
-			$scope.successMessageModal = "Xóa danh mục thành công.";
+			$scope.successMessageModal = "Xóa người dùng thành công.";
 			// Hiển thị Modal thông báo thành công
 			$("#successModal").modal('show');
 
@@ -263,7 +269,9 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		}).catch(error => {
 			console.log("Error", error);
 		});
-	};
+	}
+
+
 
 	// Đường dẫn tới ảnh
 	var url = "http:localhost:8088/pcgearhub/rest/files/images";

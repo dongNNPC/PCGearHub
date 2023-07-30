@@ -246,33 +246,33 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		var item = angular.copy($scope.brand);
 		var url = `${host}/brand/${$scope.brand.id}`;
 
-		// Kiểm tra trường ID không được bỏ trống
-		if (!$scope.brand.id || $scope.brand.id.trim() === '') {
-			$scope.errorMessage = "ID không được bỏ trống.";
-			$scope.showError = true;
-			return;
-		}
-		// Kiểm tra ký tự đặc biệt trong ID
-		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
-		if (specialChars.test($scope.brand.id)) {
-			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
-			$scope.showError = true;
-			return false;
-		}
-		// Kiểm tra định dạng số điện thoại
-		var phoneNumberPattern = /^\d{10,}$/;
-		if (!phoneNumberPattern.test($scope.brand.phoneNumber)) {
-			$scope.errorMessageSdt = "Số điện thoại phải chứa ít nhất 10 chữ số và đúng định dạng.";
-			$scope.showError = true;
-			return false;
-		}
-		// Kiểm tra định dạng email
-		var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailPattern.test($scope.brand.email)) {
-			$scope.errorMessageEmail = "Email không đúng định dạng.";
-			$scope.showError = true;
-			return false;
-		}
+		// // Kiểm tra trường ID không được bỏ trống
+		// if (!$scope.brand.id || $scope.brand.id.trim() === '') {
+		// 	$scope.errorMessage = "ID không được bỏ trống.";
+		// 	$scope.showError = true;
+		// 	return;
+		// }
+		// // Kiểm tra ký tự đặc biệt trong ID
+		// var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		// if (specialChars.test($scope.brand.id)) {
+		// 	$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+		// 	$scope.showError = true;
+		// 	return false;
+		// }
+		// // Kiểm tra định dạng số điện thoại
+		// var phoneNumberPattern = /^\d{10,}$/;
+		// if (!phoneNumberPattern.test($scope.brand.phoneNumber)) {
+		// 	$scope.errorMessageSdt = "Số điện thoại phải chứa ít nhất 10 chữ số và đúng định dạng.";
+		// 	$scope.showError = true;
+		// 	return false;
+		// }
+		// // Kiểm tra định dạng email
+		// var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		// if (!emailPattern.test($scope.brand.email)) {
+		// 	$scope.errorMessageEmail = "Email không đúng định dạng.";
+		// 	$scope.showError = true;
+		// 	return false;
+		// }
 		// Tiếp tục xử lý khi không có lỗi trường ID
 		$http.put(url, item).then(resp => {
 			/*Tìm xem index so sánh ID cũ và ID trên form*/

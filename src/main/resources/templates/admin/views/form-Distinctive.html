@@ -33,38 +33,26 @@
 						<div class="card-body">
 							<h4 class="card-title">Nhập thông tin</h4>
 							<hr style="background-color: white;">
-							<p class="card-description">Giao diện chỉnh sửa 
+							<p class="card-description">Giao diện chỉnh sửa
 							</p>
 							<form class="forms-sample">
-								<div class="form-group row"> <label
-										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Mã đặc trưng</label>
+								<div class="form-group row">
+									<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Mã đặc trưng</label>
 									<div class="col-sm-9">
-										<!-- Trường nhập liệu cho Tên Danh mục -->
-										<input type="text"
-											class="form-control"
-											ng-model="distinctive.id"
-											id="exampleInputUsername2"
-											placeholder="Mã đặc trưng">
-										<p ng-show="showErrorID"
-											class="error-message">
-											{{errorMessage}}</p>
+									  <input type="text" class="form-control" ng-model="distinctive.id" id="exampleInputUsername2" placeholder="Mã đặc trưng">
+									  <p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
 									</div>
-								</div>
-								<div class="form-group row"> <label
-										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">
-										Tên Đặc Trưng</label>
+								       </div>
+								       
+								       <div class="form-group row">
+									<label for="exampleInputUsername3" class="col-sm-3 col-form-label">Tên Đặc Trưng</label>
 									<div class="col-sm-9">
-										<!-- Trường nhập liệu cho Loại Danh mục -->
-										<input type="text"
-											class="form-control"
-											ng-model="distinctive.name"
-											id="exampleInputUsername2"
-											placeholder="Tên sự đặc trưng">
+									  <input type="text" class="form-control" ng-model="distinctive.name" id="exampleInputUsername3" placeholder="Tên đặc trưng">
+									  <p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
 									</div>
-								</div>
-					
+								       </div>
+								       
+
 								<hr style="background-color: white;"> <button
 									ng-click="create()" type="submit"
 									class="btn btn-primary mr-2">Thêm</button>
@@ -83,7 +71,7 @@
 			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content" style="background-color: #28a745">
-						<div class="modal-body">{{ successMessageModal }}</div>
+						<p>{{ successMessageModal }}</p>
 					</div>
 				</div>
 			</div> <!-- Modal cảnh báo HTML -->
@@ -108,6 +96,8 @@
 								ng-click="delete(category.id)" type="submit"
 								class="btn btn-danger mr-2"
 								data-dismiss="modal">Xóa</button> </div>
+
+								<p>{{ successMessageModal }}</p>
 					</div>
 				</div>
 			</div>
