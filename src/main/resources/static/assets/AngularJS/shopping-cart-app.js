@@ -154,4 +154,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     $scope.cart.loadFormLocalStorage();//khởi chạy
 
+    
+
 });
+
