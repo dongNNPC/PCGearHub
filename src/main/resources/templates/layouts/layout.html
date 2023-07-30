@@ -40,7 +40,7 @@
     }
   </style> -->
   </head>
-  <body >
+  <body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
     <div class="page-body-buong">
       <div class="color-category" style="position: -webkit-sticky;
       position: sticky;
@@ -60,27 +60,13 @@
       <!-- sản phẩm -->
       <main th:replace="${view}"></main>
       <!-- thông báo thêm thành công -->
-      <div id="success-notification">
+      <div id="success-notification" ng-repeat="item in cart.items" style="margin-top: 100px;">
         <span class="close-btnaddtoCart" onclick="closeNotification()"
           >&times;</span
         >
         <p style="color: #f1b501; font-weight: bold">
           Đã thêm vào giỏ hàng thành công !
         </p>
-
-        <div style="border: none" class="col-md-5">
-          <img
-            src="../assets/images/ChuotKhongDay1.png"
-            width="500px"
-            height="100px"
-          />
-        </div>
-        <div style="border: none" class="text-succAddtocart col-md-7">
-          Logitech G604 LIGHTSPEED Wireless Optical Gaming Mouse 25000 DPI HERO
-          sensor
-          <br />
-          1 x <span style="color: red; font-weight: bold"> 200,000đ</span>
-        </div>
       </div>
 
       <footer
@@ -88,6 +74,9 @@
         th:replace="~{/fragment/_footer :: footer}"
       ></footer>
     </div>
+    <script
+    th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+    <script th:inline="javascript" th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
   </body>
   <style>
 
