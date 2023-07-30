@@ -572,11 +572,6 @@ app.controller("loadForm", function($scope, $location, $http) {
 		// Kiểm tra số lượng tệp đã chọn và chặn nếu vượt quá giới hạn
 		var maxFiles = 2;
 		if (files.length > maxFiles) {
-			$scope.errorMessageModal = "Xóa người dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#errorModal").modal('show');
-			// Tự động ẩn Modal sau 2 giây
-			showErrorModal();
 			return; // Dừng việc upload nếu vượt quá giới hạn
 		}
 		//   $scope.product.image = files[0].name;
