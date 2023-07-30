@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.StockReceipt;
 import com.poly.asm.respository.StockReceiptRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class StockReceiptStockReceiptRestController {
+public class StockReceiptStockReceiptRestController extends HttpServlet {
 	@Autowired
 	StockReceiptRepository dao;
 

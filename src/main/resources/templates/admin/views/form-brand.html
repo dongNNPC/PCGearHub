@@ -28,12 +28,12 @@
 				</nav>
 			</div>
 			<div class="row">
-				<div class="col-md-6 grid-margin stretch-card ms-5">
+				<div class="col-md-11 grid-margin ">
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title">Nhập thông tin</h4>
 							<hr style="background-color: white;">
-							<p class="card-description">Giao diện chỉnh sửa Danh mục
+							<p class="card-description">Giao diện chỉnh sửa Thương Hiệu
 							</p>
 							<form class="forms-sample">
 								<div class="form-group row"> <label
@@ -45,10 +45,10 @@
 											class="form-control"
 											ng-model="brand.id"
 											id="exampleInputUsername2"
-											placeholder="ID">
-										<!-- <p ng-show="showErrorID"
+											placeholder="Mã thương hiệu ">
+										 <p ng-show="showError"
 											class="error-message">
-											{{errorMessage}}</p> -->
+											{{errorMessage}}</p>
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -61,7 +61,7 @@
 											class="form-control"
 											ng-model="brand.name"
 											id="exampleInputUsername2"
-											placeholder="Tên Thương hiệuc">
+											placeholder="Tên Thương hiệu">
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -74,7 +74,10 @@
 											class="form-control"
 											ng-model="brand.phoneNumber"
 											id="exampleInputUsername2"
-											placeholder="SDT">
+											placeholder="Số điện thoại">
+											<p ng-show="showError"
+											class="error-message">
+											{{errorMessageSdt}}</p>
 									</div>
 								</div>
 
@@ -88,8 +91,9 @@
 											ng-model="brand.email"
 											id="exampleInputdescription2"
 											placeholder="email">
-										<p ng-show="showErrordescription"
+											<p ng-show="showError"
 											class="error-message">
+											{{errorMessageEmail}}</p>
 									</div>
 								</div>
 								<div class="form-group row"> <label
