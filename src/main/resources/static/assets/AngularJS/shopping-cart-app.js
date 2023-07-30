@@ -2,9 +2,7 @@ const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     $scope.cart = {
-
         items: [],
-
         add(id) {
             var item = this.items.find(item => item.id === id);
             if (item) {
@@ -48,6 +46,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             localStorage.setItem("cart", json);
             this.cartTotalQuantity = this.count;
             this.cartTotalAmount = this.amount;
+
         },
 
         loadFormLocalStorage() {//đọc giỏ hàng từ local storage
@@ -69,6 +68,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
                 this.saveToLocalStorage();
             }
         },
+
 
     }
 
@@ -149,9 +149,91 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             });
     };
 
+
+    $scope.order = {
+        orderDate: new Date(),
+        address: "",
+        user: $("#user_id").text(),
+
+        status: "pending",
+       // phoneNumber: "",
+        get detailedInvoices() {
+          
+           return $scope.selectedItems.map(item => {
+            return {
+                product: {id: item.id},
+                price: item.price,
+                quantity: item.qty,
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
+          
+            }
+           })
+        },
+        confirm() {
+            
+            // const phoneNumberInput = document.querySelector('input[name="phoneNumber"]');
+            // $scope.order.phoneNumber = phoneNumberInput ? phoneNumberInput.value : "";
+            var order = angular.copy(this);
+            $http.post("/pcgearhub/rest/orders" ,order).then(resp => {
+                Swal.fire(
+                    'Đặt hàng thành công',
+                    '',
+                    'success'
+                )
+                $scope.selectedItems = [];
+                localStorage.removeItem('selectedItems');
+                this.saveToLocalStorage();
+                location.href = "/pcgearhub/ordered-list/" + resp.data.id;
+            }).catch(error => {
+                Swal.fire(
+                    'Đặt hàng không thành công',
+                    '',
+                    'error'
+                )
+                console.log(error);
+            })
+
+
+        }
+    }
+
+
+
+
+    ///xử lý lấy các sản phẩm được tích sang trang confirm-info
+    $scope.selectedItems = [];
+    $scope.getSelectedItems = function () {
+        $scope.selectedItems = [];
+        for (var i = 0; i < $scope.cart.items.length; i++) {
+            if ($scope.cart.items[i].checked) {
+                $scope.selectedItems.push($scope.cart.items[i]);
+            }
+        }
+
+        // Lưu vào Local Storage để sử dụng sau này trên trang mới
+        localStorage.setItem('selectedItems', JSON.stringify($scope.selectedItems));
+
+        // Chuyển sang trang mới
+        window.location.href = '/pcgearhub/confirm-information';
+    };
+
+    // Kiểm tra nếu có dữ liệu selectedItems trong Local Storage của trang mới
+    const storedItems = localStorage.getItem('selectedItems');
+    if (storedItems) {
+        $scope.selectedItems = JSON.parse(storedItems);
+    }
+
+    $scope.getTotalAmountConfirm = function () {//tổng tiền trong trang confirm-info.html
+        let totalAmount = 0;
+        for (let i = 0; i < $scope.selectedItems.length; i++) {
+            const item = $scope.selectedItems[i];
+            totalAmount += item.qty * item.price;
+        }
+        return totalAmount;
+    };
+
     // Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
     $scope.loadData();
-
     $scope.cart.loadFormLocalStorage();//khởi chạy
 
 });

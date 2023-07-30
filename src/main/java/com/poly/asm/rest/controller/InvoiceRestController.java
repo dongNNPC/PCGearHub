@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.poly.asm.controller.service.OrderService;
 import com.poly.asm.model.Invoice;
 import com.poly.asm.respository.InvoiceRepository;
 
@@ -24,6 +26,8 @@ import com.poly.asm.respository.InvoiceRepository;
 public class InvoiceRestController {
 	@Autowired
 	InvoiceRepository dao;
+
+	 @Autowired OrderService odersv;
 
 	@GetMapping("/rest/invoice")
 	public ResponseEntity<List<Invoice>> getAll(Model model) {
@@ -67,4 +71,11 @@ public class InvoiceRestController {
 		dao.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
+
+
+	 @PostMapping("/rest/orders")
+    public Invoice create (@RequestBody JsonNode orderData){
+        return odersv.create(orderData);
+    }
+
 }
