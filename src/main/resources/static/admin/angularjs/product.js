@@ -79,24 +79,6 @@ app.controller("loadForm", function($scope, $location, $http) {
 	$scope.errorMessageModal = "Chỉ được chọn 2 hình";
 	// Khởi tạo biến $scope.selectedDistinctives là một mảng để lưu trữ các option đã chọn
 	$scope.selectedDistinctives = [];
-
-	function showSuccessModal() {
-		$("#successModal").modal('show');
-		setTimeout(hideModal, 2000);
-	}
-	function showErrorModal() {
-		$("#errorModal").modal('show');
-		setTimeout(hideModal2, 2000);
-	}
-
-	function hideModal() {
-		$("#successModal").modal('hide');
-	}
-	function hideModal2() {
-		$("#errorModal").modal('hide');
-	}
-
-
 	/*reset*/
 	$scope.reset = function() {
 		// $scope.product = { confirm: true, status: true, admin: false };
@@ -242,22 +224,64 @@ app.controller("loadForm", function($scope, $location, $http) {
 	$scope.validation = function() {
 		// Kiểm tra trùng lặp 
 		var indexID = $scope.items.findIndex(item => item.id === $scope.product.id);
+		var check = 0;
 		if (indexID !== -1) {
-			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
+			$scope.errorMessageID = "ID đã tồn tại, vui lòng nhập một ID khác.";
 			$scope.showErrorID = true;
-			return false;
+			check++;
 		} else {
 			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
+
+		if (check != 0) {
+			return false
+		}
+
+
 		return true;
 	}
+	$scope.catcherror = () => {
+		var item = angular.copy($scope.product);
+		var check = 0;
+		if (!item.id) {
+			$scope.errorMessageID = "Không được để trống id.";
+			$scope.showErrorID = true;
+			check++;
 
-	$scope.hideError = function() {
-		$scope.showErrorID = false;
-		$scope.showErrorEmail = false;
-		$scope.errorMessage = "";
+		} else {
+			$scope.showErrorID = false;
+			$scope.errorMessageID = "";
+		}
+		if (!item.name) {
+			$scope.errorMessageName = "Không được để trống tên sản phẩm.";
+			$scope.showErrorName = true;
+			check++;
+
+		} else {
+			$scope.showErrorName = false;
+			$scope.errorMessageName = "";
+		}
+		if (!item.price) {
+			$scope.errorMessagePrice = "Không được để trống giá.";
+			$scope.showErrorPrice = true;
+			check++;
+
+		} else {
+			$scope.showErrorPrice = false;
+			$scope.errorMessagePrice = "";
+		}
+		if (!item.quantity) {
+			$scope.errorMessageQuantity = "Không được để trống số lượng.";
+			$scope.showErrorQuantity = true;
+			check++;
+
+		} else {
+			$scope.showErrorQuantity = false;
+			$scope.errorMessageQuantity = "";
+		}
 	}
+
 
 
 	/*selected đăt trưng*/
@@ -331,6 +355,15 @@ app.controller("loadForm", function($scope, $location, $http) {
 	};
 
 
+	$scope.message = (animation, title, icon) => {
+		toastMixin.fire({
+			animation: animation,
+			title: title,
+			icon: icon
+		});
+	}
+
+
 
 	// Phần sản phẩm
 	$scope.create = function() {
@@ -339,21 +372,20 @@ app.controller("loadForm", function($scope, $location, $http) {
 		var url = `${host}/product`;
 		item.image1 = $scope.fileNames[0]
 		item.image2 = $scope.fileNames[1]
+
+		if ($scope.catcherror() == false) {
+			return
+		}
+
 		if ($scope.validation() == false) {
 			return
 		}
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
-			$scope.reset()
-			console.log("Success", resp);
 			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
-			$scope.successMessageModal = "Thêm sản phẩm dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
-			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
+			console.log("Success", resp);
+
+			$scope.message(true, "Thêm sản phẩm thành công", "success")
 
 			// Thêm đặt trưng
 			$scope.showSelectedOptions();
@@ -460,7 +492,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		item.image2 = $scope.fileNames[1]
 		$http.put(url, item).then(resp => {
 			var index = $scope.items.findIndex(item => item.id == $scope.product.id)
-
+			$scope.message(true, "Cập nhật sản phẩm thành công", "success")
 			/*Tìm được vị trí thì cập nhật lại sinh viên*/
 			$scope.items[index] = resp.data;
 			console.log("Success", resp);
@@ -506,18 +538,6 @@ app.controller("loadForm", function($scope, $location, $http) {
 			});
 
 
-
-			/*Thông báo thành công*/
-			$scope.successMessageModal = "Cập nhật người dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
-
-			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
-
-			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -533,16 +553,8 @@ app.controller("loadForm", function($scope, $location, $http) {
 			$scope.reset();
 			console.log("Success", resp);
 			/*Thông báo thành công*/
+			$scope.message(true, "Xóa sản phẩm thành công", "success")
 
-			$scope.successMessageModal = "Xóa người dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
-
-			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
-			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
 		}).catch(error => {
 			console.log("Error", error);
 		});

@@ -9,8 +9,11 @@
     <title>Insert title here</title>
   </head>
   <body>
-    <link rel="stylesheet" th:href="@{/admin/css/form-user.css}" />
-    <link rel="stylesheet" th:href="@{/admin/css/modal.css}" />
+  	<!--modal thư xóa  -->
+	<link rel="stylesheet"
+		th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
+ 
     <link
       th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css}"
       rel="stylesheet"
@@ -94,6 +97,7 @@
                         id="exampleInputUsername2"
                         placeholder="Mã sản phẩm"
                       />
+                      <p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -110,6 +114,7 @@
                         id="exampleInputUsername2"
                         placeholder="Tên sản phẩm"
                       />
+                      <p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -126,6 +131,7 @@
                         id="exampleInputUsername2"
                         placeholder="Giá"
                       />
+                      <p ng-show="showErrorPrice" class="error-message">{{errorMessagePrice}}</p>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -142,6 +148,7 @@
                         id="exampleInputEmail2"
                         placeholder="Số lượng"
                       />
+                      <p ng-show="showErrorQuantity" class="error-message">{{errorMessageQuantity}}</p>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -308,49 +315,40 @@
                     Sửa
                   </button>
 
-              <!--     <a href="#myModal" data-toggle="modal"
-                    ><button type="submit" class="btn btn-danger mr-2">
-                      Xóa
-                    </button></a
-                  > -->
+           <a href="#myModal" data-toggle="modal"><button type="submit"
+										class="btn btn-danger mr-2">Xóa</button></a>
                   <button ng-click="reset()" class="btn btn-dark">
                     Làm mới
                   </button>
                 </form>
                 <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
-                <div
-                  class="modal"
-                  id="successModal"
-                  tabindex="-1"
-                  role="dialog"
-                  data-backdrop="false"
-                >
-                  <div class="modal-dialog" role="document">
-                    <div
-                      class="modal-content"
-                      style="background-color: #28a745"
-                    >
-                      <div class="modal-body">{{successMessageModal}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="modal"
-                  id="errorModal"
-                  tabindex="-1"
-                  role="dialog"
-                  data-backdrop="false"
-                >
-                  <div class="modal-dialog" role="document">
-                    <div
-                      class="modal-content"
-                      style="background-color: #e53131"
-                    >
-                      <div class="modal-body">{{errorMessageModal}}</div>
-                    </div>
-                  </div>
-                </div>
+           
+              
               </div>
+              		<!-- Modal cảnh báo HTML -->
+			<div id="myModal" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header flex-column">
+							<div class="icon-box">
+								<i class="material-icons">&#xE5CD;</i>
+							</div>
+							<h4 class="modal-title w-100">Bạn có chắc?</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p>Bạn thật sự muốn xóa sản phẩm</p>
+						</div>
+						<div class="modal-footer justify-content-center">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancel</button>
+							<button ng-click="delete(product.id)" type="submit"
+								class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
+						</div>
+					</div>
+				</div>
+			</div>
             </div>
           </div>
         </div>
