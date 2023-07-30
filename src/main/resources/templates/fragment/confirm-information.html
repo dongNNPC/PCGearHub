@@ -27,15 +27,16 @@
                     <h3 style="font-weight: bold;">Thông tin giao hàng :</h3>
                     <div class="mb-3">
                         <!-- th:text="${#request.remoteUser}" -->
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                        <input type="text" class="form-control" name="" id="user_id" value="U001" aria-describedby="helpId"
                             placeholder="Vui lòng nhập họ và tên">
                         <small id="helpId" class="form-text text-muted"></small>
                     </div>
-                    <div class="mb-3"style="margin-top: 20px;">
-                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId"
+                    <!-- <div class="mb-3" style="margin-top: 20px;">
+                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumberInput" aria-describedby="helpId"
                             placeholder="Vui lòng số điện thoại">
                         <small id="helpId" class="form-text text-muted"></small>
-                    </div>
+                    </div> -->
+                    
                     <div class="mb-3 " style="margin-top: 20px;">
                         <input type="text" class="form-control" ng-model="order.address"
                             placeholder="Vui lòng  điạ chỉ">
@@ -47,22 +48,23 @@
                     </div>
                     <h3 style="font-weight: bold;">Phương thức thanh toán : </h3><br>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="thanhtona" id="">
-                        <label class="form-check-label" for="">
+                        <input class="form-check-input" checked type="radio" name="paymentMethod" value="cash" id="thanhToanKhiNhanHang">
+                        <label class="form-check-label" for="thanhToanKhiNhanHang">
                             Thanh toán khi nhận hàng
                         </label>
                     </div>
                     <br>
                     <div>
                         <div class="form-check">
-                            <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo"
-                                type="radio" name="thanhtona" id="">
-                            <label class="form-check-label" for="">
+                            <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo" type="radio" name="paymentMethod" value="bankTransfer" id="thanhToanChuyenKhoan">
+                            <label class="form-check-label" for="thanhToanChuyenKhoan">
                                 Thanh toán chuyển khoản
                             </label>
                         </div>
                         <br>
                     </div>
+                    
+                    
                     <!-- th:text="${#request.remoteUser}" -->
                     <a ng-click="order.confirm()" class="btn-login" style="margin-left: 350px;width: 300px;">Xác nhận
                         đơn hàng</a>

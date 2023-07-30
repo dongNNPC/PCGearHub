@@ -46,6 +46,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             localStorage.setItem("cart", json);
             this.cartTotalQuantity = this.count;
             this.cartTotalAmount = this.amount;
+
         },
 
         loadFormLocalStorage() {//đọc giỏ hàng từ local storage
@@ -68,7 +69,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             }
         },
 
-        
 
     }
 
@@ -149,16 +149,51 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
             });
     };
 
-      
+
     $scope.order = {
-        createDate: new Date(),
-        addres: "",
-        confirm(){
-            Swal.fire(
-                'Đặt hàng thành công',
-                '',
-                'success'
-              )
+        orderDate: new Date(),
+        address: "",
+        user: $("#user_id").text(),
+
+        status: "pending",
+       // phoneNumber: "",
+        get detailedInvoices() {
+          
+           return $scope.selectedItems.map(item => {
+            return {
+                product: {id: item.id},
+                price: item.price,
+                quantity: item.qty,
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
+          
+            }
+           })
+        },
+        confirm() {
+            
+            // const phoneNumberInput = document.querySelector('input[name="phoneNumber"]');
+            // $scope.order.phoneNumber = phoneNumberInput ? phoneNumberInput.value : "";
+            var order = angular.copy(this);
+            $http.post("/pcgearhub/rest/orders" ,order).then(resp => {
+                Swal.fire(
+                    'Đặt hàng thành công',
+                    '',
+                    'success'
+                )
+                $scope.selectedItems = [];
+                localStorage.removeItem('selectedItems');
+                this.saveToLocalStorage();
+                location.href = "/pcgearhub/ordered-list/" + resp.data.id;
+            }).catch(error => {
+                Swal.fire(
+                    'Đặt hàng không thành công',
+                    '',
+                    'error'
+                )
+                console.log(error);
+            })
+
+
         }
     }
 
@@ -167,7 +202,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     ///xử lý lấy các sản phẩm được tích sang trang confirm-info
     $scope.selectedItems = [];
-    $scope.getSelectedItems = function() {
+    $scope.getSelectedItems = function () {
         $scope.selectedItems = [];
         for (var i = 0; i < $scope.cart.items.length; i++) {
             if ($scope.cart.items[i].checked) {
@@ -187,8 +222,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
     if (storedItems) {
         $scope.selectedItems = JSON.parse(storedItems);
     }
-    
-    $scope.getTotalAmountConfirm = function() {//tổng tiền trong trang confirm-info.html
+
+    $scope.getTotalAmountConfirm = function () {//tổng tiền trong trang confirm-info.html
         let totalAmount = 0;
         for (let i = 0; i < $scope.selectedItems.length; i++) {
             const item = $scope.selectedItems[i];

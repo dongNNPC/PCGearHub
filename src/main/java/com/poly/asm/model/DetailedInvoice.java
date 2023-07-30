@@ -1,5 +1,7 @@
 package com.poly.asm.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +33,7 @@ public class DetailedInvoice {
 
 	private int quantity;
 
+	@JsonProperty("paymentMethod")
 	private String paymentMethod;
 
 	// constructors, getters, and setters
