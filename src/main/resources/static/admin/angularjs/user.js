@@ -68,21 +68,13 @@ app.controller("loadForm", function($scope, $location, $http) {
 
 	$scope.pageCount;
 	$scope.user = {};
-	 $scope.user.image;
+	$scope.user.image;
 	$scope.items = [];
 
 	$scope.oneImage;
 	$scope.errorMessage = "";
 	$scope.successMessageModal = "";
 
-	function showSuccessModal() {
-		$("#successModal").modal('show');
-		setTimeout(hideModal, 2000);
-	}
-
-	function hideModal() {
-		$("#successModal").modal('hide');
-	}
 
 	/*reset*/
 	$scope.reset = function() {
@@ -98,6 +90,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			console.log("Success", resp);
 
 			// Gọi các hàm sau khi dữ liệu đã được tải thành công
+			$scope.reset();
 			$scope.list();
 			$scope.edit(); // Gọi hàm edit
 		}).catch(error => {
@@ -126,40 +119,121 @@ app.controller("loadForm", function($scope, $location, $http) {
 	}
 
 	$scope.validation = function() {
-		var item = angular.copy($scope.user);
-		// Kiểm tra trùng lặp 
-		var indexID = $scope.items.findIndex(item => item.id === $scope.user.id);
-		var indexEmail = $scope.items.findIndex(item => item.email === $scope.user.email);
+		var itemm = angular.copy($scope.user);
+		var indexID = $scope.items.findIndex(itemx => itemx.id === itemm.id);
+		var indexEmail = $scope.items.findIndex(item => item.email === itemm.email);
+		var indexPhone = $scope.items.findIndex(item => item.phone === itemm.phone);
+		console.log(indexID)
+		var check = 0;
 		if (indexID !== -1) {
-			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
+			$scope.errorMessageID = "ID đã tồn tại, vui lòng nhập một ID khác.";
 			$scope.showErrorID = true;
-			return false;
+			check++;
 		} else {
 			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
 		if (indexEmail !== -1) {
-			$scope.errorMessage = "Email đã tồn tại, vui lòng nhập một Email khác.";
+			$scope.errorMessageEmail = "Email đã tồn tại, vui lòng nhập một Số điện thoại khác.";
 			$scope.showErrorEmail = true;
-			return false;
+			check++;
+		} else {
+			$scope.showErrorEmailEmail = false;
+			$scope.errorMessage = "";
+		}
+		if (indexPhone !== -1) {
+			$scope.errorMessagePhone = "Số điện thoạiđã tồn tại, vui lòng nhập một Phone khác.";
+			$scope.showErrorPhone = true;
+			check++;
+		} else {
+			$scope.showErrorPhone = false;
+			$scope.errorMessage = "";
+		}
+		if (check != 0) {
+			return false
+		}
+		return true;
+	}
+
+	$scope.catcherror = () => {
+		var item = angular.copy($scope.user);
+		var check = 0;
+		if (!item.id) {
+			$scope.errorMessageID = "Không được để trống id.";
+			$scope.showErrorID = true;
+			check++;
+
+		} else {
+			$scope.showErrorID = false;
+			$scope.errorMessageID = "";
+		}
+		if (!item.name) {
+			$scope.errorMessageName = "Không được để trống tên.";
+			$scope.showErrorName = true;
+			check++;
+
+		} else {
+			$scope.showErrorName = false;
+			$scope.errorMessageName = "";
+		}
+		if (!item.password) {
+			$scope.errorMessagePassword = "Không được để trống mật khẩu.";
+			$scope.showErrorPassword = true;
+			check++;
+		} else {
+			$scope.showErrorPassword = false;
+			$scope.errorMessagePassword = "";
+		} if (!item.email) {
+			$scope.errorMessageEmail = "Không được để trống email.";
+			$scope.showErrorEmail = true;
+			check++;
+
 		} else {
 			$scope.showErrorEmail = false;
 			$scope.errorMessageEmail = "";
 		}
+		if (!item.phone) {
+			$scope.errorMessagePhone = "Không được để trống số điện thoại.";
+			$scope.showErrorPhone = true;
+			check++;
+
+		} else {
+			$scope.showErrorPhone = false;
+			$scope.errorMessagePhone = "";
+		}
+
+		if (!item.address) {
+			$scope.errorMessageAddress = "Không được để trống địa chỉ.";
+			$scope.showErrorAddress = true;
+			check++;
+		} else {
+			$scope.showErrorAddress = false;
+			$scope.errorMessageAddress = "";
+		}
+		if (check != 0) {
+			return false;
+		}
 		return true;
-
 	}
 
-	$scope.hideError = function() {
-		$scope.showErrorID = false;
-		$scope.showErrorEmail = false;
-		$scope.errorMessage = "";
+	$scope.message = (animation,title,icon) => {
+		toastMixin.fire({
+			animation: animation,
+			title: title,
+			icon: icon
+		});
 	}
+
+
+
 
 	$scope.create = function() {
+
 		var item = angular.copy($scope.user);
 		var url = `${host}/users`;
-
+		if ($scope.catcherror() == false) {
+			return
+		}
 
 		if ($scope.validation() == false) {
 			return
@@ -167,24 +241,18 @@ app.controller("loadForm", function($scope, $location, $http) {
 
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
-			$scope.reset()
 			console.log("Success", resp);
-			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
-			$scope.user = item;
-			$scope.successMessageModal = "Thêm người dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
-
-			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
+		$scope.message(true,"Thêm thành công","success")
+		
 		}).catch(error => {
 			console.log("Error", error);
 		});
 	};
 
 	$scope.update = function() {
+		if ($scope.catcherror() == false) {
+			return
+		}
 		var item = angular.copy($scope.user);
 		var url = `${host}/users/${$scope.user.id}`;
 		$http.put(url, item).then(resp => {
@@ -196,16 +264,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			$scope.items[index] = resp.data;
 			console.log("Success", resp);
 			/*Thông báo thành công*/
-			$scope.successMessageModal = "Cập nhật người dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
-
-			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
-
-			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
+		$scope.message(true,"Cập nhật thành công","success")
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -222,15 +281,8 @@ app.controller("loadForm", function($scope, $location, $http) {
 			console.log("Success", resp);
 			/*Thông báo thành công*/
 
-			$scope.successMessageModal = "Xóa người dùng thành công.";
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
-
-			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
-			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
+			/*Thông báo thành công*/
+		$scope.message(true,"Xóa thành công","success")
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -254,7 +306,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		var item = $scope.items.find(item => item.id === id);
 
 		var name = item ? item.image : null;
-		var one ="one";
+		var one = "one";
 		var urlOneImage = `${url}/${one}/${name}`;
 		$http.get(urlOneImage).then(resp => {
 			$scope.filenames = resp.data;
@@ -264,7 +316,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 	}
 
 	$scope.upload = function(files) {
-		  $scope.user.image = files[0].name;
+		$scope.user.image = files[0].name;
 		var form = new FormData();
 		for (var i = 0; i < files.length; i++) {
 			form.append("files", files[i])
@@ -273,7 +325,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			transformRequest: angular.identity,
 			headers: { 'Content-Type': undefined }
 		}).then(resp => {
-			$scope.filenames = []; 
+			$scope.filenames = [];
 			$scope.filenames.push(...resp.data)
 		}).catch(error => {
 			console.log("Errors", error)

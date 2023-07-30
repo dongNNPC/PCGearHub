@@ -1,19 +1,13 @@
 package com.poly.asm.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.poly.asm.respository.UserRepository;
-
 @Controller
 @RequestMapping("/pcgearhub/admin")
 public class AdminController {
-
-	@Autowired
-	UserRepository dao;
 
 	@RequestMapping("/index")
 	public String index() {
@@ -40,7 +34,8 @@ public class AdminController {
 	public String tableUser(Model model) {
 		return "/admin/views/table-user";
 	}
-		@RequestMapping("/table-product")
+
+	@RequestMapping("/table-product")
 	public String tableProduct(Model model) {
 		return "/admin/views/table-product";
 	}
@@ -75,14 +70,13 @@ public class AdminController {
 		return "/admin/views/table-supplier";
 	}
 
-	 // Form category
+	// Form category
 
-	 @RequestMapping("/form-user_id/{id}")
-	 public String formuser_id(Model model, @PathVariable("id") String key) {
+	@RequestMapping("/form-user_id/{id}")
+	public String formuser_id(Model model, @PathVariable("id") String key) {
 
-	 return "/admin/views/form-user_id";
-	 }
-
+		return "/admin/views/form-user_id";
+	}
 
 	@RequestMapping("/table-user_id")
 	public String tableuser_id() {

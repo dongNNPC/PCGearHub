@@ -11,12 +11,7 @@
 	<link rel="stylesheet"
 		th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
 	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
-	<!-- modal -->
 
-
-
-	<link rel="stylesheet" th:href="@{/admin/css/form-user.css}">
-	<link rel="stylesheet" th:href="@{/admin/css/style.css}">
 	<!-- Plugin css for this page -->
 	<link rel="stylesheet"
 		th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css"
@@ -48,11 +43,11 @@
 									title="Double click to detete"> <img
 									ng-src="{{url(filename)}}" ng-click="download(filename)"
 									ng-dblclick="delete(filename)" alt="">
-									
+
 								</label>
 								<div class="form-group mt-3" style="max-width: 304px">
 									<div class="input-group col-xs-12">
-										<input type="file" accept="image/*" ng-model="user.image"
+										<input type="file" accept="image/*"
 											onchange="angular.element(this).scope().upload(this.files)">
 										<span class="input-group-append"> </span>
 									</div>
@@ -78,7 +73,7 @@
 										<input type="text" class="form-control" ng-model="user.id"
 											id="exampleInputUsername2" placeholder="Tên tài khoản">
 
-										<p ng-show="showErrorID" class="error-message">{{errorMessage}}</p>
+										<p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -87,6 +82,7 @@
 									<div class="col-sm-9">
 										<input type="text" class="form-control" ng-model="user.name"
 											id="exampleInputUsername2" placeholder="Họ và tên">
+											<p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -96,6 +92,7 @@
 										<input type="text" class="form-control"
 											ng-model="user.password" id="exampleInputUsername2"
 											placeholder="Mật khẩu">
+											<p ng-show="showErrorPassword" class="error-message">{{errorMessagePassword}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -103,7 +100,7 @@
 									<div class="col-sm-9">
 										<input type="email" class="form-control" ng-model="user.email"
 											id="exampleInputEmail2" placeholder="Email">
-										<p ng-show="showErrorEmail" class="error-message">{{errorMessage}}</p>
+										<p ng-show="showErrorEmail" class="error-message">{{errorMessageEmail}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -112,6 +109,7 @@
 									<div class="col-sm-9">
 										<input type="text" class="form-control" ng-model="user.phone"
 											id="exampleInputMobile" placeholder="Số điện thoại">
+											<p ng-show="showErrorPhone" class="error-message">{{errorMessagePhone}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -121,6 +119,7 @@
 										<input type="text" class="form-control"
 											ng-model="user.address" id="exampleInputMobile"
 											placeholder="Địa chỉ">
+											<p ng-show="showErrorAddress" class="error-message">{{errorMessageAddress}}</p>
 									</div>
 								</div>
 
@@ -187,37 +186,24 @@
 										class="btn btn-danger mr-2">Xóa</button></a>
 								<button ng-click="reset()" class="btn btn-dark">Làm mới</button>
 							</form>
+											<!-- Modal cảnh báo HTML -->
+			
 
 						</div>
 					</div>
-				</div>
-			</div>
-			<!-- Thêm template Modal thông báo Bootstrap vào phần body -->
-			<div class="modal" id="successModal" tabindex="-1" role="dialog"
-				data-backdrop="false">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content" style="background-color: #28a745">
-						<div class="modal-body">{{ successMessageModal }}</div>
-					</div>
-				</div>
-			</div>
-
-
-			<!-- Modal cảnh báo HTML -->
-			<div id="myModal" class="modal fade">
+		<div id="myModal" class="modal fade" style="margin-top:200px;margin-right: 100px">
 				<div class="modal-dialog modal-confirm">
 					<div class="modal-content">
 						<div class="modal-header flex-column">
 							<div class="icon-box">
 								<i class="material-icons">&#xE5CD;</i>
 							</div>
-							<h4 class="modal-title w-100">Are you sure?</h4>
+							<h4 class="modal-title w-100">Bạn có chắc?</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<p>Do you really want to delete these records? This process
-								cannot be undone.</p>
+							<p>Bạn thật sự muốn xóa người dùng</p>
 						</div>
 						<div class="modal-footer justify-content-center">
 							<button type="button" class="btn btn-secondary"
@@ -228,11 +214,16 @@
 					</div>
 				</div>
 			</div>
+				</div>
+			</div>
+			<!-- <button class="first">Bottom Toast</button>
+			<button class="success">Animated Toast</button>
+			<button class="error">Error Toast</button> -->
 
 		</div>
 	</div>
 
-		
+
 
 	<!-- Plugin js for this page -->
 	<script th:inline="javascript"
