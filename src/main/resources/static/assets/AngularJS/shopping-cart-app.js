@@ -139,7 +139,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $http) {
 
     // Hàm này được gọi khi dữ liệu được tải lên trang
     $scope.loadData = function () {
-        $http.get('/pcgearhub/rest/product')
+        $http.get('/pcgearhub/rest/products')
             .then(function (response) {
                 $scope.products = response.data;
                 $scope.calculateTotalPages(); // Tính tổng số trang sau khi nhận dữ liệu
