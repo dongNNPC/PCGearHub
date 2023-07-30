@@ -1,8 +1,8 @@
 ﻿ -- use master
 
 	--create database pcgearhub
-
---drop database pcgearhub
+	
+	--drop database pcgearhub
 
 	--I. TAO BẢNG
 	-- Tạo bảng Users
@@ -67,7 +67,6 @@
 	CREATE TABLE Invoices (
 	  id VARCHAR(20) NOT NULL,
 	  order_date DATE NOT NULL,
-	  address NVARCHAR(Max)NOT NULL,
 	  status NVARCHAR(50) NOT NULL,
 	  user_id VARCHAR(20) NOT NULL,
 	);
@@ -112,11 +111,10 @@
 
 	-- Tạo bảng StockReceipts
 	CREATE TABLE stock_receipts (
-	  id VARCHAR(20) NOT NULL,
+	  id int Identity(1,1) NOT NULL,
 	  product_id VARCHAR(20) NOT NULL,
 	   supplier_id varchar(20) not null,
 	  brand_id varchar(20) not null,
-	 
 	  quantity INT NOT NULL,
 	  price FLOAT NOT NULL,
 	  order_date Date not null,
@@ -314,72 +312,72 @@
 	  (N'P002','D001')
 
 	-- Thêm dữ liệu vào bảng Invoices
-	INSERT INTO Invoices (id, order_date,address, status, user_id)
+	INSERT INTO Invoices (id, order_date, status, user_id)
 	VALUES 
-	('I001', '2024-01-10', N'delivered', N'An giang','U001'),
-	('I002', '2024-02-09', N'delivered', N'An giang', 'U002'),
-	('I003', '2024-03-12', N'pending', N'An giang', 'U003'),
-	('I004', '2024-04-08', N'delivered', N'An giang', 'U004'),
-	('I005', '2024-05-13', N'delivered', N'An giang', 'U003'),
-	('I006', '2024-06-12', N'delivered', N'An giang', 'U004'),
-	('I007', '2024-07-11', N'pending',  N'An giang','U004'),
-	('I008', '2024-08-07', N'delivered', N'An giang', 'U002'),
-	('I009', '2024-09-15', N'delivered', N'An giang', 'U004'),
-	('I010', '2024-10-14', N'delivered', N'An giang', 'U003'),
-	('I011', '2024-11-06', N'pending', N'An giang', 'U004'),
-	('I012', '2024-12-05', N'delivered', N'An giang', 'U001'),
-	('I013', '2024-01-18', N'delivered', N'An giang', 'U003'),
-	('I014', '2024-02-17', N'delivered', N'An giang', 'U003'),
-	('I015', '2024-03-04', N'delivered', N'An giang', 'U002'),
-	('I016', '2024-04-16', N'delivered', N'An giang', 'U003'),
-	('I017', '2024-05-19', N'delivered', N'An giang', 'U002'),
-	('I018', '2024-06-03', N'pending',  N'An giang','U002'),
-	('I019', '2024-07-21', N'delivered', N'An giang', 'U002'),
-	('I020', '2024-07-20', N'pending', N'An giang', 'U002'),
-	('I021', '2024-01-10', N'pending', N'An giang', 'U001'),
-	('I022', '2024-02-09', N'pending', N'An giang', 'U002'),
-	('I023', '2024-03-12', N'pending', N'An giang', 'U003'),
-	('I024', '2024-04-08', N'delivered', N'An giang', 'U004'),
-	('I025', '2024-05-13', N'delivered', N'An giang', 'U003'),
-	('I026', '2024-08-12', N'pending', N'An giang', 'U004'),
-	('I027', '2024-12-11', N'pending',  N'An giang','U004'),
-	('I028', '2024-11-07', N'delivered', N'An giang', 'U002'),
-	('I029', '2024-09-15', N'delivered', N'An giang', 'U004'),
-	('I030', '2024-01-14', N'delivered', N'An giang', 'U003'),
-	('I031', '2024-02-06', N'pending', N'An giang', 'U004'),
-	('I032', '2024-03-05', N'delivered', N'An giang', 'U001'),
-	('I033', '2024-05-18', N'cancelled', N'An giang', 'U003'),
-	('I034', '2024-11-17', N'delivered', N'An giang', 'U003'),
-	('I035', '2024-07-04', N'cancelled', N'An giang', 'U002'),
-	('I036', '2024-09-16', N'pending', N'An giang', 'U003'),
-	('I037', '2024-01-19', N'cancelled', N'An giang', 'U002'),
-	('I038', '2024-12-03', N'delivered',  N'An giang','U002'),
-	('I039', '2024-02-21', N'pending', N'An giang', 'U002'),
-	('I040', '2024-03-20', N'delivered', N'An giang', 'U002')
-		INSERT INTO Invoices (id, order_date, status,address, user_id)
-	SELECT 'INV001', '2023-01-01', 'pending', N'An giang', 'U002'
-	UNION ALL SELECT 'INV002', '2023-02-01', 'pending', N'An giang', 'U002'
-	UNION ALL SELECT 'INV003', '2023-03-01', 'delivered', N'An giang', 'U002'
-	UNION ALL SELECT 'INV004', '2023-04-01', 'delivered',  N'An giang','U002'
-	UNION ALL SELECT 'INV005', '2023-05-01', 'delivered', N'An giang', 'U002'
-	UNION ALL SELECT 'INV006', '2023-06-01', 'delivered', N'An giang','U003'
-	UNION ALL SELECT 'INV007', '2023-07-01', 'pending',  N'An giang','U003'
-	UNION ALL SELECT 'INV008', '2023-08-01', 'delivered', N'An giang', 'U003'
-	UNION ALL SELECT 'INV009', '2023-09-01', 'delivered', N'An giang', 'U003'
-	UNION ALL SELECT 'INV010', '2023-10-01', 'delivered', N'An giang', 'U003'
-	UNION ALL SELECT 'INV011', '2023-11-01', 'delivered', N'An giang', 'U003'
-	UNION ALL SELECT 'INV012', '2023-12-01', 'pending', N'An giang', 'U003'
-	UNION ALL SELECT 'INV0022', '2023-02-01', 'delivered', N'An giang', 'U002'
-	UNION ALL SELECT 'INV0032', '2023-03-01', 'pending', N'An giang', 'U002'
-	UNION ALL SELECT 'INV0042', '2023-07-01', 'delivered', N'An giang', 'U004'
-	UNION ALL SELECT 'INV0052', '2023-05-01', 'delivered', N'An giang', 'U002'
-	UNION ALL SELECT 'INV0062', '2023-07-01', 'pending',  N'An giang','U004'
-	UNION ALL SELECT 'INV0072', '2023-07-01', 'delivered',  N'An giang','U004'
-	UNION ALL SELECT 'INV0082', '2023-07-01', 'delivered', N'An giang', 'U004'
-	UNION ALL SELECT 'INV0092', '2023-09-01', 'delivered', N'An giang', 'U004'
-	UNION ALL SELECT 'INV0102', '2023-11-01', 'pending',  N'An giang','U003'
-	UNION ALL SELECT 'INV0112', '2023-11-01', 'delivered', N'An giang', 'U004'
-	UNION ALL SELECT 'INV0122', '2023-12-01', 'delivered',  N'An giang','U002';
+	('I001', '2024-01-10', N'delivered', 'U001'),
+	('I002', '2024-02-09', N'delivered', 'U002'),
+	('I003', '2024-03-12', N'pending', 'U003'),
+	('I004', '2024-04-08', N'delivered', 'U004'),
+	('I005', '2024-05-13', N'delivered', 'U003'),
+	('I006', '2024-06-12', N'delivered', 'U004'),
+	('I007', '2024-07-11', N'pending', 'U004'),
+	('I008', '2024-08-07', N'delivered', 'U002'),
+	('I009', '2024-09-15', N'delivered', 'U004'),
+	('I010', '2024-10-14', N'delivered', 'U003'),
+	('I011', '2024-11-06', N'pending', 'U004'),
+	('I012', '2024-12-05', N'delivered', 'U001'),
+	('I013', '2024-01-18', N'delivered', 'U003'),
+	('I014', '2024-02-17', N'delivered', 'U003'),
+	('I015', '2024-03-04', N'delivered', 'U002'),
+	('I016', '2024-04-16', N'delivered', 'U003'),
+	('I017', '2024-05-19', N'delivered', 'U002'),
+	('I018', '2024-06-03', N'pending', 'U002'),
+	('I019', '2024-07-21', N'delivered', 'U002'),
+	('I020', '2024-07-20', N'pending', 'U002'),
+	('I021', '2024-01-10', N'pending', 'U001'),
+	('I022', '2024-02-09', N'pending', 'U002'),
+	('I023', '2024-03-12', N'pending', 'U003'),
+	('I024', '2024-04-08', N'delivered', 'U004'),
+	('I025', '2024-05-13', N'delivered', 'U003'),
+	('I026', '2024-08-12', N'pending', 'U004'),
+	('I027', '2024-12-11', N'pending', 'U004'),
+	('I028', '2024-11-07', N'delivered', 'U002'),
+	('I029', '2024-09-15', N'delivered', 'U004'),
+	('I030', '2024-01-14', N'delivered', 'U003'),
+	('I031', '2024-02-06', N'pending', 'U004'),
+	('I032', '2024-03-05', N'delivered', 'U001'),
+	('I033', '2024-05-18', N'cancelled', 'U003'),
+	('I034', '2024-11-17', N'delivered', 'U003'),
+	('I035', '2024-07-04', N'cancelled', 'U002'),
+	('I036', '2024-09-16', N'pending', 'U003'),
+	('I037', '2024-01-19', N'cancelled', 'U002'),
+	('I038', '2024-12-03', N'delivered', 'U002'),
+	('I039', '2024-02-21', N'pending', 'U002'),
+	('I040', '2024-03-20', N'delivered', 'U002')
+		INSERT INTO Invoices (id, order_date, status, user_id)
+	SELECT 'INV001', '2023-01-01', 'pending', 'U002'
+	UNION ALL SELECT 'INV002', '2023-02-01', 'pending', 'U002'
+	UNION ALL SELECT 'INV003', '2023-03-01', 'delivered', 'U002'
+	UNION ALL SELECT 'INV004', '2023-04-01', 'delivered', 'U002'
+	UNION ALL SELECT 'INV005', '2023-05-01', 'delivered', 'U002'
+	UNION ALL SELECT 'INV006', '2023-06-01', 'delivered', 'U003'
+	UNION ALL SELECT 'INV007', '2023-07-01', 'pending', 'U003'
+	UNION ALL SELECT 'INV008', '2023-08-01', 'delivered', 'U003'
+	UNION ALL SELECT 'INV009', '2023-09-01', 'delivered', 'U003'
+	UNION ALL SELECT 'INV010', '2023-10-01', 'delivered', 'U003'
+	UNION ALL SELECT 'INV011', '2023-11-01', 'delivered', 'U003'
+	UNION ALL SELECT 'INV012', '2023-12-01', 'pending', 'U003'
+	UNION ALL SELECT 'INV0022', '2023-02-01', 'delivered', 'U002'
+	UNION ALL SELECT 'INV0032', '2023-03-01', 'pending', 'U002'
+	UNION ALL SELECT 'INV0042', '2023-07-01', 'delivered', 'U004'
+	UNION ALL SELECT 'INV0052', '2023-05-01', 'delivered', 'U002'
+	UNION ALL SELECT 'INV0062', '2023-07-01', 'pending', 'U004'
+	UNION ALL SELECT 'INV0072', '2023-07-01', 'delivered', 'U004'
+	UNION ALL SELECT 'INV0082', '2023-07-01', 'delivered', 'U004'
+	UNION ALL SELECT 'INV0092', '2023-09-01', 'delivered', 'U004'
+	UNION ALL SELECT 'INV0102', '2023-11-01', 'pending', 'U003'
+	UNION ALL SELECT 'INV0112', '2023-11-01', 'delivered', 'U004'
+	UNION ALL SELECT 'INV0122', '2023-12-01', 'delivered', 'U002';
 	-- Thêm dữ liệu vào bảng DetailedInvoices
 	INSERT INTO detailed_invoices (invoice_id, product_id, quantity, payment_method)
 	VALUES 
@@ -406,28 +404,28 @@
 
 
 	-- Thêm dữ liệu vào bảng StockReceipts
-	INSERT INTO stock_receipts(id, product_id,supplier_id,brand_id, quantity, price, order_date)
+	INSERT INTO stock_receipts( product_id,supplier_id,brand_id, quantity, price, order_date)
 	VALUES 
-	('R001', 'P001','S001','B001', 100, 150, '2023-06-30'),
-	('R002', 'P002','S001','B001', 50, 400, '2023-06-29'),
-	('R003', 'P003','S001','B001', 120, 200, '2023-06-28'),
-	('R004','P004','S001','B001', 80, 300, '2023-06-27'),
-	('R005','P005','S001','B001', 60, 250, '2023-06-26'),
-	('R006', 'P006','S001','B001', 90, 350, '2023-06-25'),
-	('R007',  'P007','S001','B001', 110, 180, '2023-06-24'),
-	('R008', 'P008','S001','B001', 70, 400, '2023-06-23'),
-	('R009', 'P009','S001','B001', 95, 220, '2023-6-22'),
-	('R010', 'P010','S002','B002', 120, 250, '2023-06-21'),
-	('R011', 'P011','S002','B002', 80, 300, '2023-10-20'),
-	('R012', 'P012','S002','B002', 65, 350, '2023-11-19'),
-	('R013', 'P013','S002','B002', 105, 190, '2023-12-18'),
-	('R014', 'P014','S002','B002', 75, 400, '2023-04-17'),
-	('R015',  'P015','S002','B002', 100, 230, '2023-06-16'),
-	('R016', 'P016','S002','B002', 115, 270, '2023-06-15'),
-	('R017', 'P017','S002','B002', 85, 320, '2023-06-14'),
-	('R018',  'P018','S002','B002', 55, 400, '2023-06-13'),
-	('R019', 'P019','S002','B002', 70, 200, '2023-06-12'),
-	('R020', 'P020','S002','B002', 90, 350, '2023-12-11')
+	('P001','S001','B001', 100, 150, '2023-06-30'),
+	( 'P002','S001','B001', 50, 400, '2023-06-29'),
+	( 'P003','S001','B001', 120, 200, '2023-06-28'),
+	('P004','S001','B001', 80, 300, '2023-06-27'),
+	('P005','S001','B001', 60, 250, '2023-06-26'),
+	( 'P006','S001','B001', 90, 350, '2023-06-25'),
+	( 'P007','S001','B001', 110, 180, '2023-06-24'),
+	( 'P008','S001','B001', 70, 400, '2023-06-23'),
+	( 'P009','S001','B001', 95, 220, '2023-6-22'),
+	( 'P010','S002','B002', 120, 250, '2023-06-21'),
+	( 'P011','S002','B002', 80, 300, '2023-10-20'),
+	( 'P012','S002','B002', 65, 350, '2023-11-19'),
+	( 'P013','S002','B002', 105, 190, '2023-12-18'),
+	( 'P014','S002','B002', 75, 400, '2023-04-17'),
+	(  'P015','S002','B002', 100, 230, '2023-06-16'),
+	( 'P016','S002','B002', 115, 270, '2023-06-15'),
+	('P017','S002','B002', 85, 320, '2023-06-14'),
+	(  'P018','S002','B002', 55, 400, '2023-06-13'),
+	( 'P019','S002','B002', 70, 200, '2023-06-12'),
+	( 'P020','S002','B002', 90, 350, '2023-12-11')
 
 
 
