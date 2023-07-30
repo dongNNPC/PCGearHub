@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body> <!--modal thư xóa  -->
+	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
+	<link rel="stylesheet" th:href="@{/admin/css/form-user.css}">
+	<link rel="stylesheet" th:href="@{/admin/css/style.css}"> <!-- Plugin css for this page -->
+	<link rel="stylesheet" th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
+		type="text/css" media="all">
+	<div class="content-wrapper" ng-app="myApp">
+		<div class="content-wrapper" ng-controller="loadForm">
+			<div class="page-header">
+				<h3 class="page-title">Chỉnh sửa Danh mục</h3>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Forms</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Form
+							elements</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="row">
+				<div class="col-md-11 grid-margin ">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Nhập thông tin</h4>
+							<hr style="background-color: white;">
+							<p class="card-description">Giao diện chỉnh sửa
+							</p>
+							<form class="forms-sample">
+								<div class="form-group row">
+									<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Mã đặc trưng</label>
+									<div class="col-sm-9">
+									  <input type="text" class="form-control" ng-model="distinctive.id" id="exampleInputUsername2" placeholder="Mã đặc trưng">
+									  <p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
+									</div>
+								       </div>
+								       
+								       <div class="form-group row">
+									<label for="exampleInputUsername3" class="col-sm-3 col-form-label">Tên Đặc Trưng</label>
+									<div class="col-sm-9">
+									  <input type="text" class="form-control" ng-model="distinctive.name" id="exampleInputUsername3" placeholder="Tên đặc trưng">
+									  <p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
+									</div>
+								       </div>
+								       
+
+								<hr style="background-color: white;"> <button
+									ng-click="create()" type="submit"
+									class="btn btn-primary mr-2">Thêm</button>
+								<button ng-click="update()" type="submit"
+									class="btn btn-success mr-2">Sửa</button>
+								<a href="#myModal" data-toggle="modal"><button
+										type="submit"
+										class="btn btn-danger mr-2">Xóa</button></a>
+								<button ng-click="reset()"
+									class="btn btn-dark">Làm mới</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div> <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
+			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content" style="background-color: #28a745">
+						<p>{{ successMessageModal }}</p>
+					</div>
+				</div>
+			</div> <!-- Modal cảnh báo HTML -->
+			<div id="myModal" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header flex-column">
+							<div class="icon-box"> <i
+									class="material-icons">&#xE5CD;</i>
+							</div>
+							<h4 class="modal-title w-100">Are you sure?</h4> <button
+								type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+						</div>
+						<div class="modal-body">
+							<p>Do you really want to delete these records? This
+								process cannot be undone.</p>
+						</div>
+						<div class="modal-footer justify-content-center"> <button
+								type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancel</button> <button
+								ng-click="delete(category.id)" type="submit"
+								class="btn btn-danger mr-2"
+								data-dismiss="modal">Xóa</button> </div>
+
+								<p>{{ successMessageModal }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- Plugin js for this page -->
+	<script th:inline="javascript" th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+	<!-- Custom js for this page -->
+	<script th:inline="javascript" th:src="@{/admin/vendors/js/file-upload.js}"> </script>
+	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script> <!-- angular -->
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/distinctive.js}"></script>
+</body>
+
+</html>

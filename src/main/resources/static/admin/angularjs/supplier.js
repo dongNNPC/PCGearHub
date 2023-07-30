@@ -1,11 +1,11 @@
-         // Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
-         let host = "http://localhost:8088/pcgearhub/rest";
+// Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
+let host = "http://localhost:8088/pcgearhub/rest";
 
-         // Tạo ứng dụng AngularJS và đặt tên là "myApp"
-         const app = angular.module("myApp", []);
+// Tạo ứng dụng AngularJS và đặt tên là "myApp"
+const app = angular.module("myApp", []);
 
-         // Định nghĩa controller cho ứng dụng
-         app.controller("ctrl", function ($scope, $http, $window) {
+// Định nghĩa controller cho ứng dụng
+app.controller("ctrl", function ($scope, $http, $window) {
 	// Khởi tạo biến $scope.pageCount, $scope.supplier, và $scope.items
 	$scope.pageCount;
 	$scope.supplier = {};
@@ -81,8 +81,8 @@
  * Controller cho chức năng quản lý danh mục (supplier).
  */
 
-         // Định nghĩa controller và các dependencies ($scope, $location, $http)
-         app.controller("loadForm", function ($scope, $location, $http) {
+// Định nghĩa controller và các dependencies ($scope, $location, $http)
+app.controller("loadForm", function ($scope, $location, $http) {
 	// Khởi tạo biến $scope.pageCount, $scope.supplier, $scope.items
 	$scope.pageCount;
 	$scope.supplier = {};
@@ -106,8 +106,12 @@
 	/*reset*/
 	// Hàm reset dùng để reset biến $scope.supplier và gọi lại hàm load_all để tải lại danh sách danh mục
 	$scope.reset = () => {
-		$scope.supplier = { confirm: true, status: true, admin: false };
-		$scope.load_all();
+		$scope.supplier = { id: "", name: "", phoneNumber: "", email: "", address: "" };
+		// Ẩn thông báo lỗi
+		$scope.showError = false;
+		$scope.errorMessage = "";
+		$scope.errorMessageSdt = "";
+		$scope.errorMessageID = "";
 	};
 
 	/*load all*/
@@ -148,8 +152,22 @@
 
 	// Hàm validation dùng để kiểm tra trường ID của supplier có trùng lặp hay không
 	$scope.validation = function () {
-		var item = angular.copy($scope.supplier);
-		// Kiểm tra trùng lặp 
+		// Kiểm tra trường ID không được bỏ trống
+		if (!$scope.supplier.id || $scope.supplier.id.trim() === '') {
+			$scope.errorMessage = "ID không được bỏ trống.";
+			$scope.showErrorID = true;
+			return false;
+		}
+
+		// Kiểm tra ký tự đặc biệt trong ID
+		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		if (specialChars.test($scope.supplier.id)) {
+			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+			$scope.showErrorID = true;
+			return false;
+		}
+
+		// Kiểm tra trùng lặp
 		var indexID = $scope.items.findIndex(item => item.id === $scope.supplier.id);
 		if (indexID !== -1) {
 			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
@@ -159,8 +177,11 @@
 			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
+
+		// Nếu không có lỗi, cho phép thêm đối tượng nhà cung cấp vào mảng $scope.items
 		return true;
 	};
+
 
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {

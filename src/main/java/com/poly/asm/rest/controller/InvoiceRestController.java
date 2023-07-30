@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Invoice;
 import com.poly.asm.respository.InvoiceRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class InvoiceRestController {
+public class InvoiceRestController extends HttpServlet {
 	@Autowired
 	InvoiceRepository dao;
 

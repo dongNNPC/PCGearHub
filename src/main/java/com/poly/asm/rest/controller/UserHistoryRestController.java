@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.UserHistory;
 import com.poly.asm.respository.UserHistoryRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class UserHistoryRestController {
+public class UserHistoryRestController extends HttpServlet {
 	@Autowired
 	UserHistoryRepository dao;
 

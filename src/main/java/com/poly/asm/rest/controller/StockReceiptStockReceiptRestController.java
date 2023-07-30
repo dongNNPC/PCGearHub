@@ -18,14 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.StockReceipt;
 import com.poly.asm.respository.StockReceiptRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class StockReceiptStockReceiptRestController {
+public class StockReceiptStockReceiptRestController extends HttpServlet {
 	@Autowired
 	StockReceiptRepository dao;
 
-	@GetMapping("/rest/stockReceipt")
+	@GetMapping("/rest/stockReceipts")
 	public ResponseEntity<List<StockReceipt>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
@@ -43,9 +45,6 @@ public class StockReceiptStockReceiptRestController {
 	@PostMapping("/rest/stockReceipt")
 //	đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<StockReceipt> post(@RequestBody StockReceipt stockReceipt) {
-		if (dao.existsById(stockReceipt.getId())) {
-			return ResponseEntity.badRequest().build();
-		}
 		dao.save(stockReceipt);
 		return ResponseEntity.ok(stockReceipt);
 	}

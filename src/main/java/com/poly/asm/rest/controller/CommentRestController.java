@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Comment;
 import com.poly.asm.respository.CommentRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class CommentRestController {
+public class CommentRestController extends HttpServlet {
 	@Autowired
 	CommentRepository dao;
 

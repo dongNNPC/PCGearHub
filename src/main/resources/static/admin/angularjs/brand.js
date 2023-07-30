@@ -1,11 +1,11 @@
-         // Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
-         let host = "http://localhost:8088/pcgearhub/rest";
+// Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
+let host = "http://localhost:8088/pcgearhub/rest";
 
-         // Tạo ứng dụng AngularJS và đặt tên là "myApp"
-         const app = angular.module("myApp", []);
+// Tạo ứng dụng AngularJS và đặt tên là "myApp"
+const app = angular.module("myApp", []);
 
-         // Định nghĩa controller cho ứng dụng
-         app.controller("ctrl", function ($scope, $http, $window) {
+// Định nghĩa controller cho ứng dụng
+app.controller("ctrl", function ($scope, $http, $window) {
 	// Khởi tạo biến $scope.pageCount, $scope.brand, và $scope.items
 	$scope.pageCount;
 	$scope.brand = {};
@@ -81,8 +81,8 @@
  * Controller cho chức năng quản lý danh mục (brands).
  */
 
-         // Định nghĩa controller và các dependencies ($scope, $location, $http)
-         app.controller("loadForm", function ($scope, $location, $http) {
+// Định nghĩa controller và các dependencies ($scope, $location, $http)
+app.controller("loadForm", function ($scope, $location, $http) {
 	// Khởi tạo biến $scope.pageCount, $scope.brand, $scope.items
 	$scope.pageCount;	
 	$scope.brand = {};
@@ -103,12 +103,19 @@
 		$("#successModal").modal('hide');
 	}
 
-	/*reset*/
-	// Hàm reset dùng để reset biến $scope.brand và gọi lại hàm load_all để tải lại danh sách danh mục
-	$scope.reset = () => {
-		$scope.brand = { confirm: true, status: true, admin: false };
-		$scope.load_all();
+	// Đoạn mã trong controller của bạn
+	$scope.brand = { id: "", name: "", phoneNumber: "", email: "", address: "" };
+
+	// Hàm reset để làm mới đối tượng Brand
+	$scope.reset = function () {
+		$scope.brand = { id: "", name: "", phoneNumber: "", email: "", address: "" };
+		// Ẩn thông báo lỗi
+		$scope.showError = false;
+		$scope.errorMessage = "";
+		$scope.errorMessageSdt = "";
+		$scope.errorMessageID = "";
 	};
+
 
 	/*load all*/
 	// Hàm load_all dùng để tải danh sách danh mục từ máy chủ và gán vào biến $scope.items
@@ -145,26 +152,64 @@
 			console.log("Error", error);
 		});
 	};
-
-	// Hàm validation dùng để kiểm tra trường ID của brand có trùng lặp hay không
 	$scope.validation = function () {
-		var item = angular.copy($scope.brand);
-		// Kiểm tra trùng lặp 
+		// Kiểm tra trường ID không được bỏ trống
+		if (!$scope.brand.id || $scope.brand.id.trim() === '') {
+			$scope.errorMessage = "ID không được bỏ trống.";
+			$scope.showError = true;
+			return false;
+		}
+		// Kiểm tra trùng lặp
 		var indexID = $scope.items.findIndex(item => item.id === $scope.brand.id);
 		if (indexID !== -1) {
 			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
-			$scope.showErrorID = true;
+			$scope.showError = true;
 			return false;
 		} else {
-			$scope.showErrorID = false;
+			$scope.showError = false;
 			$scope.errorMessageID = "";
 		}
+
+		// Kiểm tra ký tự đặc biệt trong ID
+		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		if (specialChars.test($scope.brand.id)) {
+			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+			$scope.showError = true;
+			return false;
+		}
+		// Kiểm tra trùng lặp số điện thoại
+		var indexPhoneNumber = $scope.items.findIndex(item => item.phoneNumber === $scope.brand.phoneNumber);
+		if (indexPhoneNumber !== -1) {
+			$scope.errorMessageSdt = "Số điện thoại đã tồn tại, vui lòng nhập một số điện thoại khác.";
+			$scope.showError = true;
+			return false;
+		}
+		// Kiểm tra định dạng số điện thoại
+		var phoneNumberPattern = /^\d{10,}$/;
+		if (!phoneNumberPattern.test($scope.brand.phoneNumber)) {
+			$scope.errorMessageSdt = "Số điện thoại phải chứa ít nhất 10 chữ số và đúng định dạng.";
+			$scope.showError = true;
+			return false;
+		}
+		// Kiểm tra định dạng email
+		var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailPattern.test($scope.brand.email)) {
+			$scope.errorMessageEmail = "Email không đúng định dạng.";
+			$scope.showError = true;
+			return false;
+		}
+
+
+
+
+		// Nếu không có lỗi, cho phép thêm brand vào danh sách
 		return true;
 	};
 
+
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {
-		$scope.showErrorID = false;
+		$scope.showError = false;
 		$scope.errorMessage = "";
 	};
 
@@ -172,11 +217,10 @@
 	$scope.create = function () {
 		var item = angular.copy($scope.brand);
 		var url = `${host}/brand`;
-
-		if ($scope.validation() == false) {
+		if (!$scope.validation()) {
+			$("#errorModal").modal('show');
 			return;
 		}
-
 		// Gửi yêu cầu POST để thêm danh mục mới
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
@@ -201,8 +245,36 @@
 	$scope.update = function () {
 		var item = angular.copy($scope.brand);
 		var url = `${host}/brand/${$scope.brand.id}`;
+
+		// // Kiểm tra trường ID không được bỏ trống
+		// if (!$scope.brand.id || $scope.brand.id.trim() === '') {
+		// 	$scope.errorMessage = "ID không được bỏ trống.";
+		// 	$scope.showError = true;
+		// 	return;
+		// }
+		// // Kiểm tra ký tự đặc biệt trong ID
+		// var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		// if (specialChars.test($scope.brand.id)) {
+		// 	$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+		// 	$scope.showError = true;
+		// 	return false;
+		// }
+		// // Kiểm tra định dạng số điện thoại
+		// var phoneNumberPattern = /^\d{10,}$/;
+		// if (!phoneNumberPattern.test($scope.brand.phoneNumber)) {
+		// 	$scope.errorMessageSdt = "Số điện thoại phải chứa ít nhất 10 chữ số và đúng định dạng.";
+		// 	$scope.showError = true;
+		// 	return false;
+		// }
+		// // Kiểm tra định dạng email
+		// var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		// if (!emailPattern.test($scope.brand.email)) {
+		// 	$scope.errorMessageEmail = "Email không đúng định dạng.";
+		// 	$scope.showError = true;
+		// 	return false;
+		// }
+		// Tiếp tục xử lý khi không có lỗi trường ID
 		$http.put(url, item).then(resp => {
-			/*Cập nhật lại danh mục trong mảng items*/
 			/*Tìm xem index so sánh ID cũ và ID trên form*/
 			var index = $scope.items.findIndex(item => item.id == $scope.brand.id);
 
@@ -215,8 +287,9 @@
 			$("#successModal").modal('show');
 
 			// Tự động ẩn Modal sau 2 giây
-			// Hiển thị Modal thông báo lỗi mượt mà
-			showSuccessModal();
+			$timeout(function () {
+				$("#successModal").modal('hide');
+			}, 2000);
 
 			// Ẩn thông báo lỗi nếu không có lỗi
 			$scope.hideError();
@@ -224,6 +297,7 @@
 			console.log("Error", error);
 		});
 	};
+
 
 	// Hàm delete dùng để xóa danh mục có id tương ứng
 	$scope.delete = function (id) {

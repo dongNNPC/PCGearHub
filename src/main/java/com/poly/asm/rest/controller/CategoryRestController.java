@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Category;
 import com.poly.asm.respository.CategoryRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class CategoryRestController {
+public class CategoryRestController extends HttpServlet {
 	@Autowired
 	CategoryRepository dao;
 

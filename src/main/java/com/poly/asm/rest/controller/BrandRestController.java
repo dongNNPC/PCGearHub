@@ -18,14 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Brand;
 import com.poly.asm.respository.BrandRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class BrandRestController {
+public class BrandRestController extends HttpServlet {
 	@Autowired
 	BrandRepository dao;
 
-	@GetMapping("/rest/brand")
+	@GetMapping("/rest/brands")
 	public ResponseEntity<List<Brand>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
