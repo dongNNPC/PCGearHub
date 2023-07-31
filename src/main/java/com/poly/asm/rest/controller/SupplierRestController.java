@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Supplier;
 import com.poly.asm.respository.SupplierRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class SupplierRestController {
+public class SupplierRestController extends HttpServlet {
 	@Autowired
 	SupplierRepository dao;
 

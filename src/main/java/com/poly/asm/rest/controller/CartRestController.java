@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Cart;
 import com.poly.asm.respository.CartRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class CartRestController {
+public class CartRestController extends HttpServlet {
 	@Autowired
 	CartRepository dao;
 

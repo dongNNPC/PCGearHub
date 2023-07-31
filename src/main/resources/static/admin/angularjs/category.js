@@ -1,21 +1,17 @@
-         // Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
-         let host = "http://localhost:8088/pcgearhub/rest";
+// Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
+let host = "http://localhost:8088/pcgearhub/rest";
 
-         // Tạo ứng dụng AngularJS và đặt tên là "myApp"
-         const app = angular.module("myApp", []);
+// Tạo ứng dụng AngularJS và đặt tên là "myApp"
+const app = angular.module("myApp", []);
 
-         // Định nghĩa controller cho ứng dụng
-         app.controller("ctrl", function ($scope, $http, $window) {
-	// Khởi tạo biến $scope.pageCount, $scope.categorie, và $scope.items
+// Định nghĩa controller cho ứng dụng
+app.controller("ctrl", function ($scope, $http, $window) {
 	$scope.pageCount;
 	$scope.categorie = {};
 	$scope.items = [];
 
-	// Hàm load_all thực hiện tải danh sách danh mục từ máy chủ
 	$scope.load_all = function () {
 		var url = `${host}/categories`;
-
-		// Gửi yêu cầu GET đến máy chủ để lấy danh sách danh mục
 		$http.get(url).then(resp => {
 			// Lấy dữ liệu phản hồi và gán vào biến $scope.items
 			$scope.items = resp.data;
@@ -81,8 +77,8 @@
  * Controller cho chức năng quản lý danh mục (categories).
  */
 
-         // Định nghĩa controller và các dependencies ($scope, $location, $http)
-         app.controller("loadForm", function ($scope, $location, $http) {
+// Định nghĩa controller và các dependencies ($scope, $location, $http)
+app.controller("loadForm", function ($scope, $location, $http) {
 	// Khởi tạo biến $scope.pageCount, $scope.category, $scope.items
 	$scope.pageCount;
 	$scope.category = {};
@@ -151,6 +147,12 @@
 		var item = angular.copy($scope.category);
 		// Kiểm tra trùng lặp 
 		var indexID = $scope.items.findIndex(item => item.id === $scope.category.id);
+		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		if (!$scope.category.id || $scope.category.id.trim() === '') {
+			$scope.errorMessage = "ID không được bỏ trống.";
+			$scope.showErrorID = true;
+			return false;
+		}
 		if (indexID !== -1) {
 			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
 			$scope.showErrorID = true;
@@ -159,8 +161,17 @@
 			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
+		if (specialChars.test($scope.category.id)) {
+			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+			$scope.showErrorID = true;
+			return false;
+		}
 		return true;
 	};
+
+
+
+
 
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {
@@ -176,7 +187,6 @@
 		if ($scope.validation() == false) {
 			return;
 		}
-
 		// Gửi yêu cầu POST để thêm danh mục mới
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
@@ -202,7 +212,6 @@
 		var item = angular.copy($scope.category);
 		var url = `${host}/categories/${$scope.category.id}`;
 		$http.put(url, item).then(resp => {
-			/*Cập nhật lại danh mục trong mảng items*/
 			/*Tìm xem index so sánh ID cũ và ID trên form*/
 			var index = $scope.items.findIndex(item => item.id == $scope.category.id);
 

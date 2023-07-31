@@ -6,14 +6,14 @@ const app = angular.module("myApp", []);
 
 // Định nghĩa controller cho ứng dụng
 app.controller("ctrl", function ($scope, $http, $window) {
-	// Khởi tạo biến $scope.pageCount, $scope.brand, và $scope.items
+	// Khởi tạo biến $scope.pageCount, $scope.distinctive, và $scope.items
 	$scope.pageCount;
-	$scope.brand = {};
+	$scope.distinctive = {};
 	$scope.items = [];
 
 	// Hàm load_all thực hiện tải danh sách danh mục từ máy chủ
 	$scope.load_all = function () {
-		var url = `${host}/brand`;
+		var url = `${host}/distinctive`;
 
 		// Gửi yêu cầu GET đến máy chủ để lấy danh sách danh mục
 		$http.get(url).then(resp => {
@@ -34,7 +34,7 @@ app.controller("ctrl", function ($scope, $http, $window) {
 	// Hàm edit chuyển hướng người dùng đến trang chỉnh sửa danh mục với id tương ứng
 	$scope.edit = function (id) {
 		// Chuyển hướng đến trang chỉnh sửa danh mục bằng cách thay đổi địa chỉ URL
-		$window.location.href = '/pcgearhub/admin/form-brand/' + id;
+		$window.location.href = '/pcgearhub/admin/form-Distinctive/' + id;
 	}
 
 	//Thực hiện tải toàn bộ danh mục khi trang được tải
@@ -78,15 +78,15 @@ app.controller("ctrl", function ($scope, $http, $window) {
 });
 
 /**
- * Controller cho chức năng quản lý danh mục (brand).
+ * Controller cho chức năng quản lý danh mục (distinctive).
  */
 
 // Định nghĩa controller và các dependencies ($scope, $location, $http)
 app.controller("loadForm", function ($scope, $location, $http) {
-	// Khởi tạo biến $scope.pageCount, $scope.brand, $scope.items
+	// Khởi tạo biến $scope.pageCount, $scope.distinctive, $scope.items
 	$scope.pageCount;
-	$scope.brand = {};
-	$scope.brand.image; // Khởi tạo trường image của brand
+	$scope.distinctive = {};
+	$scope.distinctive.image; // Khởi tạo trường image của distinctive
 	$scope.items = [];
 
 	$scope.oneImage;
@@ -103,24 +103,17 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		$("#successModal").modal('hide');
 	}
 
-	// Đoạn mã trong controller của bạn
-	$scope.brand = { id: "", name: "", phoneNumber: "", email: "", address: "" };
-
-	// Hàm reset để làm mới đối tượng Brand
-	$scope.reset = function () {
-		$scope.brand = { id: "", name: "", phoneNumber: "", email: "", address: "" };
-		// Ẩn thông báo lỗi
-		$scope.showError = false;
-		$scope.errorMessage = "";
-		$scope.errorMessageSdt = "";
-		$scope.errorMessageID = "";
+	/*reset*/
+	// Hàm reset dùng để reset biến $scope.distinctive và gọi lại hàm load_all để tải lại danh sách danh mục
+	$scope.reset = () => {
+		$scope.distinctive = { confirm: true, status: true, admin: false };
+		$scope.load_all();
 	};
-
 
 	/*load all*/
 	// Hàm load_all dùng để tải danh sách danh mục từ máy chủ và gán vào biến $scope.items
 	$scope.load_all = function () {
-		var url = `${host}/brand`;
+		var url = `${host}/distinctive`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
@@ -136,91 +129,69 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	};
 
 	/*edit*/
-	// Hàm edit dùng để tải thông tin danh mục có id tương ứng và gán vào biến $scope.brand
+	// Hàm edit dùng để tải thông tin danh mục có id tương ứng và gán vào biến $scope.distinctive
 	$scope.edit = function () {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
 		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
 		const id = parts[parts.length - 1];
-		var url = `${host}/brand/${id}`;
+		var url = `${host}/distinctive/${id}`;
 		$http.get(url).then(resp => {
-			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.brand
-			$scope.brand = resp.data;
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.distinctive
+			$scope.distinctive = resp.data;
 			console.log("Success", resp);
 		}).catch(error => {
 			console.log("Error", error);
 		});
 	};
+
+	// Hàm validation dùng để kiểm tra trường ID của distinctive có trùng lặp hay không
 	$scope.validation = function () {
-		// Kiểm tra trường ID không được bỏ trống
-		if (!$scope.brand.id || $scope.brand.id.trim() === '') {
+		var item = angular.copy($scope.distinctive);
+		// Kiểm tra trùng lặp 
+		var indexID = $scope.items.findIndex(item => item.id === $scope.distinctive.id);
+		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
+		if (!$scope.distinctive.id || $scope.distinctive.id.trim() === '') {
 			$scope.errorMessage = "ID không được bỏ trống.";
-			$scope.showError = true;
+			$scope.showErrorID = true;
 			return false;
 		}
-		// Kiểm tra trùng lặp
-		var indexID = $scope.items.findIndex(item => item.id === $scope.brand.id);
 		if (indexID !== -1) {
 			$scope.errorMessage = "ID đã tồn tại, vui lòng nhập một ID khác.";
-			$scope.showError = true;
+			$scope.showErrorID = true;
 			return false;
 		} else {
-			$scope.showError = false;
+			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
-
-		// Kiểm tra ký tự đặc biệt trong ID
-		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
-		if (specialChars.test($scope.brand.id)) {
+		if (specialChars.test($scope.distinctive.id)) {
 			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
-			$scope.showError = true;
+			$scope.showErrorID = true;
 			return false;
 		}
-		// Kiểm tra trùng lặp số điện thoại
-		var indexPhoneNumber = $scope.items.findIndex(item => item.phoneNumber === $scope.brand.phoneNumber);
-		if (indexPhoneNumber !== -1) {
-			$scope.errorMessageSdt = "Số điện thoại đã tồn tại, vui lòng nhập một số điện thoại khác.";
-			$scope.showError = true;
-			return false;
-		}
-		// Kiểm tra định dạng số điện thoại
-		var phoneNumberPattern = /^\d{10,}$/;
-		if (!phoneNumberPattern.test($scope.brand.phoneNumber)) {
-			$scope.errorMessageSdt = "Số điện thoại phải chứa ít nhất 10 chữ số và đúng định dạng.";
-			$scope.showError = true;
-			return false;
-		}
-		// Kiểm tra định dạng email
-		var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailPattern.test($scope.brand.email)) {
-			$scope.errorMessageEmail = "Email không đúng định dạng.";
-			$scope.showError = true;
-			return false;
-		}
-
-
-
-
-		// Nếu không có lỗi, cho phép thêm brand vào danh sách
 		return true;
 	};
 
 
+
+
+
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {
-		$scope.showError = false;
+		$scope.showErrorID = false;
 		$scope.errorMessage = "";
 	};
 
 	// Hàm create dùng để thêm danh mục mới vào máy chủ
 	$scope.create = function () {
-		var item = angular.copy($scope.brand);
-		var url = `${host}/brand`;
-		if (!$scope.validation()) {
-			$("#errorModal").modal('show');
+		var item = angular.copy($scope.distinctive);
+		var url = `${host}/distinctive`;
+
+		if ($scope.validation() == false) {
 			return;
 		}
+
 		// Gửi yêu cầu POST để thêm danh mục mới
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
@@ -243,40 +214,12 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	// Hàm update dùng để cập nhật thông tin danh mục
 	$scope.update = function () {
-		var item = angular.copy($scope.brand);
-		var url = `${host}/brand/${$scope.brand.id}`;
-
-		// Kiểm tra trường ID không được bỏ trống
-		if (!$scope.brand.id || $scope.brand.id.trim() === '') {
-			$scope.errorMessage = "ID không được bỏ trống.";
-			$scope.showError = true;
-			return;
-		}
-		// Kiểm tra ký tự đặc biệt trong ID
-		var specialChars = /[!@#$%^&*()_+{}[\]\\|:;"'<>,.?/]/;
-		if (specialChars.test($scope.brand.id)) {
-			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
-			$scope.showError = true;
-			return false;
-		}
-		// Kiểm tra định dạng số điện thoại
-		var phoneNumberPattern = /^\d{10,}$/;
-		if (!phoneNumberPattern.test($scope.brand.phoneNumber)) {
-			$scope.errorMessageSdt = "Số điện thoại phải chứa ít nhất 10 chữ số và đúng định dạng.";
-			$scope.showError = true;
-			return false;
-		}
-		// Kiểm tra định dạng email
-		var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		if (!emailPattern.test($scope.brand.email)) {
-			$scope.errorMessageEmail = "Email không đúng định dạng.";
-			$scope.showError = true;
-			return false;
-		}
-		// Tiếp tục xử lý khi không có lỗi trường ID
+		var item = angular.copy($scope.distinctive);
+		var url = `${host}/distinctive/${$scope.distinctive.id}`;
 		$http.put(url, item).then(resp => {
+			/*Cập nhật lại danh mục trong mảng items*/
 			/*Tìm xem index so sánh ID cũ và ID trên form*/
-			var index = $scope.items.findIndex(item => item.id == $scope.brand.id);
+			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id);
 
 			/*Tìm được vị trí thì cập nhật lại danh mục*/
 			$scope.items[index] = resp.data;
@@ -287,9 +230,8 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			$("#successModal").modal('show');
 
 			// Tự động ẩn Modal sau 2 giây
-			$timeout(function () {
-				$("#successModal").modal('hide');
-			}, 2000);
+			// Hiển thị Modal thông báo lỗi mượt mà
+			showSuccessModal();
 
 			// Ẩn thông báo lỗi nếu không có lỗi
 			$scope.hideError();
@@ -298,12 +240,11 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	};
 
-
 	// Hàm delete dùng để xóa danh mục có id tương ứng
 	$scope.delete = function (id) {
-		var url = `${host}/brand/${id}`;
+		var url = `${host}/distinctive/${id}`;
 		$http.delete(url).then(resp => {
-			var index = $scope.items.findIndex(item => item.id == $scope.brand.id);
+			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id);
 			// Tại vị trí index xóa 1 phần tử trong mảng items
 			$scope.items.splice(index, 1);
 			$scope.reset();

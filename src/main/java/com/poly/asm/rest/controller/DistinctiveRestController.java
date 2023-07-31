@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Distinctive;
 import com.poly.asm.respository.DistinctiveRepository;
 
+import javax.servlet.http.HttpServlet;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class DistinctiveRestController {
+public class DistinctiveRestController extends HttpServlet {
 	@Autowired
 	DistinctiveRepository dao;
 

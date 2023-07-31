@@ -33,80 +33,38 @@
 						<div class="card-body">
 							<h4 class="card-title">Nhập thông tin</h4>
 							<hr style="background-color: white;">
-							<p class="card-description">Giao diện chỉnh sửa Nhà cung cấp
+							<p class="card-description">Giao diện chỉnh sửa 
 							</p>
 							<form class="forms-sample">
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Mã nhà cung cấp </label>
+										class="col-sm-3 col-form-label">Mã đặc trưng</label>
 									<div class="col-sm-9">
-
+										<!-- Trường nhập liệu cho Tên Danh mục -->
 										<input type="text"
 											class="form-control"
-											ng-model="supplier.id"
+											ng-model="distinctive.id"
 											id="exampleInputUsername2"
-											placeholder="Mã nhà cung cấp">
-										 <p ng-show="showErrorID"
+											placeholder="Mã đặc trưng">
+										<p ng-show="showErrorID"
 											class="error-message">
-											{{errorMessage}}</p> 
+											{{errorMessage}}</p>
 									</div>
 								</div>
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
 										class="col-sm-3 col-form-label">
-										Tên nhà cung cấp</label>
+										Tên Đặc Trưng</label>
 									<div class="col-sm-9">
-
+										<!-- Trường nhập liệu cho Loại Danh mục -->
 										<input type="text"
 											class="form-control"
-											ng-model="supplier.name"
+											ng-model="distinctive.name"
 											id="exampleInputUsername2"
-											placeholder="Tên nhà cung cấp">
+											placeholder="Tên sự đặc trưng">
 									</div>
 								</div>
-								<div class="form-group row"> <label
-										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">
-										Số Điện thoại</label>
-									<div class="col-sm-9">
-
-										<input type="text"
-											class="form-control"
-											ng-model="supplier.phoneNumber"
-											id="exampleInputUsername2"
-											placeholder="SDT">
-									</div>
-								</div>
-
-								<div class="form-group row"> <label 
-										for="exampleInputdescription2"
-										class="col-sm-3 col-form-label">email</label>
-									<div class="col-sm-9">
-
-										<input type="email"
-											class="form-control"
-											ng-model="supplier.email"
-											id="exampleInputdescription2"
-											placeholder="email">
-										<p ng-show="showErrordescription"
-											class="error-message">
-									</div>
-								</div>
-								<div class="form-group row"> <label
-										for="exampleInputdescription2"
-										class="col-sm-3 col-form-label">Địa
-										chỉ</label>
-									<div class="col-sm-9">
-
-										<input type="description"
-											class="form-control"
-											ng-model="supplier.address"
-											id="exampleInputdescription2"
-											placeholder="Mô tả">
-										<p ng-show="showErrordescription"
-											class="error-message">
-									</div>
-								</div>
+					
 								<hr style="background-color: white;"> <button
 									ng-click="create()" type="submit"
 									class="btn btn-primary mr-2">Thêm</button>
@@ -147,7 +105,7 @@
 						<div class="modal-footer justify-content-center"> <button
 								type="button" class="btn btn-secondary"
 								data-dismiss="modal">Cancel</button> <button
-								ng-click="delete(supplier.id)" type="submit"
+								ng-click="delete(category.id)" type="submit"
 								class="btn btn-danger mr-2"
 								data-dismiss="modal">Xóa</button> </div>
 					</div>
@@ -162,7 +120,7 @@
 	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script> <!-- angular -->
 	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
-	<script th:inline="javascript" th:src="@{/admin/angularjs/supplier.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/distinctive.js}"></script>
 </body>
 
 </html>

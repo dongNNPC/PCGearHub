@@ -15,12 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.poly.asm.controller.service.FileManagerService;
 
-import jakarta.websocket.server.PathParam;
+import javax.servlet.http.HttpServlet;
+import javax.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class FileManagerRestController {
+public class FileManagerRestController extends HttpServlet {
 
 	@Autowired
 	FileManagerService fileService;
