@@ -1,21 +1,19 @@
 package com.poly.asm.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/pcgearhub")
 public class ShoppingCartController {
-    
 
-    @RequestMapping("/cart")
+	@RequestMapping("/cart")
 	public String cart() {
 
 		return "/fragment/ShoppingCart";
 	}
 
-	 @RequestMapping("/confirm-information")
+	@RequestMapping("/confirm-information")
 	public String confirm_information() {
 
 		return "/fragment/confirm-information";
@@ -23,7 +21,11 @@ public class ShoppingCartController {
 
 	@RequestMapping("/Thank-you")
 	public String thanhyou() {
-
 		return "/fragment/thankforShop";
+	}
+
+	@RequestMapping("/ordered-list")
+	public String oderList() {
+		return "/fragment/orderedList";
 	}
 }

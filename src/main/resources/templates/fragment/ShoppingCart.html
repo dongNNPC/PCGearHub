@@ -17,9 +17,10 @@
   <header>
     <!-- place navbar here -->
   </header>
-  <main style="height: 1000px ; 
+  <main style="max-height: 1000px ; 
   font-family: Quicksand ;background-color: #fffdff;">
-    <section class="h-100 h-custom" style="background-color: #ffffff;">
+    <section class="h-100 h-custom" style="background-color: #ffffff;" ng-app="shopping-cart-app"
+      ng-controller="shopping-cart-ctrl">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-12">
@@ -29,175 +30,102 @@
                   <div class="col-lg-8">
                     <div class="p-5">
                       <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h3  style="font-weight: bold;font-size: 20px;">Giỏ hàng của bạn</h3>
-                        <h4 class="mb-0 text-muted">Bạn đang có <span style="color: black;font-weight: bold;"> 2 sản phẩm </span> trong giỏ hàng</h4>
-                        <input class="form-check-input" type="checkbox" value="" id="">
-                        <label for="">Chọn tất cả</label>
-                      </div>
-                      
-                      <hr class="my-4">
+                        <h3 style="font-weight: bold;font-size: 20px;">Giỏ hàng của bạn</h3>
+                        <h4 ng-show="cart.count > 0" class="mb-0 text-muted">Bạn đang có <span
+                            style="color: black;font-weight: bold;">{{cart.count}} sản phẩm </span> trong giỏ hàng</h4>
+                        <div class="row" ng-show="cart.count > 0">
+                          <div class="col-md-9">
+                            <input class="form-check-input" type="checkbox" value="" id="" ng-model="checkAll"
+                              ng-change="updateSelectedItems()">
+                            <label for="">Chọn tất cả</label>
 
-                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-1  col-lg-1 col-xl-1">
-                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
-                    
-                        </div>
-                        <div class="col-md-1  col-lg-2 col-xl-2">
-                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                         
-                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
-                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
-                          </h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
-                            class="form-control form-control-sm" />
-
-                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
-                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
-                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                          </div>
+                          <div class="col-md-3">
+                            <button type="submit" class="btn" ng-click="cart.clear()" data-mdb-ripple-color="dark"
+                              style="background-color: red; color: white; margin-left: 60px;" ng-show="checkAll">Xóa tất
+                              cả</button>
+                          </div>
                         </div>
                       </div>
 
                       <hr class="my-4">
-                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
+
+                      <div ng-repeat="item in cart.items" style="margin-bottom: 10px;"
+                        class="row mb-4 d-flex justify-content-between align-items-center">
                         <div class="col-md-1  col-lg-1 col-xl-1">
-                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
-                    
+                          <input class="form-check-input" type="checkbox" value="" id="" ng-model="item.checked">
+
                         </div>
-                        <div class="col-md-1  col-lg-2 col-xl-2">
-                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
+                        <div class="col-md-1 col-lg-2 col-xl-2">
+                          <img ng-src="/assets/images/products/{{item.image1}}" width="90px" height="70px"
+                            style="border-radius: 5px; margin-left: -30px;">
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-3">
-                         
-                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
-                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
+
+                          <h6 style="margin-left: -60px;" class="text-black mb-0"> {{item.name}}
+                            <br>
+                            <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : {{(item.price | number:0) +
+                              ' vnđ'}}</p>
                           </h6>
                         </div>
                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                          <!-- Nút giảm  -->
+                          <button style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
+                          ng-click="cart.decreaseQuantity(item)">
                             <i class="fas fa-minus"></i>
                           </button>
 
-                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
+                          <!-- Input số lượng -->
+                          <input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" readonly
+                          style="width: 56px;margin-left: 40px;" id="form1"
+                            min="1" max="{{item.quantity}}" name="quantity" value="1" type="number"
                             class="form-control form-control-sm" />
 
+                          <!-- Nút tăng -->
                           <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                            ng-click="cart.increaseQuantity(item)">
                             <i class="fas fa-plus"></i>
                           </button>
                         </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
-                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0"> {{(item.qty *
+                            item.price | number:0) +' vnđ'}} </h6>
                         </div>
                         <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
-                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                          <button ng-click="cart.remove(item.id)" class="text-muted"><i
+                              class="fas fa-times"></i></button>
                         </div>
+                        <br>
                       </div>
-                      <hr class="my-4">
-                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-1  col-lg-1 col-xl-1">
-                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
-                    
-                        </div>
-                        <div class="col-md-1  col-lg-2 col-xl-2">
-                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                         
-                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
-                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
-                          </h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
-
-                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
-                            class="form-control form-control-sm" />
-
-                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
-                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
-                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                        </div>
+                      <div ng-show="cart.count === 0">
+                        <p style="text-align: center;">Bạn chưa bất kì sản phẩm nào trong giỏ hàng !</p>
                       </div>
-                      <hr class="my-4">
-                      <div  class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-1  col-lg-1 col-xl-1">
-                            <input class="form-check-input" type="checkbox" value="" id="" style="margin-top: 30px;">
-                    
-                        </div>
-                        <div class="col-md-1  col-lg-2 col-xl-2">
-                          <img th:src="@{/assets/images/balo.png}" width="90px" height="70px" style="border-radius: 5px; margin-left: -30px;">
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                         
-                          <h6 style="margin-left: -60px;" class="text-black mb-0">[Pre-Order] Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game
-                          <br>  <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : 1,000,000đ</p>
-                          </h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button  style="margin-bottom: -50px;margin-right: 80px; " class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                            <i class="fas fa-minus"></i>
-                          </button>
 
-                          <input readonly style="width: 56px;margin-left: 40px;" id="form1" min="0" name="quantity" value="1" type="number"
-                            class="form-control form-control-sm" />
-
-                          <button style="margin-left: 90px; margin-top: -60px;" class="btn btn-link px-2"
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1" >
-                          <h6 style="margin-top: 28px;font-weight: bold;font-size: 15px;" class="mb-0">2,000,000đ</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end" style="margin-top: 25px;">
-                          <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                        </div>
-                      </div>
+                      <br>
                       <hr class="my-4">
                       <div class="pt-5">
                         <h6 class="mb-0"><a th:href="@{/pcgearhub/index}" class="text-body">Quay lại trang chủ</a></h6>
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4 bg-grey" style="height:500px;margin-top: 70px;">
+                  <div class="col-lg-4 bg-grey" style="height:1000px;margin-top: 70px;">
                     <div class="p-5">
                       <h3 class="fw-bold mb-5 mt-2 pt-1" style="font-weight: bold;">Thông tin đơn hàng</h3>
                       <hr class="my-4">
-                    
-                        <h3 style="font-size: 20px;margin-top: 50px;">Tổng tiền : <span style="color: red;font-weight: bold;margin-left: 150px"> 4,000,000đ</span></h3>
-                        <hr class="my-4">
-                        <span style="font-weight: bold;"><span style="color: red;">Lưu ý</span> : <span>tích vào các sản phẩm mà bạn muốn thanh toán</span></span>
 
-                        <a type="button" class="btn btn-dark btn-block btn-lg" th:href="@{/pcgearhub/confirm-information}"
-                          data-mdb-ripple-color="dark" style="background-color: red;color: white;margin-bottom: 10px;margin-top: 20px">Thanh toán</a>
+                      <h3 style="font-size: 20px; margin-top: 50px;">
+                        Tổng tiền: <span style="color: red; font-weight: bold; text-align: end">{{(getTotalAmount()
+                          |number:0) + 'vnđ'}}</span>
+                      </h3>
+                      <hr class="my-4">
+                      <span style="font-weight: bold;"><span style="color: red;">Lưu ý</span> : <span>tích vào các sản
+                          phẩm mà bạn muốn thanh toán</span></span>
+
+                      <a  class="btn btn-dark btn-block btn-lg" 
+                        data-mdb-ripple-color="dark"
+                        style="background-color: red; color: white; margin-bottom: 10px; margin-top: 20px"
+                        ng-click="getSelectedItems()" ng-disabled="!hasCheckedItems()">Thanh toán</a>
+
                     </div>
                   </div>
                 </div>
@@ -205,16 +133,13 @@
             </div>
           </div>
         </div>
-      </div>
     </section>
-
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+    <script th:inline="javascript" th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
   </main>
-  <footer>
-
-  </footer>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-    
+
     @media (min-width: 1025px) {
       .h-custom {
         height: 100vh !important;
@@ -250,20 +175,20 @@
       }
     }
   </style>
-  
-  
-<script>
+
+
+  <script>
     // Lấy URL trang hiện tại
     var currentPage = window.location.pathname;
-  
+
     // Lấy phần tử <div>
     var divElement = document.querySelector('.nav-category-home');
-  
+
     // Xóa lớp 'hello' nếu trang hiện tại không phải trang index
     if (currentPage !== '/') {
-        divElement.classList.remove('hello');
+      divElement.classList.remove('hello');
     }
-  
+
   </script>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

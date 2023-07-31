@@ -27,7 +27,7 @@ public class ProductDistinctiveRestController extends HttpServlet {
 	@Autowired
 	ProductDistinctiveRepository dao;
 
-	@GetMapping("/rest/productDistinctive")
+	@GetMapping("/rest/productDistinctives")
 	public ResponseEntity<List<ProductDistinctive>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
@@ -45,9 +45,6 @@ public class ProductDistinctiveRestController extends HttpServlet {
 	@PostMapping("/rest/productDistinctive")
 //	đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<ProductDistinctive> post(@RequestBody ProductDistinctive productDistinctive) {
-		if (dao.existsById(productDistinctive.getId())) {
-			return ResponseEntity.badRequest().build();
-		}
 		dao.save(productDistinctive);
 		return ResponseEntity.ok(productDistinctive);
 	}
