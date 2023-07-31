@@ -1,6 +1,84 @@
-// Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
 let host = "http://localhost:8088/pcgearhub/rest";
 
+// Tạo ứng dụng AngularJS và đặt tên là "myApp"
+const app = angular.module("myApp", []);
+
+// Định nghĩa controller cho ứng dụng
+app.controller("ctrl", function ($scope, $http, $window) {
+	// Khởi tạo biến $scope.pageCount, $scope.supplier, và $scope.items
+	$scope.pageCount;
+	$scope.supplier = {};
+	$scope.items = [];
+
+	// Hàm load_all thực hiện tải danh sách danh mục từ máy chủ
+	$scope.load_all = function () {
+		var url = `${host}/supplier`;
+
+		// Gửi yêu cầu GET đến máy chủ để lấy danh sách danh mục
+		$http.get(url).then(resp => {
+			// Lấy dữ liệu phản hồi và gán vào biến $scope.items
+			$scope.items = resp.data;
+
+			/*Tổng số trang*/
+			// Tính số trang dựa trên số lượng danh mục và số mục trên mỗi trang (5 mục/trang)
+			$scope.pageCount = Math.ceil($scope.items.length / 5);
+
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+
+	/*edit*/
+	// Hàm edit chuyển hướng người dùng đến trang chỉnh sửa danh mục với id tương ứng
+	$scope.edit = function (id) {
+		// Chuyển hướng đến trang chỉnh sửa danh mục bằng cách thay đổi địa chỉ URL
+		$window.location.href = '/pcgearhub/admin/form-supplier/' + id;
+	}
+
+	//Thực hiện tải toàn bộ danh mục khi trang được tải
+	$scope.load_all();
+
+	/*Thực hiện sắp xếp*/
+
+	// Hàm sortBy sắp xếp danh sách danh mục dựa trên thuộc tính được chỉ định (prop)
+	$scope.sortBy = function (prop) {
+		$scope.prop = prop;
+	}
+
+	// Khởi tạo biến $scope.begin và $scope.pageCount
+	$scope.begin = 0;
+	$scope.pageCount = Math.ceil($scope.items.length / 5);
+	console.log($scope.pageCount);
+
+	// Các hàm phục vụ chuyển trang
+	$scope.first = function () {
+		$scope.begin = 0;
+	}
+
+	$scope.prev = function () {
+		console.log($scope.begin)
+		if ($scope.begin > 0) {
+			$scope.begin -= 5;
+		}
+	}
+
+	$scope.next = function () {
+		console.log($scope.begin)
+		console.log(($scope.pageCount - 1) * 5)
+		if ($scope.begin < ($scope.pageCount - 1) * 5) {
+			$scope.begin += 2;
+		}
+	}
+
+	$scope.last = function () {
+		$scope.begin = ($scope.pageCount - 1) * 5;
+	}
+});
+
+/**
+ * Controller cho chức năng quản lý danh mục (supplier).
+ */
 
 // Định nghĩa controller và các dependencies ($scope, $location, $http)
 app.controller("loadForm", function ($scope, $location, $http) {
@@ -98,8 +176,11 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			$scope.showErrorID = false;
 			$scope.errorMessageID = "";
 		}
-
-		// Nếu không có lỗi, cho phép thêm đối tượng nhà cung cấp vào mảng $scope.items
+		if (specialChars.test($scope.supplier.id)) {
+			$scope.errorMessage = "ID không được chứa ký tự đặc biệt.";
+			$scope.showErrorID = true;
+			return false;
+		}
 		return true;
 	};
 
