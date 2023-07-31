@@ -56,7 +56,7 @@
 	go
 		-- Tạo bảng comments
 	CREATE TABLE comments (
-	  id VARCHAR(20) NOT NULL,
+	  id int Identity(1,1) NOT NULL,
 	 content nvarchar(max),
 	 user_id varchar(20) not null,
 	product_id varchar(20) not null,
@@ -111,7 +111,7 @@
 
 	-- Tạo bảng StockReceipts
 	CREATE TABLE stock_receipts (
-	  id int Identity(1,1) not null,
+	  id int Identity(1,1) NOT NULL,
 	  product_id VARCHAR(20) NOT NULL,
 	   supplier_id varchar(20) not null,
 	  brand_id varchar(20) not null,
@@ -536,20 +536,3 @@ VALUES
 ('I038', 'P018', 1, N'Thanh toán khi nhận hàng'),
 ('I039', 'P019', 2, N'Thanh toán khi nhận hàng'),
 ('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
-
--- thêm dữ liệu cho bảng distinctives
-
-INSERT INTO distinctives (id, name)
-VALUES 
-  ('D1', 'Tính chất 1'),
-  ('D2', 'Tính chất 2'),
-  ('D3', 'Tính chất 3');
-
-  --Thêm dữ liệu cho bảng products_distinctives
-
-  INSERT INTO products_distinctives (product_id, distinctive_id)
-VALUES
-  ('P001', 'D1'),
-  ('P001', 'D2'),
-  ('P002', 'D2'),
-  ('P003', 'D3');
