@@ -56,12 +56,13 @@
 	go
 		-- Tạo bảng comments
 	CREATE TABLE comments (
-	  id VARCHAR(20) NOT NULL,
+	  id int Identity(1,1) NOT NULL,
 	 content nvarchar(max),
 	 user_id varchar(20) not null,
 	product_id varchar(20) not null,
 
 	);
+
 
 	-- Tạo bảng Invoices
 	CREATE TABLE Invoices (
