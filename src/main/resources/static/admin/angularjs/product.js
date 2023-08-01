@@ -30,30 +30,31 @@ app.controller("ctrl", function($scope, $http, $window,) {
 	$scope.sortBy = function(prop) {
 		$scope.prop = prop
 	}
+	$scope.currentPage = 1;
 	$scope.begin = 0;
-	$scope.pageCount = Math.ceil($scope.items.length / 5);
-	console.log($scope.pageCount)
 
 	$scope.first = function() {
 		$scope.begin = 0;
+		$scope.currentPage = 1;
 	}
 	$scope.prev = function() {
 		console.log($scope.begin)
 		if ($scope.begin > 0) {
 			$scope.begin -= 5;
+			$scope.currentPage--;
 		}
 	}
 	$scope.next = function() {
 		console.log($scope.begin)
-
-		console.log(($scope.pageCount - 1) * 5)
-
 		if ($scope.begin < ($scope.pageCount - 1) * 5) {
-			$scope.begin += 2;
+			$scope.begin += 5;
+			$scope.currentPage++;
 		}
 	}
 	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 5;
+		$scope.currentPage = $scope.pageCount;
+		
 	}
 
 });
@@ -560,7 +561,6 @@ app.controller("loadForm", function($scope, $location, $http) {
 		});
 	}
 
-	/*	var url = "http://localhost:8080/slide5/rest/files/image";*/
 
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
