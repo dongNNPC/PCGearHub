@@ -6,16 +6,12 @@ const app = angular.module("myApp", []);
 
 // Định nghĩa controller cho ứng dụng
 app.controller("ctrl", function ($scope, $http, $window) {
-	// Khởi tạo biến $scope.pageCount, $scope.categorie, và $scope.items
 	$scope.pageCount;
 	$scope.categorie = {};
 	$scope.items = [];
 
-	// Hàm load_all thực hiện tải danh sách danh mục từ máy chủ
 	$scope.load_all = function () {
 		var url = `${host}/categories`;
-
-		// Gửi yêu cầu GET đến máy chủ để lấy danh sách danh mục
 		$http.get(url).then(resp => {
 			// Lấy dữ liệu phản hồi và gán vào biến $scope.items
 			$scope.items = resp.data;
@@ -191,7 +187,6 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		if ($scope.validation() == false) {
 			return;
 		}
-
 		// Gửi yêu cầu POST để thêm danh mục mới
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
@@ -217,7 +212,6 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		var item = angular.copy($scope.category);
 		var url = `${host}/categories/${$scope.category.id}`;
 		$http.put(url, item).then(resp => {
-			/*Cập nhật lại danh mục trong mảng items*/
 			/*Tìm xem index so sánh ID cũ và ID trên form*/
 			var index = $scope.items.findIndex(item => item.id == $scope.category.id);
 
