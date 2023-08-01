@@ -1,19 +1,13 @@
 package com.poly.asm.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.poly.asm.respository.UserRepository;
-
 @Controller
 @RequestMapping("/pcgearhub/admin")
 public class AdminController {
-
-	@Autowired
-	UserRepository dao;
 
 	@RequestMapping("/index")
 	public String index() {
@@ -29,17 +23,21 @@ public class AdminController {
 		return "/admin/views/form-user";
 	}
 
-	@RequestMapping("/form-product")
-	public String formProduct() {
+	@RequestMapping("/form-product/{id}")
+	public String formProduct(Model model, @PathVariable("id") String key) {
 
 		return "/admin/views/form-product";
 	}
 
 	// Table
 	@RequestMapping("/table-user")
-	public String tableUsser() {
-
+	public String tableUser(Model model) {
 		return "/admin/views/table-user";
+	}
+
+	@RequestMapping("/table-product")
+	public String tableProduct(Model model) {
+		return "/admin/views/table-product";
 	}
 
 	// Form category
@@ -50,7 +48,7 @@ public class AdminController {
 		return "/admin/views/form-category";
 	}
 
-	// table category
+
 	@RequestMapping("/table-category")
 	public String tableCategory() {
 
@@ -71,14 +69,13 @@ public class AdminController {
 		return "/admin/views/table-supplier";
 	}
 
-	 // Form category
 
-	 @RequestMapping("/form-user_id/{id}")
-	 public String formuser_id(Model model, @PathVariable("id") String key) {
 
-	 return "/admin/views/form-user_id";
-	 }
+	@RequestMapping("/form-user_id/{id}")
+	public String formuser_id(Model model, @PathVariable("id") String key) {
 
+		return "/admin/views/form-user_id";
+	}
 
 	@RequestMapping("/table-user_id")
 	public String tableuser_id() {
@@ -103,17 +100,17 @@ public class AdminController {
 
 
 	
-	@RequestMapping("/form-Distinctive/{id}")
+	@RequestMapping("/form-distinctive/{id}")
 	public String formDistinctive(Model model, @PathVariable("id") String key) {
 
-		return "/admin/views/form-Distinctive";
+		return "/admin/views/form-distinctive";
 	}
 
 	// table category
-	@RequestMapping("/table-Distinctive")
+	@RequestMapping("/table-distinctive")
 	public String tableDistinctive() {
 
-		return "/admin/views/table-Distinctive";
+		return "/admin/views/table-distinctive";
 	}
 
 

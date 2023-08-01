@@ -1,12 +1,9 @@
-﻿	use master
+﻿ -- use master
 
-	Create database pcgearhub
+	--create database pcgearhub
+	
+	--drop database pcgearhub
 
---	drop database pcgearhub
-
-	go
-	use pcgearhub
-	go
 	--I. TAO BẢNG
 	-- Tạo bảng Users
 	CREATE TABLE Users (
@@ -114,11 +111,10 @@
 
 	-- Tạo bảng StockReceipts
 	CREATE TABLE stock_receipts (
-	  id VARCHAR(20) NOT NULL,
+	  id int Identity(1,1) not null,
 	  product_id VARCHAR(20) NOT NULL,
 	   supplier_id varchar(20) not null,
 	  brand_id varchar(20) not null,
-	 
 	  quantity INT NOT NULL,
 	  price FLOAT NOT NULL,
 	  order_date Date not null,
@@ -284,31 +280,29 @@
 	  ('S001', 'nhà cung cấp 1', '0829232822','ncc1@gmail.com','Địa chỉ ncc1'),
 	 ('S002', 'Nhà Cung cấp 2', '0829232833','ncc2@gmail.com','Địa chỉ ncc2')
 
-
-
 	-- Thêm dữ liệu vào bảng Products
-	INSERT INTO Products (id, name, quantity, price, description, status, category_id)
+	INSERT INTO Products (id, name, quantity, price, description, status,image1,image2, category_id)
 	VALUES 
-	  ('P001', N'Nike Air Max 97 Mschf x Inri Jesus Shoes', 100, 150, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí. ', 1, 'C001'),
-	  ('P002', N'Giày Thể Thao Nam Bitis Hunter Core Refreshing Collection Marios DSMH06700', 50, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P003', N'Giày Thể Thao Nam Hunter X - X-NITE 22 Collection DSMH10500', 80, 180, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P004', N'Giày Thể Thao Nam Hunter Street DSMH10400', 120, 160, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P005', N'Giày Thể Thao Nam Hunter Tennis DSMH10200', 30, 220,N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P006', N'Giày Thể Thao Nam Hunter X - X-NITE 22 Collection DSMH10500', 60, 190, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P007', N'Giày Thể Thao Nam Hunter X - SPIKY COLLAR Collection DSMH10600', 100, 250, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P008', N'Giày Thể Thao Nam Hunter Core - Meteor Collection DSMH10800', 40, 280, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P009', N'Giày Thể Thao Nam Bitis Hunter X Festive Aurora DSMH03401', 70, 170, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P010', N'Giày Thể Thao Nữ Bitis Hunter X "CÒN-GÌ-DÙNG-ĐÓ" Colletion – Random 100 RSWH00100', 90, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P011', N'Giày Thể Thao Nữ Biti’s Hunter X Z Collection InPink DSWH06300', 60, 220, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P012', N'Giày Bóng Đá Nam Bitis Hunter Football Gen 2K21 Futsal DSMH07300', 50, 260, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P013', N'Giày Thể Thao Trẻ Em Bitis Hunter Street JUNIOR x Vietmax Hanoi Culture Patchwork - Old Wall DSBH00500', 10, 240, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P014', N'Giày Thể Thao Nam Bitis Hunter Core Refreshing Collection Contras DSMH06700', 80, 200, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P015', N'Giày Thể Thao Nam Bitis Hunter X Festive Frosty-White DSMH03500', 40, 180, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P016', N'Giày Thể Thao Cao Cấp Nữ Bitis Hunter Layered Upper DSWH02800', 70, 190, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P017', N'Giày Thể Thao Nam Bitis Hunter X Festive Spice Pumpkin DSMH03500', 90, 230, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P018', N'Giày Thể Thao Nam Bitis Hunter Street Z Collection High White DSMH06200', 60, 250, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P019', N'Giày Thể Thao Nam Biti’s Hunter Core Z Collection Stone DSMH06400', 30, 280, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001'),
-	  ('P020', N'Giày Thể Thao Nam Bitis Hunter X Festive Frosty-White DSMH03500', 50, 260, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1, 'C001')
+	  ('P001', N'Balo GARNACH Roadster - Phiên bản đặc biệt Trực Tiếp Game', 100, 150000, N'Được sản xuất từ những vật liệu siêu nhẹ giúp balo Roadster có trọng lượng chỉ 0.6kg, nhường trọng lực cho các vật dụng. Thiết kế công thái học với phần lưng ôm theo cấu trúc cơ thể kết hợp với quai đeo kích thước lớn giúp phân tán lực khiến bạn cảm thấy nhẹ nhàng khi đeo balo trong thời gian dài. ', 1,'balo.png', 'balo2.png','C001'),
+	  ('P002', N'Logitech G604 Lightspeed Wireless Gaming Mouse 16000 DPI Hero 16K Sensor Bluetooth Mouse', 50, 1000000, N'MAKE YOUR PLAY Your power, your control. Conquer MOBA, MMO, and Battle Royale gameplay with the strategically designed G604 LIGHTSPEED Wireless Gaming Mouse. 15 programmable controls join forces with ultra-fast LIGHTSPEED dual connectivity and the class-leading HERO 16K sensor. It’s a multifaceted battle weapon that lets you play longer, play better, and make your play.',  1,'ChuotKhongDay1.png', 'ChuotKhongDay2.png', 'C001'),
+	  ('P003', N'AJAZZ K870T RGB Mechanical Keyboard 87 Keys Wireless Bluetooth + Type-C Wired Dual Mode Mechanical Switch Gaming Keyboard - Red Switch', 80, 700000, N'Dual-mode keyboard, BT+wired Type-C interfaceThe dual connection is suitable for multiple devices. Multiple devices can be used with seamless switching Separated keyboard and Type-C cable, you can switch between wired and wireless connection.Support the controlling and storage of 3 BT devices',  1,'Banphim1.png', 'Banphim2.png', 'C001'),
+	  ('P004', N'Chuột Gaming EM901X WIRELESS – Black', 120, 490000, N'Chuột không dây HXSJ X50 Red/Black có nút trợ năng, điều chỉnh 2400DPI chuyên dùng chơi game, máy tính, laptop, tivi - HÀNG CHÍNH HÃNGMode: HXSJ X50Thương hiệu: HXSJChất liệu: ABS cao cấpThiế...',  1,'DareUEM901XRGB1.png', 'DareUEM901XRGB2.png', 'C001'),
+	  ('P005', N'Bàn phím cơ AKKO 3084 v2 RGB – White (Foam tiêu âm / Hotswap / AKKO CS Jelly switch)', 30, 220000,N'Chiếc bàn phím mới nhất đến từ nhà AKKO, với thiết kế màu trắng tinh tế, sang trọng và nổi bật trong phân khúc giá tầm trung sẽ phù hợp với đa số người dùng. Tìm hiểu những thông số, ưu điểm, nổi bật và tính năng đặc biệt đến từ chiếc bàn phím cơ AKKO 3084 v2 RGB White bên dưới ngay nhé..',  1,'Banphim1.png', 'Banphim2.png', 'C001'),
+	  ('P006', N'ROG Ranger BP3703 Gaming Backpack', 120, 290000, N'ROG Ranger BP3703 RGB modular gaming backpack featuring charge-cable passthrough, anti-theft zip and water repellent exterior fit up to 17-inch laptop suitable for travel',  1,'BaloAsusROGRangerBP3703GamingBackpack.png', 'BaloAsusROGRangerBP3703GamingBackpack2.png', 'C001'),
+	  ('P007', N'K68 2.4G/BT5.0 Wireless Gaming Mechanical Keyboard 68 Keys Hot-Swappable Gaming Mechanical Keyboard PBT Keycaps Gamer Keyboards', 100, 250000, N'K68 Gaming Keyboard Dual-mode Bluetooth-Compatible 5.0 Wireless Mechanical Keyboard 2.4G 68 Keys Portable Travel for Desktop Computer PC',   1,'gk65.png', 'gk652.png', 'C001'),
+	  ('P008', N'Bàn phím cơ Gaming có dây Bloody A4tech B540', 40, 900000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'BloodyA4techB540.png','BloodyA4techB5402.png', 'C001'),
+	  ('P009', N'BÀN PHÍM CÓ DÂY STEELSERIES APEX PRO MINI US 64820', 70, 1700000, N'ROG là thương hiệu chuyên về các sản phẩm gaming của ASUS. Với sự kết hợp giữa kiến thức sâu sắc và công nghệ tiên tiến, ROG đã tạo ra những màn hình gaming vượt trội, đáp ứng mọi yêu cầu của người chơi.', 1,'STEELSERIESAPEXPROMINIUS64820.png','STEELSERIESAPEXPROMINIUS648202.png', 'C001'),
+	  ('P010', N'Chuột có dây Logitech M100R new-NSS', 90, 200000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.',  1,'LogitechM100R.png','LogitechM100R2.png', 'C001'),
+	  ('P011', N'Chuột có dây MICROSOFT ERGONOMIC BLACK (RJG-00005)', 60, 220000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'MICROSOFTERGONOMICBLACK.png','MICROSOFTERGONOMICBLACK2.png', 'C001'),
+	  ('P012', N'Bàn di,tấm lót chuột chơi game Mouse pad', 50, 100000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'lotchuot.png','lotchuot2.png', 'C001'),
+	  ('P013', N'Miếng lót chuột Mouse pad KINGMASTER Y1 khâu bo viền loại nhỏ 24x32 cm', 10, 90000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'MousepadKINGMASTE.png','MousepadKINGMASTE2.png', 'C001'),
+	  ('P014', N'Miếng lót chuột Mouse pad KINGMASTER Y1 khâu bo viền loại nhỏ 24x32 cm', 80, 200000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.',  1,'NewmenMP-550.png','NewmenMP-5502.png', 'C001'),
+	  ('P015', N'Lót chuột (Pad Mouse) Marvo MG010 Led RGB Loại dài (800x305x4 mm)', 40, 180000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.',  1,'MarvoMG010.png','MarvoMG0102.png', 'C001'),
+	  ('P016', N'Tai Nghe Bluetooth Chụp Tai Prolink PHB6003E0', 70, 370000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.',  1,'ProlinkPHB6003E2.png','ProlinkPHB6003E.png', 'C001'),
+	  ('P017', N'Tai nghe Gaming chụp tai (Headphone Gaming) Microlab G7', 90, 400000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'MicrolabG.png','MicrolabG2.png', 'C001'),
+	  ('P018', N'Tai nghe bluetooth chống ồn chủ động Edifier W820NB màu White', 60, 300000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'w820nb-112.png','w820nb-11.png', 'C001'),
+	  ('P019', N'Bàn phím Gaming HAVIT KB488L', 30, 280000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.', 1,'kb488l-12.png','kb488l-1.png', 'C001'),
+	  ('P020', N'Leopold FC660C Silent Blue Grey', 50, 260000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.',1,'LeopoldFC660C.png','LeopoldFC660C2.png', 'C001')
  
  
 	  		-- Thêm dữ liệu vào bảng products_distinctives
@@ -410,28 +404,28 @@
 
 
 	-- Thêm dữ liệu vào bảng StockReceipts
-	INSERT INTO stock_receipts(id, product_id,supplier_id,brand_id, quantity, price, order_date)
+	INSERT INTO stock_receipts( product_id,supplier_id,brand_id, quantity, price, order_date)
 	VALUES 
-	('R001', 'P001','S001','B001', 100, 150, '2023-06-30'),
-	('R002', 'P002','S001','B001', 50, 400, '2023-06-29'),
-	('R003', 'P003','S001','B001', 120, 200, '2023-06-28'),
-	('R004','P004','S001','B001', 80, 300, '2023-06-27'),
-	('R005','P005','S001','B001', 60, 250, '2023-06-26'),
-	('R006', 'P006','S001','B001', 90, 350, '2023-06-25'),
-	('R007',  'P007','S001','B001', 110, 180, '2023-06-24'),
-	('R008', 'P008','S001','B001', 70, 400, '2023-06-23'),
-	('R009', 'P009','S001','B001', 95, 220, '2023-6-22'),
-	('R010', 'P010','S002','B002', 120, 250, '2023-06-21'),
-	('R011', 'P011','S002','B002', 80, 300, '2023-10-20'),
-	('R012', 'P012','S002','B002', 65, 350, '2023-11-19'),
-	('R013', 'P013','S002','B002', 105, 190, '2023-12-18'),
-	('R014', 'P014','S002','B002', 75, 400, '2023-04-17'),
-	('R015',  'P015','S002','B002', 100, 230, '2023-06-16'),
-	('R016', 'P016','S002','B002', 115, 270, '2023-06-15'),
-	('R017', 'P017','S002','B002', 85, 320, '2023-06-14'),
-	('R018',  'P018','S002','B002', 55, 400, '2023-06-13'),
-	('R019', 'P019','S002','B002', 70, 200, '2023-06-12'),
-	('R020', 'P020','S002','B002', 90, 350, '2023-12-11')
+	('P001','S001','B001', 100, 150, '2023-06-30'),
+	( 'P002','S001','B001', 50, 400, '2023-06-29'),
+	( 'P003','S001','B001', 120, 200, '2023-06-28'),
+	('P004','S001','B001', 80, 300, '2023-06-27'),
+	('P005','S001','B001', 60, 250, '2023-06-26'),
+	( 'P006','S001','B001', 90, 350, '2023-06-25'),
+	( 'P007','S001','B001', 110, 180, '2023-06-24'),
+	( 'P008','S001','B001', 70, 400, '2023-06-23'),
+	( 'P009','S001','B001', 95, 220, '2023-6-22'),
+	( 'P010','S002','B002', 120, 250, '2023-06-21'),
+	( 'P011','S002','B002', 80, 300, '2023-10-20'),
+	( 'P012','S002','B002', 65, 350, '2023-11-19'),
+	( 'P013','S002','B002', 105, 190, '2023-12-18'),
+	( 'P014','S002','B002', 75, 400, '2023-04-17'),
+	(  'P015','S002','B002', 100, 230, '2023-06-16'),
+	( 'P016','S002','B002', 115, 270, '2023-06-15'),
+	('P017','S002','B002', 85, 320, '2023-06-14'),
+	(  'P018','S002','B002', 55, 400, '2023-06-13'),
+	( 'P019','S002','B002', 70, 200, '2023-06-12'),
+	( 'P020','S002','B002', 90, 350, '2023-12-11')
 
 
 
@@ -542,3 +536,20 @@ VALUES
 ('I038', 'P018', 1, N'Thanh toán khi nhận hàng'),
 ('I039', 'P019', 2, N'Thanh toán khi nhận hàng'),
 ('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
+
+-- thêm dữ liệu cho bảng distinctives
+
+INSERT INTO distinctives (id, name)
+VALUES 
+  ('D1', 'Tính chất 1'),
+  ('D2', 'Tính chất 2'),
+  ('D3', 'Tính chất 3');
+
+  --Thêm dữ liệu cho bảng products_distinctives
+
+  INSERT INTO products_distinctives (product_id, distinctive_id)
+VALUES
+  ('P001', 'D1'),
+  ('P001', 'D2'),
+  ('P002', 'D2'),
+  ('P003', 'D3');

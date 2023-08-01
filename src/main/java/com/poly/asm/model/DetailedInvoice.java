@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +34,7 @@ public class DetailedInvoice {
 
 	private int quantity;
 
+	@JsonProperty("paymentMethod")
 	private String paymentMethod;
 
 	// constructors, getters, and setters

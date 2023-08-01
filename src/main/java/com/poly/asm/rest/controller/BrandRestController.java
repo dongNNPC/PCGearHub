@@ -27,12 +27,12 @@ public class BrandRestController extends HttpServlet {
 	@Autowired
 	BrandRepository dao;
 
-	@GetMapping("/rest/brand")
+	@GetMapping("/rest/brands")
 	public ResponseEntity<List<Brand>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/brand/{id}")
+	@GetMapping("/rest/brands/{id}")
 	public ResponseEntity<Brand> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
@@ -42,7 +42,7 @@ public class BrandRestController extends HttpServlet {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/brand")
+	@PostMapping("/rest/brands")
 //	đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<Brand> post(@RequestBody Brand brand) {
 		if (dao.existsById(brand.getId())) {
@@ -52,7 +52,7 @@ public class BrandRestController extends HttpServlet {
 		return ResponseEntity.ok(brand);
 	}
 
-	@PutMapping("/rest/brand/{id}")
+	@PutMapping("/rest/brands/{id}")
 	public ResponseEntity<Brand> put(@PathVariable("id") String id, @RequestBody Brand brand) {
 		if (!dao.existsById(id /* brand.getId() */)) {
 			return ResponseEntity.notFound().build();
@@ -61,7 +61,7 @@ public class BrandRestController extends HttpServlet {
 		return ResponseEntity.ok(brand);
 	}
 
-	@DeleteMapping("/rest/brand/{id}")
+	@DeleteMapping("/rest/brands/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();

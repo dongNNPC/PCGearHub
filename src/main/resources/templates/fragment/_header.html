@@ -2,7 +2,7 @@
 position: sticky;
 top: 0;">
   <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="item-top left-top">
@@ -23,7 +23,7 @@ top: 0;">
 
   <!-- Tìm kiếm , giỏ hàng -->
   <div class="main-logo-shop">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <div class="col-md-3 col-sm-12 col-xs-12">
           <a th:href="@{/pcgearhub/index}" class="logo"><img height="35px" th:src="@{/assets/images/logo/logo.jpg}">
@@ -62,21 +62,23 @@ top: 0;">
 
 
                     <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp; Tài
-                      Khoản Của Tôi</a>
-                    <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
-                      style="list-style: none; display: none;">
-                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá
-                          nhân </a></li>
-                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi mật
-                          khẩu </a></li>
-                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/forgot-password}"> Quên mật
-                          khẩu </a></li>
-                      <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
-                    </ul>
+                        Khoản Của Tôi</a>
+                      <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
+                        style="list-style: none; display: none;">
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá
+                            nhân </a></li>
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi
+                            mật
+                            khẩu </a></li>
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/forgot-password}">
+                            Quên mật
+                            khẩu </a></li>
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
+                      </ul>
 
 
 
-                  </li>
+                    </li>
 
                   </ul>
 
@@ -91,45 +93,47 @@ top: 0;">
                     <div class="hm-minicart-trigger">
                       <span class="item-icon"></span>
                       <span class="item-text">Giỏ hàng
-                        <span class="cart-item-count">2</span>
+                        <span class="cart-item-count">{{cart.count}}</span>
                       </span>
                     </div>
                     <span></span>
                     <div class="minicart">
-                      <ul class="minicart-product-list">
-                        <li>
-                          <a href="single-product.html" class="minicart-product-image">
-                            <img src="..//static/assets/images/balo.png" alt="cart products">
-                          </a>
-                          <div class="minicart-product-details">
-                            <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                            <span>£40 x 1</span>
-                          </div>
-                          <button class="close" title="Remove">
-                            <i class="fa fa-close"></i>
-                          </button>
-                        </li>
-                        <li>
-                          <a href="single-product.html" class="minicart-product-image">
-                            <img src="..//static/assets/images/balo.png" alt="cart products">
-                          </a>
-                          <div class="minicart-product-details">
-                            <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                            <span>£40 x 1</span>
-                          </div>
-                          <button class="close" title="Remove">
-                            <i class="fa fa-close"></i>
-                          </button>
-                        </li>
-                      </ul>
-                      <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
+                     <div style="max-height: 300px; overflow-y: auto; "> 
+                        <ul class="minicart-product-list" ng-repeat="item in cart.items">
+                          <li>
+                            <img ng-src="/assets/images/products/{{item.image1}}" width="90px" height="70px"
+                              style="border-radius: 5px;">
+
+                            <div class="minicart-product-details">
+                              <h6>
+                                <a href="single-product.html">
+                                  <span ng-bind="item.name.length > 28 ? (item.name | limitTo: 28) + '...' : item.name"></span>
+                                </a>
+                              </h6>
+                              
+                              
+                              <span>
+                                <p style="color: red;font-weight: bold; margin-top: 5px;">{{(item.price |
+                                  number:0) +
+                                  ' vnđ'}} x {{item.qty}}</p>
+                              </span>
+                            </div>
+                            <button class="close" ng-click="cart.remove(item.id)" title="Remove">
+                              <i class="fa fa-close"></i>
+                            </button>
+                          </li>
+
+                        </ul>
+                       </div> 
+                      <p class="minicart-total">Tổng: <span ng-bind="(cart.amount | number:0) + 'vnđ'">
+                          <!-- toán tử pipe (|), number : định dạng số ,  --> </span></p>
                       <div class="minicart-button">
                         <a th:href="@{/pcgearhub/cart}" class="li-button li-button-fullwidth li-button-dark">
                           <span>Xem giỏ hàng</span>
                         </a>
-                        <a href="checkout.html" class="li-button li-button-fullwidth">
+                        <!-- <a href="checkout.html" class="li-button li-button-fullwidth">
                           <span>Thanh Toán</span>
-                        </a>
+                        </a> -->
                       </div>
                     </div>
                   </li>
@@ -144,8 +148,8 @@ top: 0;">
       </div>
     </div>
 
-</div>
-    <!-- /Tìm kiếm , giỏ hàng -->
+  </div>
+  <!-- /Tìm kiếm , giỏ hàng -->
 
 
 </header>
