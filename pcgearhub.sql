@@ -541,9 +541,7 @@ VALUES
 ('I037', 'P017', 2, N'Thanh toán khi nhận hàng'),
 ('I038', 'P018', 1, N'Thanh toán khi nhận hàng'),
 ('I039', 'P019', 2, N'Thanh toán khi nhận hàng'),
-<<<<<<< HEAD
 ('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
-=======
 ('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
 
 -- thêm dữ liệu cho bảng distinctives
@@ -575,4 +573,3 @@ VALUES
 ('Đồ xịn 6',7,getDate(),'U004','P004'),
 ('Đồ xịn 7',8,getDate(),'U005','P005'),
 ('Đồ xịn 8',5,getDate(),'U006','P006')
->>>>>>> tranKhanh

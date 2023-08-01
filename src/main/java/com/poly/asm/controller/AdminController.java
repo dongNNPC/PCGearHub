@@ -48,7 +48,7 @@ public class AdminController {
 		return "/admin/views/form-category";
 	}
 
-	// table category
+
 	@RequestMapping("/table-category")
 	public String tableCategory() {
 
@@ -69,7 +69,7 @@ public class AdminController {
 		return "/admin/views/table-supplier";
 	}
 
-	// Form category
+
 
 	@RequestMapping("/form-user_id/{id}")
 	public String formuser_id(Model model, @PathVariable("id") String key) {
@@ -100,17 +100,17 @@ public class AdminController {
 
 
 	
-	@RequestMapping("/form-Distinctive/{id}")
+	@RequestMapping("/form-distinctive/{id}")
 	public String formDistinctive(Model model, @PathVariable("id") String key) {
 
-		return "/admin/views/form-Distinctive";
+		return "/admin/views/form-distinctive";
 	}
 
 	// table category
-	@RequestMapping("/table-Distinctive")
+	@RequestMapping("/table-distinctive")
 	public String tableDistinctive() {
 
-		return "/admin/views/table-Distinctive";
+		return "/admin/views/table-distinctive";
 	}
 
 

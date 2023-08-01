@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>bran
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
 
@@ -33,35 +33,38 @@
 						<div class="card-body">
 							<h4 class="card-title">Nhập thông tin</h4>
 							<hr style="background-color: white;">
-							<p class="card-description">Giao diện chỉnh sửa Thương Hiệu
+							<p class="card-description">Giao diện chỉnh sửa Nhà cung cấp
 							</p>
 							<form class="forms-sample">
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">ID</label>
+										class="col-sm-3 col-form-label">Mã nhà cung cấp </label>
 									<div class="col-sm-9">
 
 										<input type="text"
 											class="form-control"
 											ng-model="brand.id"
 											id="exampleInputUsername2"
-											placeholder="Mã thương hiệu ">
-										 <p ng-show="showError"
+											placeholder="Mã nhà cung cấp">
+										 <p ng-show="showErrorID"
 											class="error-message">
-											{{errorMessage}}</p>
+											{{errorMessageID}}</p> 
 									</div>
 								</div>
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
 										class="col-sm-3 col-form-label">
-										Tên Thương hiệu</label>
+										Tên nhà cung cấp</label>
 									<div class="col-sm-9">
 
 										<input type="text"
 											class="form-control"
 											ng-model="brand.name"
 											id="exampleInputUsername2"
-											placeholder="Tên Thương hiệu">
+											placeholder="Tên nhà cung cấp">
+											<p ng-show="showErrorName"
+											class="error-message">
+											{{errorMessageName}}</p> 
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -74,10 +77,10 @@
 											class="form-control"
 											ng-model="brand.phoneNumber"
 											id="exampleInputUsername2"
-											placeholder="Số điện thoại">
-											<p ng-show="showError"
+											placeholder="SDT">
+											<p ng-show="showErrorPhone"
 											class="error-message">
-											{{errorMessageSdt}}</p>
+											{{errorMessagePhone}}</p> 
 									</div>
 								</div>
 
@@ -91,9 +94,9 @@
 											ng-model="brand.email"
 											id="exampleInputdescription2"
 											placeholder="email">
-											<p ng-show="showError"
+											<p ng-show="showErrorEmail"
 											class="error-message">
-											{{errorMessageEmail}}</p>
+											{{errorMessageEmail}}</p> 
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -107,8 +110,9 @@
 											ng-model="brand.address"
 											id="exampleInputdescription2"
 											placeholder="Mô tả">
-										<p ng-show="showErrordescription"
+											<p ng-show="showErrorAddress"
 											class="error-message">
+											{{errorMessageAddress}}</p> 
 									</div>
 								</div>
 								<hr style="background-color: white;"> <button
@@ -125,35 +129,27 @@
 						</div>
 					</div>
 				</div>
-			</div> <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
-			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content" style="background-color: #28a745">
-						<div class="modal-body">{{ successMessageModal }}</div>
-					</div>
-				</div>
-			</div> <!-- Modal cảnh báo HTML -->
-			<div id="myModal" class="modal fade">
+			</div> 
+			<div id="myModal" class="modal fade" style="margin-top:200px;margin-right: 100px">
 				<div class="modal-dialog modal-confirm">
 					<div class="modal-content">
 						<div class="modal-header flex-column">
-							<div class="icon-box"> <i
-									class="material-icons">&#xE5CD;</i>
+							<div class="icon-box">
+								<i class="material-icons">&#xE5CD;</i>
 							</div>
-							<h4 class="modal-title w-100">Are you sure?</h4> <button
-								type="button" class="close" data-dismiss="modal"
+							<h4 class="modal-title w-100">Bạn có chắc?</h4>
+							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<p>Do you really want to delete these records? This
-								process cannot be undone.</p>
+							<p>Bạn thật sự muốn xóa người dùng</p>
 						</div>
-						<div class="modal-footer justify-content-center"> <button
-								type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button> <button
-								ng-click="delete(brand.id)" type="submit"
-								class="btn btn-danger mr-2"
-								data-dismiss="modal">Xóa</button> </div>
+						<div class="modal-footer justify-content-center">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancel</button>
+							<button ng-click="delete(brand.id)" type="submit"
+								class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
+						</div>
 					</div>
 				</div>
 			</div>
