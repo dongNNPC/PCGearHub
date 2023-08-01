@@ -3,8 +3,8 @@
  */
 let host = "http://localhost:8088/pcgearhub/rest";
 
-const app = angular.module("myApp", []);
-app.controller("loadForm", function ($scope, $location, $http, $timeout) {
+const app = angular.module("shopping-cart-app", []);
+app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeout) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
 

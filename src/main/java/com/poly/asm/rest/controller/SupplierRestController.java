@@ -52,7 +52,7 @@ public class SupplierRestController extends HttpServlet {
 		return ResponseEntity.ok(supplier);
 	}
 
-	@PutMapping("/rest/Supplier/{id}")
+	@PutMapping("/rest/supplier/{id}")
 	public ResponseEntity<Supplier> put(@PathVariable("id") String id, @RequestBody Supplier supplier) {
 		if (!dao.existsById(id /* Supplier.getId() */)) {
 			return ResponseEntity.notFound().build();
@@ -61,7 +61,7 @@ public class SupplierRestController extends HttpServlet {
 		return ResponseEntity.ok(supplier);
 	}
 
-	@DeleteMapping("/rest/Supplier/{id}")
+	@DeleteMapping("/rest/supplier/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
