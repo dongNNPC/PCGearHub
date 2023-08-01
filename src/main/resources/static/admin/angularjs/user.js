@@ -1,11 +1,11 @@
 /**
- * 
- */
+* 
+*/
 let host = "http://localhost:8088/pcgearhub/rest";
 
 const app = angular.module("myApp", []);
-app.controller("ctrl", function($scope, $http, $window,) {
-	$scope.pageCount;
+app.controller("ctrl", function($scope, $http) {
+	$scope.pageCount=1;
 	$scope.user = {};
 	$scope.items = [];
 	$scope.load_all = function() {
@@ -16,7 +16,7 @@ app.controller("ctrl", function($scope, $http, $window,) {
 			$scope.items = resp.data;
 			/*Tổng số trang*/
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
-
+			console.log($scope.pageCount)
 			console.log("Success", resp);
 		}).catch(error => {
 			console.log("Error", error);
@@ -36,30 +36,31 @@ app.controller("ctrl", function($scope, $http, $window,) {
 	}
 
 
+	$scope.currentPage = 1;
 	$scope.begin = 0;
-	$scope.pageCount = Math.ceil($scope.items.length / 5);
-	console.log($scope.pageCount)
 
 	$scope.first = function() {
 		$scope.begin = 0;
+		$scope.currentPage = 1;
 	}
 	$scope.prev = function() {
 		console.log($scope.begin)
 		if ($scope.begin > 0) {
 			$scope.begin -= 5;
+			$scope.currentPage--;
 		}
 	}
 	$scope.next = function() {
 		console.log($scope.begin)
-
-		console.log(($scope.pageCount - 1) * 5)
-
 		if ($scope.begin < ($scope.pageCount - 1) * 5) {
-			$scope.begin += 2;
+			$scope.begin += 5;
+			$scope.currentPage++;
 		}
 	}
 	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 5;
+		$scope.currentPage = $scope.pageCount;
+		
 	}
 
 });
@@ -216,7 +217,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		return true;
 	}
 
-	$scope.message = (animation,title,icon) => {
+	$scope.message = (animation, title, icon) => {
 		toastMixin.fire({
 			animation: animation,
 			title: title,
@@ -242,8 +243,8 @@ app.controller("loadForm", function($scope, $location, $http) {
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
 			console.log("Success", resp);
-		$scope.message(true,"Thêm thành công","success")
-		
+			$scope.message(true, "Thêm thành công", "success")
+
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -264,7 +265,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			$scope.items[index] = resp.data;
 			console.log("Success", resp);
 			/*Thông báo thành công*/
-		$scope.message(true,"Cập nhật thành công","success")
+			$scope.message(true, "Cập nhật thành công", "success")
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -282,7 +283,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			/*Thông báo thành công*/
 
 			/*Thông báo thành công*/
-		$scope.message(true,"Xóa thành công","success")
+			$scope.message(true, "Xóa thành công", "success")
 		}).catch(error => {
 			console.log("Error", error);
 		});

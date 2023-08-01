@@ -14,8 +14,9 @@ import com.poly.asm.model.Product;
 @Controller
 @RequestMapping("/pcgearhub")
 public class IndexController {
-	
-	@Autowired ProductService pro_service;
+
+	@Autowired
+	ProductService pro_service;
 
 	@RequestMapping("/index")
 	public String index(Model model) {
@@ -25,7 +26,7 @@ public class IndexController {
 	}
 
 	@RequestMapping("/detail-page/{id}")
-	public String detailPage(Model model , @PathVariable("id") String id) {
+	public String detailPage(Model model, @PathVariable("id") String id) {
 		Product item = pro_service.findById(id);
 		model.addAttribute("itemDetailPage", item);
 		return "/views/detailPage";
