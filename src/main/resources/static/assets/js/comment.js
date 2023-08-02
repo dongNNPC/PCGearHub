@@ -3,8 +3,69 @@
  */
 let host = "http://localhost:8088/pcgearhub/rest";
 
-const app = angular.module("shopping-cart-app", []);
-app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeout) {
+const app = angular.module("myApp", []);
+app.controller("loadAll", function ($scope, $http, $window,) {
+	$scope.pageCount;
+	$scope.user = {};
+	$scope.items = [];
+	$scope.load_all = function () {
+		console.log
+
+		var url = `${host}/comments`;
+		$http.get(url).then(resp => {
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.items
+			$scope.items = resp.data;
+			/*Tổng số trang*/
+			$scope.pageCount = Math.ceil($scope.items.length / 5);
+
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+	/*edit*/
+	$scope.edit = function (id) {
+		window.location.href = '/pcgearhub/admin/form-user/' + id;
+	}
+	//Thực hiện tải toàn bộ users
+	$scope.load_all();
+	/*Thực hiện sắp xếp*/
+
+
+	$scope.sortBy = function (prop) {
+		$scope.prop = prop
+	}
+
+
+	$scope.begin = 0;
+	$scope.pageCount = Math.ceil($scope.items.length / 5);
+	console.log($scope.pageCount)
+
+	$scope.first = function () {
+		$scope.begin = 0;
+	}
+	$scope.prev = function () {
+		console.log($scope.begin)
+		if ($scope.begin > 0) {
+			$scope.begin -= 5;
+		}
+	}
+	$scope.next = function () {
+		console.log($scope.begin)
+
+		console.log(($scope.pageCount - 1) * 5)
+
+		if ($scope.begin < ($scope.pageCount - 1) * 5) {
+			$scope.begin += 2;
+		}
+	}
+	$scope.last = function () {
+		$scope.begin = ($scope.pageCount - 1) * 5;
+	}
+
+});
+
+app.controller("editForm", function ($scope, $location, $http, $timeout) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
 
@@ -29,13 +90,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		$scope.showRoleSection = false;
 	};
 
-	// Tươ
-
-	/*reset*/
-	$scope.reset = function () {
-		$scope.user = { confirm: true, status: true, admin: false };
-		$scope.load_all();
-	};
 	/*load all*/
 	$scope.load_all = function () {
 		var url = `${host}/users`;
@@ -73,12 +127,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		});
 	}
 
-	$scope.validation = function () {
-		var item = angular.copy($scope.user);
-		$scope.errorMessageEmail = "";
-		return true;
-	}
-
 
 	$scope.update = function () {
 		if (!$scope.validation()) {
@@ -89,6 +137,10 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		var item = angular.copy($scope.user);
 		var url = `${host}/users/${$scope.user.id}`;
 		$http.put(url, item).then(resp => {
+			// Cập nhật lại sinh viên trong mảng và các thao tác khác
+			// ...
+
+			// Set the success message and show it
 			$scope.successMessage = "Cập nhật người dùng thành công.";
 			$scope.showSuccessMessage = true;
 
@@ -113,6 +165,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 
 
 
+	/*	var url = "http://localhost:8080/slide5/rest/files/image";*/
+
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
 	$scope.url = function (filename) {
@@ -135,23 +189,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 			$scope.filenames = resp.data;
 		}).catch(error => {
 			console.log("Error", error)
-		})
-	}
-
-	$scope.upload = function (files) {
-		$scope.user.image = files[0].name;
-		var form = new FormData();
-		for (var i = 0; i < files.length; i++) {
-			form.append("files", files[i])
-		}
-		$http.post(url, form, {
-			transformRequest: angular.identity,
-			headers: { 'Content-Type': undefined }
-		}).then(resp => {
-			$scope.filenames = [];
-			$scope.filenames.push(...resp.data)
-		}).catch(error => {
-			console.log("Errors", error)
 		})
 	}
 	$scope.load_all();

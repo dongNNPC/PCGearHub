@@ -1,9 +1,11 @@
-﻿ -- use master
-
-	--create database pcgearhub
-	
+﻿use master 
+go
+	create database pcgearhub
+	go
+	use pcgearhub
+	go
 	--drop database pcgearhub
-
+	 
 	--I. TAO BẢNG
 	-- Tạo bảng Users
 	CREATE TABLE Users (
@@ -56,17 +58,21 @@
 	go
 		-- Tạo bảng comments
 	CREATE TABLE comments (
-	  id VARCHAR(20) NOT NULL,
+	  id int Identity(1,1) NOT NULL,
 	 content nvarchar(max),
+	 like_count int,
+	  order_date DATE NOT NULL,
 	 user_id varchar(20) not null,
 	product_id varchar(20) not null,
 
 	);
 
+
 	-- Tạo bảng Invoices
 	CREATE TABLE Invoices (
 	  id VARCHAR(20) NOT NULL,
 	  order_date DATE NOT NULL,
+	  address nvarchar(200),
 	  status NVARCHAR(50) NOT NULL,
 	  user_id VARCHAR(20) NOT NULL,
 	);
@@ -111,7 +117,7 @@
 
 	-- Tạo bảng StockReceipts
 	CREATE TABLE stock_receipts (
-	  id int Identity(1,1) not null,
+	  id int Identity(1,1) NOT NULL,
 	  product_id VARCHAR(20) NOT NULL,
 	   supplier_id varchar(20) not null,
 	  brand_id varchar(20) not null,
@@ -312,72 +318,72 @@
 	  (N'P002','D001')
 
 	-- Thêm dữ liệu vào bảng Invoices
-	INSERT INTO Invoices (id, order_date, status, user_id)
+	INSERT INTO Invoices (id, order_date,address,status, user_id)
 	VALUES 
-	('I001', '2024-01-10', N'delivered', 'U001'),
-	('I002', '2024-02-09', N'delivered', 'U002'),
-	('I003', '2024-03-12', N'pending', 'U003'),
-	('I004', '2024-04-08', N'delivered', 'U004'),
-	('I005', '2024-05-13', N'delivered', 'U003'),
-	('I006', '2024-06-12', N'delivered', 'U004'),
-	('I007', '2024-07-11', N'pending', 'U004'),
-	('I008', '2024-08-07', N'delivered', 'U002'),
-	('I009', '2024-09-15', N'delivered', 'U004'),
-	('I010', '2024-10-14', N'delivered', 'U003'),
-	('I011', '2024-11-06', N'pending', 'U004'),
-	('I012', '2024-12-05', N'delivered', 'U001'),
-	('I013', '2024-01-18', N'delivered', 'U003'),
-	('I014', '2024-02-17', N'delivered', 'U003'),
-	('I015', '2024-03-04', N'delivered', 'U002'),
-	('I016', '2024-04-16', N'delivered', 'U003'),
-	('I017', '2024-05-19', N'delivered', 'U002'),
-	('I018', '2024-06-03', N'pending', 'U002'),
-	('I019', '2024-07-21', N'delivered', 'U002'),
-	('I020', '2024-07-20', N'pending', 'U002'),
-	('I021', '2024-01-10', N'pending', 'U001'),
-	('I022', '2024-02-09', N'pending', 'U002'),
-	('I023', '2024-03-12', N'pending', 'U003'),
-	('I024', '2024-04-08', N'delivered', 'U004'),
-	('I025', '2024-05-13', N'delivered', 'U003'),
-	('I026', '2024-08-12', N'pending', 'U004'),
-	('I027', '2024-12-11', N'pending', 'U004'),
-	('I028', '2024-11-07', N'delivered', 'U002'),
-	('I029', '2024-09-15', N'delivered', 'U004'),
-	('I030', '2024-01-14', N'delivered', 'U003'),
-	('I031', '2024-02-06', N'pending', 'U004'),
-	('I032', '2024-03-05', N'delivered', 'U001'),
-	('I033', '2024-05-18', N'cancelled', 'U003'),
-	('I034', '2024-11-17', N'delivered', 'U003'),
-	('I035', '2024-07-04', N'cancelled', 'U002'),
-	('I036', '2024-09-16', N'pending', 'U003'),
-	('I037', '2024-01-19', N'cancelled', 'U002'),
-	('I038', '2024-12-03', N'delivered', 'U002'),
-	('I039', '2024-02-21', N'pending', 'U002'),
-	('I040', '2024-03-20', N'delivered', 'U002')
-		INSERT INTO Invoices (id, order_date, status, user_id)
-	SELECT 'INV001', '2023-01-01', 'pending', 'U002'
-	UNION ALL SELECT 'INV002', '2023-02-01', 'pending', 'U002'
-	UNION ALL SELECT 'INV003', '2023-03-01', 'delivered', 'U002'
-	UNION ALL SELECT 'INV004', '2023-04-01', 'delivered', 'U002'
-	UNION ALL SELECT 'INV005', '2023-05-01', 'delivered', 'U002'
-	UNION ALL SELECT 'INV006', '2023-06-01', 'delivered', 'U003'
-	UNION ALL SELECT 'INV007', '2023-07-01', 'pending', 'U003'
-	UNION ALL SELECT 'INV008', '2023-08-01', 'delivered', 'U003'
-	UNION ALL SELECT 'INV009', '2023-09-01', 'delivered', 'U003'
-	UNION ALL SELECT 'INV010', '2023-10-01', 'delivered', 'U003'
-	UNION ALL SELECT 'INV011', '2023-11-01', 'delivered', 'U003'
-	UNION ALL SELECT 'INV012', '2023-12-01', 'pending', 'U003'
-	UNION ALL SELECT 'INV0022', '2023-02-01', 'delivered', 'U002'
-	UNION ALL SELECT 'INV0032', '2023-03-01', 'pending', 'U002'
-	UNION ALL SELECT 'INV0042', '2023-07-01', 'delivered', 'U004'
-	UNION ALL SELECT 'INV0052', '2023-05-01', 'delivered', 'U002'
-	UNION ALL SELECT 'INV0062', '2023-07-01', 'pending', 'U004'
-	UNION ALL SELECT 'INV0072', '2023-07-01', 'delivered', 'U004'
-	UNION ALL SELECT 'INV0082', '2023-07-01', 'delivered', 'U004'
-	UNION ALL SELECT 'INV0092', '2023-09-01', 'delivered', 'U004'
-	UNION ALL SELECT 'INV0102', '2023-11-01', 'pending', 'U003'
-	UNION ALL SELECT 'INV0112', '2023-11-01', 'delivered', 'U004'
-	UNION ALL SELECT 'INV0122', '2023-12-01', 'delivered', 'U002';
+	('I001', '2024-01-10','address1', N'delivered', 'U001'),
+	('I002', '2024-02-09','address1', N'delivered', 'U002'),
+	('I003', '2024-03-12','address1', N'pending', 'U003'),
+	('I004', '2024-04-08','address1', N'delivered', 'U004'),
+	('I005', '2024-05-13', 'address1',N'delivered', 'U003'),
+	('I006', '2024-06-12','address1', N'delivered', 'U004'),
+	('I007', '2024-07-11','address1', N'pending', 'U004'),
+	('I008', '2024-08-07', 'address1',N'delivered', 'U002'),
+	('I009', '2024-09-15', 'address1',N'delivered', 'U004'),
+	('I010', '2024-10-14','address1', N'delivered', 'U003'),
+	('I011', '2024-11-06','address1', N'pending', 'U004'),
+	('I012', '2024-12-05', 'address1',N'delivered', 'U001'),
+	('I013', '2024-01-18', 'address1',N'delivered', 'U003'),
+	('I014', '2024-02-17','address1', N'delivered', 'U003'),
+	('I015', '2024-03-04','address1', N'delivered', 'U002'),
+	('I016', '2024-04-16', 'address1',N'delivered', 'U003'),
+	('I017', '2024-05-19', 'address1',N'delivered', 'U002'),
+	('I018', '2024-06-03', 'address1',N'pending', 'U002'),
+	('I019', '2024-07-21', 'address1',N'delivered', 'U002'),
+	('I020', '2024-07-20', 'address1',N'pending', 'U002'),
+	('I021', '2024-01-10', 'address1',N'pending', 'U001'),
+	('I022', '2024-02-09', 'address1',N'pending', 'U002'),
+	('I023', '2024-03-12', 'address1',N'pending', 'U003'),
+	('I024', '2024-04-08', 'address1',N'delivered', 'U004'),
+	('I025', '2024-05-13', 'address1',N'delivered', 'U003'),
+	('I026', '2024-08-12','address1', N'pending', 'U004'),
+	('I027', '2024-12-11', 'address1',N'pending', 'U004'),
+	('I028', '2024-11-07', 'address1',N'delivered', 'U002'),
+	('I029', '2024-09-15', 'address1',N'delivered', 'U004'),
+	('I030', '2024-01-14', 'address1',N'delivered', 'U003'),
+	('I031', '2024-02-06','address1', N'pending', 'U004'),
+	('I032', '2024-03-05', 'address1',N'delivered', 'U001'),
+	('I033', '2024-05-18','address1', N'cancelled', 'U003'),
+	('I034', '2024-11-17', 'address1',N'delivered', 'U003'),
+	('I035', '2024-07-04', 'address1',N'cancelled', 'U002'),
+	('I036', '2024-09-16','address1', N'pending', 'U003'),
+	('I037', '2024-01-19','address1', N'cancelled', 'U002'),
+	('I038', '2024-12-03','address1', N'delivered', 'U002'),
+	('I039', '2024-02-21','address1', N'pending', 'U002'),
+	('I040', '2024-03-20', 'address1',N'delivered', 'U002')
+		INSERT INTO Invoices (id, order_date,address, status, user_id)
+	SELECT 'INV001', '2023-01-01','address1', 'pending', 'U002'
+	UNION ALL SELECT 'INV002', '2023-02-01','address1', 'pending', 'U002'
+	UNION ALL SELECT 'INV003', '2023-03-01','address1', 'delivered', 'U002'
+	UNION ALL SELECT 'INV004', '2023-04-01', 'address1','delivered', 'U002'
+	UNION ALL SELECT 'INV005', '2023-05-01', 'address1','delivered', 'U002'
+	UNION ALL SELECT 'INV006', '2023-06-01','address1', 'delivered', 'U003'
+	UNION ALL SELECT 'INV007', '2023-07-01', 'address1','pending', 'U003'
+	UNION ALL SELECT 'INV008', '2023-08-01','address1', 'delivered', 'U003'
+	UNION ALL SELECT 'INV009', '2023-09-01', 'address1','delivered', 'U003'
+	UNION ALL SELECT 'INV010', '2023-10-01','address1', 'delivered', 'U003'
+	UNION ALL SELECT 'INV011', '2023-11-01', 'address1','delivered', 'U003'
+	UNION ALL SELECT 'INV012', '2023-12-01', 'address1','pending', 'U003'
+	UNION ALL SELECT 'INV0022', '2023-02-01','address1', 'delivered', 'U002'
+	UNION ALL SELECT 'INV0032', '2023-03-01', 'address1','pending', 'U002'
+	UNION ALL SELECT 'INV0042', '2023-07-01', 'address1','delivered', 'U004'
+	UNION ALL SELECT 'INV0052', '2023-05-01','address1', 'delivered', 'U002'
+	UNION ALL SELECT 'INV0062', '2023-07-01', 'address1','pending', 'U004'
+	UNION ALL SELECT 'INV0072', '2023-07-01','address1','delivered', 'U004'
+	UNION ALL SELECT 'INV0082', '2023-07-01', 'address1','delivered', 'U004'
+	UNION ALL SELECT 'INV0092', '2023-09-01', 'address1','delivered', 'U004'
+	UNION ALL SELECT 'INV0102', '2023-11-01', 'address1','pending', 'U003'
+	UNION ALL SELECT 'INV0112', '2023-11-01', 'address1','delivered', 'U004'
+	UNION ALL SELECT 'INV0122', '2023-12-01', 'address1','delivered', 'U002';
 	-- Thêm dữ liệu vào bảng DetailedInvoices
 	INSERT INTO detailed_invoices (invoice_id, product_id, quantity, payment_method)
 	VALUES 
@@ -536,6 +542,7 @@ VALUES
 ('I038', 'P018', 1, N'Thanh toán khi nhận hàng'),
 ('I039', 'P019', 2, N'Thanh toán khi nhận hàng'),
 ('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
+('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
 
 -- thêm dữ liệu cho bảng distinctives
 
@@ -553,3 +560,16 @@ VALUES
   ('P001', 'D2'),
   ('P002', 'D2'),
   ('P003', 'D3');
+
+  --Thêm dữ liệu cho bảng comments
+  
+  INSERT INTO comments  (content, like_count,order_date,user_id,product_id)
+VALUES
+('Đồ xịn 1',2,getDate(),'U001','P001'),
+('Đồ xịn 2',1,getDate(),'U001','P001'),
+('Đồ xịn 3',10,getDate(),'U002','P002'),
+('Đồ xịn 4',3,getDate(),'U002','P002'),
+('Đồ xịn 5',4,getDate(),'U003','P003'),
+('Đồ xịn 6',7,getDate(),'U004','P004'),
+('Đồ xịn 7',8,getDate(),'U005','P005'),
+('Đồ xịn 8',5,getDate(),'U006','P006')

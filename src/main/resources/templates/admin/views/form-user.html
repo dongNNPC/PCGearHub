@@ -82,7 +82,7 @@
 									<div class="col-sm-9">
 										<input type="text" class="form-control" ng-model="user.name"
 											id="exampleInputUsername2" placeholder="Họ và tên">
-											<p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
+										<p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -92,7 +92,7 @@
 										<input type="text" class="form-control"
 											ng-model="user.password" id="exampleInputUsername2"
 											placeholder="Mật khẩu">
-											<p ng-show="showErrorPassword" class="error-message">{{errorMessagePassword}}</p>
+										<p ng-show="showErrorPassword" class="error-message">{{errorMessagePassword}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -109,7 +109,7 @@
 									<div class="col-sm-9">
 										<input type="text" class="form-control" ng-model="user.phone"
 											id="exampleInputMobile" placeholder="Số điện thoại">
-											<p ng-show="showErrorPhone" class="error-message">{{errorMessagePhone}}</p>
+										<p ng-show="showErrorPhone" class="error-message">{{errorMessagePhone}}</p>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -119,7 +119,7 @@
 										<input type="text" class="form-control"
 											ng-model="user.address" id="exampleInputMobile"
 											placeholder="Địa chỉ">
-											<p ng-show="showErrorAddress" class="error-message">{{errorMessageAddress}}</p>
+										<p ng-show="showErrorAddress" class="error-message">{{errorMessageAddress}}</p>
 									</div>
 								</div>
 
@@ -186,34 +186,33 @@
 										class="btn btn-danger mr-2">Xóa</button></a>
 								<button ng-click="reset()" class="btn btn-dark">Làm mới</button>
 							</form>
-											<!-- Modal cảnh báo HTML -->
-			
-
+							<!-- Modal cảnh báo HTML -->
 						</div>
 					</div>
-		<div id="myModal" class="modal fade" style="margin-top:200px;margin-right: 100px">
-				<div class="modal-dialog modal-confirm">
-					<div class="modal-content">
-						<div class="modal-header flex-column">
-							<div class="icon-box">
-								<i class="material-icons">&#xE5CD;</i>
+					<div id="myModal" class="modal fade"
+						style="margin-top: 200px; margin-right: 100px">
+						<div class="modal-dialog modal-confirm">
+							<div class="modal-content">
+								<div class="modal-header flex-column">
+									<div class="icon-box">
+										<i class="material-icons">&#xE5CD;</i>
+									</div>
+									<h4 class="modal-title w-100">Bạn có chắc?</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Bạn thật sự muốn xóa người dùng</p>
+								</div>
+								<div class="modal-footer justify-content-center">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Cancel</button>
+									<button ng-click="delete(user.id)" type="submit"
+										class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
+								</div>
 							</div>
-							<h4 class="modal-title w-100">Bạn có chắc?</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<p>Bạn thật sự muốn xóa người dùng</p>
-						</div>
-						<div class="modal-footer justify-content-center">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button>
-							<button ng-click="delete(user.id)" type="submit"
-								class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
 						</div>
 					</div>
-				</div>
-			</div>
 				</div>
 			</div>
 			<!-- <button class="first">Bottom Toast</button>
