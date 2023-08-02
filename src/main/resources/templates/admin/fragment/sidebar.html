@@ -75,7 +75,7 @@
             <div class="collapse" id="ui-user">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
-                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-user/null}">Form nhập liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-user/1111}">Form nhập liệu</a></li>
               </ul>
             </div>
           </li>
@@ -89,8 +89,9 @@
             </a>
             <div class="collapse" id="ui-product">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
-                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-product/null}">Form nhập liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-product}">Bảng dữ liệu</a></li>
+
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-product/2222}">Form nhập liệu</a></li>
               </ul>
             </div>
           </li>
@@ -104,8 +105,8 @@
             </a>
             <div class="collapse" id="ui-category">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Form nhập liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-category}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-category/3333}">Form nhập liệu</a></li>
               </ul>
             </div>
           </li>
@@ -119,18 +120,40 @@
             </a>
             <div class="collapse" id="ui-brand">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-user}">Bảng dữ liệu</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Form nhập liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-brand}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-brand/4444}">Form nhập liệu</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" data-toggle="collapse" href="#ui-supplier" aria-expanded="false" aria-controls="ui-supplier">
               <span class="menu-icon">
-                <i class="mdi mdi-playlist-play"></i>
+                <i class="mdi mdi-laptop"></i>
               </span>
-              <span class="menu-title">Form Elements</span>
+              <span class="menu-title">Nhà Cung cấp</span>
+              <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-supplier">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-supplier}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-supplier/5555}">Form nhập liệu</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-distinctive" aria-expanded="false" aria-controls="ui-distinctive">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+              <span class="menu-title">Đặc Trưng</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-distinctive">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-distinctive}">Bảng dữ liệu</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/form-distinctive/6666}">Form nhập liệu</a></li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="pages/tables/basic-table.html">

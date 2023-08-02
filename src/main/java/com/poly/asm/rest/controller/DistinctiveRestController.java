@@ -32,7 +32,7 @@ public class DistinctiveRestController extends HttpServlet {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/distinctive/{id}")
+	@GetMapping("/rest/distinctives/{id}")
 	public ResponseEntity<Distinctive> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
@@ -42,7 +42,7 @@ public class DistinctiveRestController extends HttpServlet {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/distinctive")
+	@PostMapping("/rest/distinctives")
 //	đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<Distinctive> post(@RequestBody Distinctive distinctive) {
 		if (dao.existsById(distinctive.getId())) {
@@ -52,7 +52,7 @@ public class DistinctiveRestController extends HttpServlet {
 		return ResponseEntity.ok(distinctive);
 	}
 
-	@PutMapping("/rest/distinctive/{id}")
+	@PutMapping("/rest/distinctives/{id}")
 	public ResponseEntity<Distinctive> put(@PathVariable("id") String id, @RequestBody Distinctive distinctive) {
 		if (!dao.existsById(id /* Distinctive.getId() */)) {
 			return ResponseEntity.notFound().build();
@@ -61,7 +61,7 @@ public class DistinctiveRestController extends HttpServlet {
 		return ResponseEntity.ok(distinctive);
 	}
 
-	@DeleteMapping("/rest/distinctive/{id}")
+	@DeleteMapping("/rest/distinctives/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();

@@ -38,7 +38,7 @@
 							<form class="forms-sample">
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Tên
+										class="col-sm-3 col-form-label">Mã
 										Danh mục</label>
 									<div class="col-sm-9">
 										<!-- Trường nhập liệu cho Tên Danh mục -->
@@ -49,13 +49,14 @@
 											placeholder="Mã danh mục">
 										<p ng-show="showErrorID"
 											class="error-message">
-											{{errorMessage}}</p>
+											{{errorMessageID}}
+										</p>
 									</div>
 								</div>
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
 										class="col-sm-3 col-form-label">
-										Loại Danh mục</label>
+										Tên Danh mục</label>
 									<div class="col-sm-9">
 										<!-- Trường nhập liệu cho Loại Danh mục -->
 										<input type="text"
@@ -63,6 +64,11 @@
 											ng-model="category.name"
 											id="exampleInputUsername2"
 											placeholder="Tên Danh mục">
+
+											<p ng-show="showErrorName"
+											class="error-message">
+											{{errorMessageName}}
+											
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -76,8 +82,10 @@
 											ng-model="category.description"
 											id="exampleInputdescription2"
 											placeholder="Mô tả">
-										<p ng-show="showErrordescription"
+
+											<p ng-show="showErrorDescription"
 											class="error-message">
+											{{errorMessageDescription}}
 									</div>
 								</div>
 								<hr style="background-color: white;"> <button
@@ -95,34 +103,26 @@
 					</div>
 				</div>
 			</div> <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
-			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content" style="background-color: #28a745">
-						<div class="modal-body">{{ successMessageModal }}</div>
-					</div>
-				</div>
-			</div> <!-- Modal cảnh báo HTML -->
-			<div id="myModal" class="modal fade">
+			<div id="myModal" class="modal fade" style="margin-top:200px;margin-right: 100px">
 				<div class="modal-dialog modal-confirm">
 					<div class="modal-content">
 						<div class="modal-header flex-column">
-							<div class="icon-box"> <i
-									class="material-icons">&#xE5CD;</i>
+							<div class="icon-box">
+								<i class="material-icons">&#xE5CD;</i>
 							</div>
-							<h4 class="modal-title w-100">Are you sure?</h4> <button
-								type="button" class="close" data-dismiss="modal"
+							<h4 class="modal-title w-100">Bạn có chắc?</h4>
+							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							<p>Do you really want to delete these records? This
-								process cannot be undone.</p>
+							<p>Bạn thật sự muốn xóa người dùng</p>
 						</div>
-						<div class="modal-footer justify-content-center"> <button
-								type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button> <button
-								ng-click="delete(category.id)" type="submit"
-								class="btn btn-danger mr-2"
-								data-dismiss="modal">Xóa</button> </div>
+						<div class="modal-footer justify-content-center">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancel</button>
+							<button ng-click="delete(category.id)" type="submit"
+								class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
+						</div>
 					</div>
 				</div>
 			</div>
