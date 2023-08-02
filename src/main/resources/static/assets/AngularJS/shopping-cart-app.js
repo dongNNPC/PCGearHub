@@ -471,14 +471,8 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
 
-	function showSuccessModal() {
-		$scope.showSuccessMessage = true;
-		$timeout(hideSuccessMessage, 2000); // Tự động ẩn thông báo sau 2 giây
-	}
 
-	function hideSuccessMessage() {
-		$scope.showSuccessMessage = false;
-	}
+
 	// ẩn
 	$scope.showRoleSection = false;
 	$scope.showActivitySection = false;
