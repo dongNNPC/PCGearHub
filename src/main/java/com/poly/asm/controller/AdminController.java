@@ -91,7 +91,7 @@ public class AdminController {
 		return "/admin/views/form-brand";
 	}
 
-	// table brand
+
 	@RequestMapping("/table-brand")
 	public String tablebrand() {
 
@@ -106,7 +106,6 @@ public class AdminController {
 		return "/admin/views/form-distinctive";
 	}
 
-	// table category
 	@RequestMapping("/table-distinctive")
 	public String tableDistinctive() {
 

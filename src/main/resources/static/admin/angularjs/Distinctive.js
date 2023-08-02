@@ -11,7 +11,7 @@ app.controller("ctrl", function ($scope, $http, $window) {
 	$scope.items = [];
 
 	$scope.load_all = function () {
-		var url = `${host}/distinctives`;
+		var url = `${host}/distinctive`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
@@ -33,8 +33,6 @@ app.controller("ctrl", function ($scope, $http, $window) {
 	$scope.sortBy = function (prop) {
 		$scope.prop = prop;
 	}
-
-	// Khởi tạo biến $scope.begin và $scope.pageCount
 	$scope.begin = 0;
 	$scope.pageCount = Math.ceil($scope.items.length / 5);
 	console.log($scope.pageCount);
@@ -82,7 +80,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	/*load all*/
 	$scope.load_all = function () {
-		var url = `${host}/distinctives`;
+		var url = `${host}/distinctive`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
@@ -104,7 +102,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
 		const id = parts[parts.length - 1];
-		var url = `${host}/distinctives/${id}`;
+		var url = `${host}/distinctive/${id}`;
 		$http.get(url).then(resp => {
 			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.distinctive
 			$scope.distinctive = resp.data;
@@ -169,20 +167,18 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	}
 
-
-
-
-
 	// Hàm hideError dùng để ẩn thông báo lỗi
 	$scope.hideError = function () {
 		$scope.showErrorID = false;
-		$scope.errorMessage = "";
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
 	};
 
 
 	$scope.create = function() {
 		var item = angular.copy($scope.distinctive);
-		var url = `${host}/distinctives`;
+		var url = `${host}/distinctive`;
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -199,6 +195,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		}).catch(error => {
 			console.log("Error", error);
 		});
+
 	};
 
 	// Hàm update dùng để cập nhật thông tin danh mục
@@ -208,7 +205,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			return
 		}
 		var item = angular.copy($scope.distinctive);
-		var url = `${host}/distinctives/${$scope.distinctive.id}`;
+		var url = `${host}/distinctive/${$scope.distinctive.id}`;
 		$http.put(url, item).then(resp => {
 			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id)
 
@@ -223,7 +220,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	// Hàm delete dùng để xóa danh mục có id tương ứng
 	$scope.delete = function(id) {
-		var url = `${host}/distinctives/${id}`;
+		var url = `${host}/distinctive/${id}`;
 		$http.delete(url).then(resp => {
 			var index = $scope.items.findIndex(item => item.id == $scope.distinctive.id)
 			//Tại vị trí index xóa 1 phần tử
