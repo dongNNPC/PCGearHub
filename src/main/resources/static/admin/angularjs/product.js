@@ -506,7 +506,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 					console.log("Error", error);
 				});
 			});
-			// Thêm đặt trưng
+			// Sửa đặt trưng
 			$scope.showSelectedOptions();
 			var distinctiveUrl = "http://localhost:8088/pcgearhub/rest/productDistinctive";
 			$scope.selectedOptions.forEach(function(pds) {

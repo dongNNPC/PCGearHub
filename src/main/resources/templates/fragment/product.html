@@ -5,8 +5,10 @@
       <div class="product-grid">
         <div class="product-image">
           <a ng-href="/pcgearhub/detail-page/{{p.id}}" class="image">
-            <img class="pic-1" ng-src="/assets/images/products/{{p.image1}}" alt="{{p.name}}">
-            <img class="pic-2" ng-src="/assets/images/products/{{p.image2}}" alt="{{p.name}}">
+          <img class="pic-1" ng-src="{{url(p.image1)}}"alt="">
+          <img class="pic-2" ng-src="{{url(p.image2)}}"alt="">
+        <!--     <img class="pic-1" ng-src="/assets/images/products/{{p.image1}}" alt="{{p.name}}">
+            <img class="pic-2" ng-src="/assets/images/products/{{p.image2}}" alt="{{p.name}}"> -->
           </a>
           <ul class="social">
             <li><a ng-href="/pcgearhub/detail-page/{{p.id}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>

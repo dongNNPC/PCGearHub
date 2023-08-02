@@ -133,7 +133,7 @@
 					<form>
 						<h3 class="pull-left">New Comment</h3>
 						<button ng-click="create()" type="submit"
-							class="btn btn-normal pull-right">Submit</button>
+							class="btn btn-primary pull-right">Gửi</button>
 						<fieldset>
 							<div class="row">
 								<div class="col-sm-3 col-lg-2 hidden-xs">
@@ -168,12 +168,12 @@
 									<li><i class="fa fa-thumbs-up"></i>{{item.likeCount}}</li>
 								</ul>
 								<ul class="list-unstyled list-inline media-detail pull-right">
-									<li class=""><a href="">Like</a></li>
+									<li class=""><a href="" ng-click="setLike(item.id)" >Like</a></li>
 									<li class=""><a href="">Reply</a></li>
 								</ul>
 							</div>
 						</div>
-							<div style="width: 1100px;background-color: red">
+							<div style="width: 1200px;background-color: red">
 						
 									<div class="col-sm-4"></div>
 									<ul class="pagination col-sm-4">

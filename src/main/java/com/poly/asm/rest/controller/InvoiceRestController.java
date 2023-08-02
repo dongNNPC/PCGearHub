@@ -2,6 +2,8 @@ package com.poly.asm.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,8 +22,6 @@ import com.poly.asm.controller.service.OrderService;
 import com.poly.asm.model.Invoice;
 import com.poly.asm.respository.InvoiceRepository;
 
-import javax.servlet.http.HttpServlet;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
@@ -29,11 +29,18 @@ public class InvoiceRestController extends HttpServlet {
 	@Autowired
 	InvoiceRepository dao;
 
-	 @Autowired OrderService odersv;
+	@Autowired
+	OrderService odersv;
 
-	@GetMapping("/rest/invoice")
+	@GetMapping("/rest/invoices")
 	public ResponseEntity<List<Invoice>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
+	}
+
+	@GetMapping("/rest/invoices/{keyword}")
+	public ResponseEntity<List<Invoice>> getInvoicesByKeyword(@PathVariable("keyword") String keyword) {
+		List<Invoice> invoices = dao.findByStatusContainingIgnoreCase(keyword);
+		return ResponseEntity.ok(invoices);
 	}
 
 	@GetMapping("/rest/invoice/{id}")
@@ -74,10 +81,9 @@ public class InvoiceRestController extends HttpServlet {
 		return ResponseEntity.ok().build();
 	}
 
-
-	 @PostMapping("/rest/orders")
-    public Invoice create (@RequestBody JsonNode orderData){
-        return odersv.create(orderData);
-    }
+	@PostMapping("/rest/orders")
+	public Invoice create(@RequestBody JsonNode orderData) {
+		return odersv.create(orderData);
+	}
 
 }
