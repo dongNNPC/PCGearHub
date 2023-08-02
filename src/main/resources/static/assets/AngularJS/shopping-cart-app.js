@@ -1,8 +1,12 @@
 let host = "http://localhost:8088/pcgearhub/rest";
 
 const app = angular.module("shopping-cart-app", []);
-app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeout) {
+app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout) {
+		$scope.url = function(filename) {
+		var url = "http://localhost:8088/pcgearhub/rest/files/images";
+		return `${url}/${filename}`
 
+	}
 	$scope.cart = {
 		items: [],
 		add(id) {
@@ -238,17 +242,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 });
 
 
-
-
-
-
-
-
-
-
-
-
-app.controller("loadAll", function ($scope, $http, $location) {
+app.controller("loadAll", function($scope, $http, $location) {
 	let hostComment = "http://localhost:8088/pcgearhub/rest/comments";
 	$scope.pageCount;
 	$scope.user = {};
@@ -286,12 +280,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	};
-
-
-
-
-
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -352,9 +341,6 @@ app.controller("loadAll", function ($scope, $http, $location) {
 	$scope.getUser = () => {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
-
-		/*	var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
-			const id = parts[parts.length - 1];*/
 		var url = `${host}/users/U001`;
 		console.log(url)
 		$http.get(url).then(resp => {
@@ -425,6 +411,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 		var comment = {};
 		comment.content = $scope.comment.content;
 		comment.orderDate = formattedDate
+		comment.likeCount = 0
 		comment.user = $scope.user;
 		comment.product = $scope.product;
 
@@ -435,36 +422,62 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.message(true, "Tải bình luận thành công", "success")
 			console.log("Success", resp);
 			$scope.comment.content = ""
+			
+				$scope.load_all();
+
 
 		}).catch(error => {
 			console.log("Error", error);
 		});
+
+
 	};
-	$scope.delete = function (id) {
-		var url = `${host}/comment/${id}`;
-		$http.delete(url).then(resp => {
+	$scope.cm = {};
+	$scope.setLike = (id) => {
+		
+		var urls = `${host}/comment/${id}`;
+		console.log(urls)
+		$http.get(urls).then(resp => {
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
+			$scope.cm = resp.data;
+			const dateTimeString = $scope.cm.orderDate
+			const dateTime = new Date(dateTimeString);
+			const dateString = dateTime.toISOString().split("T")[0];;
+			$scope.cm;
+			$scope.cm.orderDate = dateString;
+			$scope.cm.likeCount = $scope.cm.likeCount + 1;
 
-			var index = $scope.items.findIndex(item => item.id == $scope.user.id)
-			//Tại vị trí index xóa 1 phần tử
-			$scope.items.splice(index, 1)
-			$scope.reset();
-			console.log("Success", resp);
-			/*Thông báo thành công*/
+			var url = `${host}/comment/${id}`;
 
-			/*Thông báo thành công*/
-			$scope.message(true, "Xóa thành công", "success")
+			$http.put(url, $scope.cm).then(resp => {
+				var index = $scope.items.findIndex(item => item.id == id)
+
+				/*Tìm được vị trí thì cập nhật lại sinh viên*/
+				$scope.items[index] = resp.data;
+
+
+				$scope.message(true, "Bạn đã thích bình luận của", "success")
+				console.log("Success", resp);
+
+				$scope.load_all();
+			}).catch(error => {
+				console.log("Error", error);
+			});
+
+			console.log($scope.likeCount)
 		}).catch(error => {
 			console.log("Error", error);
 		});
 	}
-
-
-	$scope.loadData();
-	$scope.cart.loadFormLocalStorage();//khởi chạy
-
+	
+				$scope.load_all();
 
 
 });
+
+
+
+
 
 
 app.controller("loadAlls", function ($scope, $http, $location) {

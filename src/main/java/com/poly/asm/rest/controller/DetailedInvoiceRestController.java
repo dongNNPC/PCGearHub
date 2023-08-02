@@ -2,6 +2,8 @@ package com.poly.asm.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.DetailedInvoice;
 import com.poly.asm.respository.DetailedInvoiceRepository;
 
-import javax.servlet.http.HttpServlet;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
@@ -27,9 +27,16 @@ public class DetailedInvoiceRestController extends HttpServlet {
 	@Autowired
 	DetailedInvoiceRepository dao;
 
-	@GetMapping("/rest/detailedInvoice")
+	@GetMapping("/rest/detailedInvoices")
 	public ResponseEntity<List<DetailedInvoice>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
+	}
+
+	@GetMapping("/rest/detailedInvoices/{invoiceId}")
+	public ResponseEntity<List<DetailedInvoice>> getDetailedInvoicesByInvoiceId(
+			@PathVariable("invoiceId") String invoiceId) {
+		List<DetailedInvoice> detailedInvoices = dao.findByInvoiceId(invoiceId);
+		return ResponseEntity.ok(detailedInvoices);
 	}
 
 	@GetMapping("/rest/detailedInvoice/{id}")

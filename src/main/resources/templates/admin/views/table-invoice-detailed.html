@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="main-panel">
+		<div class="content-wrapper">
+			<div class="page-header">
+				<h3 class="page-title">Bảng Hóa Đơn Chi Tiết</h3>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Quản lý hóa đơn</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Chi tiết</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="row">
+
+				<div class="col-lg-12 grid-margin stretch-card">
+					<div class="card" ng-app="myApp">
+						<div class="card-body" ng-controller="ctrl">
+							<h4 class="card-title">Bảng Dữ Liệu</h4>
+							<p class="card-description">
+								Hóa đơn
+								<code>Bảng chi tiết</code>
+							</p>
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>STT</th>
+											<th ng-click="sortBy('id')">Mã hóa đơn</th>
+											<th ng-click="sortBy('orderDate')">Ngày Đặt Hàng</th>
+											<th ng-click="sortBy('name')">Tên người đặt</th>
+											<th ng-click="sortBy('nameProduct')">Tên Tên sản phẩm</th>
+											<th ng-click="sortBy('nameProduct')">Hình ảnh</th>
+											<th ng-click="sortBy('price')">Giá</th>
+											<th ng-click="sortBy('quantity')">Số lượng</th>
+											<th ng-click="sortBy('totalPrice')">Tổng tiền</th>
+											<th ng-click="sortBy('pay')">Phương thức thanh toán</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in items | orderBy:prop |limitTo:5:begin">
+											<td>{{ $index + 1 }}</td>
+											<td>{{item.invoice.id}}</td>
+											<td>{{item.invoice.orderDate}}</td>
+											<td>{{item.invoice.user.name}}</td>
+											<td>{{item.product.name}}</td>
+											<td><img ng-src="{{url(item.product.image1)}}" style="width: 100px; height: 100px" alt=""></td>
+											<td>{{item.product.price}}</td>
+											<td>{{item.quantity}}</td>
+											<td>{{ item.product.price * item.quantity }}</td>
+											<td>{{item.paymentMethod}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- Phần phân trang -->
+
+
+							</div>
+							<div class="row">
+								<div class="col-sm-4"></div>
+								<ul class="pagination col-sm-4">
+									<li class="btn"><a href="#">{{currentPage}} of
+											{{pageCount}}</a></li>
+									<li class="btn"><a href="#" ng-click="first()"><i
+											class="fas fa-angle-double-left"></i></a></li>
+									<li class="btn"><a href="#" ng-click="prev()"><i
+											class="fas fa-angle-left"></i></a></li>
+									<li class="btn"><a href="#" ng-click="next()"><i
+											class="fas fa-angle-right"></i></a></li>
+									<li class="btn"><a href="#" ng-click="last()"><i
+											class="fas fa-angle-double-right"></i></a></li>
+								</ul>
+								<div class="col-sm-4"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script
+		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript"
+		th:src="@{/admin/angularjs/invoice-detailed.js}"></script>
+</body>
+</html>

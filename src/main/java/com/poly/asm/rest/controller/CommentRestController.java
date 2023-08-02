@@ -2,6 +2,8 @@ package com.poly.asm.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.Comment;
 import com.poly.asm.respository.CommentRepository;
 
-import javax.servlet.http.HttpServlet;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
@@ -33,7 +33,7 @@ public class CommentRestController extends HttpServlet {
 	}
 
 	@GetMapping("/rest/comment/{id}")
-	public ResponseEntity<Comment> getOne(@PathVariable("id") String id) {
+	public ResponseEntity<Comment> getOne(@PathVariable("id") Integer id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -58,7 +58,7 @@ public class CommentRestController extends HttpServlet {
 	}
 
 	@PutMapping("/rest/comment/{id}")
-	public ResponseEntity<Comment> put(@PathVariable("id") String id, @RequestBody Comment comment) {
+	public ResponseEntity<Comment> put(@PathVariable("id") Integer id, @RequestBody Comment comment) {
 		if (!dao.existsById(id /* comment.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
@@ -67,7 +67,7 @@ public class CommentRestController extends HttpServlet {
 	}
 
 	@DeleteMapping("/rest/comment/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+	public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

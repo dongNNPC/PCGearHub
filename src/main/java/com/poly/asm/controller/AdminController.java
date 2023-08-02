@@ -40,6 +40,31 @@ public class AdminController {
 		return "/admin/views/table-product";
 	}
 
+	@RequestMapping("/table-invoice-pending")
+	public String tableInvoice(Model model) {
+		return "/admin/views/table-invoice-pending";
+	}
+
+	@RequestMapping("/table-invoice-delivery")
+	public String tableDelivered(Model model) {
+		return "/admin/views/table-invoice-delivery";
+	}
+
+	@RequestMapping("/table-invoice-complete")
+	public String tableComplete(Model model) {
+		return "/admin/views/table-invoice-complete";
+	}
+
+	@RequestMapping("/table-invoice-cancelled")
+	public String tableCancelled(Model model) {
+		return "/admin/views/table-invoice-cancelled";
+	}
+
+	@RequestMapping("/table-invoice-detailed/{id}")
+	public String tabletableInvoiceDetailed(Model model, @PathVariable("id") String key) {
+		return "/admin/views/table-invoice-detailed";
+	}
+
 	// Form category
 
 	@RequestMapping("/form-category/{id}")
@@ -48,28 +73,23 @@ public class AdminController {
 		return "/admin/views/form-category";
 	}
 
-
 	@RequestMapping("/table-category")
 	public String tableCategory() {
 
 		return "/admin/views/table-category";
 	}
 
-	
 	@RequestMapping("/form-supplier/{id}")
 	public String formSupplier(Model model, @PathVariable("id") String key) {
 
 		return "/admin/views/form-supplier";
 	}
 
-
 	@RequestMapping("/table-supplier")
 	public String tableSupplier() {
 
 		return "/admin/views/table-supplier";
 	}
-
-
 
 	@RequestMapping("/form-user_id/{id}")
 	public String formuser_id(Model model, @PathVariable("id") String key) {
@@ -82,8 +102,6 @@ public class AdminController {
 
 		return "/admin/views/table-user_id";
 	}
-
-
 
 	@RequestMapping("/form-brand/{id}")
 	public String formbrand(Model model, @PathVariable("id") String key) {
@@ -98,8 +116,6 @@ public class AdminController {
 		return "/admin/views/table-brand";
 	}
 
-
-	
 	@RequestMapping("/form-distinctive/{id}")
 	public String formDistinctive(Model model, @PathVariable("id") String key) {
 
@@ -111,6 +127,5 @@ public class AdminController {
 
 		return "/admin/views/table-distinctive";
 	}
-
 
 }
