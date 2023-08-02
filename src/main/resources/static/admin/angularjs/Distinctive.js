@@ -34,7 +34,7 @@ app.controller("ctrl", function ($scope, $http, $window) {
 	// Hàm edit chuyển hướng người dùng đến trang chỉnh sửa danh mục với id tương ứng
 	$scope.edit = function (id) {
 		// Chuyển hướng đến trang chỉnh sửa danh mục bằng cách thay đổi địa chỉ URL
-		$window.location.href = '/pcgearhub/admin/form-Distinctive/' + id;
+		$window.location.href = '/pcgearhub/admin/form-distinctive/' + id;
 	}
 
 	//Thực hiện tải toàn bộ danh mục khi trang được tải

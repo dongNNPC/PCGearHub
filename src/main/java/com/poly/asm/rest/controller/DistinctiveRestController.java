@@ -27,7 +27,7 @@ public class DistinctiveRestController extends HttpServlet {
 	@Autowired
 	DistinctiveRepository dao;
 
-	@GetMapping("/rest/distinctives")
+	@GetMapping("/rest/distinctive")
 	public ResponseEntity<List<Distinctive>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
