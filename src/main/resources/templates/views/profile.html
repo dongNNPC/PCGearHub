@@ -7,13 +7,46 @@
 	<title>Insert title here</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}">
 
 <body>
+	<style>
+		.card {
+			
+			height: 300px;
+			position: relative;
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			min-width: 0;
+			word-wrap: break-word;
+			background-color: #fff;
+			background-clip: border-box;
+			border: 1px solid rgba(0, 0, 0, .125);
+			border-radius: 0.25rem;
+		}
+
+		.forms-group {
+			margin-top: -70px;
+			margin-bottom: 2rem;
+		}
+		.form-group {
+		
+			margin-bottom: 2rem;
+		}
+		.col-form-label {
+			padding-top: calc(0.375rem + 1px);
+			padding-bottom: calc(0.375rem + 1px);
+			margin-bottom: 0;
+			font-size: inherit;
+			line-height: 1.5;
+		}
+		
+	</style>
 	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
 	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
-	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css}" rel="stylesheet" />
-	<div class="container" ng-app="shopping-cart-app" style="margin-left: 300px; margin-bottom: 400px; margin-top: 10px;">
+	<div class="container" ng-app="shopping-cart-app"
+		style="margin-left: 130px; margin-bottom: 400px; margin-top: 10px;">
 		<div class="main-body" ng-controller="shopping-cart-ctrl">
 			<div class="page-header">
 				<h3 class="page-title">Chỉnh sửa người dùng:</h3>
@@ -22,9 +55,9 @@
 			<div class="row">
 
 
-				<div class="col-lg-2">
-					<div class="card">
-						<div class="card-body">
+				<div class="col-lg-3">
+					<div class="card" style="  border: 1px solid rgba(0,0,0,.125);">
+						<div class="card-body" style="    padding: 1.65rem;">
 							<h4 class="card-title">Ảnh đại diện</h4>
 							<hr style="background-color: white;">
 							<div class="square-img-container">
@@ -38,11 +71,17 @@
 									</div>
 								</label>
 							</div>
-							<div class="form-group mt-3" style="max-width: 304px">
+							<div class="forms-group mt-2" style="max-width: 30px">
 								<div class="input-group col-xs-12">
-									<input type="file" accept="image/*"
+									<input type="file" id="fileInput"
+										accept="image/*"
+										style="display: none;"
 										ng-model="user.image"
 										onchange="angular.element(this).scope().upload(this.files)">
+									<button
+										onclick="document.getElementById('fileInput').click()">Chọn
+										tệp</button>
+
 									<span
 										class="input-group-append"></span>
 								</div>
@@ -53,16 +92,15 @@
 				</div>
 
 
-				<div class="col-lg-7">
-					<div class="card">
-						<div class="card-body">
+				<div class="col-lg-lg-6">
+					<div class="card" style="  border: 1px solid rgba(0,0,0,.125);">
+						<div class="card-body" style="    padding: 1.25rem;">
 
-							<form class="forms-sample" >
-								<div class="form-group row"
-								ng-if="id">> <label
+							<form class="forms-sample">
+								<div class="form-group row" ng-if="id">> <label
 										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Mã
-										tài khoản</label>
+										class="col-sm-2 col-form-label">Mã
+										tài khoản:</label>
 
 									<div class="col-sm-9"> <input
 											type="text"
@@ -76,8 +114,8 @@
 
 								<div class="form-group row"> <label
 										for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Họ
-										và tên</label>
+										class="col-sm-2 col-form-label">Họ
+										và tên:</label>
 									<div class="col-sm-9"> <input
 											type="text"
 											class="form-control"
@@ -88,8 +126,8 @@
 								</div>
 								<div class="form-group row" ng-if="mathkau">
 									<label for="exampleInputUsername2"
-										class="col-sm-3 col-form-label">Mật
-										khẩu</label>
+										class="col-sm-2 col-form-label">Mật
+										khẩu:</label>
 									<div class="col-sm-9"> <input
 											type="text"
 											class="form-control"
@@ -100,7 +138,7 @@
 								</div>
 								<div class="form-group row"> <label
 										for="exampleInputEmail2"
-										class="col-sm-3 col-form-label">Email</label>
+										class="col-sm-2 col-form-label">Email:</label>
 									<div class="col-sm-9"> <input
 											type="email"
 											class="form-control"
@@ -115,7 +153,7 @@
 								</div>
 								<div class="form-group row"> <label
 										for="exampleInputMobile"
-										class="col-sm-3 col-form-label">Số
+										class="col-sm-2 col-form-label">Số
 										điện thoại</label>
 									<div class="col-sm-9"> <input
 											type="text"
@@ -127,8 +165,8 @@
 								</div>
 								<div class="form-group row"> <label
 										for="exampleInputMobile"
-										class="col-sm-3 col-form-label">Địa
-										chỉ</label>
+										class="col-sm-2 col-form-label">Địa
+										chỉ:</label>
 									<div class="col-sm-9"> <input
 											type="text"
 											class="form-control"
@@ -140,7 +178,7 @@
 								<div class="row form-group"
 									ng-if="showRoleSection"> <label
 										for="exampleInputMobile"
-										class="col-sm-3 col-form-label">Chức
+										class="col-sm-2 col-form-label">Chức
 										vụ</label>
 									<div class="form-check col-lg-4 ms-2">
 										<label
@@ -168,7 +206,7 @@
 								<div class="row form-group"
 									ng-if="showActivitySection"> <label
 										for="exampleInputMobile"
-										class="col-sm-3 col-form-label">Hoạt
+										class="col-sm-2 col-form-label">Hoạt
 										động</label>
 									<div class="form-check col-lg-4 ms-2">
 										<label
@@ -198,7 +236,7 @@
 								<div class="row form-group"
 									ng-if="showConfirmationSection"> <label
 										for="exampleInputMobile"
-										class="col-sm-3 col-form-label">Xác
+										class="col-sm-2 col-form-label">Xác
 										nhận</label>
 									<div class="form-check col-lg-4 ms-2">
 										<label

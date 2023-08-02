@@ -239,6 +239,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 
 
 
+// sssssssssssssssssssssssssssssssssssssssssssssssss
 
 
 
@@ -246,18 +247,6 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 
 
 
-
-    $scope.showSuccessMessage = false;
-    $scope.successMessage = "";
-
-    function showSuccessModal() {
-        $scope.showSuccessMessage = true;
-        $timeout(hideSuccessMessage, 2000); // Tự động ẩn thông báo sau 2 giây
-    }
-
-    function hideSuccessMessage() {
-        $scope.showSuccessMessage = false;
-    }
     // ẩn
     $scope.showRoleSection = false;
     $scope.showActivitySection = false;
@@ -265,19 +254,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
     $scope.matkhau = false;
     $scope.id = false;
 
-    // Khi bạn muốn ẩn phần tử Chức vụ, chỉ cần thay đổi giá trị của biến showRoleSection
-    // Ví dụ:
-    $scope.hideRoleSection = function () {
-        $scope.showRoleSection = false;
-    };
-
 
     $scope.reset = function () {
         $scope.user = { confirm: true, status: true, admin: false };
         $scope.loadData();
     };
     /*load all*/
-    $scope.loadData = function () {
+    $scope.loadData1 = function () {
         var url = `${host}/users`;
         $http.get(url).then(resp => {
             $scope.items = resp.data;
@@ -397,6 +380,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 
     // Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
     $scope.loadData();
+    $scope.loadData1();
     $scope.cart.loadFormLocalStorage();//khởi chạy
 
 });
