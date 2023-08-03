@@ -1,0 +1,43 @@
+<div class="container"  th:fragment="top10New" style="margin-top: -20px;">
+    <h2 style="font-weight: bold;">  <br>
+      Top những sản phẩm mới về</h2>
+    <div class="row">
+      <div class="col-md-3 col-sm-6" style="margin-top: 10px;" ng-repeat="p in top10new">
+        <div class="product-grid">
+          <div class="product-image">
+            <a ng-href="/pcgearhub/detail-page/{{p.id}}" class="image">
+            <img class="pic-1" ng-src="{{url(p.image1)}}"alt="">
+            <img class="pic-2" ng-src="{{url(p.image2)}}"alt="">
+            </a>
+            <ul class="social">
+              <li><a ng-href="/pcgearhub/detail-page/{{p.id}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+              <li><a href="#" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
+            </ul>
+          </div>
+          <div class="product-content">
+            <h3 style="text-align: start;" class="title">
+              <span class="text-overflow">{{p.name}}</span>
+            </h3>
+            <div class="row">
+              <div class="col-md-12">
+                <h4>
+                  <del style="color: #898888;margin-right: 290px; font-size: 13px;">1,000,000đ</del>
+                </h4>
+                <h4 style="font-weight: bold;text-align: start; color: red;">
+                  {{p.price | number: 0}} vnđ
+                </h4>
+              </div>
+            </div>
+          </div>
+          <button ng-click="cart.add(p.id)" onclick="showNotification()" class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;">
+            <span class="span-bt-addtocart" style="margin-top: -40px;">
+              <i class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
+              <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  

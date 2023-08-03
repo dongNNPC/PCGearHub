@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(view)">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Shop Phụ kiện Máy Tính</title>
-<link rel="shortcut icon" th:href="@{/assets/Icon/logo1.jpg}"
-	type="image/x-icon" />
-<meta http-equiv="content-language" content="vi" />
-<meta name="robots" content="index,follow" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--   <meta name="viewport" th:content="width=device-width, initial-scale=1.0, user-scalable=yes" /> -->
-<meta http-equiv="refresh" content="1800" />
-<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/color.css}" />
-<!--Bootstrap-->
-<link rel="stylesheet" type="text/css"
-	th:href="@{/assets/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/assets/css/owl.carousel.min.css}" />
-<link rel="stylesheet"
-	th:href="@{/fontawesome-free-6.4.0-web/css/all.css}" />
-<link rel="stylesheet" type="text/css"
-	th:href="@{/assets/css/style.css}" />
 
-<!--modal run time thông báo-->
-<link rel="stylesheet"
-	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
-<link rel='stylesheet'
-	th:href='@{https://fonts.googleapis.com/css?family=Lato:300}' />
-<link rel='stylesheet'
-	th:href='@{https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css}' />
-<!-- <style>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Shop Phụ kiện Máy Tính</title>
+	<link rel="shortcut icon" th:href="@{/assets/Icon/logo1.jpg}" type="image/x-icon" />
+	<meta http-equiv="content-language" content="vi" />
+	<meta name="robots" content="index,follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--   <meta name="viewport" th:content="width=device-width, initial-scale=1.0, user-scalable=yes" /> -->
+	<meta http-equiv="refresh" content="1800" />
+	<link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/css/color.css}" />
+	<!--Bootstrap-->
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/owl.carousel.min.css}" />
+	<link rel="stylesheet" th:href="@{/fontawesome-free-6.4.0-web/css/all.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+
+	<!--modal run time thông báo-->
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
+	<link rel='stylesheet' th:href='@{https://fonts.googleapis.com/css?family=Lato:300}' />
+	<link rel='stylesheet' th:href='@{https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css}' />
+	<!-- <style>
      .nav-category-home {
       display: none;
     }
@@ -38,10 +31,10 @@
     }
   </style> -->
 </head>
+
 <body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 	<div class="page-body-buong">
-		<div class="color-category"
-			style="position: -webkit-sticky; position: sticky; top: 0; z-index: 100;">
+		<div class="color-category" style="position: -webkit-sticky; position: sticky; top: 0; z-index: 100;">
 			<header th:replace="~{/fragment/_header :: header}"></header>
 			<!-- /header -->
 
@@ -57,8 +50,7 @@
 		<!-- sản phẩm -->
 		<main th:replace="${view}"></main>
 		<!-- thông báo thêm thành công -->
-		<div id="success-notification" ng-repeat="item in cart.items"
-			style="margin-top: 100px;">
+		<div id="success-notification" ng-repeat="item in cart.items" style="margin-top: 100px;">
 			<span class="close-btnaddtoCart" onclick="closeNotification()">&times;</span>
 			<p style="color: #f1b501; font-weight: bold">Đã thêm vào giỏ hàng
 				thành công !</p>
@@ -67,24 +59,22 @@
 		<footer class="footer" th:replace="~{/fragment/_footer :: footer}"></footer>
 	</div>
 
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
 
-	<script th:inline="javascript"
-		th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
+	<script th:inline="javascript" th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
 
 </body>
 <style>
-.closed {
-	display: none;
-}
+	.closed {
+		display: none;
+	}
 </style>
 <!-- ĐÓng danh mục -->
 <script th:inline="javascript">
-	window.addEventListener('scroll', function() {
+	window.addEventListener('scroll', function () {
 		var categoryMenu = document.getElementById('categoryMenu');
 		var scrollTop = window.pageYOffset
-				|| document.documentElement.scrollTop;
+			|| document.documentElement.scrollTop;
 
 		if (scrollTop > 100) {
 			categoryMenu.classList.add('closed');
@@ -99,7 +89,7 @@
 		var notification = document.getElementById("success-notification");
 		notification.classList.add("show");
 
-		setTimeout(function() {
+		setTimeout(function () {
 			notification.classList.remove("show");
 		}, 1000); // Tự động đóng thông báo sau 5 giây
 	}
@@ -114,7 +104,7 @@
 	var navCategoryHome = document.querySelector(".nav-category-home");
 
 	// Add event listener to the titleCategory element
-	titleCategory.addEventListener("click", function() {
+	titleCategory.addEventListener("click", function () {
 		// Toggle the visibility of the navCategoryHome element
 		navCategoryHome.classList.toggle("hello");
 	});
@@ -133,39 +123,29 @@
 </script>
 
 
-<script type="text/javascript"
-	th:src="@{/static/assets/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/assets/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/wow.min.js}"></script>
-<script type="text/javascript"
-	th:src="@{/assets/js/owl.carousel.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/owl.carousel.min.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/BannerFloat.js}"></script>
 <script th:src="@{/assets/js/hc-offcanvas-nav.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/buong.js}"></script>
 <script th:src="@{/assets/js/jquery.meanmenu.min.js}"></script>
 <script th:src="@{/assets/js/main.js}"></script>
 <!-- Chuyển link CSS sang Thymeleaf -->
-<link
-	th:href="@{https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4@4/bootstrap-4.css}"
-	rel="stylesheet">
+<link th:href="@{https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4@4/bootstrap-4.css}" rel="stylesheet">
 
-
-<!-- Chuyển đoạn mã JavaScript sang Thymeleaf -->
-<script
-	th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js}"></script>
 
 
 <!--Angularjs cdn  -->
-<script
-	th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
 <!--Shoping cart-->
-<script th:inline="javascript"
-	th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
+<script th:inline="javascript" th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
 
 <!--Modal run time thông báo-->
-<script
-	th:src='@{https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js}'></script>
-<script
-	th:src='@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}'></script>
+<script th:src='@{https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js}'></script>
+<script th:src='@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}'></script>
 <script th:src='@{/admin/js/alerts-time.js}'></script>
+
 </html>

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.asm.controller.service.ProductService;
 import com.poly.asm.model.Category;
 import com.poly.asm.model.Product;
+import com.poly.asm.model.Top10NewProducts;
 import com.poly.asm.respository.ProductRepository;
 
 import javax.servlet.http.HttpServlet;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServlet;
 public class ProductRestController extends HttpServlet {
 	@Autowired
 	ProductRepository dao; 
+	//@Autowired ProductService productService;
 
 	@GetMapping("/rest/products")
 	public ResponseEntity<List<Product>> getAll(Model model) {
@@ -88,4 +91,18 @@ public class ProductRestController extends HttpServlet {
 		dao.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
+
+
+	//tìm kiêm sản phẩm trong trang index
+	@GetMapping("/rest/products/search/{name}")
+    public ResponseEntity<List<Product>> searchProductsByName(@PathVariable(name = "name") String name) {
+        List<Product> searchResults = dao.findProductsByNameAll(name);
+        return ResponseEntity.ok(searchResults);
+    }
+
+	@GetMapping("/rest/products/top10new")
+    public ResponseEntity<List<Top10NewProducts>> getTop10NewProducts() {
+        List<Top10NewProducts> top10NewProducts = dao.findProductsAndStockReceipts();
+        return ResponseEntity.ok(top10NewProducts);
+    }
 }
