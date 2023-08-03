@@ -69,7 +69,17 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	/*reset*/
 	$scope.reset = function () {
-		$scope.supplier = { confirm: true, status: true, admin: false };
+	
+		$scope.showErrorID = false;
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
+		$scope.showErrorPhone = false;
+		$scope.errorMessagePhone = "";
+		$scope.showErrorEmail = false;
+		$scope.errorMessageEmail = "";
+		$scope.showErrorAddress = false;
+		$scope.errorMessageAddress = "";
 	};
 	/*load all*/
 	$scope.load_all = function () {
@@ -107,8 +117,11 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	$scope.validation = function () {
 		var itemm = angular.copy($scope.supplier);
 		var indexID = $scope.items.findIndex(itemx => itemx.id === itemm.id);
+		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
 		var indexEmail = $scope.items.findIndex(item => item.email === itemm.email);
+		var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		var indexPhoneNumber = $scope.items.findIndex(item => item.phoneNumber === itemm.phoneNumber);
+		var phoneNumberRegex = /^\d{10}$/;
 		console.log(indexID)
 		var check = 0;
 		if (indexID !== -1) {
@@ -116,28 +129,48 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			$scope.showErrorID = true;
 			check++;
 		} else {
-			$scope.showErrorID = false;
-			$scope.errorMessageID = "";
+			if (!alphanumericRegex.test(itemm.id)) {
+				$scope.errorMessageID = "ID không được chứa kí tự đặc biệt.";
+				$scope.showErrorID = true;
+				check++;
+			} else {
+				$scope.showErrorID = false;
+				$scope.errorMessageID = "";
+			}
 		}
 		if (indexEmail !== -1) {
 			$scope.errorMessageEmail = "Email đã tồn tại, vui lòng nhập một email khác.";
 			$scope.showErrorEmail = true;
 			check++;
 		} else {
-			$scope.showErrorEmail = false;
-			$scope.errorMessageEmail = "";
+			if (!emailRegex.test(itemm.email)) {
+				$scope.errorMessageEmail = "Email phải đúng định dạng.";
+				$scope.showErrorEmail = true;
+				check++;
+			} else {
+				$scope.showErrorEmail = false;
+				$scope.errorMessageEmail = "";
+			}
 		}
 		if (indexPhoneNumber !== -1) {
 			$scope.errorMessagePhone = "Số điện thoại đã tồn tại, vui lòng nhập một số điện thoại khác.";
 			$scope.showErrorPhone = true;
 			check++;
 		} else {
-			$scope.showErrorPhone = false;
-			$scope.errorMessagePhone = "";
+			if (!phoneNumberRegex.test(itemm.phoneNumber)) {
+				$scope.errorMessagePhone = "Số điện thoại phải có 10 chữ số và đúng định dạng";
+				$scope.showErrorPhone = true;
+				check++;
+			} else {
+				$scope.showErrorPhone = false;
+				$scope.errorMessagePhone = "";
+			}
 		}
+
 		if (check != 0) {
 			return false
 		}
+
 		return true;
 	}
 

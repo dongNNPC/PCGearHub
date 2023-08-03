@@ -77,7 +77,15 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 
 	$scope.reset = function () {
-		$scope.category = { confirm: true, status: true, admin: false };
+	
+		// Clear error messages and indicators
+		$scope.showErrorID = false;
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
+		$scope.showErrorDescription = false;
+		$scope.errorMessageDescription = "";
+
 	};
 
 	/*load all*/
@@ -118,21 +126,34 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	$scope.validation = function () {
 		var itemm = angular.copy($scope.category);
 		var indexID = $scope.items.findIndex(itemx => itemx.id === itemm.id);
-		console.log(indexID)
+		console.log(indexID);
 		var check = 0;
+
+		// Regular expression to match only alphanumeric characters (letters and numbers)
+		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
+
 		if (indexID !== -1) {
 			$scope.errorMessageID = "ID đã tồn tại, vui lòng nhập một ID khác.";
 			$scope.showErrorID = true;
 			check++;
 		} else {
-			$scope.showErrorID = false;
-			$scope.errorMessageID = "";
+			if (!alphanumericRegex.test(itemm.id)) {
+				$scope.errorMessageID = "ID không được chứa kí tự đặc biệt.";
+				$scope.showErrorID = true;
+				check++;
+			} else {
+				$scope.showErrorID = false;
+				$scope.errorMessageID = "";
+			}
 		}
-		if (check != 0) {
-			return false
+
+		if (check !== 0) {
+			return false;
 		}
+
 		return true;
-	}
+	};
+
 
 	$scope.catcherror = () => {
 		var item = angular.copy($scope.category);
@@ -188,7 +209,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	};
 
 
-	$scope.create = function() {
+	$scope.create = function () {
 		var item = angular.copy($scope.category);
 		var url = `${host}/categories`;
 		if ($scope.catcherror() == false) {
@@ -202,8 +223,8 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		$http.post(url, item).then(resp => {
 			$scope.items.push(item);
 			console.log("Success", resp);
-		$scope.message(true,"Thêm thành công","success")
-		
+			$scope.message(true, "Thêm thành công", "success")
+
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -230,7 +251,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	}
 
 	// Hàm delete dùng để xóa danh mục có id tương ứng
-	$scope.delete = function(id) {
+	$scope.delete = function (id) {
 		var url = `${host}/categories/${id}`;
 		$http.delete(url).then(resp => {
 			var index = $scope.items.findIndex(item => item.id == $scope.category.id)
@@ -241,7 +262,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			/*Thông báo thành công*/
 
 			/*Thông báo thành công*/
-		$scope.message(true,"Xóa thành công","success")
+			$scope.message(true, "Xóa thành công", "success")
 		}).catch(error => {
 			console.log("Error", error);
 		});
