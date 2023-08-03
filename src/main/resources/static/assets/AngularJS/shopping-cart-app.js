@@ -1,8 +1,8 @@
 let host = "http://localhost:8088/pcgearhub/rest";
 
 const app = angular.module("shopping-cart-app", []);
-app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout) {
-		$scope.url = function(filename) {
+app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeout) {
+	$scope.url = function (filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -233,16 +233,72 @@ app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout
 		return totalAmount;
 	};
 
+	//tìm kiếm sản phẩm trong index
+	$scope.search = (name) => {
+		if (name != "") {
+			var url = `${host}/products/search/${name}`;
+		} else {
+			var url = `${host}/products`;
+		}
+		$http({
+			method: "GET",
+			url: url,
+		})
+			.then((resp) => {
+				$scope.products = resp.data;
+				$scope.calculateTotalPages();
+				console.log("search", resp);
+			})
+			.catch((error) => {
+				console.log("Error_edit", error);
+			});
+	};
 
+	$scope.showConfirmation = function () {
+		// Hiển thị hộp thoại xác nhận
+		Swal.fire({
+			title: 'Bạn có chắc ?',
+			text: "Muốn xóa hết tất cả sản phẩm hay không!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Xóa'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// Xử lý khi người dùng xác nhận xóa
+				Swal.fire(
+					'Đã xóa!',
+					'Hết tất cả các sản phẩm',
+					'success'
 
+				);
+				$scope.cart.clear()
+				$scope.loadData();
+				$scope.cart.loadFormLocalStorage();//khởi chạys
+
+				// Thêm mã xử lý xóa tất cả ở đây nếu cần thiết
+			}
+		});
+	};
+
+	//hiển thị top 10 sản phảm mới về
+	$scope.top10new = [];
+	$http.get('/pcgearhub/rest/products/top10new')
+		.then(function (response) {
+			$scope.top10new = response.data.slice(0, 8);
+		}, function (error) {
+			console.error('Error fetching products:', error);
+		});
 	// Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
 	$scope.loadData();
+	//
 	$scope.cart.loadFormLocalStorage();//khởi chạy
 
 });
 
-
-app.controller("loadAll", function($scope, $http, $location) {
+// Trang commets
+app.controller("loadAll", function ($scope, $http, $location) {
 	let hostComment = "http://localhost:8088/pcgearhub/rest/comments";
 	$scope.pageCount;
 	$scope.user = {};
@@ -280,7 +336,7 @@ app.controller("loadAll", function($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	};
-	$scope.url = function(filename) {
+	$scope.url = function (filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -422,8 +478,8 @@ app.controller("loadAll", function($scope, $http, $location) {
 			$scope.message(true, "Tải bình luận thành công", "success")
 			console.log("Success", resp);
 			$scope.comment.content = ""
-			
-				$scope.load_all();
+
+			$scope.load_all();
 
 
 		}).catch(error => {
@@ -434,7 +490,7 @@ app.controller("loadAll", function($scope, $http, $location) {
 	};
 	$scope.cm = {};
 	$scope.setLike = (id) => {
-		
+
 		var urls = `${host}/comment/${id}`;
 		console.log(urls)
 		$http.get(urls).then(resp => {
@@ -469,8 +525,8 @@ app.controller("loadAll", function($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	}
-	
-				$scope.load_all();
+
+	$scope.load_all();
 
 
 });

@@ -9,19 +9,20 @@ import com.poly.asm.controller.service.ProductService;
 import com.poly.asm.model.Product;
 import com.poly.asm.respository.ProductRepository;
 
-
 @Service
 public class ProductServiceImpl implements ProductService {
-   @Autowired ProductRepository productRepository;
+   @Autowired
+   ProductRepository productRepository;
 
    @Override
    public List<Product> findAll() {
       return productRepository.findAll();
-   
+
    }
 
    @Override
    public Product findById(String id) {
-     return productRepository.findById(id).get();
-   } 
+      return productRepository.findById(id).get();
+   }
+
 }

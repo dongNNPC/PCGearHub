@@ -3046,7 +3046,7 @@ i.fa.fa-plus.css-icon-plus.show:before {
 img {
   vertical-align: middle;
   border-style: none;
-  width: 100%;
+  /* width: 100%; */
   height: auto;
 }
 

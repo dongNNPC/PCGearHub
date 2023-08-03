@@ -1,5 +1,6 @@
-<div class="container"  th:fragment="product" style="margin-top: -20px;margin-bottom: 300px;">
-  <h2 style="font-weight: bold;">TOP NHỮNG SẢN PHẨM MỚI VỀ</h2>
+<div class="container"  th:fragment="product" style="margin-bottom: 280px;">
+  <h2 style="font-weight: bold;">  <br>
+    TẤT CẢ SẢN PHẨM</h2>
   <div class="row">
     <div class="col-md-3 col-sm-6" style="margin-top: 10px;" ng-repeat="p in getCurrentPageProducts()">
       <div class="product-grid">
@@ -25,8 +26,9 @@
                 <del style="color: #898888;margin-right: 290px; font-size: 13px;">1,000,000đ</del>
               </h4>
               <h4 style="font-weight: bold;text-align: start; color: red;">
-                {{p.price | number: 0}} vnđ
+                {{p.price | number: 0}} vnđ 
               </h4>
+              
             </div>
           </div>
         </div>

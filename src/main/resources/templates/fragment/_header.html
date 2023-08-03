@@ -1,10 +1,10 @@
-<header  id="header-site" class="header" style="position: -webkit-sticky;
+<header id="header-site" class="header" style="position: -webkit-sticky;
 position: sticky;
-top: 0;">
+top: 0;" >
   <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-10 col-sm-6 col-xs-12">
           <div class="item-top left-top">
             <div class="box-left d-flex flex-wrap align-items-center">
               <div class="hotline">
@@ -14,8 +14,13 @@ top: 0;">
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-
+        <div class="col-md-2 col-sm-6 col-xs-12">
+            <div class="mb-3"> <i class="fa-solid fa-globe" style="color: #ffffff;"></i>
+              <select style="color: white;background-color: black;border: none;" class="form-select form-select-lg" name="" id="">
+                <option selected> <a href="?lang=vi">VI</a></option>
+                <option value=""> <a href="?lang=en">EN</a></option>
+              </select>
+            </div>
         </div>
       </div>
     </div>
@@ -36,8 +41,9 @@ top: 0;">
               <div class="col-md-7">
                 <div class="search">
                   <i class="fa fa-search"></i>
-                  <input type="text" class="form-control" placeholder="tìm kiếm sản phẩm ...">
-                  <button class="btn">Search</button>
+                  <input type="text" class="form-control" ng-model="searchText" ng-change="search(searchText)"
+                    placeholder="tìm kiếm sản phẩm ...">
+                  <button type="submit" class="btn">Tìm</button>
                 </div>
               </div>
               <script type="text/javascript">
@@ -88,17 +94,20 @@ top: 0;">
               </div>
               <div class="col-md-2">
                 <div class="header__cart_hi">
-
+                  
                   <li class="hm-minicart">
                     <div class="hm-minicart-trigger">
                       <span class="item-icon"></span>
                       <span class="item-text">Giỏ hàng
-                        <span class="cart-item-count">{{cart.count}}</span>
+                        <span class="cart-item-count"> {{cart.count}} </span>
                       </span>
+
+                      
                     </div>
+                    
                     <span></span>
                     <div class="minicart">
-                     <div style="max-height: 300px; overflow-y: auto; "> 
+                      <div style="max-height: 300px; overflow-y: auto; ">
                         <ul class="minicart-product-list" ng-repeat="item in cart.items">
                           <li>
                             <img ng-src="/assets/images/products/{{item.image1}}" width="90px" height="70px"
@@ -107,11 +116,12 @@ top: 0;">
                             <div class="minicart-product-details">
                               <h6>
                                 <a href="single-product.html">
-                                  <span ng-bind="item.name.length > 28 ? (item.name | limitTo: 28) + '...' : item.name"></span>
+                                  <span
+                                    ng-bind="item.name.length > 28 ? (item.name | limitTo: 28) + '...' : item.name"></span>
                                 </a>
                               </h6>
-                              
-                              
+
+
                               <span>
                                 <p style="color: red;font-weight: bold; margin-top: 5px;">{{(item.price |
                                   number:0) +
@@ -124,7 +134,10 @@ top: 0;">
                           </li>
 
                         </ul>
-                       </div> 
+                        <div ng-show="cart.count === 0">
+                          <p style="text-align: center;">Bạn chưa có sản phẩm nào!</p>
+                        </div>
+                      </div>
                       <p class="minicart-total">Tổng: <span ng-bind="(cart.amount | number:0) + 'vnđ'">
                           <!-- toán tử pipe (|), number : định dạng số ,  --> </span></p>
                       <div class="minicart-button">
