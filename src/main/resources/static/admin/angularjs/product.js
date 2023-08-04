@@ -248,7 +248,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		if (!item.id) {
 			$scope.errorMessageID = "Không được để trống id.";
 			$scope.showErrorID = true;
-			check++;
+			check ++;
 
 		} else {
 			$scope.showErrorID = false;
@@ -281,6 +281,10 @@ app.controller("loadForm", function($scope, $location, $http) {
 			$scope.showErrorQuantity = false;
 			$scope.errorMessageQuantity = "";
 		}
+				if (check != 0) {
+			return false
+		}
+
 	}
 
 

@@ -340,7 +340,7 @@ go
 	('I018', '2024-06-03', 'address1',N'pending', 'U002'),
 	('I019', '2024-07-21', 'address1',N'delivery', 'U002'),
 	('I020', '2024-07-20', 'address1',N'pending', 'U002'),
-	('I021', '2024-01-10', 'address1',N'', 'U001'),
+	('I021', '2024-01-10', 'address1',N'','U001'),
 	('I022', '2024-02-09', 'address1',N'pending', 'U002'),
 	('I023', '2024-03-12', 'address1',N'complete', 'U003'),
 	('I024', '2024-04-08', 'address1',N'delivery', 'U004'),
