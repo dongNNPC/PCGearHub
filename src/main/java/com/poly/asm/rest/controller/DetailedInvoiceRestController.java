@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.model.DetailedInvoice;
+import com.poly.asm.model.Report;
+import com.poly.asm.model.ReportTotalRevenueDetail;
 import com.poly.asm.respository.DetailedInvoiceRepository;
 
 @RestController
@@ -77,4 +79,17 @@ public class DetailedInvoiceRestController extends HttpServlet {
 		dao.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
+
+
+	 @GetMapping("/rest/detailedInvoice/totalRevenue")
+    public List<Report> getTotalRevenueAll() {
+        return dao.getTotalRevenueAll();
+    }
+
+	@GetMapping("/rest/detailedInvoice/totalRevenueDetails")
+    public List<ReportTotalRevenueDetail> gettotalRevenueDetails() {
+        return dao.getReportTotalRevenueDetails();
+    }
+
+	
 }

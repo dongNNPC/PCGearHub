@@ -176,6 +176,27 @@
             </div>
           </li>
           <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#ui-invoice" aria-expanded="false" aria-controls="ui-user">
+              <span class="menu-icon">
+                 <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Thống kê</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-invoice">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-totalRevenue}">Tổng doanh thu</a></li>
+        
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-invoice-delivery}">Đang giao hàng</a></li>
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-invoice-complete}">Đơn đã giao</a></li>
+        
+                <li class="nav-item"> <a class="nav-link" th:href="@{/pcgearhub/admin/table-invoice-cancelled}">Đơn đã hủy</a></li>
+        
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item menu-items">
             <a class="nav-link" href="pages/tables/basic-table.html">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>

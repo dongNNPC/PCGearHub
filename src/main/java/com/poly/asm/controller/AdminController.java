@@ -128,4 +128,10 @@ public class AdminController {
 		return "/admin/views/table-distinctive";
 	}
 
+
+	@RequestMapping("/table-totalRevenue")
+	public String totalRevenue() {
+
+		return "/admin/views/table-totalRevenue";
+	}
 }

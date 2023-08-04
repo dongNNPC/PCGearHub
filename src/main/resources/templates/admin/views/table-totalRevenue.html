@@ -1,0 +1,171 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+
+</head>
+
+<body>
+
+	<div class="main-panel" ng-app="myApp">
+		<div class="content-wrapper" ng-controller="ReportController">
+			<div class="page-header">
+				<h3 class="page-title">THỐNG KÊ TỔNG DOANH THU</h3>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Thống kê</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Doanh thu</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="row">
+
+				<div class="col-lg-12 grid-margin stretch-card">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<h4 class="card-title col-md-11">Bảng chỉ tiết</h4>
+								<!--  -->
+								<div class="col-md-1">
+									<button class="btn btn-info " data-toggle="modal" data-target="#myModal">
+										<i class="fa-solid fa-print"></i>
+									</button>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th ng-click="sortBy('id')">
+												Tên người mua
+											</th>
+											<th ng-click="sortBy('name')">
+												Tên sản phẩm </th>
+											<th ng-click="sortBy('phoneNumber')">
+												Giá</th>
+											<th ng-click="sortBy('email')">
+												Số lượng</th>
+											<th ng-click="sortBy('địa chỉ')">
+												Ngày mua</th>
+											<th> Phương thức thanh toán</th>
+
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="rp in totalRevenueDetails | orderBy:prop |limitTo:5:begin">
+											<td>{{ rp.userName }}
+											</td>
+											<td>{{ rp.productName.length > 28 ? rp.productName.substring(0, 28) + '...'
+												: rp.productName }}
+											</td>
+
+											<td>{{ rp.productPrice }}
+											</td>
+											<td>{{ rp.quantity }}
+											</td>
+											<td>{{formatDate(rp.orderDate) }}</td>
+
+											<td>
+												{{ rp.paymentMethod}}
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- Phần phân trang -->
+
+
+							</div>
+							<div class="row">
+								<div class="col-sm-4"></div>
+								<ul class="pagination col-sm-4">
+									<li class="btn"><a href="#" ng-click="first()"><i
+												class="fas fa-angle-double-left"></i></a>
+									</li>
+									<li class="btn"><a href="#" ng-click="prev()"><i class="fas fa-angle-left"></i></a>
+									</li>
+									<li class="btn"><a href="#" ng-click="next()"><i class="fas fa-angle-right"></i></a>
+									</li>
+									<li class="btn"><a href="#" ng-click="last()"><i
+												class="fas fa-angle-double-right"></i></a>
+									</li>
+								</ul>
+								<div class="col-sm-4"></div>
+
+								<!-- Modal  xuất file-->
+								<div id="myModal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<!-- Modal content-->
+										<div class="modal-content bg-white">
+											<div class="modal-header">
+												<h4 class="text-center text-dark" style="margin-right: 100px;">CHỌN CÁCH XUẤT FILE</h4>							</div>
+											<div class="modal-body text-center ">
+												<button ng-click="generatePDF()" type="button" class="btn btn-success btn-lg "
+													data-dismiss="modal">Xuất tất cả 	
+												</button>
+												
+												<button data-toggle="modal" data-target="#EnterYear" type="button" class="btn btn-info btn-lg"
+													data-dismiss="modal">Chọn Tháng 
+												</button>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close
+												</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<!-- modal nhập năm và tháng -->
+								<div id="EnterYear" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+										<!-- Modal content-->
+										<div class="modal-content bg-white">
+											<div class="modal-header">
+												<h4 class="text-center text-dark" style="margin-right: 100px;">Chọn Tháng và Năm</h4>							</div>
+											<div class="modal-body">
+												  <div class="form-group " style="background-color: white;">
+													<label for="sel1" class="text-dark">Chọn năm:</label>
+													<select class="form-control bg-white text-dark" style="border: 1px solid black;" id="sel1" ng-model="selectedYear">
+														<option value="">Chọn năm</option>
+														<option ng-repeat="rp in totalRevenueDetails | uniqueYear">{{ rp.orderDate | date:'yyyy' }}</option>
+													</select>
+												  </div>
+
+												<button type="button" class="btn btn-success "
+												ng-click="exportDataByYear()" 	data-dismiss="modal">Xuất 	
+												</button>
+												
+												
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close
+												</button>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/report.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+
+</body>
+
+</html>
