@@ -12,13 +12,25 @@ import lombok.NoArgsConstructor;
 public class Report {
     @Id
 	private String id ;
+	private int totalUser;
 	private long totalQuantity ;
 	private long totalInventory;
-	double totalRevenue;
+	private double totalRevenue;
 	private long totalODer;
+	
 
-	public Report(double totalRevenue) {
+	public Report(double totalRevenue, long totalODer  ) {
 		this.totalRevenue = totalRevenue;
+		this.totalODer = totalODer;
+		
 	}
 	
+
+	public Report(long totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+	
+	public Report(int totalUser) {
+        this.totalUser = totalUser;
+    }
 }

@@ -26,11 +26,15 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<h4 class="card-title col-md-11">Bảng chỉ tiết</h4>
+								<h4 class="card-title col-md-8">Bảng chi tiết</h4>
+								<div class="col-md-3">
+										<input type="text" class="form-control text-white"  ng-model="searchText" ng-change="search(searchText)" placeholder="Tìm tên và sản phẩm">
+									
+								</div>
 								<!--  -->
 								<div class="col-md-1">
-									<button class="btn btn-info " data-toggle="modal" data-target="#myModal">
-										<i class="fa-solid fa-print"></i>
+									<button class="btn btn-info form-control" data-toggle="modal" data-target="#myModal">
+										<i class="fa-solid fa-file-pdf"></i>
 									</button>
 								</div>
 							</div>
@@ -104,11 +108,11 @@
 												<h4 class="text-center text-dark" style="margin-right: 100px;">CHỌN CÁCH XUẤT FILE</h4>							</div>
 											<div class="modal-body text-center ">
 												<button ng-click="generatePDF()" type="button" class="btn btn-success btn-lg "
-													data-dismiss="modal">Xuất tất cả 	
+													data-dismiss="modal"><i class="fa-solid fa-file"></i> Xuất tất cả 	
 												</button>
 												
 												<button data-toggle="modal" data-target="#EnterYear" type="button" class="btn btn-info btn-lg"
-													data-dismiss="modal">Chọn Tháng 
+													data-dismiss="modal"><i class="fa-solid fa-calendar-days"></i> Chọn năm
 												</button>
 											</div>
 											<div class="modal-footer">
@@ -136,8 +140,8 @@
 													</select>
 												  </div>
 
-												<button type="button" class="btn btn-success "
-												ng-click="exportDataByYear()" 	data-dismiss="modal">Xuất 	
+												<button type="button" class="btn btn-success float-right"
+												ng-click="exportDataByYear()" 	data-dismiss="modal"><i class="fa-solid fa-download"></i> Xuất 	
 												</button>
 												
 												

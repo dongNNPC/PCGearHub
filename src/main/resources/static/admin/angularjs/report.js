@@ -1,6 +1,8 @@
 var app = angular.module('myApp', []);
 let host = "http://localhost:8088/pcgearhub/rest";
 app.controller('ReportController', function ($scope, $http, $filter) {
+
+    //tổng doanh thu trong index
     $http.get(`${host}/detailedInvoice/totalRevenue`)
         .then(function (response) {
             $scope.reports = response.data;
@@ -9,46 +11,47 @@ app.controller('ReportController', function ($scope, $http, $filter) {
             console.error('Error loading data:', error);
         });
 
-
-    //tổng số lượng trong table của thống kê doanh thu chi tiết
-    $http.get(`${host}/detailedInvoice/totalRevenueDetails`)
+    //tổng phiếu nhập kho trong index
+    $http.get(`${host}/stockReceipt/getTotalQuantityStock`)
         .then(function (response) {
-            $scope.totalRevenueDetails = response.data;
-
+            $scope.reportsTotalQuantity = response.data;
         })
         .catch(function (error) {
             console.error('Error loading data:', error);
         });
 
-    app.filter('uniqueYear', function () {
-        return function (input) {
-            var uniqueYears = [];
-            var output = [];
+     //tổng phiếu nhập kho trong index
+     $http.get(`${host}/users/getTotalUser`)
+     .then(function (response) {
+         $scope.reportsUser = response.data;
+     })
+     .catch(function (error) {
+         console.error('Error loading data:', error);
+     });
 
-            angular.forEach(input, function (rp) {
-                var year = new Date(rp.orderDate).getFullYear();
-                if (uniqueYears.indexOf(year) === -1) {
-                    uniqueYears.push(year);
-                    output.push(rp);
-                }
-            });
+    //tổng số lượng trong table của thống kê doanh thu chi tiết
+    $http.get(`${host}/detailedInvoice/totalRevenueDetails`)
+        .then( (response) => {
+            $scope.totalRevenueDetails = response.data;
 
-            return output;
-        };
-    });
+        })
+        .catch( (error) =>{
+            console.error('Error loading data:', error);
+        });
+
 
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
 
     // Hàm gọi API và cập nhật dữ liệu
-    function fetchData() {
+    function fetchData()  {
         $http.get(`${host}/detailedInvoice/totalRevenueDetails`)
-            .then(function (response) {
+            .then( (response) =>{
                 $scope.totalRevenueDetails = response.data;
                 $scope.totalItems = $scope.totalRevenueDetails.length;
                 updatePageData();
             })
-            .catch(function (error) {
+            .catch( (error)=> {
                 console.error('Error loading data:', error);
             });
     }
@@ -64,41 +67,41 @@ app.controller('ReportController', function ($scope, $http, $filter) {
     fetchData();
 
     // Xử lý khi trang thay đổi
-    $scope.pageChanged = function () {
+    $scope.pageChanged =  () =>{
         updatePageData();
     };
 
     // Các hàm phân trang tương tự như trước
-    $scope.first = function () {
+    $scope.first =  () =>{
         $scope.currentPage = 1;
         $scope.pageChanged();
     };
 
-    $scope.prev = function () {
+    $scope.prev =  () =>{
         if ($scope.currentPage > 1) {
             $scope.currentPage--;
             $scope.pageChanged();
         }
     };
 
-    $scope.next = function () {
+    $scope.next =  () =>{
         if ($scope.currentPage < Math.ceil($scope.totalItems / $scope.itemsPerPage)) {
             $scope.currentPage++;
             $scope.pageChanged();
         }
     };
 
-    $scope.last = function () {
+    $scope.last =  ()=> {
         $scope.currentPage = Math.ceil($scope.totalItems / $scope.itemsPerPage);
         $scope.pageChanged();
     };
 
-    $scope.formatDate = function (dateString) {
+    $scope.formatDate =  (dateString)=> {
         var date = new Date(dateString);
         return $filter('date')(date, 'dd-MM-yyyy');
     };
 
-    $scope.generatePDF = function () {
+    $scope.generatePDF =  ()=> {
         var totalRevenue = 0;
         for (var i = 0; i < $scope.totalRevenueDetails.length; i++) {
             totalRevenue += $scope.totalRevenueDetails[i].productPrice * $scope.totalRevenueDetails[i].quantity;
@@ -150,25 +153,25 @@ app.controller('ReportController', function ($scope, $http, $filter) {
         pdfMake.createPdf(docDefinition).download('thong_ke_doanh_thu.pdf');
 
 
-        
+
     };
 
     //thống kê theo năm
-    $scope.exportDataByYear = function() {
+    $scope.exportDataByYear =  ()=> {
         var selectedYear = parseInt($scope.selectedYear);
-       
+
         // Filter the data based on the selected year
-        var filteredData = $scope.totalRevenueDetails.filter(function(rp) {
+        var filteredData = $scope.totalRevenueDetails.filter(function (rp) {
             return parseInt(rp.orderDate.substring(0, 4)) === selectedYear;
-           
+
         });
         console.log(filteredData)
-      
+
         var totalRevenue = 0;
         for (var i = 0; i < filteredData.length; i++) {
             totalRevenue += filteredData[i].productPrice * filteredData[i].quantity;
         }
-      
+
         var tableBody = filteredData.map(rp => [
             rp.userName,
             rp.productName,
@@ -177,10 +180,10 @@ app.controller('ReportController', function ($scope, $http, $filter) {
             $scope.formatDate(rp.orderDate),
             rp.paymentMethod
         ]);
-      
+
         var docDefinition = {
             content: [
-                { text: 'THỐNG KÊ TỔNG DOANH THU NĂM ' + selectedYear  , style: 'header' },
+                { text: 'THỐNG KÊ TỔNG DOANH THU NĂM ' + selectedYear, style: 'header' },
                 { text: '---------------------0--------------------', alignment: 'center' }, // Đường ngang
                 { text: 'Tổng doanh thu là: ' + $filter('number')(totalRevenue, 0) + 'vnđ', alignment: 'right', bold: true },
                 { text: '              ' },
@@ -211,20 +214,40 @@ app.controller('ReportController', function ($scope, $http, $filter) {
                 }
             }
         };
-    
+
         pdfMake.createPdf(docDefinition).download(`thong_ke_doanh_thu_${selectedYear}.pdf`);
     };
-    
 
-
+    //tìm kiếm sản phẩm trong index
+    $scope.search = (name) => {
+        if (name != "") {
+            var url = `${host}/detailedInvoice/totalRevenueDetails/search/${name}`;
+        } else {
+            var url = `${host}/detailedInvoice/totalRevenueDetails`;
+        }
+        $http({
+            method: "GET",
+            url: url,
+        })
+            .then((resp) => {
+                $scope.totalRevenueDetails = resp.data;
+                updatePageData();
+                // Cập nhật số lượng trang sau khi cập nhật dữ liệu
+                $scope.totalItems = $scope.totalRevenueDetails.length;
+                console.log("search", resp);
+            })
+            .catch((error) => {
+                console.log("Error_edit", error);
+            });
+    };
 
 });
-app.filter('uniqueYear', function () {
-    return function (input) {
+app.filter('uniqueYear',  () =>{
+    return  (input) =>{
         var uniqueYears = []; // Khai báo và gán giá trị ban đầu
         var output = [];
 
-        angular.forEach(input, function (rp) {
+        angular.forEach(input,  (rp)=> {
             var year = new Date(rp.orderDate).getFullYear();
             if (uniqueYears.indexOf(year) === -1) {
                 uniqueYears.push(year);
@@ -234,5 +257,7 @@ app.filter('uniqueYear', function () {
 
         return output;
     };
-   
+
+
+
 });

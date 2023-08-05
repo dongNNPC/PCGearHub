@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.model.DetailedInvoice;
@@ -91,5 +92,8 @@ public class DetailedInvoiceRestController extends HttpServlet {
         return dao.getReportTotalRevenueDetails();
     }
 
-	
+	 @GetMapping("/rest/detailedInvoice/totalRevenueDetails/search/{name}")
+    public List<ReportTotalRevenueDetail> getReportsBySearch(@PathVariable("name") String name) {
+        return dao.getReportTotalRevenueDetailsBySearch(name);
+    }
 }
