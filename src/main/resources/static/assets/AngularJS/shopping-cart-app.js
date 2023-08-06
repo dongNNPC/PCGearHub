@@ -530,7 +530,6 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 
-
 /*Trang profile*/
 
 app.controller("loadAlls", function ($scope, $http, $location) {
