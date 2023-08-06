@@ -37,7 +37,7 @@ public class Invoice {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Account user;
 
 	@OneToMany(mappedBy = "invoice")
 	@JsonIgnore
