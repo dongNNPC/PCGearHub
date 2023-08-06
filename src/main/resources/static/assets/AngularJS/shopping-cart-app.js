@@ -680,4 +680,18 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	}
 	$scope.loadData();
 	$scope.cart.loadFormLocalStorage();//khởi chạy
+
+
+
+	app.controller('MainController', ['$scope', function($scope) {
+		$scope.message = function(animation, title, icon) {
+		  toastMixin.fire({
+		    animation: animation,
+		    title: title,
+		    icon: icon
+		  });
+		};
+	       }]);
+
+
 });
