@@ -32,7 +32,7 @@ public class UserHistory {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Account user;
 
 	// constructors, getters, and setters
 }

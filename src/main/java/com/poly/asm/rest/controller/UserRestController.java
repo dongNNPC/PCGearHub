@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.User;
+import com.poly.asm.model.Account;
 import com.poly.asm.respository.UserRepository;
 
 import javax.servlet.http.HttpServlet;
@@ -28,12 +28,12 @@ public class UserRestController extends HttpServlet {
 	UserRepository dao;
 
 	@GetMapping("/rest/users")
-	public ResponseEntity<List<User>> getAll(Model model) {
+	public ResponseEntity<List<Account>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
 	@GetMapping("/rest/users/{id}")
-	public ResponseEntity<User> getOne(@PathVariable("id") String id) {
+	public ResponseEntity<Account> getOne(@PathVariable("id") String id) {
 //check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
@@ -44,7 +44,7 @@ public class UserRestController extends HttpServlet {
 
 	@PostMapping("/rest/users")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<User> post(@RequestBody User user) {
+	public ResponseEntity<Account> post(@RequestBody Account user) {
 		if (dao.existsById(user.getId())) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -53,7 +53,7 @@ public class UserRestController extends HttpServlet {
 	}
 
 	@PutMapping("/rest/users/{id}")
-	public ResponseEntity<User> put(@PathVariable("id") String id, @RequestBody User User) {
+	public ResponseEntity<Account> put(@PathVariable("id") String id, @RequestBody Account User) {
 		if (!dao.existsById(id /* User.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
