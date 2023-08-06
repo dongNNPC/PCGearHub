@@ -12,11 +12,8 @@
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 
-<body  ng-app="shopping-cart-app" ng-controller="MainController">
-  <header>
-    <!-- place navbar here -->
-  </header>
-  <main class="d-flex justify-content-center mt-2" style="height: 870px; margin-top: 40px;">
+<body>
+  <main class="d-flex justify-content-center mt-2" style="height: 870px; margin-top: 100px;">
     <form class="form" action="/auth/login" method="post">
       <h1 class="text-center" style="text-align: center;font-weight: bold;font-size: 30px;color: black;">Đăng Nhập</h1>
       <div class="flex-column">
@@ -114,11 +111,6 @@
 
   </main>
   
-  <footer>
-
-  </footer>
-  
-  <button ng-click="message('slide-down', 'Đăng nhập thành công', 'success')">Hiển thị thông báo</button>
   <link rel="stylesheet" th:href="@{/assets/css/login.css}">
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

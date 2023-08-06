@@ -32,11 +32,11 @@ public class IndexController {
 		return "/views/detailPage";
 	}
 
-	 @RequestMapping("/profile")
-	 public String profile() {
+	//  @RequestMapping("/profile")
+	//  public String profile() {
 
-	 	return "/views/profile";
-	 }
+	//  	return "/views/profile";
+	//  }
 
 	@RequestMapping("/profile/{id}")
 	public String profileid() {

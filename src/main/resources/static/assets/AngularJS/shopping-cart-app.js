@@ -539,7 +539,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
-
+	let host = "http://localhost:8088/pcgearhub/rest";
 
 
 	// ẩn
@@ -554,7 +554,9 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.hideRoleSection = function () {
 		$scope.showRoleSection = false;
 	};
-
+	$scope.edit = function (id) {
+		window.location.href = '/pcgearhub/profile/' + id;
+	}
 
 	$scope.reset = function () {
 		$scope.user = { confirm: true, status: true, admin: false };
@@ -683,15 +685,6 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 
 
-	app.controller('MainController', ['$scope', function($scope) {
-		$scope.message = function(animation, title, icon) {
-		  toastMixin.fire({
-		    animation: animation,
-		    title: title,
-		    icon: icon
-		  });
-		};
-	       }]);
 
 
 });
