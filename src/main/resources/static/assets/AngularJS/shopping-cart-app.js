@@ -488,15 +488,13 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 	};
-	
 	$scope.cm = {};
-	$scope.checkUser=()=>{
-		
-	}
 	$scope.setLike = (id) => {
+
 		var urls = `${host}/comment/${id}`;
 		console.log(urls)
 		$http.get(urls).then(resp => {
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
 			$scope.cm = resp.data;
 			const dateTimeString = $scope.cm.orderDate
 			const dateTime = new Date(dateTimeString);
@@ -505,18 +503,23 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.cm.orderDate = dateString;
 			$scope.cm.likeCount = $scope.cm.likeCount + 1;
 
-			/*Check user có like hay chưa vì mỗi user chỉ like được 1 lần*/
 			var url = `${host}/comment/${id}`;
+
 			$http.put(url, $scope.cm).then(resp => {
 				var index = $scope.items.findIndex(item => item.id == id)
+
 				/*Tìm được vị trí thì cập nhật lại sinh viên*/
 				$scope.items[index] = resp.data;
+
+
 				$scope.message(true, "Bạn đã thích bình luận của", "success")
 				console.log("Success", resp);
+
 				$scope.load_all();
 			}).catch(error => {
 				console.log("Error", error);
 			});
+
 			console.log($scope.likeCount)
 		}).catch(error => {
 			console.log("Error", error);
@@ -531,12 +534,12 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 
-/*Trang profile*/
+
 
 app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
-	let host = "http://localhost:8088/pcgearhub/rest";
+
 
 
 	// ẩn
@@ -551,9 +554,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.hideRoleSection = function () {
 		$scope.showRoleSection = false;
 	};
-	$scope.edit = function (id) {
-		window.location.href = '/pcgearhub/profile/' + id;
-	}
+
 
 	$scope.reset = function () {
 		$scope.user = { confirm: true, status: true, admin: false };
@@ -682,6 +683,6 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 
 
-
+	
 
 });

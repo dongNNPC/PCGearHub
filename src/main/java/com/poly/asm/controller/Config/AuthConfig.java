@@ -43,7 +43,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
             http.authorizeRequests(requests -> requests
                     .antMatchers("/pcgearhub/admin/**").hasRole("ADMIN")
-                    .antMatchers("/pcgearhub/profile","/pcgearhub/confirm-information").hasAnyRole("ADMIN","USER"));
+                    .antMatchers("/pcgearhub/profile/**","/pcgearhub/confirm-information").hasAnyRole("ADMIN","USER"));
                   
                     //nếu không đúng vai trò vào đường dẫn
             http.exceptionHandling(handling -> handling
