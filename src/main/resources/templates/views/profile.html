@@ -10,8 +10,8 @@
 
 <body>
 	<style>
-	.card {
-			
+		.card {
+
 			height: 300px;
 			position: relative;
 			display: -ms-flexbox;
@@ -30,10 +30,12 @@
 			margin-top: -70px;
 			margin-bottom: 2rem;
 		}
+
 		.form-group {
-		
+
 			margin-bottom: 2rem;
 		}
+
 		.col-form-label {
 			padding-top: calc(0.375rem + 1px);
 			padding-bottom: calc(0.375rem + 1px);
@@ -53,42 +55,45 @@
 			</div>
 			<div class="row">
 
-
-				<div class="col-lg-3">
-					<div class="card" style="  border: 1px solid rgba(0,0,0,.125);">
-						<div class="card-body" style="    padding: 1.65rem;">
-							<h4 class="card-title">Ảnh đại diện</h4>
-							<hr style="background-color: white;">
-							<div class="square-img-container">
-								<label for="" ng-repeat="filename in filenames"
-									title="Double click to detete">
-									<div class="square-img">
-										<img ng-src="{{url(filename)}}"
-											ng-click="download(filename)"
-											ng-dblclick="delete(filename)"
-											alt="">
-									</div>
-								</label>
-							</div>
-							<div class="forms-group mt-2" style="max-width: 30px">
-								<div class="input-group col-xs-12">
-									<input type="file" id="fileInput"
-										accept="image/*"
-										style="display: none;"
-										ng-model="user.image"
-										onchange="angular.element(this).scope().upload(this.files)">
-									<button
-										onclick="document.getElementById('fileInput').click()">Chọn
-										tệp</button>
-
-									<span
-										class="input-group-append"></span>
-								</div>
-							</div>
-
-						</div>
+				<div class="col-md-3">
+					<div class="card">
+					    <div class="card-body">
+					        <h4 class="card-title">Ảnh đại diện</h4>
+					        <hr style="background-color: white;">
+					        <div>
+						   <label for="" title="Double click to delete">
+						       <div class="circular-img">
+							  <img ng-src="{{ url(user.image) }}" ng-click="download(user.image)" ng-dblclick="delete(user.image)" alt="">
+						       </div>
+						   </label>
+						   <div class="form-group mt-3" style="max-width: 304px">
+						       <div class="input-group col-xs-12">
+							  <input type="file" accept="image/*" onchange="angular.element(this).scope().upload(this.files)">
+							  <span class="input-group-append"></span>
+						       </div>
+						   </div>
+					        </div>
+					    </div>
 					</div>
-				</div>
+				     </div>
+				     
+
+				<style>
+					.circular-img {
+						margin-left: 20px;
+						width: 200px;
+						height: 200px;
+						border-radius: 50%;
+						overflow: hidden;
+						display: inline-block;
+					}
+
+					.circular-img img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+					}
+				</style>
 
 
 				<div class="col-lg-lg-6">

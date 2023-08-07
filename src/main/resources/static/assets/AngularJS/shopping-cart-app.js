@@ -615,7 +615,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		$http.put(url, item).then(resp => {
 			$scope.successMessage = "Cập nhật người dùng thành công.";
 			$scope.showSuccessMessage = true;
-
+			localStorage.setItem('uploadedImage', $scope.user.image);
 			// Hiển thị Modal thông báo thành công
 			$("#successModal").modal('show');
 
@@ -646,21 +646,29 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.list = function () {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
-
-		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
-		const id = parts[parts.length - 1]
-
+	     
+		var parts = currentURL.split('/');
+		const id = parts[parts.length - 1];
+	     
 		var item = $scope.items.find(item => item.id === id);
-
+	     
 		var name = item ? item.image : null;
 		var one = "one";
 		var urlOneImage = `${url}/${one}/${name}`;
+	     
 		$http.get(urlOneImage).then(resp => {
-			$scope.filenames = resp.data;
+		    $scope.filenames = resp.data;
+	     
+		    // Lấy tên ảnh đã lưu trước đó từ LocalStorage
+		    var uploadedImage = localStorage.getItem('uploadedImage');
+		    if (uploadedImage) {
+		        $scope.user.image = uploadedImage;
+		    }
 		}).catch(error => {
-			console.log("Error", error)
-		})
-	}
+		    console.log("Error", error);
+		});
+	     };
+	     
 
 	$scope.upload = function (files) {
 		$scope.user.image = files[0].name;
@@ -683,6 +691,6 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 
 
-	
+
 
 });
