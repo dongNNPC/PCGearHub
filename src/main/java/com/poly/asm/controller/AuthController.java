@@ -35,7 +35,7 @@ public class AuthController {
 	public String errorSuccess(Model model) {
 		model.addAttribute("massage", "Đăng xuất thành công");
 		a.userAccount(null);
-		return "/account/login";
+		return "/account/index";
 	}
 
 	@RequestMapping("/auth/access/denied")
