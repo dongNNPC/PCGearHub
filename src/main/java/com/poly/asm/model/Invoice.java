@@ -24,6 +24,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Invoices")
 public class Invoice {
+
+	
 	@Id
 	private String id;
 
@@ -33,7 +35,7 @@ public class Invoice {
 	private String status;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable=false)
 	private Account user;
 
 	@OneToMany(mappedBy = "invoice")

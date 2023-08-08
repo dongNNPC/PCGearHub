@@ -156,51 +156,95 @@ app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout
 	};
 
 
+	$scope.users = {
+		"id": "U002",
+		"name": "Nguyễn Nhựt Đông",
+		"password": "12345678",
+		"phone": "0393618987",
+		"email": "0393618987dong@gmail.com",
+		"address": "Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang",
+		"image": "avatar-11.jpg",
+		"admin": false,
+		"status": true,
+		"confirm": null,
+		"otp": null
+	};
+
 	$scope.order = {
+		id: "HD" + new Date().getTime(),
 		orderDate: new Date(),
 		address: "",
-		user: $("#user_id").text(),
-		status: "pending",
+        status: "pending",
+		user : {id:$("#id").text()},
 		// phoneNumber: "",
 		get detailedInvoices() {
-
 			return $scope.selectedItems.map(item => {
 				return {
 					product: { id: item.id },
-					price: item.price,
 					quantity: item.qty,
-					paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
-
-				}
-			})
+					paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+				};
+				
+			});
+			
 		},
 		confirm() {
-
-			// const phoneNumberInput = document.querySelector('input[name="phoneNumber"]');
-			// $scope.order.phoneNumber = phoneNumberInput ? phoneNumberInput.value : "";
 			var order = angular.copy(this);
+
+			if ($scope.selectedItems.length === 0) {
+				Swal.fire(
+					'Không có sản phẩm  thanh toán',
+					'Vui lòng chọn sản phẩm trước khi tiến hành đặt hàng.',
+					'warning'
+				);
+				return; // Stop further execution
+			}
+			//kiểm lỗi người dùng không nhập địa chỉ
+			if (this.address.trim() === "") {
+				Swal.fire(
+					'Địa chỉ trống',
+					'Vui lòng nhập địa chỉ giao hàng trước khi xác nhận đặt hàng.',
+					'warning'
+				);
+				return; // Stop further execution
+			}
+		
+		
 			$http.post("/pcgearhub/rest/orders", order).then(resp => {
+				// Clear selected items from the cart
+				$scope.selectedItems.forEach(item => {
+					const index = $scope.cart.items.findIndex(cartItem => cartItem.id === item.id);
+					if (index !== -1) {
+						$scope.cart.items.splice(index, 1);
+					}
+				});
+		
+				// Save cart changes to local storage
+				$scope.cart.saveToLocalStorage();
+		
 				Swal.fire(
 					'Đặt hàng thành công',
 					'',
 					'success'
-				)
+				);
+				this.address = "";
+				// Clear selected items and local storage for them
 				$scope.selectedItems = [];
 				localStorage.removeItem('selectedItems');
-				this.saveToLocalStorage();
-				location.href = "/pcgearhub/ordered-list/" + resp.data.id;
+				$scope.cart.loadFormLocalStorage();
+				//location.href = "/pcgearhub/ordered-list/" + resp.data.id;
 			}).catch(error => {
+				console.error("Errorssss:", error); // Log error
 				Swal.fire(
 					'Đặt hàng không thành công',
 					'',
 					'error'
-				)
-				console.log(error);
-			})
-
-
+				);
+			});
+		
 		}
-	}
+	};
+	
 	///xử lý lấy các sản phẩm được tích sang trang confirm-info
 	$scope.selectedItems = [];
 	$scope.getSelectedItems = function() {
@@ -217,6 +261,7 @@ app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout
 		// Chuyển sang trang mới
 		window.location.href = '/pcgearhub/confirm-information';
 	};
+
 
 	// Kiểm tra nếu có dữ liệu selectedItems trong Local Storage của trang mới
 	const storedItems = localStorage.getItem('selectedItems');
@@ -294,6 +339,7 @@ app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout
 	$scope.loadData();
 	//
 	$scope.cart.loadFormLocalStorage();//khởi chạy
+	
 
 });
 
