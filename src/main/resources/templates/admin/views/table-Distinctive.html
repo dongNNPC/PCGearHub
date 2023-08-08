@@ -1,9 +1,10 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 
 <body>
@@ -31,69 +32,49 @@
 								<code>.table-hover</code>
 							</p>
 							<div class="table-responsive">
-                                                                        <table class="table table-hover">
-                                                                                 <thead>
-                                                                                          <tr>
-                                                                                                   <th
-                                                                                                            ng-click="sortBy('id')">
-                                                                                                            Mã đặc trưng
-                                                                                                   </th>
-                                                                                                   <th
-                                                                                                            ng-click="sortBy('name')">
-                                                                                                            Tên đặc
-                                                                                                            trưng </th>
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th ng-click="sortBy('id')">Mã đặc trưng</th>
+											<th ng-click="sortBy('name')">Tên đặc trưng</th>
 
 
-                                                                                                   <th style="">Edit
-                                                                                                   </th>
+											<th style="">Edit</th>
 
-                                                                                          </tr>
-                                                                                 </thead>
-                                                                                 <tbody>
-                                                                                          <tr
-                                                                                                   ng-repeat="distinctive in items | orderBy:prop |limitTo:5:begin">
-                                                                                                   <td>{{distinctive.id}}
-                                                                                                   </td>
-                                                                                                   <td>{{distinctive.name}}
-                                                                                                   </td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr
+											ng-repeat="distinctive in items | orderBy:prop |limitTo:5:begin">
+											<td>{{distinctive.id}}</td>
+											<td>{{distinctive.name}}</td>
 
 
 
 
-                                                                                                   <td
-                                                                                                            ng-click="edit(distinctive.id)">
-                                                                                                            <a href="#">edit
-                                                                                                            </a>
-                                                                                                   </td>
-                                                                                          </tr>
-                                                                                 </tbody>
-                                                                        </table>
-                                                                        <!-- Phần phân trang -->
+											<td ng-click="edit(distinctive.id)"><a href="#">edit
+											</a></td>
+										</tr>
+									</tbody>
+								</table>
+								<!-- Phần phân trang -->
 
 
-                                                               </div>
+							</div>
 
-							
-							
+
+
 							<div class="row">
 								<div class="col-sm-4"></div>
 								<ul class="pagination col-sm-4">
-									<li class="btn"><a href="#"
-											ng-click="first()"><i
-												class="fas fa-angle-double-left"></i></a>
-									</li>
-									<li class="btn"><a href="#"
-											ng-click="prev()"><i
-												class="fas fa-angle-left"></i></a>
-									</li>
-									<li class="btn"><a href="#"
-											ng-click="next()"><i
-												class="fas fa-angle-right"></i></a>
-									</li>
-									<li class="btn"><a href="#"
-											ng-click="last()"><i
-												class="fas fa-angle-double-right"></i></a>
-									</li>
+									<li class="btn"><a href="#" ng-click="first()"><i
+											class="fas fa-angle-double-left"></i></a></li>
+									<li class="btn"><a href="#" ng-click="prev()"><i
+											class="fas fa-angle-left"></i></a></li>
+									<li class="btn"><a href="#" ng-click="next()"><i
+											class="fas fa-angle-right"></i></a></li>
+									<li class="btn"><a href="#" ng-click="last()"><i
+											class="fas fa-angle-double-right"></i></a></li>
 								</ul>
 								<div class="col-sm-4"></div>
 							</div>
@@ -103,8 +84,10 @@
 			</div>
 		</div>
 	</div>
-	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
-	<script th:inline="javascript" th:src="@{/admin/angularjs/distinctive.js}"></script>
+	<script
+		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript"
+		th:src="@{/admin/angularjs/distinctive.js}"></script>
 </body>
 
 </html>

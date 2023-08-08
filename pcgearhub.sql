@@ -586,3 +586,7 @@ VALUES
 ('Đồ xịn 6',7,getDate(),'U004','P004'),
 ('Đồ xịn 7',8,getDate(),'U005','P005'),
 ('Đồ xịn 8',5,getDate(),'U006','P006')
+
+  INSERT INTO ulikes  (user_id,comment_id)
+VALUES
+('U001','P013')

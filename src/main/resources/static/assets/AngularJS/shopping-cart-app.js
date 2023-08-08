@@ -1,8 +1,8 @@
 let host = "http://localhost:8088/pcgearhub/rest";
 
 const app = angular.module("shopping-cart-app", []);
-app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeout) {
-	$scope.url = function (filename) {
+app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout) {
+	$scope.url = function(filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -116,26 +116,26 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	$scope.products = []; // Mảng chứa danh sách sản phẩm
 
 	// Tính tổng số trang dựa vào số lượng sản phẩm và số sản phẩm trên mỗi trang
-	$scope.calculateTotalPages = function () {
+	$scope.calculateTotalPages = function() {
 		$scope.totalPages = Math.ceil($scope.products.length / $scope.productsPerPage);
 	};
 
 	// Lấy danh sách sản phẩm hiển thị trên trang hiện tại
-	$scope.getCurrentPageProducts = function () {
+	$scope.getCurrentPageProducts = function() {
 		const startIndex = ($scope.currentPage - 1) * $scope.productsPerPage;
 		const endIndex = startIndex + $scope.productsPerPage;
 		return $scope.products.slice(startIndex, endIndex);
 	};
 
 	// Phương thức này được gọi khi người dùng chọn trang mới
-	$scope.changePage = function (page) {
+	$scope.changePage = function(page) {
 		if (page >= 1 && page <= $scope.totalPages) {
 			$scope.currentPage = page;
 		}
 	};
 
 	// Tạo một mảng các trang để hiển thị trong thanh phân trang
-	$scope.getPagesArray = function () {
+	$scope.getPagesArray = function() {
 		const pages = [];
 		for (let i = 1; i <= $scope.totalPages; i++) {
 			pages.push(i);
@@ -144,13 +144,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	};
 
 	// Hàm này được gọi khi dữ liệu được tải lên trang
-	$scope.loadData = function () {
+	$scope.loadData = function() {
 		$http.get('/pcgearhub/rest/products')
-			.then(function (response) {
+			.then(function(response) {
 				$scope.products = response.data;
 				$scope.calculateTotalPages(); // Tính tổng số trang sau khi nhận dữ liệu
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				console.error('Error fetching data:', error);
 			});
 	};
@@ -203,7 +203,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	}
 	///xử lý lấy các sản phẩm được tích sang trang confirm-info
 	$scope.selectedItems = [];
-	$scope.getSelectedItems = function () {
+	$scope.getSelectedItems = function() {
 		$scope.selectedItems = [];
 		for (var i = 0; i < $scope.cart.items.length; i++) {
 			if ($scope.cart.items[i].checked) {
@@ -224,7 +224,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		$scope.selectedItems = JSON.parse(storedItems);
 	}
 
-	$scope.getTotalAmountConfirm = function () {//tổng tiền trong trang confirm-info.html
+	$scope.getTotalAmountConfirm = function() {//tổng tiền trong trang confirm-info.html
 		let totalAmount = 0;
 		for (let i = 0; i < $scope.selectedItems.length; i++) {
 			const item = $scope.selectedItems[i];
@@ -254,7 +254,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 			});
 	};
 
-	$scope.showConfirmation = function () {
+	$scope.showConfirmation = function() {
 		// Hiển thị hộp thoại xác nhận
 		Swal.fire({
 			title: 'Bạn có chắc ?',
@@ -285,9 +285,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	//hiển thị top 10 sản phảm mới về
 	$scope.top10new = [];
 	$http.get('/pcgearhub/rest/products/top10new')
-		.then(function (response) {
+		.then(function(response) {
 			$scope.top10new = response.data.slice(0, 8);
-		}, function (error) {
+		}, function(error) {
 			console.error('Error fetching products:', error);
 		});
 	// Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
@@ -298,12 +298,17 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 });
 
 // Trang commets
-app.controller("loadAll", function ($scope, $http, $location) {
+app.controller("loadAll", function($scope, $http, $location) {
 	let hostComment = "http://localhost:8088/pcgearhub/rest/comments";
 	$scope.pageCount;
 	$scope.user = {};
 	$scope.items = [];
 	$scope.filenames = [];
+	$scope.userId = '${#request.remoteUser}';
+	console.log($scope.userId + "----------------------------------")
+
+
+
 	$scope.getIDProduct = () => {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
@@ -312,7 +317,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 		const id = parts[parts.length - 1];
 		return id;
 	}
-	$scope.load_all = function () {
+	$scope.load_all = function() {
 		var id = $scope.getIDProduct();
 		var url = `${hostComment}/product/${id}`;
 
@@ -321,11 +326,11 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.items = resp.data;
 			$scope.users = [];
 
-			angular.forEach($scope.items, function (item) {
+			angular.forEach($scope.items, function(item) {
 				$scope.users.push(item.user);
 				console.log($scope.users)
 			})
-			angular.forEach($scope.users, function (item) {
+			angular.forEach($scope.users, function(item) {
 				$scope.filenames.push(item.image)
 			})
 			/*Tổng số trang*/
@@ -336,7 +341,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	};
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -346,7 +351,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 	$scope.currentPage = 1;
-	$scope.sortBy = function (prop) {
+	$scope.sortBy = function(prop) {
 		$scope.prop = prop
 	}
 
@@ -354,18 +359,18 @@ app.controller("loadAll", function ($scope, $http, $location) {
 	$scope.begin = 0;
 	console.log($scope.pageCount)
 
-	$scope.first = function () {
+	$scope.first = function() {
 		$scope.begin = 0;
 		$scope.currentPage = 1; // Set currentPage to the first page
 	}
-	$scope.prev = function () {
+	$scope.prev = function() {
 		console.log($scope.begin)
 		if ($scope.begin > 0) {
 			$scope.begin -= 3;
 			$scope.currentPage--;
 		}
 	}
-	$scope.next = function () {
+	$scope.next = function() {
 		console.log($scope.begin)
 
 		console.log(($scope.pageCount - 1) * 3)
@@ -375,7 +380,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.currentPage++;
 		}
 	}
-	$scope.last = function () {
+	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 3;
 		$scope.currentPage = $scope.pageCount;
 	}
@@ -392,16 +397,17 @@ app.controller("loadAll", function ($scope, $http, $location) {
 	$scope.user = {}
 	$scope.matkhau = false;
 	$scope.id = false;
+	$scope.idUser = "";
 	$scope.items = [];
 
 	$scope.getUser = () => {
-		var currentURL = $location.absUrl();
-		console.log("Current URL:", currentURL);
-		var url = `${host}/users/U001`;
+
+		var url = "http://localhost:8088/pcgearhub/api/user"
 		console.log(url)
 		$http.get(url).then(resp => {
 			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
 			$scope.user = resp.data;
+			$scope.idUser = $scope.user.id
 			console.log($scope.user)
 		}).catch(error => {
 			console.log("Error", error);
@@ -454,7 +460,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 
-	$scope.create = function () {
+	$scope.create = function() {
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -488,12 +494,14 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 	};
-	
+
 	$scope.cm = {};
-	$scope.checkUser=()=>{
-		
+	$scope.checkUser = () => {
+
 	}
+	$scope.itemUlike = {};
 	$scope.setLike = (id) => {
+		
 		var urls = `${host}/comment/${id}`;
 		console.log(urls)
 		$http.get(urls).then(resp => {
@@ -504,12 +512,9 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.cm;
 			$scope.cm.orderDate = dateString;
 			$scope.cm.likeCount = $scope.cm.likeCount + 1;
-
-			/*Check user có like hay chưa vì mỗi user chỉ like được 1 lần*/
 			var url = `${host}/comment/${id}`;
 			$http.put(url, $scope.cm).then(resp => {
 				var index = $scope.items.findIndex(item => item.id == id)
-				/*Tìm được vị trí thì cập nhật lại sinh viên*/
 				$scope.items[index] = resp.data;
 				$scope.message(true, "Bạn đã thích bình luận của", "success")
 				console.log("Success", resp);
@@ -522,6 +527,33 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	}
+/*	$scope.setLike2 = (id) => {
+		
+		var urls = `${host}/comment/${id}`;
+		console.log(urls)
+		$http.get(urls).then(resp => {
+			$scope.cm = resp.data;
+			const dateTimeString = $scope.cm.orderDate
+			const dateTime = new Date(dateTimeString);
+			const dateString = dateTime.toISOString().split("T")[0];;
+			$scope.cm;
+			$scope.cm.orderDate = dateString;
+			$scope.cm.likeCount = $scope.cm.likeCount -1;
+			var url = `${host}/comment/${id}`;
+			$http.put(url, $scope.cm).then(resp => {
+				var index = $scope.items.findIndex(item => item.id == id)
+				$scope.items[index] = resp.data;
+				$scope.message(true, "Bạn đã thích bình luận của", "success")
+				console.log("Success", resp);
+				$scope.load_all();
+			}).catch(error => {
+				console.log("Error", error);
+			});
+			console.log($scope.likeCount)
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}*/
 
 	$scope.load_all();
 
@@ -533,7 +565,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 /*Trang profile*/
 
-app.controller("loadAlls", function ($scope, $http, $location) {
+app.controller("loadAlls", function($scope, $http, $location) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
 
@@ -548,17 +580,17 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 	// Khi bạn muốn ẩn phần tử Chức vụ, chỉ cần thay đổi giá trị của biến showRoleSection
 	// Ví dụ:
-	$scope.hideRoleSection = function () {
+	$scope.hideRoleSection = function() {
 		$scope.showRoleSection = false;
 	};
 
 
-	$scope.reset = function () {
+	$scope.reset = function() {
 		$scope.user = { confirm: true, status: true, admin: false };
 		$scope.loadData();
 	};
 	/*load all*/
-	$scope.loadData = function () {
+	$scope.loadData = function() {
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
@@ -575,7 +607,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	};
 
 	/*edit*/
-	$scope.edit = function () {
+	$scope.edit = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -594,14 +626,14 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		});
 	}
 
-	$scope.validation = function () {
+	$scope.validation = function() {
 		var item = angular.copy($scope.user);
 		$scope.errorMessageEmail = "";
 		return true;
 	}
 
 
-	$scope.update = function () {
+	$scope.update = function() {
 		if (!$scope.validation()) {
 			// Validation failed, do not proceed with update
 			return;
@@ -617,7 +649,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 			$("#successModal").modal('show');
 
 			// Tự động ẩn Modal sau 2 giây
-			$timeout(function () {
+			$timeout(function() {
 				$("#successModal").modal('hide');
 				$scope.showSuccessMessage = false;
 			}, 2000);
@@ -636,11 +668,11 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		return `${url}/${filename}`
 	}
 
-	$scope.list = function () {
+	$scope.list = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -659,7 +691,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		})
 	}
 
-	$scope.upload = function (files) {
+	$scope.upload = function(files) {
 		$scope.user.image = files[0].name;
 		var form = new FormData();
 		for (var i = 0; i < files.length; i++) {
@@ -682,13 +714,13 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 	app.controller('MainController', ['$scope', function($scope) {
 		$scope.message = function(animation, title, icon) {
-		  toastMixin.fire({
-		    animation: animation,
-		    title: title,
-		    icon: icon
-		  });
+			toastMixin.fire({
+				animation: animation,
+				title: title,
+				icon: icon
+			});
 		};
-	       }]);
+	}]);
 
 
 });

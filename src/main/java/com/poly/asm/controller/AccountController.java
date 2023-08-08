@@ -1,37 +1,42 @@
 package com.poly.asm.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.poly.asm.rest.controller.AccountRestController;
 
 @Controller
 @RequestMapping("/pcgearhub")
 public class AccountController {
 
-    @RequestMapping("/login")
-	public String login() {
+	@Autowired
+	AccountRestController a;
 
+	@RequestMapping("/login")
+	public String login() {
 		return "/account/login";
 	}
 
-	 @RequestMapping("/sign-in")
+	@RequestMapping("/sign-in")
 	public String signin() {
 
 		return "/account/signIn";
 	}
 
-	 @RequestMapping("/forgot-password")
+	@RequestMapping("/forgot-password")
 	public String ForgotPassword() {
 
 		return "/account/ForgotPassword";
 	}
 
-	 @RequestMapping("/confirmation")
+	@RequestMapping("/confirmation")
 	public String confirmation() {
 
 		return "/account/confirmation";
 	}
 
-	 @RequestMapping("/change-password")
+	@RequestMapping("/change-password")
 	public String changePassword() {
 
 		return "/account/changePassword";
