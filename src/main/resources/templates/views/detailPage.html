@@ -131,25 +131,34 @@
 			<div class="row">
 				<div class="col-sm-8">
 					<form>
-						<h3 class="pull-left">New Comment</h3>
-						<button ng-click="create()" type="submit"
-							class="btn btn-primary pull-right">Gửi</button>
-						<fieldset>
-							<div class="row">
-								<div class="col-sm-3 col-lg-2 hidden-xs">
-									<img class="img-responsive"
-										src="https://bootdey.com/img/Content/avatar/avatar1.png"
-										alt="">
+						<li>User Name: <b>[[${#request.remoteUser}]]</b>
+
+							<div>[[${#request.remoteUser}]]</div>
+							<div>{{idUser}}sssssssss</div>
+
+
+
+
+
+							<h3 class="pull-left">New Comment</h3>
+							<button ng-click="create()" type="submit"
+								class="btn btn-primary pull-right">Gửi</button>
+							<fieldset>
+								<div class="row">
+									<div class="col-sm-3 col-lg-2 hidden-xs">
+										<img class="img-responsive"
+											src="https://bootdey.com/img/Content/avatar/avatar1.png"
+											alt="">
+									</div>
+									<div class="form-group col-xs-12 col-sm-9 col-lg-10">
+										<textarea class="form-control" id="message"
+											ng-model="comment.content" placeholder="Your message"
+											required=""></textarea>
+									</div>
 								</div>
-								<div class="form-group col-xs-12 col-sm-9 col-lg-10">
-									<textarea class="form-control" id="message"
-										ng-model="comment.content" placeholder="Your message"
-										required=""></textarea>
-								</div>
-							</div>
-						</fieldset>
+							</fieldset>
 					</form>
-				<!-- 	<button class="first">Bottom Toast</button>
+					<!-- 	<button class="first">Bottom Toast</button>
 					<button class="second">Animated Toast</button>
 					<button class="third">Error Toast</button> -->
 
@@ -157,10 +166,11 @@
 
 					<!-- COMMENT 1 - START -->
 					<div>
-						<div class="media" ng-repeat="item in items |limitTo:3:begin">
+						<div class="media" ng-repeat="item in items | orderBy:'-orderDate' |limitTo:3:begin">
 							<a class="pull-left" href="#"><img
 								ng-src="{{url(item.user.image)}}" style="max-width: 50px" alt="" /></a>
 							<div class="media-body">
+
 								<h4 class="media-heading">{{item.user.name}}</h4>
 								<p>{{item.content}}</p>
 								<ul class="list-unstyled list-inline media-detail pull-left">
@@ -168,26 +178,27 @@
 									<li><i class="fa fa-thumbs-up"></i>{{item.likeCount}}</li>
 								</ul>
 								<ul class="list-unstyled list-inline media-detail pull-right">
-									<li class=""><a href="" ng-click="setLike(item.id)" >Like</a></li>
+									<li class=""><a href="" ng-click="setLike2(item.id)">Like</a></li>
 									<li class=""><a href="">Reply</a></li>
 								</ul>
 							</div>
 						</div>
-							<div style="width: 1200px;background-color: red">
-						
-									<div class="col-sm-4"></div>
-									<ul class="pagination col-sm-4">
-									<li class="btn"><a href="#">{{currentPage}} of {{pageCount}}</a></li>
-									<li class="btn"><a href="#" ng-click="first()"><i
-											class="fas fa-angle-double-left"></i></a></li>
-									<li class="btn"><a href="#" ng-click="prev()"><i
-											class="fas fa-angle-left"></i></a></li>
-									<li class="btn"><a href="#" ng-click="next()"><i
-											class="fas fa-angle-right"></i></a></li>
-									<li class="btn"><a href="#" ng-click="last()"><i
-											class="fas fa-angle-double-right"></i></a></li>
-								</ul>
-								</div>
+						<div style="width: 1200px; background-color: red">
+
+							<div class="col-sm-4"></div>
+							<ul class="pagination col-sm-4">
+								<li class="btn"><a href="#">{{currentPage}} of
+										{{pageCount}}</a></li>
+								<li class="btn"><a href="#" ng-click="first()"><i
+										class="fas fa-angle-double-left"></i></a></li>
+								<li class="btn"><a href="#" ng-click="prev()"><i
+										class="fas fa-angle-left"></i></a></li>
+								<li class="btn"><a href="#" ng-click="next()"><i
+										class="fas fa-angle-right"></i></a></li>
+								<li class="btn"><a href="#" ng-click="last()"><i
+										class="fas fa-angle-double-right"></i></a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -17,24 +17,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Account;
-import com.poly.asm.respository.UserRepository;
+import com.poly.asm.model.Ulike;
+import com.poly.asm.respository.UlikeRepository;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
-public class UserRestController extends HttpServlet {
+public class UlikeRestController extends HttpServlet {
 	@Autowired
-	UserRepository dao;
+	UlikeRepository dao;
 
-	@GetMapping("/rest/users")
-	public ResponseEntity<List<Account>> getAll(Model model) {
+	@GetMapping("/rest/ulikes")
+	public ResponseEntity<List<Ulike>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-	@GetMapping("/rest/users/{id}")
-	public ResponseEntity<Account> getOne(@PathVariable("id") String id) {
-		// check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false
+	@GetMapping("/rest/ulike/{id}")
+	public ResponseEntity<Ulike> getOne(@PathVariable("id") int id) {
+//check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 
@@ -42,27 +42,25 @@ public class UserRestController extends HttpServlet {
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
 
-	@PostMapping("/rest/users")
+	@PostMapping("/rest/ulike")
 //	đưa dữ liệu consumer lên rest API @requesstBody
-	public ResponseEntity<Account> post(@RequestBody Account user) {
-		if (dao.existsById(user.getId())) {
-			return ResponseEntity.badRequest().build();
-		}
-		dao.save(user);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<Ulike> post(@RequestBody Ulike ulike) {
+
+		dao.save(ulike);
+		return ResponseEntity.ok(ulike);
 	}
 
-	@PutMapping("/rest/users/{id}")
-	public ResponseEntity<Account> put(@PathVariable("id") String id, @RequestBody Account User) {
-		if (!dao.existsById(id /* User.getId() */)) {
+	@PutMapping("/rest/ulike/{id}")
+	public ResponseEntity<Ulike> put(@PathVariable("id") int id, @RequestBody Ulike ulike) {
+		if (!dao.existsById(id /* ulike.getId() */)) {
 			return ResponseEntity.notFound().build();
 		}
-		dao.save(User);
-		return ResponseEntity.ok(User);
+		dao.save(ulike);
+		return ResponseEntity.ok(ulike);
 	}
 
-	@DeleteMapping("/rest/users/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+	@DeleteMapping("/rest/ulike/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}

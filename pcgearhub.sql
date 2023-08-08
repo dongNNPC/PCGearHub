@@ -21,6 +21,7 @@ go
 	  confirm bit,
 	  OTP varchar(20),
 	);
+
 	go
 	-- Tạo bảng Categories
 	CREATE TABLE Categories (
@@ -66,6 +67,13 @@ go
 	product_id varchar(20) not null,
 
 	);
+	go
+	--Tạo bảng Ulikes
+	create table Ulikes(
+		id INT IDENTITY(1,1),
+		user_id varchar(20),
+		comment_id int not null
+	)
 
 
 	-- Tạo bảng Invoices
@@ -194,6 +202,9 @@ go
 	ALTER TABLE Detailed_invoices
 	ADD CONSTRAINT PK_detailed_invoices PRIMARY KEY (id);
 
+	-- Thêm khóa chính cho bảng Ulikes
+	Alter table Ulikes
+	ADD CONSTRAINT PK_Ulike PRIMARY KEY (id);
 	--III. Tạo khóa ngoại 
 
 
@@ -214,6 +225,10 @@ go
 		ALTER TABLE comments
 	ADD CONSTRAINT FK_Comments_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 	go
+
+	--Thêm liên kết khóa ngoại cho bảng ulikes
+	ALTER TABLE ulikes
+	ADD CONSTRAINT FK_Ulikes_Comments FOREIGN KEY (comment_id) REFERENCES comments(id);
 
 	-- Thêm liên kết khóa ngoại cho bảng DetailedInvoices
 	ALTER TABLE Detailed_invoices
@@ -571,3 +586,7 @@ VALUES
 ('Đồ xịn 6',7,getDate(),'U004','P004'),
 ('Đồ xịn 7',8,getDate(),'U005','P005'),
 ('Đồ xịn 8',5,getDate(),'U006','P006')
+
+  INSERT INTO ulikes  (user_id,comment_id)
+VALUES
+('U001','P013')
