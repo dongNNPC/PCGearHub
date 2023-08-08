@@ -26,8 +26,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Invoices")
 public class Invoice {
+
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 
 	@Temporal(TemporalType.DATE)
@@ -36,8 +37,8 @@ public class Invoice {
 	private String status;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "user_id", nullable=false)
+	private Account user;
 
 	@OneToMany(mappedBy = "invoice")
 	@JsonIgnore

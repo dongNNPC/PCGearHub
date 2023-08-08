@@ -5,14 +5,16 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.poly.asm.model.Report;
-import com.poly.asm.model.User;
+import com.poly.asm.model.Account;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, String> {
+// @Repository
+@Service
+public interface UserRepository extends JpaRepository<Account, String> {
 	// Các phương thức truy vấn tùy chỉnh nếu cần
 	@Query("SELECT new com.poly.asm.model.Report( COUNT(u.id) AS totalUser ) "
-        + " FROM User u  WHERE admin = 0")
+        + " FROM Account u  WHERE admin = 0")
 	List<Report> getTotalUser();
 }

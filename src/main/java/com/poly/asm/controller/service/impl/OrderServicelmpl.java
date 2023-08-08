@@ -26,9 +26,12 @@ public class OrderServicelmpl implements OrderService  {
        dao.save(inv);
 
        TypeReference <List<DetailedInvoice>> type = new TypeReference <List<DetailedInvoice>> (){};
-        List<DetailedInvoice> deList = mapper.convertValue(orderData.get("detailedInvoices"), type).stream().peek ( d -> d.setInvoice(inv)).collect(Collectors.toList());
+        List<DetailedInvoice> deList = mapper.convertValue(orderData.get("detailedInvoices"), type);
+        if (deList != null) {
+            deList.forEach(d -> d.setInvoice(inv));
+            ddao.saveAll(deList);
+        }
 
-        ddao.saveAll(deList);
        return inv;
     }
 }

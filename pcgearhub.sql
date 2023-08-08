@@ -1,5 +1,4 @@
-﻿use master 
-go
+﻿
 	create database pcgearhub
 	go
 	use pcgearhub
@@ -8,7 +7,7 @@ go
 	 
 	--I. TAO BẢNG
 	-- Tạo bảng Users
-	CREATE TABLE Users (
+	CREATE TABLE Accounts (
 	  id VARCHAR(20) NOT NULL,
 	  name NVARCHAR(50) NOT NULL,
 	  Password VARCHAR(20) NOT NULL,
@@ -141,7 +140,7 @@ go
 		ALTER TABLE stock_receipts
 	ADD CONSTRAINT PK_DetailedReceipt PRIMARY KEY (id);
 	-- Thêm khóa chính cho bảng Users 
-		ALTER TABLE Users
+		ALTER TABLE Accounts
 	ADD CONSTRAINT PK_User PRIMARY KEY (id);
 
 	go
@@ -204,13 +203,13 @@ go
 
 	-- Thêm liên kết khóa ngoại cho bảng Invoices
 	ALTER TABLE Invoices
-	ADD CONSTRAINT FK_Invoices_Users FOREIGN KEY (user_id) REFERENCES Users(id);
+	ADD CONSTRAINT FK_Invoices_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id);
 
 
 	go
 	-- Thêm liên kết khóa ngoại cho bảng comments
 	ALTER TABLE comments
-	ADD CONSTRAINT FK_Comments_Users FOREIGN KEY (user_id) REFERENCES Users(id);
+	ADD CONSTRAINT FK_Comments_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id);
 		ALTER TABLE comments
 	ADD CONSTRAINT FK_Comments_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 	go
@@ -225,7 +224,7 @@ go
 
 	-- Thêm liên kết khóa ngoại cho bảng Carts
 	ALTER TABLE Carts
-	ADD CONSTRAINT FK_Carts_User FOREIGN KEY (user_id) REFERENCES Users(id)
+	ADD CONSTRAINT FK_Carts_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id)
  
 	ALTER TABLE Carts ADD CONSTRAINT FK_Carts_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 
@@ -238,7 +237,7 @@ go
 	go
 
 	-- thêm liên kết khóa ngoại cho bảng history
-	alter table  user_Histories add constraint FK_user_Histories_Users FOREIGN KEY (user_id) REFERENCES users(id)
+	alter table  user_Histories add constraint FK_user_Histories_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id)
 
 		-- thêm liên kết khóa ngoại cho bảng products_distinctives
 	alter table  products_distinctives add constraint FK_products_distinctives_product FOREIGN KEY (product_id) REFERENCES products(id)
@@ -246,7 +245,7 @@ go
 	--III. Thêm dữ liệu
 
 	-- Thêm dữ liệu vào bảng Users
-	INSERT INTO Users (id, name, Password, Phone, email, address, image, admin)
+	INSERT INTO Accounts (id, name, Password, Phone, email, address, image, admin)
 	VALUES 
 	  ('U001', 'Nguyen Van A', '12345678', '0234567890', 'admin@gmail.com', N'Địa chỉ người dùng 1', 'avatar.jpg', 1),
 	   ('U002', N'Nguyễn Nhựt Đông', '12345678', '0393618987', '0393618987dong@gmail.com', N'Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang', 'avatar-11.jpg', 0),
@@ -340,7 +339,7 @@ go
 	('I018', '2024-06-03', 'address1',N'pending', 'U002'),
 	('I019', '2024-07-21', 'address1',N'delivery', 'U002'),
 	('I020', '2024-07-20', 'address1',N'pending', 'U002'),
-	('I021', '2024-01-10', 'address1',N'', 'U001'),
+	('I021', '2024-01-10', 'address1',N'','U001'),
 	('I022', '2024-02-09', 'address1',N'pending', 'U002'),
 	('I023', '2024-03-12', 'address1',N'complete', 'U003'),
 	('I024', '2024-04-08', 'address1',N'delivery', 'U004'),

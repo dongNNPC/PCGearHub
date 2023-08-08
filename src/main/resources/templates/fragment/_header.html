@@ -64,11 +64,11 @@ top: 0;" >
                     <img src="../static/assets/images/logo/user.png" alt="">
                     <li><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
                     <li><a href="">/</a></li>
-                    <li><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
+                    <li ><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
 
 
-                    <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp; Tài
-                        Khoản Của Tôi</a>
+                    <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp;
+                    Xin chào :  [[${#request.remoteUser}]] </a>
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
                         style="list-style: none; display: none;">
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá
@@ -79,10 +79,14 @@ top: 0;" >
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/forgot-password}">
                             Quên mật
                             khẩu </a></li>
+                            <li><a class="dropdown-item" style="color: #686868" th:href="@{/auth/logoff}">
+                              Đăng xuất
+                          </a></li>
+                          <!-- <a href="/auth/logoff">logoff</a> -->
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
                       </ul>
 
-
+                     
 
                     </li>
 

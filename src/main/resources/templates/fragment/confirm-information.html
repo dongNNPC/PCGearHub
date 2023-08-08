@@ -25,12 +25,12 @@
                     <h1>CỬA HÀNG PHỤ KIỆN MÁY TÍNH PCGEARHUB</h1>
                     <span>cửa hàng > xác nhận thông tin</span>
                     <h3 style="font-weight: bold;">Thông tin giao hàng :</h3>
-                    <div class="mb-3">
-                        <!-- th:text="${#request.remoteUser}" -->
-                        <input type="text" class="form-control" name="" id="user_id" value="U001" aria-describedby="helpId"
-                            placeholder="Vui lòng nhập họ và tên">
+                    <!-- ẩn thông tin id user -->
+                     <div class="mb-3">
+                        <div type="text" class="form-control" name="" id="id" ng-model="users.id" aria-describedby="helpId"
+                            placeholder="Vui lòng nhập họ và tên"> [[${#request.remoteUser}]]  </div>
                         <small id="helpId" class="form-text text-muted"></small>
-                    </div>
+                    </div> 
                     <!-- <div class="mb-3" style="margin-top: 20px;">
                         <input type="text" class="form-control" name="phoneNumber" id="phoneNumberInput" aria-describedby="helpId"
                             placeholder="Vui lòng số điện thoại">
@@ -38,8 +38,8 @@
                     </div> -->
                     
                     <div class="mb-3 " style="margin-top: 20px;">
-                        <input type="text" class="form-control" ng-model="order.address"
-                            placeholder="Vui lòng  điạ chỉ">
+                        <input type="text" class="form-control" id="address"
+                            placeholder="Vui lòng  điạ chỉ" ng-model="order.address">
                         <small id="helpId" class="form-text text-muted"></small>
                     </div>
                     <!--ẩn Ngày  giao   -->
@@ -48,7 +48,7 @@
                     </div>
                     <h3 style="font-weight: bold;">Phương thức thanh toán : </h3><br>
                     <div class="form-check">
-                        <input class="form-check-input" checked type="radio" name="paymentMethod" value="cash" id="thanhToanKhiNhanHang">
+                        <input class="form-check-input" checked type="radio" name="paymentMethod" value="Thanh toán khi nhận hàng" id="thanhToanKhiNhanHang">
                         <label class="form-check-label" for="thanhToanKhiNhanHang">
                             Thanh toán khi nhận hàng
                         </label>
@@ -56,7 +56,7 @@
                     <br>
                     <div>
                         <div class="form-check">
-                            <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo" type="radio" name="paymentMethod" value="bankTransfer" id="thanhToanChuyenKhoan">
+                            <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo" type="radio" name="paymentMethod" value=" Thanh toán chuyển khoản" id="thanhToanChuyenKhoan">
                             <label class="form-check-label" for="thanhToanChuyenKhoan">
                                 Thanh toán chuyển khoản
                             </label>

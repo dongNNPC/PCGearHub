@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Users")
-public class User {
+public class Account {
 	@Id
 	private String id;
 	private String name;
