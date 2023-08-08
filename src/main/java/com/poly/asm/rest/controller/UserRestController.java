@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,13 +29,17 @@ public class UserRestController extends HttpServlet {
 	UserRepository dao;
 
 	@GetMapping("/rest/users")
-	public ResponseEntity<List<Account>> getAll(Model model) {
-		return ResponseEntity.ok(dao.findAll());
+	public ResponseEntity<List<Account>> getAll(Model model, Authentication authentication) {
+		List<Account> accounts = dao.findAll();
+		for (Account account : accounts) {
+			account.setId(authentication.getName());
+		}
+		return ResponseEntity.ok(accounts);
 	}
 
 	@GetMapping("/rest/users/{id}")
 	public ResponseEntity<Account> getOne(@PathVariable("id") String id) {
-//check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
+		// check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 
@@ -43,7 +48,7 @@ public class UserRestController extends HttpServlet {
 	}
 
 	@PostMapping("/rest/users")
-//	đưa dữ liệu consumer lên rest API @requesstBody
+	// đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<Account> post(@RequestBody Account user) {
 		if (dao.existsById(user.getId())) {
 			return ResponseEntity.badRequest().build();

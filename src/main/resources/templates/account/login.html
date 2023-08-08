@@ -62,7 +62,8 @@
       <p class="p">Đổi mật khẩu? <a class="span" th:href="@{/pcgearhub/change-password}">Đổi</a>
       </p>
       <p class="p line">Đăng nhập với</p>
-
+             <a th:href="@{/oauth2/authorization/google}">Google</a>::
+        <!-- <a th:href="@{/oauth2/authorization/facebook}">Facebook</a> -->
       <div class="flex-row">
         <button class="btn google button-submit" style="color: black;">
           <svg xml:space="preserve" style="enable-background:new 0 0 512 512;" viewBox="0 0 512 512" y="0px" x="0px"
@@ -107,6 +108,7 @@
         </button>
     
       </div>
+
     </form>
 
   </main>
