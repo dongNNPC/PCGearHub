@@ -1,6 +1,6 @@
 <header id="header-site" class="header" style="position: -webkit-sticky;
 position: sticky;
-top: 0;" >
+top: 0;">
   <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
     <div class="container">
       <div class="row">
@@ -15,12 +15,13 @@ top: 0;" >
           </div>
         </div>
         <div class="col-md-2 col-sm-6 col-xs-12">
-            <div class="mb-3"> <i class="fa-solid fa-globe" style="color: #ffffff;"></i>
-              <select style="color: white;background-color: black;border: none;" class="form-select form-select-lg" name="" id="">
-                <option selected> <a href="?lang=vi">VI</a></option>
-                <option value=""> <a href="?lang=en">EN</a></option>
-              </select>
-            </div>
+          <div class="mb-3"> <i class="fa-solid fa-globe" style="color: #ffffff;"></i>
+            <select style="color: white;background-color: black;border: none;" class="form-select form-select-lg"
+              name="" id="">
+              <option selected> <a href="?lang=vi">VI</a></option>
+              <option value=""> <a href="?lang=en">EN</a></option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -61,32 +62,35 @@ top: 0;" >
                 <div class="item-top right-top">
 
                   <ul>
-                    <img src="../static/assets/images/logo/user.png" alt="">
-                    <li><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
-                    <li><a href="">/</a></li>
-                    <li ><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
+
+                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
+                    <li ng-if="!userLogged"><a href="">/</a></li>
+                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
 
 
                     <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp;
-                    Xin chào :  [[${#request.remoteUser}]] </a>
+                        <span ng-if="userLogged">
+                          <br>
+                          Xin chào : [[${#request.remoteUser}]] </a></span>
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
                         style="list-style: none; display: none;">
-                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}">  Trang cá
                             nhân </a></li>
+                            <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/ordered-list}"> Xem  đơn hàng </a></li>
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi
                             mật
                             khẩu </a></li>
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/forgot-password}">
                             Quên mật
                             khẩu </a></li>
-                            <li><a class="dropdown-item" style="color: #686868" th:href="@{/auth/logoff/success}">
-                              Đăng xuất
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/auth/logoff/success}">
+                            Đăng xuất
                           </a></li>
-                          <!-- <a href="/auth/logoff">logoff</a> -->
+                        <!-- <a href="/auth/logoff">logoff</a> -->
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
                       </ul>
 
-                     
+
 
                     </li>
 
@@ -98,7 +102,7 @@ top: 0;" >
               </div>
               <div class="col-md-2">
                 <div class="header__cart_hi">
-                  
+
                   <li class="hm-minicart">
                     <div class="hm-minicart-trigger">
                       <span class="item-icon"></span>
@@ -106,9 +110,9 @@ top: 0;" >
                         <span class="cart-item-count"> {{cart.count}} </span>
                       </span>
 
-                      
+
                     </div>
-                    
+
                     <span></span>
                     <div class="minicart">
                       <div style="max-height: 300px; overflow-y: auto; ">
