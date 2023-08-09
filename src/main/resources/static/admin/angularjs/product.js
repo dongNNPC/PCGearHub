@@ -1,9 +1,4 @@
-/**
- * 
- */
-let host = "http://localhost:8088/pcgearhub/rest";
 
-const app = angular.module("myApp", []);
 app.controller("ctrl", function($scope, $http, $window,) {
 	$scope.pageCount;
 	$scope.items = [];
@@ -576,6 +571,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		// Kiểm tra số lượng tệp đã chọn và chặn nếu vượt quá giới hạn
 		var maxFiles = 2;
 		if (files.length > maxFiles) {
+			$scope.message(true, "Chỉ thêm được 2 hình ảnh", "error")
 			return; // Dừng việc upload nếu vượt quá giới hạn
 		}
 		//   $scope.product.image = files[0].name;

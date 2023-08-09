@@ -1,14 +1,9 @@
-/**
-* 
-*/
-let host = "http://localhost:8088/pcgearhub/rest";
 
-const app = angular.module("myApp", []);
-app.controller("ctrl", function ($scope, $http) {
+app.controller("ctrl", function($scope, $http) {
 	$scope.pageCount = 1;
 	$scope.user = {};
 	$scope.items = [];
-	$scope.load_all = function () {
+	$scope.load_all = function() {
 
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
@@ -23,7 +18,7 @@ app.controller("ctrl", function ($scope, $http) {
 		});
 	};
 	/*edit*/
-	$scope.edit = function (id) {
+	$scope.edit = function(id) {
 		window.location.href = '/pcgearhub/admin/form-user/' + id;
 	}
 	//Thực hiện tải toàn bộ users
@@ -31,7 +26,7 @@ app.controller("ctrl", function ($scope, $http) {
 	/*Thực hiện sắp xếp*/
 
 
-	$scope.sortBy = function (prop) {
+	$scope.sortBy = function(prop) {
 		$scope.prop = prop
 	}
 
@@ -39,33 +34,71 @@ app.controller("ctrl", function ($scope, $http) {
 	$scope.currentPage = 1;
 	$scope.begin = 0;
 
-	$scope.first = function () {
+	$scope.first = function() {
 		$scope.begin = 0;
 		$scope.currentPage = 1;
 	}
-	$scope.prev = function () {
+	$scope.prev = function() {
 		console.log($scope.begin)
 		if ($scope.begin > 0) {
 			$scope.begin -= 5;
 			$scope.currentPage--;
 		}
 	}
-	$scope.next = function () {
+	$scope.next = function() {
 		console.log($scope.begin)
 		if ($scope.begin < ($scope.pageCount - 1) * 5) {
 			$scope.begin += 5;
 			$scope.currentPage++;
 		}
 	}
-	$scope.last = function () {
+	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 5;
 		$scope.currentPage = $scope.pageCount;
 
 	}
 
+	$scope.history = () => {
+
+
+		/*lấy ngày*/
+		var currentDate = new Date();
+		var year = currentDate.getFullYear();
+		var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Thêm số 0 vào trước tháng nếu cần
+		var day = currentDate.getDate().toString().padStart(2, '0'); // Thêm số 0 vào trước ngày nếu cần
+
+		var formattedDate = year + '-' + month + '-' + day;
+
+
+		console.log(formattedDate)
+
+		var urlUser = `http://localhost:8088/pcgearhub/api/user`;
+		$http.get(urlUser).then(resp => {
+			$scope.info = resp.data;
+
+			var urlHistory = "http://localhost:8088/pcgearhub/rest/UserHistory"
+			console.log($scope.info.id)
+			var history = {
+				note: "check",
+				historyDate: formattedDate,
+				user: $scope.info
+			};
+			console.log(history)
+
+			$http.post(urlHistory, history).then(resp => {
+				console.log("Success", resp);
+
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+
 });
 
-app.controller("loadForm", function ($scope, $location, $http) {
+app.controller("loadForm", function($scope, $location, $http) {
 
 	$scope.pageCount;
 	$scope.user = {};
@@ -77,13 +110,53 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	$scope.successMessageModal = "";
 
 
+	$scope.history = () => {
+
+		var urlUser = `http://localhost:8088/pcgearhub/api/user`;
+		$http.get(url).then(resp => {
+			$scope.info = resp.data;
+		}).catch(error => {
+			console.log("Error", error);
+		});
+
+		var urlHistory = "http://localhost:8088/pcgearhub/rest/UserHistories"
+		var currentDate = new Date();
+		var year = currentDate.getFullYear();
+		var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Thêm số 0 vào trước tháng nếu cần
+		var day = currentDate.getDate().toString().padStart(2, '0'); // Thêm số 0 vào trước ngày nếu cần
+
+		var formattedDate = year + '-' + month + '-' + day;
+
+		console.log(formattedDate);
+
+		var history = {
+			note: "check",
+			history_date: formattedDate,
+			userID: $scope.info.id
+		};
+		console.log("------------------------------------------------------------")
+		console.log(history)
+
+		/*		$http.post(urlHistory, history).then(resp => {
+				$scope.items.push(item);
+				console.log("Success", resp);
+				$scope.message(true, "Thêm thành công", "success")
+	
+			}).catch(error => {
+				console.log("Error", error);
+			});*/
+	}
+
+
+
+
 	/*reset*/
-	$scope.reset = function () {
+	$scope.reset = function() {
 		$scope.user = { confirm: true, status: true, admin: false };
 		$scope.filenames = [];
 	};
 	/*load all*/
-	$scope.load_all = function () {
+	$scope.load_all = function() {
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
@@ -101,7 +174,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	};
 
 	/*edit*/
-	$scope.edit = function () {
+	$scope.edit = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -120,12 +193,12 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	}
 
-	$scope.validation = function () {
+	$scope.validation = function() {
 		var item = angular.copy($scope.user);
 
-		var alphanumericRegex = /^[a-zA-Z0-9]*$/; 
-		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; 
-		var phoneRegex = /^\d{10}$/; 
+		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
+		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		var phoneRegex = /^\d{10}$/;
 
 		var indexID = $scope.items.findIndex(itemx => itemx.id === item.id);
 		var indexEmail = $scope.items.findIndex(itemx => itemx.email === item.email);
@@ -254,7 +327,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 
 
-	$scope.create = function () {
+	$scope.create = function() {
 
 		var item = angular.copy($scope.user);
 		var url = `${host}/users`;
@@ -276,7 +349,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	};
 
-	$scope.update = function () {
+	$scope.update = function() {
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -297,7 +370,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	}
 
-	$scope.delete = function (id) {
+	$scope.delete = function(id) {
 		var url = `${host}/users/${id}`;
 		$http.delete(url).then(resp => {
 
@@ -319,11 +392,11 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		return `${url}/${filename}`
 	}
 
-	$scope.list = function () {
+	$scope.list = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -342,7 +415,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		})
 	}
 
-	$scope.upload = function (files) {
+	$scope.upload = function(files) {
 		$scope.user.image = files[0].name;
 		var form = new FormData();
 		for (var i = 0; i < files.length; i++) {

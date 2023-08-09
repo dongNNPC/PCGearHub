@@ -20,7 +20,7 @@
 		th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
 		type="text/css" media="all">
 
-	<div class="content-wrapper" ng-app="myApp">
+	<div class="content-wrapper">
 		<div class="content-wrapper" ng-controller="loadForm">
 			<div class="page-header">
 				<h3 class="page-title">Chỉnh sửa người dùng</h3>
@@ -41,7 +41,7 @@
 							<div>
 								<label for="" ng-repeat="filename in filenames"
 									title="Double click to detete"> <img
-									ng-src="{{url(filename)}}" ng-click="download(filename)"
+									ng-src="{{url(filename)}}" style="max-width: 200px" ng-click="download(filename)"
 									ng-dblclick="delete(filename)" alt="">
 
 								</label>
@@ -182,8 +182,8 @@
 								<button ng-click="update()" type="submit"
 									class="btn btn-success mr-2">Sửa</button>
 
-								<a href="#myModal" data-toggle="modal"><button type="submit"
-										class="btn btn-danger mr-2">Xóa</button></a>
+							<!-- 	<a href="#myModal" data-toggle="modal"><button type="submit"
+										class="btn btn-danger mr-2">Xóa</button></a> -->
 								<button ng-click="reset()" class="btn btn-dark">Làm mới</button>
 							</form>
 							<!-- Modal cảnh báo HTML -->
@@ -234,8 +234,7 @@
 	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
 	<!-- angular -->
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+		<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
 
 

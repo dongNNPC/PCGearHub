@@ -35,13 +35,12 @@ public class AuthController {
 	public String errorSuccess(Model model) {
 		model.addAttribute("massage", "Đăng xuất thành công");
 		a.userAccount(null);
-		return "/account/login";
+		return "/index";
 	}
 
 	@RequestMapping("/auth/access/denied")
 	public String denied(Model model) {
 		model.addAttribute("massage", "Bạn không có quyền truy cập");
-		a.userAccount(null);
 		return "account/login";
 	}
 

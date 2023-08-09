@@ -36,7 +36,7 @@
       type="text/css"
       media="all"
     />
-    <div class="content-wrapper" ng-app="myApp">
+    <div class="content-wrapper">
       <div class="content-wrapper" ng-controller="loadForm">
         <div class="page-header">
           <h3 class="page-title">Chỉnh sửa sản phẩm</h3>
@@ -57,7 +57,7 @@
                 <hr style="background-color: white" />
                 <div>
                   <label for="" ng-repeat="filename in fileNames">
-                    <img ng-src="{{url(filename)}}" alt="" />
+                    <img ng-src="{{url(filename)}}" style="max-width: 200px" alt="" />
                   </label>
                   <div class="form-group mt-3" style="max-width: 304px">
                     <div class="input-group col-xs-12">
@@ -183,7 +183,7 @@
                           ng-value="true"
                           id="status_true"
                         />
-                        Còn hoạt động
+                        Còn bán
                       </label>
                     </div>
                     <div class="form-check col-lg-4">
@@ -196,7 +196,7 @@
                           ng-value="false"
                           id="status_false"
                         />
-                        Ngừng hoạt động
+                        Ngừng kinh doanh
                       </label>
                     </div>
                   </div>
@@ -315,8 +315,8 @@
                     Sửa
                   </button>
 
-           <a href="#myModal" data-toggle="modal"><button type="submit"
-										class="btn btn-danger mr-2">Xóa</button></a>
+        <!--    <a href="#myModal" data-toggle="modal"><button type="submit"
+										class="btn btn-danger mr-2">Xóa</button></a> -->
                   <button ng-click="reset()" class="btn btn-dark">
                     Làm mới
                   </button>
@@ -373,9 +373,7 @@
     <script></script>
     <!-- angular -->
 
-    <script
-      th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"
-    ></script>
+		<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
     <script
       th:inline="javascript"
       th:src="@{/admin/angularjs/product.js}"

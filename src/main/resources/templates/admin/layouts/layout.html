@@ -1,49 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="dynamic(view)">
+
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Corona Admin</title>
-<!-- plugins:css -->
-<link rel="stylesheet"
-	th:href="@{/admin/vendors/mdi/css/materialdesignicons.min.css}">
-<link rel="stylesheet"
-	th:href="@{/admin/vendors/css/vendor.bundle.base.css}">
-<!-- endinject -->
-<!-- Plugin css for this page -->
-<link th:href="@{/fontawesome-free-6.4.0-web/css/all.css}"
-	href="/fonts/fontawesome-free-6.4.0-web/css/all.css" rel="stylesheet"
-	type="text/css" media="all" />
-<link rel="stylesheet"
-	th:href="@{/admin/vendors/jvectormap/jquery-jvectormap.css}"
-	type="text/css" media="all">
-<link rel="stylesheet"
-	th:href="@{/admin/vendors/flag-icon-css/css/flag-icon.min.css}"
-	type="text/css" media="all">
-<link rel="stylesheet"
-	th:href="@{/admin/vendors/owl-carousel-2/owl.carousel.min.css}"
-	type="text/css" media="all">
-<link rel="stylesheet"
-	th:href="@{/admin/vendors/owl-carousel-2/owl.theme.default.min.css}"
-	type="text/css" media="all">
-<!-- End plugin css for this page -->
-<!-- inject:css -->
-<!-- endinject -->
-<!-- Layout styles -->
-<link rel="stylesheet" th:href="@{/admin/css/style.css}">
-<!-- End layout styles -->
-<link rel="shortcut icon" href="@{/admin/images/favicon.png}" />
-<!--modal run time thông báo-->
-<link rel="stylesheet"
-	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
-<link rel='stylesheet'
-	th:href='@{https://fonts.googleapis.com/css?family=Lato:300}' />
-<link rel='stylesheet'
-	th:href='@{https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css}' />
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Corona Admin</title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" th:href="@{/admin/vendors/mdi/css/materialdesignicons.min.css}">
+	<link rel="stylesheet" th:href="@{/admin/vendors/css/vendor.bundle.base.css}">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link th:href="@{/fontawesome-free-6.4.0-web/css/all.css}" href="/fonts/fontawesome-free-6.4.0-web/css/all.css"
+		rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" th:href="@{/admin/vendors/jvectormap/jquery-jvectormap.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/admin/vendors/flag-icon-css/css/flag-icon.min.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/admin/vendors/owl-carousel-2/owl.carousel.min.css}" type="text/css" media="all">
+	<link rel="stylesheet" th:href="@{/admin/vendors/owl-carousel-2/owl.theme.default.min.css}" type="text/css"
+		media="all">
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<!-- endinject -->
+	<!-- Layout styles -->
+	<link rel="stylesheet" th:href="@{/admin/css/style.css}">
+	<!-- End layout styles -->
+	<link rel="shortcut icon" href="@{/admin/images/favicon.png}" />
+	<!--modal run time thông báo-->
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
+	<link rel='stylesheet' th:href='@{https://fonts.googleapis.com/css?family=Lato:300}' />
+	<link rel='stylesheet' th:href='@{https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css}' />
+		<!-- angular -->
+	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
 </head>
-<body>
+
+<body ng-app="main">
 	<div class="container-scroller">
 		<!-- partial:partials/_sidebar.html -->
 		<nav th:replace="~{/admin/fragment/sidebar :: sidebar}"></nav>
@@ -56,9 +46,7 @@
 				<main th:replace="${view}"></main>
 				<!-- content-wrapper ends -->
 				<!-- partial:partials/_footer.html -->
-				<footer class="footer"
-					th:replace="~{/admin/fragment/_footer :: footer}"> </footer>
-
+				<footer class="footer" th:replace="~{/admin/fragment/_footer :: footer}"> </footer>
 				<!-- partial -->
 			</div>
 			<!-- main-panel ends -->
@@ -74,8 +62,7 @@
 	<script th:src="@{/admin/vendors/chart.js/Chart.min.js}"></script>
 	<script th:src="@{/admin/vendors/progressbar.js/progressbar.min.js}"></script>
 	<script th:src="@{/admin/vendors/jvectormap/jquery-jvectormap.min.js}"></script>
-	<script
-		th:src="@{/admin/vendors/jvectormap/jquery-jvectormap-world-mill-en.js}"></script>
+	<script th:src="@{/admin/vendors/jvectormap/jquery-jvectormap-world-mill-en.js}"></script>
 	<script th:src="@{/admin/vendors/owl-carousel-2/owl.carousel.min.js}"></script>
 	<!-- End plugin js for this page -->
 	<!-- inject:js -->
@@ -90,31 +77,27 @@
 	<!-- End custom js for this page -->
 
 	<!--for Form -->
-	<script th:inline="javascript"
-		th:src="@{/admin/vendors/select2/select2.min.js}"></script>
-	<script th:inline="javascript"
-		th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
 	<!-- Custom js for form -->
-<!-- 	<script th:inline="javascript"
-		th:src="@{/admin/vendors/js/file-upload.js}">
-		
-	</script> -->
+
+<script th:inline="javascript" th:src="@{/admin/vendors/js/file-upload.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
-
+	
 	<!-- image -->
-	<script th:inline="javascript" th:src="@{/admin/js-service/file.js}"></script>
 
-	<!-- angular -->
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+<!--File JS angular-->
 
-	<script
-		th:src='@{https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js}'></script>
-	<script
-		th:src='@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}'></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+
+
+<!--coment realtime-->
+	<script th:src='@{https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js}'></script>
+	<script th:src='@{https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}'></script>
 	<script th:src='@{/admin/js/alerts-time.js}'></script>
 
 
 </body>
+
 </html>

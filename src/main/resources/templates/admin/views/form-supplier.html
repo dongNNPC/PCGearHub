@@ -15,7 +15,7 @@
 	<link rel="stylesheet" th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css" media="all">
 	<link rel="stylesheet" th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
 		type="text/css" media="all">
-	<div class="content-wrapper" ng-app="myApp">
+	<div class="content-wrapper">
 		<div class="content-wrapper" ng-controller="loadForm">
 			<div class="page-header">
 				<h3 class="page-title">Chỉnh sửa Danh mục</h3>
@@ -161,7 +161,7 @@
 	<script th:inline="javascript" th:src="@{/admin/vendors/js/file-upload.js}"> </script>
 	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script> <!-- angular -->
-	<script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+			<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/angularjs/supplier.js}"></script>
 </body>
 

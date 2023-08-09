@@ -1,5 +1,4 @@
-﻿use master 
-go
+﻿
 	create database pcgearhub
 	go
 	use pcgearhub
@@ -8,7 +7,7 @@ go
 	 
 	--I. TAO BẢNG
 	-- Tạo bảng Users
-	CREATE TABLE Users (
+	CREATE TABLE Accounts (
 	  id VARCHAR(20) NOT NULL,
 	  name NVARCHAR(50) NOT NULL,
 	  Password VARCHAR(20) NOT NULL,
@@ -68,13 +67,6 @@ go
 
 	);
 	go
-	--Tạo bảng Ulikes
-	create table Ulikes(
-		id INT IDENTITY(1,1),
-		user_id varchar(20),
-		comment_id int not null
-	)
-
 
 	-- Tạo bảng Invoices
 	CREATE TABLE Invoices (
@@ -149,7 +141,7 @@ go
 		ALTER TABLE stock_receipts
 	ADD CONSTRAINT PK_DetailedReceipt PRIMARY KEY (id);
 	-- Thêm khóa chính cho bảng Users 
-		ALTER TABLE Users
+		ALTER TABLE Accounts
 	ADD CONSTRAINT PK_User PRIMARY KEY (id);
 
 	go
@@ -202,9 +194,6 @@ go
 	ALTER TABLE Detailed_invoices
 	ADD CONSTRAINT PK_detailed_invoices PRIMARY KEY (id);
 
-	-- Thêm khóa chính cho bảng Ulikes
-	Alter table Ulikes
-	ADD CONSTRAINT PK_Ulike PRIMARY KEY (id);
 	--III. Tạo khóa ngoại 
 
 
@@ -215,20 +204,17 @@ go
 
 	-- Thêm liên kết khóa ngoại cho bảng Invoices
 	ALTER TABLE Invoices
-	ADD CONSTRAINT FK_Invoices_Users FOREIGN KEY (user_id) REFERENCES Users(id);
+	ADD CONSTRAINT FK_Invoices_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id);
 
 
 	go
 	-- Thêm liên kết khóa ngoại cho bảng comments
 	ALTER TABLE comments
-	ADD CONSTRAINT FK_Comments_Users FOREIGN KEY (user_id) REFERENCES Users(id);
+	ADD CONSTRAINT FK_Comments_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id);
 		ALTER TABLE comments
 	ADD CONSTRAINT FK_Comments_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 	go
 
-	--Thêm liên kết khóa ngoại cho bảng ulikes
-	ALTER TABLE ulikes
-	ADD CONSTRAINT FK_Ulikes_Comments FOREIGN KEY (comment_id) REFERENCES comments(id);
 
 	-- Thêm liên kết khóa ngoại cho bảng DetailedInvoices
 	ALTER TABLE Detailed_invoices
@@ -240,7 +226,7 @@ go
 
 	-- Thêm liên kết khóa ngoại cho bảng Carts
 	ALTER TABLE Carts
-	ADD CONSTRAINT FK_Carts_User FOREIGN KEY (user_id) REFERENCES Users(id)
+	ADD CONSTRAINT FK_Carts_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id)
  
 	ALTER TABLE Carts ADD CONSTRAINT FK_Carts_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 
@@ -253,7 +239,7 @@ go
 	go
 
 	-- thêm liên kết khóa ngoại cho bảng history
-	alter table  user_Histories add constraint FK_user_Histories_Users FOREIGN KEY (user_id) REFERENCES users(id)
+	alter table  user_Histories add constraint FK_user_Histories_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id)
 
 		-- thêm liên kết khóa ngoại cho bảng products_distinctives
 	alter table  products_distinctives add constraint FK_products_distinctives_product FOREIGN KEY (product_id) REFERENCES products(id)
@@ -261,7 +247,7 @@ go
 	--III. Thêm dữ liệu
 
 	-- Thêm dữ liệu vào bảng Users
-	INSERT INTO Users (id, name, Password, Phone, email, address, image, admin)
+	INSERT INTO Accounts (id, name, Password, Phone, email, address, image, admin)
 	VALUES 
 	  ('U001', 'Nguyen Van A', '12345678', '0234567890', 'admin@gmail.com', N'Địa chỉ người dùng 1', 'avatar.jpg', 1),
 	   ('U002', N'Nguyễn Nhựt Đông', '12345678', '0393618987', '0393618987dong@gmail.com', N'Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang', 'avatar-11.jpg', 0),
@@ -586,7 +572,3 @@ VALUES
 ('Đồ xịn 6',7,getDate(),'U004','P004'),
 ('Đồ xịn 7',8,getDate(),'U005','P005'),
 ('Đồ xịn 8',5,getDate(),'U006','P006')
-
-  INSERT INTO ulikes  (user_id,comment_id)
-VALUES
-('U001','P013')
