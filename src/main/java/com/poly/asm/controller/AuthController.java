@@ -33,7 +33,7 @@ public class AuthController {
 
     @RequestMapping("/auth/logoff/success")
     public String errorSuccess(Model model) {
-        return "forward:/auth/login/form";
+        return "forward:/pcgearhub/account";
     }
 
     @RequestMapping("/auth/access/denied")
@@ -41,14 +41,14 @@ public class AuthController {
         return "account/404";
     }
 
-    // @Autowired
-    // UserService userService;
+   @Autowired
+   UserService userService;
 
-    // @RequestMapping("/oauth2/login/success")
-    // public String success(OAuth2AuthenticationToken oauth2){
-    // userService.loginFormOauth2(oauth2);
-    // return "pcgearhub/index";
+   @RequestMapping("/oauth2/login/success")
+   public String success(OAuth2AuthenticationToken oauth2){
+   userService.loginFormOauth2(oauth2);
+   return "pcgearhub/index";
 
-    // }
+   }
 
 }

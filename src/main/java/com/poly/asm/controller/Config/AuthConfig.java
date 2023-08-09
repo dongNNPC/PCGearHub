@@ -57,7 +57,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 // dang xuat
                 http.logout(logout -> logout
                                 .logoutUrl("/auth/logoff")
-                                .logoutSuccessUrl("/pcgearhub/login"));
+                                .logoutSuccessUrl("/auth/logoff/success"));
 
                 http.oauth2Login(login -> login
                                 .loginPage("/pcgearhub/account")
