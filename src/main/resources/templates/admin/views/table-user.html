@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="main-panel">
+	<div class="main-panel" >
 		<div class="content-wrapper">
 			<div class="page-header">
 				<h3 class="page-title">Basic Tables</h3>
@@ -22,9 +22,10 @@
 			<div class="row">
 
 				<div class="col-lg-12 grid-margin stretch-card">
-					<div class="card" ng-app="myApp">
+					<div class="card">
 						<div class="card-body" ng-controller="ctrl">
 							<h4 class="card-title">Hoverable Table</h4>
+							{{u}}
 							<p class="card-description">
 								Add class
 								<code>.table-hover</code>
@@ -88,8 +89,7 @@
 			</div>
 		</div>
 	</div>
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
-	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
+		<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script> 
 </body>
 </html>

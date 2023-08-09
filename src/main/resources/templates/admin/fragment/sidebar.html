@@ -1,4 +1,4 @@
-  <nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="sidebar">
+  <nav class="sidebar sidebar-offcanvas" id="sidebar" th:fragment="sidebar" >
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
           <a class="sidebar-brand brand-logo" href="index.html"><img th:src="@{/admin/images/logo.svg}" alt="logo" /></a>
           <a class="sidebar-brand brand-logo-mini" href="index.html"><img th:src="@{/admin/images/logo-mini.svg}" alt="logo" /></a>
@@ -12,7 +12,8 @@
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
-                  <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                  <h5 class="mb-0 font-weight-normal">[[${#request.remoteUser}]]</h5>
+                  {{u}}
                   <span>Gold Member</span>
                 </div>
               </div>

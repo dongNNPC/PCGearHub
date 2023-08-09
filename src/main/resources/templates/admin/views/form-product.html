@@ -36,7 +36,7 @@
       type="text/css"
       media="all"
     />
-    <div class="content-wrapper" ng-app="myApp">
+    <div class="content-wrapper" >
       <div class="content-wrapper" ng-controller="loadForm">
         <div class="page-header">
           <h3 class="page-title">Chỉnh sửa sản phẩm</h3>
@@ -57,7 +57,7 @@
                 <hr style="background-color: white" />
                 <div>
                   <label for="" ng-repeat="filename in fileNames">
-                    <img ng-src="{{url(filename)}}" alt="" />
+                    <img ng-src="{{url(filename)}}" style="max-width: 200px" alt="" />
                   </label>
                   <div class="form-group mt-3" style="max-width: 304px">
                     <div class="input-group col-xs-12">

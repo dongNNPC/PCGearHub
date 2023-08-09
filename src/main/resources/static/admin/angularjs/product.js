@@ -377,7 +377,12 @@ app.controller("loadForm", function($scope, $location, $http) {
 		var url = `${host}/product`;
 		item.image1 = $scope.fileNames[0]
 		item.image2 = $scope.fileNames[1]
-
+		if(item.image1==null){
+			item.image1="product-default1.jpg"
+		}
+		if(item.image2==null){
+			item.image2="product-default2.jpg"
+		}
 		if ($scope.catcherror() == false) {
 			return
 		}

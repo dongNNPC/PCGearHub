@@ -3,12 +3,29 @@
 */
 let host = "http://localhost:8088/pcgearhub/rest";
 
-const app = angular.module("myApp", []);
-app.controller("ctrl", function ($scope, $http) {
+/*const app = angular.module("main", []);*/
+app.controller("ctrl", function($scope, $http) {
 	$scope.pageCount = 1;
 	$scope.user = {};
 	$scope.items = [];
-	$scope.load_all = function () {
+	$scope.u = {};
+	$scope.load_user = function() {
+		var s = "http://localhost:8088/pcgearhub/api/user"
+		var url = `${s}`;
+		$http.get(url).then(resp => {
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.items
+			$scope.u = resp.data;
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+	
+$scope.load_user()
+
+
+
+	$scope.load_all = function() {
 
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
@@ -23,7 +40,7 @@ app.controller("ctrl", function ($scope, $http) {
 		});
 	};
 	/*edit*/
-	$scope.edit = function (id) {
+	$scope.edit = function(id) {
 		window.location.href = '/pcgearhub/admin/form-user/' + id;
 	}
 	//Thực hiện tải toàn bộ users
@@ -31,7 +48,7 @@ app.controller("ctrl", function ($scope, $http) {
 	/*Thực hiện sắp xếp*/
 
 
-	$scope.sortBy = function (prop) {
+	$scope.sortBy = function(prop) {
 		$scope.prop = prop
 	}
 
@@ -39,25 +56,25 @@ app.controller("ctrl", function ($scope, $http) {
 	$scope.currentPage = 1;
 	$scope.begin = 0;
 
-	$scope.first = function () {
+	$scope.first = function() {
 		$scope.begin = 0;
 		$scope.currentPage = 1;
 	}
-	$scope.prev = function () {
+	$scope.prev = function() {
 		console.log($scope.begin)
 		if ($scope.begin > 0) {
 			$scope.begin -= 5;
 			$scope.currentPage--;
 		}
 	}
-	$scope.next = function () {
+	$scope.next = function() {
 		console.log($scope.begin)
 		if ($scope.begin < ($scope.pageCount - 1) * 5) {
 			$scope.begin += 5;
 			$scope.currentPage++;
 		}
 	}
-	$scope.last = function () {
+	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 5;
 		$scope.currentPage = $scope.pageCount;
 
@@ -65,7 +82,7 @@ app.controller("ctrl", function ($scope, $http) {
 
 });
 
-app.controller("loadForm", function ($scope, $location, $http) {
+app.controller("loadForm", function($scope, $location, $http) {
 
 	$scope.pageCount;
 	$scope.user = {};
@@ -78,12 +95,12 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 
 	/*reset*/
-	$scope.reset = function () {
+	$scope.reset = function() {
 		$scope.user = { confirm: true, status: true, admin: false };
 		$scope.filenames = [];
 	};
 	/*load all*/
-	$scope.load_all = function () {
+	$scope.load_all = function() {
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
@@ -101,7 +118,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	};
 
 	/*edit*/
-	$scope.edit = function () {
+	$scope.edit = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -120,12 +137,12 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	}
 
-	$scope.validation = function () {
+	$scope.validation = function() {
 		var item = angular.copy($scope.user);
 
-		var alphanumericRegex = /^[a-zA-Z0-9]*$/; 
-		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; 
-		var phoneRegex = /^\d{10}$/; 
+		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
+		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		var phoneRegex = /^\d{10}$/;
 
 		var indexID = $scope.items.findIndex(itemx => itemx.id === item.id);
 		var indexEmail = $scope.items.findIndex(itemx => itemx.email === item.email);
@@ -254,7 +271,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 
 
-	$scope.create = function () {
+	$scope.create = function() {
 
 		var item = angular.copy($scope.user);
 		var url = `${host}/users`;
@@ -264,6 +281,9 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 		if ($scope.validation() == false) {
 			return
+		}
+		if (item.image == null) {
+			item.image = "avatar-default.jpg"
 		}
 
 		$http.post(url, item).then(resp => {
@@ -276,7 +296,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	};
 
-	$scope.update = function () {
+	$scope.update = function() {
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -297,7 +317,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		});
 	}
 
-	$scope.delete = function (id) {
+	$scope.delete = function(id) {
 		var url = `${host}/users/${id}`;
 		$http.delete(url).then(resp => {
 
@@ -319,11 +339,11 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		return `${url}/${filename}`
 	}
 
-	$scope.list = function () {
+	$scope.list = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -342,7 +362,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 		})
 	}
 
-	$scope.upload = function (files) {
+	$scope.upload = function(files) {
 		$scope.user.image = files[0].name;
 		var form = new FormData();
 		for (var i = 0; i < files.length; i++) {
