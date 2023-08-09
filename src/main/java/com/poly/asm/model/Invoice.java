@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -42,5 +41,26 @@ public class Invoice {
 	@JsonIgnore
 	private List<DetailedInvoice> detailedInvoices;
 
-	// constructors, getters, and setters
+
+	 public String getStatusName() {
+        String statusName = "";
+        switch (status) {
+            case "pending":
+                statusName = "Đang xác nhận";
+                break;
+            case "cancelled":
+                statusName = "Đã hủy";
+                break;
+            case "delivery":
+                statusName = "Đang vận chuyển";
+                break;
+            case "complete":
+                statusName = "Đã giao thành công";
+                break;
+        }
+        return statusName;
+    }
 }
+
+
+

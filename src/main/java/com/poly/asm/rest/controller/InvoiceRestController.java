@@ -3,6 +3,7 @@ package com.poly.asm.rest.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -86,4 +87,19 @@ public class InvoiceRestController extends HttpServlet {
 		return odersv.create(orderData);
 	}
 
+
+	@GetMapping("/rest/order-list/pending")
+    public List<Invoice> getOrderedList(Model model, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        List<Invoice> orders = odersv.findByUsernameStatusPending(username);
+        return orders;
+    }
+
+
+	@GetMapping("/rest/order-list/delivery")
+    public List<Invoice> getOrderedListdelivery(Model model, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+		List<Invoice> orders = odersv.findByUsernameStatusDelivery(username);
+        return orders;
+    }
 }
