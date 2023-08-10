@@ -5,9 +5,13 @@
       <div class="col-md-3 col-sm-6" style="margin-top: 10px;" ng-repeat="p in top10new">
         <div class="product-grid">
           <div class="product-image">
-            <a ng-href="/pcgearhub/detail-page/{{p.id}}" class="image">
+            <a ng-href="/pcgearhub/detail-page/{{p.id}}" class="image" ng-click="p.quantity !== 0 || preventNavigation($event)">
             <img class="pic-1" ng-src="{{url(p.image1)}}"alt="">
             <img class="pic-2" ng-src="{{url(p.image2)}}"alt="">
+            <div  ng-show="p.quantity === 0" class="out-of-stock-text">
+              <img
+              th:src="@{/assets/Icon/hethang.png}" style="width: 50% ; margin-top: -210px;z-index: 3;position: relative;" >
+            </div>
             </a>
             <ul class="social">
               <li><a ng-href="/pcgearhub/detail-page/{{p.id}}" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
@@ -29,12 +33,13 @@
               </div>
             </div>
           </div>
-          <button ng-click="cart.add(p.id)" onclick="showNotification()" class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;">
+          <button ng-if="p.quantity > 0" ng-click="cart.add(p.id)" onclick="showNotification()" class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;">
             <span class="span-bt-addtocart" style="margin-top: -40px;">
               <i class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
               <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span>
             </span>
           </button>
+         
         </div>
       </div>
     </div>

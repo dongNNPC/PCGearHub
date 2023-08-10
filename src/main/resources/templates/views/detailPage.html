@@ -43,7 +43,7 @@
 							<p>
 								Tình trạng: <i
 									style="color: #F1B501; font-family: Quicksand; font-weight: bold; font-size: 20px;"
-									th:text="*{status} ? 'Còn hàng' : 'Hết hàng'">Còn hàng</i>
+									th:text="*{status} ? 'Còn hàng' : 'Hết hàng'">Còn hàng</i> | còn : <span th:text="*{quantity}"></span> sản phẩm
 							</p>
 
 
@@ -169,7 +169,7 @@
 									<li><i class="fa fa-thumbs-up"></i>{{item.likeCount}}</li>
 								</ul>
 								<ul class="list-unstyled list-inline media-detail pull-right">
-									<li class=""><a href="" ng-click="setLike2(item.id)">Like</a></li>
+									<li class=""><a href="" ng-click="setLike(item.id)">Like</a></li>
 									<li class=""><a href="">Reply</a></li>
 								</ul>
 							</div>

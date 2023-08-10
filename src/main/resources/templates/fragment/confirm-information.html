@@ -24,22 +24,31 @@
                 <div class="col-md-7">
                     <h1>CỬA HÀNG PHỤ KIỆN MÁY TÍNH PCGEARHUB</h1>
                     <span>cửa hàng > xác nhận thông tin</span>
-                    <h3 style="font-weight: bold;">Thông tin giao hàng :</h3>
+                    <h2 style="font-weight: bold;">Thông tin giao hàng :</h2>
                     <!-- ẩn thông tin id user -->
-                     <div class="mb-3">
-                        <div type="text" class="form-control" name="" id="id" ng-model="users.id" aria-describedby="helpId"
-                            placeholder="Vui lòng nhập họ và tên"> [[${#request.remoteUser}]]  </div>
+                    <div class="mb-3" style="display: none;">
+                        <div type="text" class="form-control" name="" id="id" ng-model="users.id"
+                            aria-describedby="helpId" placeholder="Vui lòng nhập họ và tên"> [[${#request.remoteUser}]]
+                        </div>
                         <small id="helpId" class="form-text text-muted"></small>
-                    </div> 
-                    <!-- <div class="mb-3" style="margin-top: 20px;">
-                        <input type="text" class="form-control" name="phoneNumber" id="phoneNumberInput" aria-describedby="helpId"
-                            placeholder="Vui lòng số điện thoại">
+                    </div>
+                    <div class="mb-3" style="margin-top: 20px;">
+                        <label for="">Tên người nhận : </label>
+                        <div type="text" class="form-control" name="phoneNumber" id="phoneNumberInput"
+                            aria-describedby="helpId" placeholder="Vui lòng số điện thoại"> {{ userLogged.name }}</div>
                         <small id="helpId" class="form-text text-muted"></small>
-                    </div> -->
-                    
+                    </div>
+                    <div class="mb-3" style="margin-top: 20px;">
+                        <label for="">Số điện thoại : </label>
+                        <div type="text" class="form-control" name="phoneNumber" id="phoneNumberInput"
+                            aria-describedby="helpId" placeholder="Vui lòng số điện thoại"> {{ userLogged.phone }}</div>
+                        <small id="helpId" class="form-text text-muted"></small>
+                    </div>
+
                     <div class="mb-3 " style="margin-top: 20px;">
-                        <input type="text" class="form-control" id="address"
-                            placeholder="Vui lòng  điạ chỉ" ng-model="order.address">
+                        <label for="">Nhập địa chỉ nhập hàng :</label>
+                        <input type="text" class="form-control" id="address" placeholder="Vui lòng  điạ chỉ"
+                            ng-model="order.address">
                         <small id="helpId" class="form-text text-muted"></small>
                     </div>
                     <!--ẩn Ngày  giao   -->
@@ -48,7 +57,8 @@
                     </div>
                     <h3 style="font-weight: bold;">Phương thức thanh toán : </h3><br>
                     <div class="form-check">
-                        <input class="form-check-input" checked type="radio" name="paymentMethod" value="Thanh toán khi nhận hàng" id="thanhToanKhiNhanHang">
+                        <input class="form-check-input" checked type="radio" name="paymentMethod"
+                            value="Thanh toán khi nhận hàng" id="thanhToanKhiNhanHang">
                         <label class="form-check-label" for="thanhToanKhiNhanHang">
                             Thanh toán khi nhận hàng
                         </label>
@@ -56,18 +66,21 @@
                     <br>
                     <div>
                         <div class="form-check">
-                            <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo" type="radio" name="paymentMethod" value=" Thanh toán chuyển khoản" id="thanhToanChuyenKhoan">
+                            <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo"
+                                type="radio" name="paymentMethod" value=" Thanh toán chuyển khoản"
+                                id="thanhToanChuyenKhoan">
                             <label class="form-check-label" for="thanhToanChuyenKhoan">
                                 Thanh toán chuyển khoản
                             </label>
                         </div>
                         <br>
                     </div>
-                    
-                    
+
+
                     <!-- th:text="${#request.remoteUser}" -->
                     <a ng-click="order.confirm()" class="btn-login" style="margin-left: 350px;width: 300px;">Xác nhận
                         đơn hàng</a>
+
                 </div>
 
                 <div class="col-md-5">
@@ -83,7 +96,7 @@
                         </div>
                     </div>
                     <hr class="my-4">
-                
+
                     <!-- Hiển thị thông tin từng sản phẩm đã được chọn -->
                     <div class="row" ng-repeat="item in selectedItems">
                         <div class="col-md-2">
@@ -94,22 +107,27 @@
                             <h6 style="margin-left: -50px; max-width: 300px;" class="text-black mb-0">
                                 {{item.name}}
                                 <br>
-                                <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : {{(item.price | number:0) + 'vnđ'}} | số lượng : {{item.qty}}</p>
+                                <p style="color: red;font-weight: bold; margin-top: 5px;"> Giá : {{(item.price |
+                                    number:0) + 'vnđ'}} | số lượng : {{item.qty}}</p>
                             </h6>
                         </div>
                         <div class="col-md-2">
                             {{(item.qty * item.price | number:0) + 'vnđ'}}
                         </div>
                     </div>
-                
+
                     <hr class="my-4">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-12">
-                            <h2> Tổng tiền : <span style="color: red ;font-weight: bold;margin-left:100px;">{{getTotalAmountConfirm() | number:0}}vnđ</span></h2>
+                            <h2> Tổng tiền : <span
+                                    style="color: red ;font-weight: bold;margin-left:100px;">{{getTotalAmountConfirm() |
+                                    number:0}}vnđ</span></h2>
                         </div>
                     </div>
+                    <a class="btn btn-sm" data-mdb-ripple-color="dark" th:href="@{/pcgearhub/cart}"
+                        style="background-color: rgb(98, 95, 95); color: white;">Quay lại giỏ hàng</a>
                 </div>
-                
+
             </div>
         </div>
 
