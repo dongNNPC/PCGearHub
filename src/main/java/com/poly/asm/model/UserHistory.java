@@ -30,7 +30,8 @@ public class UserHistory {
 
 	@Temporal(TemporalType.DATE)
 	private Date historyDate;
-	
+
+	private String historyTime;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
