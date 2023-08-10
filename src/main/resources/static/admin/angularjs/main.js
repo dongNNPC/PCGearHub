@@ -1,4 +1,3 @@
-
 var app = angular.module('main', []);
 let host = "http://localhost:8088/pcgearhub/rest";
 
@@ -22,13 +21,12 @@ app.controller("info", function($scope, $http) {
 		$http.get(urlUserInvoice).then(resp => {
 			$scope.usersInvoces = resp.data;
 			$scope.lengthMessage = $scope.usersInvoces.length;
+
 		}).catch(error => {
 			console.log("Error", error);
 		});
 	};
 	
-	$scope.load_user()
-
 	var urlImage = "http://localhost:8088/pcgearhub/rest/files/images";
 	$scope.url = function() {
 		return `${urlImage}/${$scope.info.image}`
