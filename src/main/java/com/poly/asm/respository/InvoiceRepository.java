@@ -14,8 +14,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, String> {
 
 	List<Invoice> findByStatusContainingIgnoreCase(String keyword);
 
-	@Query("SELECT i  FROM Invoice i JOIN i.detailedInvoices d "+
-	" WHERE i.user.id = ?1 AND i.status = 'pending'")
+	@Query("SELECT i  FROM Invoice i JOIN i.detailedInvoices d " + " WHERE i.user.id = ?1 AND i.status = 'pending' "
+			+ "GROUP BY i.id , i.orderDate , i.address , i.status, i.user.id")
 	List<Invoice> findByUsernameStatusPending(String username);
 
 	@Query("SELECT i FROM Invoice i WHERE i.user.id=?1 and status = 'delivery'")
