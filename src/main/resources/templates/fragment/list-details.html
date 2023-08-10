@@ -18,9 +18,12 @@
   <header>
     <!-- place navbar here -->
   </header>
-  <main style="height: 1200px;">
+  <main style="height: 1200px;" ng-controller="orderList">
     <form action="" class="formThank" th:object="${order}">
-      <h1>PCGEARHUB</h1>
+      <h6>
+        <a th:href="@{/pcgearhub/ordered-list}"><i class="fa-solid fa-arrow-left-long"></i> quay lại</a>
+      </h6>
+      <h1 style="text-align: center;">PCGEARHUB</h1>
       <!-- <h3>Đơn đặt hàng của bạn đã được xác nhận!</h3> -->
       <h5 style="color: gray;">Xin chào <input style="border: none;" th:field="*{user.name}"> <br> đây là thông tin đơn
         hàng chi tiết của bạn </h5>
@@ -79,8 +82,11 @@
             [[${#numbers.formatDecimal(totalPrice, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ</span>
         </div>
       </div>
-      <h6></h6>
-
+      <h6></h6> 
+      <div th:if="${order.status == 'pending'}">
+        <button  class="btn btn-default col-md-12"  ng-click="cancelOrder(order.id)">Hủy đơn hàng</button>
+      </div>
+     
       <div>
         <h6>Cám ơn đã quý khác đã mua hàng<span style="margin-left: 360px;">Trợ giúp ?</span></h6>
         <h6>Chúng tôi sẽ gửi email xác nhận vận chuyển khi mặt hàng được vận chuyển! <span

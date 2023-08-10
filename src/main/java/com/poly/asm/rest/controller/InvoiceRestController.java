@@ -1,11 +1,14 @@
 package com.poly.asm.rest.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,7 +49,7 @@ public class InvoiceRestController extends HttpServlet {
 
 	@GetMapping("/rest/invoice/{id}")
 	public ResponseEntity<Invoice> getOne(@PathVariable("id") String id) {
-//check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
+		// check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 
@@ -55,7 +58,7 @@ public class InvoiceRestController extends HttpServlet {
 	}
 
 	@PostMapping("/rest/invoice")
-//	đưa dữ liệu consumer lên rest API @requesstBody
+	// đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<Invoice> post(@RequestBody Invoice invoice) {
 		if (dao.existsById(invoice.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -87,19 +90,68 @@ public class InvoiceRestController extends HttpServlet {
 		return odersv.create(orderData);
 	}
 
+	@GetMapping("/rest/ordered-list/details/{id}")
+	public ResponseEntity<Map<String, Object>> getOrderDetails(@PathVariable("id") String id) {
+		Invoice order = odersv.findById(id);
+
+		double totalPrice = order.getDetailedInvoices().stream()
+				.mapToDouble(detail -> detail.getProduct().getPrice() * detail.getQuantity())
+				.sum();
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("order", order);
+		response.put("totalPrice", totalPrice);
+
+		return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/rest/ordered-list/details/{id}")
+	public ResponseEntity<String> cancelOrder(@PathVariable("id") String id) {
+		Invoice order = odersv.findById(id);
+
+		if (order == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		if (!"pending".equals(order.getStatus())) {
+			return ResponseEntity.badRequest().body("Cannot cancel order with current status.");
+		}
+
+		// Update the order status to "cancelled" (or update status as needed)
+		order.setStatus("cancelled");
+		// Update any other necessary properties of the order
+
+		// Save the updated order
+		dao.save(order);
+
+		return ResponseEntity.ok("Order cancelled successfully.");
+	}
 
 	@GetMapping("/rest/order-list/pending")
-    public List<Invoice> getOrderedList(Model model, HttpServletRequest request) {
-        String username = request.getRemoteUser();
-        List<Invoice> orders = odersv.findByUsernameStatusPending(username);
-        return orders;
-    }
-
+	public List<Invoice> getOrderedList(Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
+		List<Invoice> orders = odersv.findByUsernameStatusPending(username);
+		return orders;
+	}
 
 	@GetMapping("/rest/order-list/delivery")
-    public List<Invoice> getOrderedListdelivery(Model model, HttpServletRequest request) {
-        String username = request.getRemoteUser();
+	public List<Invoice> getOrderedListdelivery(Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
 		List<Invoice> orders = odersv.findByUsernameStatusDelivery(username);
-        return orders;
-    }
+		return orders;
+	}
+
+	@GetMapping("/rest/order-list/complete")
+	public List<Invoice> getOrderedListComplete(Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
+		List<Invoice> orders = odersv.findByUsernameStatusComplete(username);
+		return orders;
+	}
+
+	@GetMapping("/rest/order-list/cancelled")
+	public List<Invoice> getOrderedListCacelled(Model model, HttpServletRequest request) {
+		String username = request.getRemoteUser();
+		List<Invoice> orders = odersv.findByUsernameStatusCancelled(username);
+		return orders;
+	}
 }

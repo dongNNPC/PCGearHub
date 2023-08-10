@@ -52,4 +52,14 @@ public class OrderServicelmpl implements OrderService {
     public List<Invoice> findByUsernameStatusDelivery(String username) {
          return dao.findByUsernameStatusDelivery(username);
     }
+
+    @Override
+    public List<Invoice> findByUsernameStatusComplete(String username) {
+       return dao.findByUsernameStatusComplete(username);
+    }
+
+    @Override
+    public List<Invoice> findByUsernameStatusCancelled(String username) {
+        return dao.findByUsernameStatusCancelled(username);
+    }
 }

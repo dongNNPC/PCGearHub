@@ -1,5 +1,7 @@
 package com.poly.asm.controller;
 
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,13 @@ public class ShoppingCartController {
 		double totalPrice = order.getDetailedInvoices().stream()
 				.mapToDouble(detail -> detail.getProduct().getPrice() * detail.getQuantity())
 				.sum();
+
 		model.addAttribute("totalPrice", totalPrice);
 		return "/fragment/list-details";
 	}
 
 	@RequestMapping("/ordered-list")
-	public String oderList(Model model , HttpServletRequest request) {
+	public String oderList(Model model, HttpServletRequest request) {
 		String username = request.getRemoteUser();
 		model.addAttribute("orders", orderService.findByUsernameStatusPending(username));
 		return "/fragment/orderedList";
