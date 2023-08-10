@@ -941,6 +941,9 @@ app.controller("dangky", function ($scope, $http, $location) {
 		if ($scope.catcherror() == false) {
 			return
 		}
+		// if ($scope.validation() == false) {
+		// 	return
+		// }
 
 		$http.post(url, item).then(resp => {
 			console.log("Success", resp);
