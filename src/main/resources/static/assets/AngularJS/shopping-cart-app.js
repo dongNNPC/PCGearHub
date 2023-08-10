@@ -646,29 +646,29 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.list = function () {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
-	     
+
 		var parts = currentURL.split('/');
 		const id = parts[parts.length - 1];
-	     
+
 		var item = $scope.items.find(item => item.id === id);
-	     
+
 		var name = item ? item.image : null;
 		var one = "one";
 		var urlOneImage = `${url}/${one}/${name}`;
-	     
+
 		$http.get(urlOneImage).then(resp => {
-		    $scope.filenames = resp.data;
-	     
-		    // Lấy tên ảnh đã lưu trước đó từ LocalStorage
-		    var uploadedImage = localStorage.getItem('uploadedImage');
-		    if (uploadedImage) {
-		        $scope.user.image = uploadedImage;
-		    }
+			$scope.filenames = resp.data;
+
+			// Lấy tên ảnh đã lưu trước đó từ LocalStorage
+			var uploadedImage = localStorage.getItem('uploadedImage');
+			if (uploadedImage) {
+				$scope.user.image = uploadedImage;
+			}
 		}).catch(error => {
-		    console.log("Error", error);
+			console.log("Error", error);
 		});
-	     };
-	     
+	};
+
 
 	$scope.upload = function (files) {
 		$scope.user.image = files[0].name;
@@ -688,6 +688,322 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	}
 	$scope.loadData();
 	$scope.cart.loadFormLocalStorage();//khởi chạy
+
+
+
+
+
+});
+
+
+// dang ky
+
+
+app.controller("dangky", function ($scope, $http, $location) {
+	let host = "http://localhost:8088/pcgearhub/rest";
+
+
+	$scope.showRoleSection = false;
+	$scope.showActivitySection = false;
+	$scope.showConfirmationSection = false;
+
+
+	$scope.user = {
+		address: 'defaultAddress'
+	};
+
+
+	$scope.reset = function () {
+		$scope.user = { confirm: true, status: true, admin: false };
+		$scope.loadData();
+	};
+	/*load all*/
+	$scope.loadData = function () {
+		var url = `${host}/users`;
+		$http.get(url).then(resp => {
+			$scope.items = resp.data;
+			$scope.pageCount = Math.ceil($scope.items.length / 5);
+
+			console.log("Success", resp);
+
+			// Gọi các hàm sau khi dữ liệu đã được tải thành công
+			$scope.list();
+			$scope.edit(); // Gọi hàm edit
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+
+	/*edit*/
+	$scope.edit = function () {
+		var currentURL = $location.absUrl();
+		console.log("Current URL:", currentURL);
+
+		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
+		const id = parts[parts.length - 1];
+		var url = `${host}/users/${id}`;
+		$http.get(url).then(resp => {
+			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
+			$scope.user = resp.data;
+			console.log("Success", resp);
+			console.log("Success", $scope.user.admin);
+			console.log("Success", $scope.user.status);
+
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+
+
+
+	$scope.hideError = function (errorField) {
+		switch (errorField) {
+		    case 'id':
+		        $scope.showErrorID = false;
+		        $scope.errorMessageID = "";
+		        break;
+		    case 'name':
+		        $scope.showErrorName = false;
+		        $scope.errorMessageName = "";
+		        break;
+		    case 'password':
+		        $scope.showErrorPassword = false;
+		        $scope.errorMessagePassword = "";
+		        break;
+		    case 'confirmPassword':
+		        $scope.showErrorConfirmPassword = false;
+		        $scope.errorMessageConfirmPassword = "";
+		        break;
+		    case 'gmail':
+		        $scope.showErrorEmail = false;
+		        $scope.errorMessageEmail = "";
+		        break;
+		    case 'phone':
+		        $scope.showErrorPhone = false;
+		        $scope.errorMessagePhone = "";
+		        break;
+		    // Thêm các trường khác nếu cần
+		    default:
+		        break;
+		}
+	     };
+	     
+
+	$scope.validation = function () {
+		var item = angular.copy($scope.user);
+
+		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
+		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		var phoneRegex = /^\d{10}$/;
+
+		var indexID = $scope.items.findIndex(itemx => itemx.id === item.id);
+		var indexEmail = $scope.items.findIndex(itemx => itemx.email === item.email);
+		var indexPhone = $scope.items.findIndex(itemx => itemx.phone === item.phone);
+
+		var check = 0;
+
+		if (indexID !== -1) {
+			$scope.errorMessageID = "ID đã tồn tại, vui lòng nhập một ID khác.";
+			$scope.showErrorID = true;
+			check++;
+		} else {
+			if (!alphanumericRegex.test(item.id)) {
+				$scope.errorMessageID = "ID không được chứa kí tự đặc biệt.";
+				$scope.showErrorID = true;
+				check++;
+			} else {
+				$scope.showErrorID = false;
+				$scope.errorMessageID = "";
+			}
+		}
+
+		if (!emailRegex.test(item.email)) {
+			$scope.errorMessageEmail = "Email không đúng định dạng.";
+			$scope.showErrorEmail = true;
+			check++;
+		} else if (indexEmail !== -1) {
+			$scope.errorMessageEmail = "Email đã tồn tại, vui lòng nhập một email khác.";
+			$scope.showErrorEmail = true;
+			check++;
+		} else {
+			$scope.showErrorEmail = false;
+			$scope.errorMessageEmail = "";
+		}
+
+		if (!phoneRegex.test(item.phone)) {
+			$scope.errorMessagePhone = "Số điện thoại phải có 10 chữ số.";
+			$scope.showErrorPhone = true;
+			check++;
+		} else if (indexPhone !== -1) {
+			$scope.errorMessagePhone = "Số điện thoại đã tồn tại, vui lòng nhập một số điện thoại khác.";
+			$scope.showErrorPhone = true;
+			check++;
+		} else {
+			$scope.showErrorPhone = false;
+			$scope.errorMessagePhone = "";
+		}
+
+		if (check !== 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	$scope.catcherror = () => {
+		var item = angular.copy($scope.user);
+		var check = 0;
+		if (!item.id) {
+			$scope.errorMessageID = "Không được để trống id.";
+			$scope.showErrorID = true;
+			check++;
+
+		} else {
+			$scope.showErrorID = false;
+			$scope.errorMessageID = "";
+		}
+		if (!item.name) {
+			$scope.errorMessageName = "Không được để trống tên.";
+			$scope.showErrorName = true;
+			check++;
+
+		} else {
+			$scope.showErrorName = false;
+			$scope.errorMessageName = "";
+		}
+		if (!item.password) {
+			$scope.errorMessagePassword = "Không được để trống mật khẩu.";
+			$scope.showErrorPassword = true;
+			check++;
+		} else {
+			$scope.showErrorPassword = false;
+			$scope.errorMessagePassword = "";
+
+		} if (!$scope.confirmPassword) {
+			$scope.errorMessageConfirmPassword = "Không được để trống mật khẩu xác nhận.";
+			$scope.showErrorConfirmPassword = true;
+			check++;
+		} else {
+			$scope.showErrorConfirmPassword = false;
+			$scope.errorMessageConfirmPassword = "";
+		}
+		if (!item.email) {
+			$scope.errorMessageEmail = "Không được để trống email.";
+			$scope.showErrorEmail = true;
+			check++;
+
+		} else {
+			$scope.showErrorEmail = false;
+			$scope.errorMessageEmail = "";
+		}
+		if (!item.phone) {
+			$scope.errorMessagePhone = "Không được để trống số điện thoại.";
+			$scope.showErrorPhone = true;
+			check++;
+
+		} else {
+			$scope.showErrorPhone = false;
+			$scope.errorMessagePhone = "";
+		}
+
+		if (!item.address) {
+			$scope.errorMessageAddress = "Không được để trống địa chỉ.";
+			$scope.showErrorAddress = true;
+			check++;
+		} else {
+			$scope.showErrorAddress = false;
+			$scope.errorMessageAddress = "";
+		}
+		if (check != 0) {
+			return false;
+		}
+		return true;
+	}
+
+	$scope.message = (animation, title, icon) => {
+		toastMixin.fire({
+			animation: animation,
+			title: title,
+			icon: icon
+		});
+	}
+
+
+
+	$scope.create = function () {
+		if (!$scope.user.address) {
+			$scope.user.address = 'defaultAddress';
+		}
+
+		var item = angular.copy($scope.user);
+		var url = `${host}/users`;
+		if ($scope.catcherror() == false) {
+			return
+		}
+
+		$http.post(url, item).then(resp => {
+			console.log("Success", resp);
+			$scope.message(true, "Thêm thành công", "success");
+			console.log("Error", error);
+			// Rest of your error handling code
+		});
+	};
+
+
+
+
+	var url = "http://localhost:8088/pcgearhub/rest/files/images";
+
+	$scope.url = function (filename) {
+		return `${url}/${filename}`
+	}
+
+	$scope.list = function () {
+		var currentURL = $location.absUrl();
+		console.log("Current URL:", currentURL);
+
+		var parts = currentURL.split('/');
+		const id = parts[parts.length - 1];
+
+		var item = $scope.items.find(item => item.id === id);
+
+		var name = item ? item.image : null;
+		var one = "one";
+		var urlOneImage = `${url}/${one}/${name}`;
+
+		$http.get(urlOneImage).then(resp => {
+			$scope.filenames = resp.data;
+
+			// Lấy tên ảnh đã lưu trước đó từ LocalStorage
+			var uploadedImage = localStorage.getItem('uploadedImage');
+			if (uploadedImage) {
+				$scope.user.image = uploadedImage;
+			}
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+
+
+	$scope.upload = function (files) {
+		$scope.user.image = files[0].name;
+		var form = new FormData();
+		for (var i = 0; i < files.length; i++) {
+			form.append("files", files[i])
+		}
+		$http.post(url, form, {
+			transformRequest: angular.identity,
+			headers: { 'Content-Type': undefined }
+		}).then(resp => {
+			$scope.filenames = [];
+			$scope.filenames.push(...resp.data)
+		}).catch(error => {
+			console.log("Errors", error)
+		})
+	}
+	$scope.loadData();
+	// $scope.cart.loadFormLocalStorage();//khởi chạy
 
 
 
