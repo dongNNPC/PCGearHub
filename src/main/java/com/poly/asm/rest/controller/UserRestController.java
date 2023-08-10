@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.asm.model.Report;
-
 import com.poly.asm.model.Account;
+import com.poly.asm.model.Report;
 import com.poly.asm.respository.UserRepository;
 
 @RestController
@@ -42,6 +41,12 @@ public class UserRestController extends HttpServlet {
 
 		}
 		return ResponseEntity.ok(dao.findById(id).get());
+	}
+
+	@GetMapping("/rest/users/invoice/{keywork}")
+	public ResponseEntity<List<Account>> getUserInvoice(@PathVariable("keywork") String keywork) {
+
+		return ResponseEntity.ok(dao.findUsersWithKeywordInInvoiceStatus(keywork));
 	}
 
 	@PostMapping("/rest/users")
@@ -72,10 +77,9 @@ public class UserRestController extends HttpServlet {
 		return ResponseEntity.ok().build();
 	}
 
-
-	//tổng user
+	// tổng user
 	@GetMapping("/rest/users/getTotalUser")
-	public List<Report> getTotalUSer (){
+	public List<Report> getTotalUSer() {
 		return dao.getTotalUser();
 	}
 }

@@ -60,7 +60,7 @@ top: 0;" >
               <div class="col-md-2" style="margin-left: 20px;">
                 <div class="item-top right-top">
 
-                  <ul>
+                  <ul ng-controller="loadAll">
                     <img src="../static/assets/images/logo/user.png" alt="">
                     <li><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
                     <li><a href="">/</a></li>
@@ -68,7 +68,7 @@ top: 0;" >
 
 
                     <li onmouseover="showDropdown()"  onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp;
-                    Xin chào :  [[${#request.remoteUser}]] </a>
+                     _{{user.name}}_ </a>
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light" 
                         style="list-style: none; display: none;">
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá

@@ -1,9 +1,4 @@
-/**
-* 
-*/
-let host = "http://localhost:8088/pcgearhub/rest";
 
-/*const app = angular.module("main", []);*/
 app.controller("ctrl", function($scope, $http) {
 	$scope.pageCount = 1;
 	$scope.user = {};
@@ -22,8 +17,6 @@ app.controller("ctrl", function($scope, $http) {
 	};
 	
 $scope.load_user()
-
-
 
 	$scope.load_all = function() {
 
@@ -80,6 +73,44 @@ $scope.load_user()
 
 	}
 
+	$scope.history = () => {
+
+
+		/*lấy ngày*/
+		var currentDate = new Date();
+		var year = currentDate.getFullYear();
+		var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Thêm số 0 vào trước tháng nếu cần
+		var day = currentDate.getDate().toString().padStart(2, '0'); // Thêm số 0 vào trước ngày nếu cần
+
+		var formattedDate = year + '-' + month + '-' + day;
+
+
+		console.log(formattedDate)
+
+		var urlUser = `http://localhost:8088/pcgearhub/api/user`;
+		$http.get(urlUser).then(resp => {
+			$scope.info = resp.data;
+
+			var urlHistory = "http://localhost:8088/pcgearhub/rest/UserHistory"
+			console.log($scope.info.id)
+			var history = {
+				note: "check",
+				historyDate: formattedDate,
+				user: $scope.info
+			};
+			console.log(history)
+
+			$http.post(urlHistory, history).then(resp => {
+				console.log("Success", resp);
+
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+
 });
 
 app.controller("loadForm", function($scope, $location, $http) {
@@ -92,6 +123,46 @@ app.controller("loadForm", function($scope, $location, $http) {
 	$scope.oneImage;
 	$scope.errorMessage = "";
 	$scope.successMessageModal = "";
+
+
+	$scope.history = () => {
+
+		var urlUser = `http://localhost:8088/pcgearhub/api/user`;
+		$http.get(url).then(resp => {
+			$scope.info = resp.data;
+		}).catch(error => {
+			console.log("Error", error);
+		});
+
+		var urlHistory = "http://localhost:8088/pcgearhub/rest/UserHistories"
+		var currentDate = new Date();
+		var year = currentDate.getFullYear();
+		var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Thêm số 0 vào trước tháng nếu cần
+		var day = currentDate.getDate().toString().padStart(2, '0'); // Thêm số 0 vào trước ngày nếu cần
+
+		var formattedDate = year + '-' + month + '-' + day;
+
+		console.log(formattedDate);
+
+		var history = {
+			note: "check",
+			history_date: formattedDate,
+			userID: $scope.info.id
+		};
+		console.log("------------------------------------------------------------")
+		console.log(history)
+
+		/*		$http.post(urlHistory, history).then(resp => {
+				$scope.items.push(item);
+				console.log("Success", resp);
+				$scope.message(true, "Thêm thành công", "success")
+	
+			}).catch(error => {
+				console.log("Error", error);
+			});*/
+	}
+
+
 
 
 	/*reset*/

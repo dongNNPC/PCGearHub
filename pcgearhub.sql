@@ -67,13 +67,6 @@
 
 	);
 	go
-	--Tạo bảng Ulikes
-	create table Ulikes(
-		id INT IDENTITY(1,1),
-		user_id varchar(20),
-		comment_id int not null
-	)
-
 
 	-- Tạo bảng Invoices
 	CREATE TABLE Invoices (
@@ -139,6 +132,7 @@
 	id_history int Identity(1,1) not null,
 	note Nvarchar(200),
 	history_date date not null,
+	history_time nvarchar (20) not null,
 	user_id varchar(20) not null,
 	);
 
@@ -201,9 +195,6 @@
 	ALTER TABLE Detailed_invoices
 	ADD CONSTRAINT PK_detailed_invoices PRIMARY KEY (id);
 
-	-- Thêm khóa chính cho bảng Ulikes
-	Alter table Ulikes
-	ADD CONSTRAINT PK_Ulike PRIMARY KEY (id);
 	--III. Tạo khóa ngoại 
 
 
@@ -225,9 +216,6 @@
 	ADD CONSTRAINT FK_Comments_Products FOREIGN KEY (product_id) REFERENCES Products(id);
 	go
 
-	--Thêm liên kết khóa ngoại cho bảng ulikes
-	ALTER TABLE ulikes
-	ADD CONSTRAINT FK_Ulikes_Comments FOREIGN KEY (comment_id) REFERENCES comments(id);
 
 	-- Thêm liên kết khóa ngoại cho bảng DetailedInvoices
 	ALTER TABLE Detailed_invoices
@@ -262,11 +250,11 @@
 	-- Thêm dữ liệu vào bảng Users
 	INSERT INTO Accounts (id, name, Password, Phone, email, address, image, admin)
 	VALUES 
-	  ('U001', 'Nguyen Van A', '12345678', '0234567890', 'admin@gmail.com', N'Địa chỉ người dùng 1', 'avatar.jpg', 1),
-	   ('U002', N'Nguyễn Nhựt Đông', '12345678', '0393618987', '0393618987dong@gmail.com', N'Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang', 'avatar-11.jpg', 0),
-	  ('U003', N'Trần Tấn Khanh', '12345678', '0987654322', 'khanhttpc03027@fpt.edu.vn', N'Số nhà 10, Đường Trần Hưng Đạo, Quận 8, TP.HCM', 'avatar-12.jpg', 0),
-	  ('U004', N'Trần Văn Hoàng', '12345678', '0987654321', 'trantankhanh31102003@gmail.com', N'Số nhà 4, Đường Lê Lợi, Quận 2, TP.HCM', 'avatar-4.jpg', 0),
-	  ('U005', N'Lê Thị Minh Anh', '12345678', '0234567890', 'anhle@gmail.com', N'Số nhà 5, Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM', 'avatar-5.jpg', 0),
+	  ('U001', 'Nguyen Van A', '12345678', '0234567890', 'admin@gmail.com', N'Địa chỉ người dùng 1', 'avatar1.jpg', 1),
+	   ('U002', N'Nguyễn Nhựt Đông', '12345678', '0393618987', '0393618987dong@gmail.com', N'Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang', 'avatar2.jpg', 0),
+	  ('U003', N'Trần Tấn Khanh', '12345678', '0987654322', 'khanhttpc03027@fpt.edu.vn', N'Số nhà 10, Đường Trần Hưng Đạo, Quận 8, TP.HCM', 'avatar3.jpg', 0),
+	  ('U004', N'Trần Văn Hoàng', '12345678', '0987654321', 'trantankhanh31102003@gmail.com', N'Số nhà 4, Đường Lê Lợi, Quận 2, TP.HCM', 'avatar4.jpg', 0),
+	  ('U005', N'Lê Thị Minh Anh', '12345678', '0234567890', 'anhle@gmail.com', N'Số nhà 5, Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM', 'avatar5.jpg', 0),
 	  ('U006', N'Phạm Văn Tuấn', '12345678', '0987654321', 'tuantuan@gmail.com', N'Số nhà 6, Đường Trần Phú, Quận 4, TP.HCM', 'avatar-6.jpg', 0),
 	  ('U007', N'Vũ Thị Hương', '12345678', '0123456789', 'huongvu@gmail.com', N'Số nhà 7, Đường Lý Tự Trọng, Quận 5, TP.HCM', 'avatar-7.jpg', 0),
 	  ('U008', N'Ngô Đình Thảo', '12345678', '0987654321', 'thaongo@gmail.com', N'Số nhà 8, Đường Nguyễn Văn Cừ, Quận 6, TP.HCM', 'avatar-8.jpg', 0),
@@ -585,7 +573,3 @@ VALUES
 ('Đồ xịn 6',7,getDate(),'U004','P004'),
 ('Đồ xịn 7',8,getDate(),'U005','P005'),
 ('Đồ xịn 8',5,getDate(),'U006','P006')
-
-  INSERT INTO ulikes  (user_id,comment_id)
-VALUES
-('U001','P013')

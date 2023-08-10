@@ -10,12 +10,11 @@
 	<div class="main-panel" >
 		<div class="content-wrapper">
 			<div class="page-header">
-				<h3 class="page-title">Basic Tables</h3>
+				<h3 class="page-title">Bảng người dùng</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Tables</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Basic
-							tables</li>
+						<li class="breadcrumb-item"><a href="#">Quản lý người dùng</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Bảng dữ liệu</li>
 					</ol>
 				</nav>
 			</div>
@@ -24,11 +23,16 @@
 				<div class="col-lg-12 grid-margin stretch-card">
 					<div class="card">
 						<div class="card-body" ng-controller="ctrl">
+<<<<<<< HEAD
 							<h4 class="card-title">Hoverable Table</h4>
 							{{u}}
+=======
+					<a href="#" ng-click="history()">aaaa</a>
+							<h4 class="card-title">Thông tin người dùng</h4>
+>>>>>>> tranKhanh
 							<p class="card-description">
-								Add class
-								<code>.table-hover</code>
+								Tất cả
+								<code>người dùng</code>
 							</p>
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -81,6 +85,7 @@
 									<li class="btn"><a href="#" ng-click="last()"><i
 											class="fas fa-angle-double-right"></i></a></li>
 								</ul>
+							
 								<div class="col-sm-4"></div>
 							</div>
 						</div>
@@ -90,6 +95,7 @@
 		</div>
 	</div>
 		<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
-<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script> 
+				<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
 </body>
 </html>

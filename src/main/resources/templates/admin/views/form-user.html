@@ -43,8 +43,9 @@
 							<div>
 								<label for="" ng-repeat="filename in filenames"
 									title="Double click to detete"> <img
-									ng-src="{{url(filename)}}" ng-click="download(filename)"
-									ng-dblclick="delete(filename)" style="max-width: 200px" alt="">
+									ng-src="{{url(filename)}}" style="max-width: 200px" ng-click="download(filename)"
+									ng-dblclick="delete(filename)" alt="">
+
 
 								</label>
 								<div class="form-group mt-3" style="max-width: 304px">
@@ -184,8 +185,8 @@
 								<button ng-click="update()" type="submit"
 									class="btn btn-success mr-2">Sửa</button>
 
-								<a href="#myModal" data-toggle="modal"><button type="submit"
-										class="btn btn-danger mr-2">Xóa</button></a>
+							<!-- 	<a href="#myModal" data-toggle="modal"><button type="submit"
+										class="btn btn-danger mr-2">Xóa</button></a> -->
 								<button ng-click="reset()" class="btn btn-dark">Làm mới</button>
 							</form>
 							<!-- Modal cảnh báo HTML -->
@@ -236,6 +237,9 @@
 	<script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
 	<!-- angular -->
+
+		<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
 
 </body>
 </html>

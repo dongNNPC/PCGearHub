@@ -1,5 +1,4 @@
-var app = angular.module('myApp', []);
-let host = "http://localhost:8088/pcgearhub/rest";
+
 app.controller('ReportController', function ($scope, $http, $filter) {
 
     //tổng doanh thu trong index

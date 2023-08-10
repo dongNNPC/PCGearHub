@@ -1,6 +1,4 @@
 
-let host = "http://localhost:8088/pcgearhub/rest";
-
 app.controller("ctrl", function ($scope, $http, $window,) {
 	$scope.pageCount;
 	$scope.brand = {};

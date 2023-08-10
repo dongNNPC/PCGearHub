@@ -11,12 +11,12 @@
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="page-header">
-				<h3 class="page-title">Basic Tables</h3>
+				<h3 class="page-title">Bảng Sản Phẩm</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Tables</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Basic
-							tables</li>
+						<li class="breadcrumb-item"><a href="#">Quản lý sản phẩm</a></li>
+						<li class="breadcrumb-item active" aria-current="page">
+						Bảng dữ liệu</li>
 					</ol>
 				</nav>
 			</div>
@@ -25,10 +25,10 @@
 				<div class="col-lg-12 grid-margin stretch-card" >
 					<div class="card">
 						<div class="card-body" ng-controller="ctrl">
-							<h4 class="card-title">Hoverable Table</h4>
+							<h4 class="card-title">Thông tin sản phẩm</h4>
 							<p class="card-description">
-								Add class
-								<code>.table-hover</code>
+								Tất cả
+								<code>Sản phẩm</code>
 							</p>
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -83,5 +83,9 @@
 			</div>
 		</div>
 	</div>
+	<script
+		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+				<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/product.js}"></script>
 </body>
 </html>

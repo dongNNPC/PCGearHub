@@ -1,8 +1,6 @@
 // Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
 let host = "http://localhost:8088/pcgearhub/rest";
 
-// Tạo ứng dụng AngularJS và đặt tên là "myApp"
-const app = angular.module("myApp", []);
 
 // Định nghĩa controller cho ứng dụng
 app.controller("ctrl", function ($scope, $http, $window) {
