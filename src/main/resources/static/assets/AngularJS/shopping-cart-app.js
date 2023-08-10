@@ -952,7 +952,6 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 
 
-
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
 	$scope.url = function (filename) {
