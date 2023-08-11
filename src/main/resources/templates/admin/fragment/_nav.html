@@ -64,9 +64,35 @@
 					<div class="dropdown-divider"></div>
 					<p class="p-3 mb-0 text-center">See all projects</p>
 				</div></li>
-			<li class="nav-item nav-settings d-none d-lg-block"><a
-				class="nav-link" href="#"> <i class="mdi mdi-view-grid"></i>
-			</a></li>
+			<li class="nav-item dropdown border-left"><a
+				class="nav-link count-indicator dropdown-toggle"
+				id="messageDropdown" href="#" data-toggle="dropdown"
+				aria-expanded="false"> <i class="mdi mdi-view-grid"></i><span
+					class="count bg-success"></span>
+			</a>
+				<div 
+					class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+					aria-labelledby="messageDropdown"  style="max-height: 400px; overflow-y: auto; "  >
+					<h6 class="p-3 mb-0">Lịch sử tương tác</h6>
+					<div ng-repeat="item in usersHostories| orderBy:'historyDate'">
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item preview-item">
+							<div class="preview-thumbnail">
+
+								<img ng-src="{{urlSetName(item.user.image)}}" style="max-width: 200px" alt="image"
+									class="rounded-circle profile-pic">
+							</div>
+							<div class="preview-item-content">
+								<p class="preview-subject ellipsis mb-1">{{item.note}}</p>
+								<p class="text-muted mb-0">{{item.historyDate}}</p>
+								<p class="text-muted mb-0">{{item.historyTime}}</p>
+							</div>
+						</a>
+					</div>
+
+					<div class="dropdown-divider"></div>
+					<p class="p-3 mb-0 text-center">{{lengthMessage}} new messages</p>
+				</div></li>
 			<li class="nav-item dropdown border-left"><a
 				class="nav-link count-indicator dropdown-toggle"
 				id="messageDropdown" href="#" data-toggle="dropdown"
@@ -169,7 +195,7 @@
 						</div>
 					</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item preview-item">
+					<a class="dropdown-item preview-item" th:href="@{/auth/logoff/success}">
 						<div class="preview-thumbnail">
 							<div class="preview-icon bg-dark rounded-circle">
 								<i class="mdi mdi-logout text-danger"></i>
