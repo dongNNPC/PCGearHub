@@ -64,13 +64,13 @@ top: 0;">
 
                   <ul ng-controller="loadAll">
               
-                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
+                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/login}" rel="">Đăng nhập</a></li>
                     <li ng-if="!userLogged"><a href="">/</a></li>
-                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
+                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/sign-in}" rel="">Đăng ký</a></li>
 
-                   <div >
+                   
                     &ensp; &ensp; {{user.name}}
-                   </div>
+                   
                     <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp;
                     <a href="">Tài khoản của tôi&ensp;<i class="fa-solid fa-arrow-down"></i></a></i></a></span>
                   
