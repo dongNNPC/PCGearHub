@@ -33,6 +33,7 @@ public class Invoice {
 	private Date orderDate;
 	private String address;
 	private String status;
+	private String node;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)

@@ -1,5 +1,3 @@
-// Định nghĩa URL của máy chủ để gửi các yêu cầu HTTP đến
-let host = "http://localhost:8088/pcgearhub/rest";
 
 
 // Định nghĩa controller cho ứng dụng

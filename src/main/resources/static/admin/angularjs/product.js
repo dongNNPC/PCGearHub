@@ -19,8 +19,6 @@ app.controller("ctrl", function($scope, $http, $window,) {
 	$scope.edit = function(id) {
 		window.location.href = '/pcgearhub/admin/form-product/' + id;
 	}
-	//Thực hiện tải toàn bộ products
-	$scope.load_all();
 	/*Thực hiện sắp xếp*/
 	$scope.sortBy = function(prop) {
 		$scope.prop = prop
@@ -51,6 +49,12 @@ app.controller("ctrl", function($scope, $http, $window,) {
 		$scope.currentPage = $scope.pageCount;
 		
 	}
+	
+		// Phần Đặt trưng
+
+
+	//Thực hiện tải toàn bộ products
+	$scope.load_all();
 
 });
 
