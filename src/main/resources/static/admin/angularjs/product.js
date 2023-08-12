@@ -1,9 +1,4 @@
-/**
- * 
- */
-let host = "http://localhost:8088/pcgearhub/rest";
 
-const app = angular.module("myApp", []);
 app.controller("ctrl", function($scope, $http, $window,) {
 	$scope.pageCount;
 	$scope.items = [];
@@ -377,7 +372,12 @@ app.controller("loadForm", function($scope, $location, $http) {
 		var url = `${host}/product`;
 		item.image1 = $scope.fileNames[0]
 		item.image2 = $scope.fileNames[1]
-
+		if(item.image1==null){
+			item.image1="product-default1.jpg"
+		}
+		if(item.image2==null){
+			item.image2="product-default2.jpg"
+		}
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -576,6 +576,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		// Kiểm tra số lượng tệp đã chọn và chặn nếu vượt quá giới hạn
 		var maxFiles = 2;
 		if (files.length > maxFiles) {
+			$scope.message(true, "Chỉ thêm được 2 hình ảnh", "error")
 			return; // Dừng việc upload nếu vượt quá giới hạn
 		}
 		//   $scope.product.image = files[0].name;

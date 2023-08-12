@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,22 +24,40 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Invoices")
 public class Invoice {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
 	private String address;
 	private String status;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	private Account user;
 
 	@OneToMany(mappedBy = "invoice")
 	@JsonIgnore
 	private List<DetailedInvoice> detailedInvoices;
 
-	// constructors, getters, and setters
+	public String getStatusName() {
+		String statusName = "";
+		switch (status) {
+		case "pending":
+			statusName = "Đang xác nhận";
+			break;
+		case "cancelled":
+			statusName = "Đã hủy";
+			break;
+		case "delivery":
+			statusName = "Đang vận chuyển";
+			break;
+		case "complete":
+			statusName = "Đã giao thành công";
+			break;
+		}
+		return statusName;
+	}
 }

@@ -61,46 +61,37 @@ top: 0;">
               <div class="col-md-2" style="margin-left: 20px;">
                 <div class="item-top right-top">
 
-                  <ul>
-                    <img src="../static/assets/images/logo/user.png" alt="">
-                    <li th:unless="${#request.remoteUser}">
-                      <a class="nav-link" th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a>/
-                  </li>
-                  <li th:unless="${#request.remoteUser}">
-                      <a class="nav-link" th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a>
-                  </li>
 
+                  <ul ng-controller="loadAll">
+              
+                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/login}" rel="nofollow">Đăng nhập</a></li>
+                    <li ng-if="!userLogged"><a href="">/</a></li>
+                    <li ng-if="!userLogged"><a th:href="@{/pcgearhub/sign-in}" rel="nofollow">Đăng ký</a></li>
 
-                    <li onmouseover="showDropdown()" onmouseout="hideDropdown()">
-                      <a href="#" rel="nofollow"> &ensp; Tài Khoản Của Tôi</a>
+                   <div >
+                    &ensp; &ensp; {{user.name}}
+                   </div>
+                    <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp;
+                    <a href="">Tài khoản của tôi&ensp;<i class="fa-solid fa-arrow-down"></i></a></i></a></span>
+                  
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
+
                         style="list-style: none; display: none;">
-                        <li th:if="${#request.remoteUser}">
-                          <a class="dropdown-item" style="color: #686868"
-                            th:href="@{/pcgearhub/profile/__${#request.remoteUser}__}">
-                             Tài Khoản: <span th:text="${#request.remoteUser}"></span>
-                          </a>
-                        </li>
-
-
-                        <li th:if="${#request.remoteUser}">
-                          <a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}">
-                            Đổi mật khẩu
-                          </a>
-                        </li>
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile/__${#request.remoteUser}__}">  Trang cá
+                            nhân </a></li>
+                            <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/ordered-list}"> Xem  đơn hàng </a></li>
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi
+                            mật
+                            khẩu </a></li>
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/forgot-password}">
                             Quên mật
                             khẩu </a></li>
-                        <li th:if="${#request.remoteUser}">
-                          <a class="dropdown-item" style="color: #686868" th:href="@{/auth/logoff}">
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/auth/logoff/success}">
                             Đăng xuất
-                          </a>
-                        </li>
+                          </a></li>
                         <!-- <a href="/auth/logoff">logoff</a> -->
-                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/shoeshop/ChangePass}"></a></li>
+                        <li><a class="dropdown-item" style="color: #686868" href="#"></a></li>
                       </ul>
-
-
 
                     </li>
 
@@ -168,19 +159,13 @@ top: 0;">
                       </div>
                     </div>
                   </li>
-
-
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
   <!-- /Tìm kiếm , giỏ hàng -->
-
-
 </header>

@@ -2,6 +2,8 @@ package com.poly.asm.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,9 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.model.Account;
+import com.poly.asm.model.Report;
 import com.poly.asm.respository.UserRepository;
-
-import javax.servlet.http.HttpServlet;
 
 @RestController
 @CrossOrigin("*")
@@ -45,6 +46,12 @@ public class UserRestController extends HttpServlet {
 
 		}
 		return ResponseEntity.ok(dao.findById(id).get());
+	}
+
+	@GetMapping("/rest/users/invoice/{keywork}")
+	public ResponseEntity<List<Account>> getUserInvoice(@PathVariable("keywork") String keywork) {
+
+		return ResponseEntity.ok(dao.findUsersWithKeywordInInvoiceStatus(keywork));
 	}
 
 	@PostMapping("/rest/users")
@@ -73,5 +80,11 @@ public class UserRestController extends HttpServlet {
 		}
 		dao.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+
+	// tổng user
+	@GetMapping("/rest/users/getTotalUser")
+	public List<Report> getTotalUSer() {
+		return dao.getTotalUser();
 	}
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+// import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.controller.service.UserService;
 
+import com.poly.asm.rest.controller.AccountRestController;
+
 @Controller
 public class AuthController {
-
 
     @RequestMapping("/pcgearhub/account")
     public String login() {
@@ -23,17 +25,24 @@ public class AuthController {
 
     @RequestMapping("/auth/login/success")
     public String success(Model model) {
+        model.addAttribute("massage", "Đăng nhập thành công");
         return "/pcgearhub/index";
     }
 
     @RequestMapping("/auth/login/error")
     public String error(Model model) {
+        model.addAttribute("massage", "Sai thông tin đăng nhập");
         return "account/login";
     }
 
-    @RequestMapping("/auth/logoff/success")
+    @Autowired
+    AccountRestController a;
+
+    @RequestMapping("/auth/logout")
     public String errorSuccess(Model model) {
-        return "forward:/pcgearhub/account";
+        model.addAttribute("massage", "Đăng xuất thành công");
+        a.userAccount(null);
+        return "/index";
     }
 
     @RequestMapping("/auth/access/denied")
@@ -41,14 +50,13 @@ public class AuthController {
         return "account/404";
     }
 
-   @Autowired
-   UserService userService;
+    @Autowired
+    UserService userService;
 
-   @RequestMapping("/oauth2/login/success")
-   public String success(OAuth2AuthenticationToken oauth2){
-   userService.loginFormOauth2(oauth2);
-   return "pcgearhub/index";
+    @RequestMapping("/oauth2/login/success")
+    public String success(OAuth2AuthenticationToken oauth2) {
+        userService.loginFormOauth2(oauth2);
+        return "pcgearhub/index";
 
-   }
-
+    }
 }

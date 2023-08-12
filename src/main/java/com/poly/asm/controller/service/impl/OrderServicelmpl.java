@@ -14,21 +14,52 @@ import com.poly.asm.respository.DetailedInvoiceRepository;
 import com.poly.asm.respository.InvoiceRepository;
 
 @Service
-public class OrderServicelmpl implements OrderService  {
-    @Autowired InvoiceRepository dao;
-    @Autowired DetailedInvoiceRepository ddao;
+public class OrderServicelmpl implements OrderService {
+    @Autowired
+    InvoiceRepository dao;
+    @Autowired
+    DetailedInvoiceRepository ddao;
 
     @Override
     public Invoice create(JsonNode orderData) {
-       ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
 
-       Invoice inv  =  mapper.convertValue(orderData, Invoice.class);
-       dao.save(inv);
+        Invoice inv = mapper.convertValue(orderData, Invoice.class);
+        dao.save(inv);
 
-       TypeReference <List<DetailedInvoice>> type = new TypeReference <List<DetailedInvoice>> (){};
-        List<DetailedInvoice> deList = mapper.convertValue(orderData.get("detailedInvoices"), type).stream().peek ( d -> d.setInvoice(inv)).collect(Collectors.toList());
+        TypeReference<List<DetailedInvoice>> type = new TypeReference<List<DetailedInvoice>>() {
+        };
+        List<DetailedInvoice> deList = mapper.convertValue(orderData.get("detailedInvoices"), type);
+        if (deList != null) {
+            deList.forEach(d -> d.setInvoice(inv));
+            ddao.saveAll(deList);
+        }
 
-        ddao.saveAll(deList);
-       return inv;
+        return inv;
+    }
+
+    @Override
+    public Invoice findById(String id) {
+        return dao.findById(id).get();
+    }
+
+    @Override
+    public List<Invoice> findByUsernameStatusPending(String username) {
+      return dao.findByUsernameStatusPending(username);
+    }
+
+    @Override
+    public List<Invoice> findByUsernameStatusDelivery(String username) {
+         return dao.findByUsernameStatusDelivery(username);
+    }
+
+    @Override
+    public List<Invoice> findByUsernameStatusComplete(String username) {
+       return dao.findByUsernameStatusComplete(username);
+    }
+
+    @Override
+    public List<Invoice> findByUsernameStatusCancelled(String username) {
+        return dao.findByUsernameStatusCancelled(username);
     }
 }

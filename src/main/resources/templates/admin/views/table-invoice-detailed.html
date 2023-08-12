@@ -21,21 +21,28 @@
 			<div class="row">
 
 				<div class="col-lg-12 grid-margin stretch-card">
-					<div class="card" ng-app="myApp">
+					<div class="card">
 						<div class="card-body" ng-controller="ctrl">
 							<h4 class="card-title">Bảng Dữ Liệu</h4>
 							<p class="card-description">
-								Hóa đơn
-								<code>Bảng chi tiết</code>
+								Mã hóa đơn:
+								<code>{{invoiceID}}</code>
+							</p>
+							<p class="card-description">
+								Tên người đặt:
+								<code>{{userName}}</code>
+							</p>
+							<p class="card-description">
+								Ngày đặt:
+								<code>{{orderDate}}</code>
 							</p>
 							<div class="table-responsive">
 								<table class="table table-hover">
 									<thead>
 										<tr>
 											<th>STT</th>
-											<th ng-click="sortBy('id')">Mã hóa đơn</th>
-											<th ng-click="sortBy('orderDate')">Ngày Đặt Hàng</th>
-											<th ng-click="sortBy('name')">Tên người đặt</th>
+										
+										
 											<th ng-click="sortBy('nameProduct')">Tên Tên sản phẩm</th>
 											<th ng-click="sortBy('nameProduct')">Hình ảnh</th>
 											<th ng-click="sortBy('price')">Giá</th>
@@ -48,9 +55,8 @@
 									<tbody>
 										<tr ng-repeat="item in items | orderBy:prop |limitTo:5:begin">
 											<td>{{ $index + 1 }}</td>
-											<td>{{item.invoice.id}}</td>
-											<td>{{item.invoice.orderDate}}</td>
-											<td>{{item.invoice.user.name}}</td>
+										
+									
 											<td>{{item.product.name}}</td>
 											<td><img ng-src="{{url(item.product.image1)}}" style="width: 100px; height: 100px" alt=""></td>
 											<td>{{item.product.price}}</td>
@@ -88,6 +94,7 @@
 	</div>
 	<script
 		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+				<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript"
 		th:src="@{/admin/angularjs/invoice-detailed.js}"></script>
 </body>

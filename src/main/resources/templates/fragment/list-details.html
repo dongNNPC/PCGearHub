@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" xmlns:div="http://www.thymeleaf.org" th:replace="~{/layouts/layout :: dynamic(~{::body})}">
+
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <header>
+    <!-- place navbar here -->
+  </header>
+  <main style="height: 1200px;" ng-controller="orderList">
+    <form action="" class="formThank" th:object="${order}">
+      <h6>
+        <a th:href="@{/pcgearhub/ordered-list}"><i class="fa-solid fa-arrow-left-long"></i> quay lại</a>
+      </h6>
+      <h1 style="text-align: center;">PCGEARHUB</h1>
+      <!-- <h3>Đơn đặt hàng của bạn đã được xác nhận!</h3> -->
+      <h5 style="color: gray;">Xin chào <input style="border: none;" th:field="*{user.name}"> <br> đây là thông tin đơn
+        hàng chi tiết của bạn </h5>
+      <i class="fa-solid fa-minus" style="width: 10px;"></i>
+      <div class="row">
+        <div class="col-md-3" style="font-weight: bold;">Ngày mua</div>
+        <div class="col-md-3" style="font-weight: bold;">Id đơn hàng</div>
+        <div class="col-md-3" style="font-weight: bold;">Trạng thái</div>
+        <div class="col-md-3" style="font-weight: bold;">Địa chỉ</div>
+      </div>
+      <div class="row">
+        <input style="border: none;" class="col-md-3" th:field="*{orderDate}"
+         >
+        <input style="border: none;" class="col-md-3" th:field="*{id}"></input>
+        <span class="col-md-3" th:text="${order.statusName}"></span>
+        <input style="border: none;" class="col-md-3 truncate-text" th:field="*{address}">
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 text-black">
+          <h4 class="text-black mb-0">Ảnh</h4>
+        </div>
+        <div class="col-md-3">
+          <h4 class="text-black mb-0">Tên sản phẩm </h4>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3 ">
+          <h4 class="text-black mb-0" style="text-align: end;">Tổng tiền </h4>
+        </div>
+      </div>
+      <div class="row" th:each="detail : *{detailedInvoices}" th:object="${detail}">
+        <div class="col-md-3"><img th:src="@{|/assets/images/products/*{product.image1}}" width="80px" height="70px"
+            style="border-radius: 5px; margin-left: -20px;"></div>
+        <div class="col-md-6">
+          <h6 style="margin-left: -10px; max-width: 400px;" class="text-black mb-0"> [[*{product.name}]]
+            <br>
+            <p style="color: red; font-weight: bold; margin-top: 5px;">
+              Giá: [[${#numbers.formatDecimal(detail.product.price, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ |
+              Số lượng: [[${detail.quantity}]]
+            </p>
+          </h6>
+        </div>
+
+        <div class="col-md-3">
+          <p style="font-weight: bold;text-align: end;">
+            [[${#numbers.formatDecimal(detail.product.price * detail.quantity, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8" style="margin-left: -10px;font-weight: bold;">
+          Tổng tất cả tiền :
+        </div>
+        <div class="col-md-4">
+          <span style="text-align: right;font-weight: bold;font-size: 20px;color: red;margin-left: 51px;">
+            [[${#numbers.formatDecimal(totalPrice, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ</span>
+        </div>
+      </div>
+      <h6></h6> 
+      <div th:if="${order.status == 'pending'}">
+        <button  class="btn btn-default col-md-12"  ng-click="cancelOrder(order.id)">Hủy đơn hàng</button>
+      </div>
+     
+      <div>
+        <h6>Cám ơn đã quý khác đã mua hàng<span style="margin-left: 360px;">Trợ giúp ?</span></h6>
+        <h6>Chúng tôi sẽ gửi email xác nhận vận chuyển khi mặt hàng được vận chuyển! <span
+            style="margin-left: 50px;">Call - 974493933</span></h6>
+      </div>
+    </form>
+  </main>
+  <footer>
+    <!-- place footer here -->
+  </footer>
+  <style>
+    .formThank {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #ffffff;
+      padding: 30px;
+      width: 680px;
+      margin-left: 330px;
+      border-radius: 20px;
+      margin-top: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+    .truncate-text {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 20ch;
+      /* Độ dài tối đa 10 ký tự */
+    }
+  </style>
+  <script>
+    // Lấy URL trang hiện tại
+    var currentPage = window.location.pathname;
+
+    // Lấy phần tử <div>
+    var divElement = document.querySelector('.nav-category-home');
+
+    // Xóa lớp 'hello' nếu trang hiện tại không phải trang index
+    if (currentPage !== '/') {
+      divElement.classList.remove('hello');
+    }
+
+
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

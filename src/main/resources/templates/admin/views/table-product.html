@@ -11,72 +11,80 @@
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="page-header">
-				<h3 class="page-title">Basic Tables</h3>
+				<h3 class="page-title">Bảng Sản Phẩm</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Tables</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Basic
-							tables</li>
+						<li class="breadcrumb-item"><a href="#">Quản lý sản phẩm</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Bảng
+							dữ liệu</li>
 					</ol>
 				</nav>
 			</div>
-			<div class="row" >
+			<div class="row">
 
-				<div class="col-lg-12 grid-margin stretch-card" >
-					<div class="card"  ng-app="myApp">
+				<div class="col-lg-12 grid-margin stretch-card">
+					<div class="card">
 						<div class="card-body" ng-controller="ctrl">
-							<h4 class="card-title">Hoverable Table</h4>
+							<h4 class="card-title">Thông tin sản phẩm</h4>
 							<p class="card-description">
-								Add class
-								<code>.table-hover</code>
+								Tất cả
+								<code>Sản phẩm</code>
 							</p>
 							<div class="table-responsive">
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<!-- <th ng-click="sortBy('id')">Mã Sản Phẩm</th> -->
-											<th ng-click="sortBy('name')">Tên Sản phẩm </th>
+											<th ng-click="sortBy('id')">Mã Sản Phẩm</th>
+											<th ng-click="sortBy('name')">Tên Sản phẩm</th>
 											<!-- <th ng-click="sortBy('phone')">Số điện thoại	</th> -->
 											<th ng-click="sortBy('quantity')">Số lượng</th>
-										
+
 											<th ng-click="sortBy('price')">Giá</th>
 											<th ng-click="sortBy('status')">Trạng thái</th>
 											<th ng-click="sortBy('category')">Tên danh mục</th>
-									<th>Edit</th>
-											
+											<th>Thao tác</th>
+
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="product in items | orderBy:prop |limitTo:5:begin">
-											<!-- <td>{{product.id}}</td> -->
+										<tr
+											ng-repeat="product in items | orderBy:prop |limitTo:5:begin">
+											<td>{{product.id}}</td>
 											<td>{{product.name}}</td>
 											<td>{{product.quantity}}</td>
 											<td>{{product.price}}</td>
-											<td>{{product.status}}</td>
+											<td><span class="text-success" ng-if="product.status">Còn
+													kinh doanh</span> <span class="text-danger"
+												ng-if="!product.status">Ngừng kinh doanh</span></td>
 											<td>{{product.category.name}}</td>
 											<!-- <td>{{user.distinctives}}</td> -->
-											
-								<!-- 	<td><a ng-click="edit(user.id)" th:href="@{|/pcgearhub/admin/form-user/{{user.id}}|}" class="btn btn-primary">Edit</a></td> -->
-									<td ng-click="edit(product.id)"><a href="#">edit </a></td>
+
+											<!-- 	<td><a ng-click="edit(user.id)" th:href="@{|/pcgearhub/admin/form-user/{{user.id}}|}" class="btn btn-primary">Edit</a></td> -->
+											<td ng-click="edit(product.id)"><a class="btn btn-info"
+												href="#">edit </a></td>
 										</tr>
 									</tbody>
 								</table>
 								<!-- Phần phân trang -->
-						
+
 
 							</div>
-									<div class="row">
-									<div class="col-sm-4"></div>
-									<ul class="pagination col-sm-4">
+							<div class="row">
+								<div class="col-sm-4"></div>
+								<ul class="pagination col-sm-4">
 									<li class="btn"><a href="#">{{currentPage}} of
 											{{pageCount}}</a></li>
-										<li class="btn"><a href="#" ng-click="first()"><i class="fas fa-angle-double-left"></i></a></li>
-								          <li class="btn"><a href="#" ng-click="prev()"><i class="fas fa-angle-left"></i></a></li>
-                    <li class="btn"><a href="#" ng-click="next()"><i class="fas fa-angle-right"></i></a></li>
-										<li class="btn"><a href="#" ng-click="last()"><i class="fas fa-angle-double-right"></i></a></li>
-									</ul>
-									<div class="col-sm-4"></div>
-								</div>
+									<li class="btn"><a href="#" ng-click="first()"><i
+											class="fas fa-angle-double-left"></i></a></li>
+									<li class="btn"><a href="#" ng-click="prev()"><i
+											class="fas fa-angle-left"></i></a></li>
+									<li class="btn"><a href="#" ng-click="next()"><i
+											class="fas fa-angle-right"></i></a></li>
+									<li class="btn"><a href="#" ng-click="last()"><i
+											class="fas fa-angle-double-right"></i></a></li>
+								</ul>
+								<div class="col-sm-4"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -85,6 +93,7 @@
 	</div>
 	<script
 		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/angularjs/product.js}"></script>
 </body>
 </html>

@@ -44,6 +44,14 @@
 			line-height: 1.5;
 		}
 	</style>
+	<script>
+		app.controller("ProfileController", function($scope, $http) {
+    $http.get("/profile").then(function(response) {
+        $scope.userEmail = response.data.userEmail;
+    });
+});
+
+	</script>
 	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
 	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
 	<div class="container" ng-app="shopping-cart-app"
@@ -54,7 +62,10 @@
 				<nav aria-label="breadcrumb"> </nav>
 			</div>
 			<div class="row">
-
+				<div ng-controller="ProfileController">
+					<p>Email: {{userEmail}}</p>
+				     </div>
+				     
 				<div class="col-md-3">
 					<div class="card">
 					    <div class="card-body">

@@ -3067,4 +3067,26 @@ img {
   color: #3c763d;
   border-color: #d6e9c6;
 }
+/* Add this CSS to your stylesheet or style block */
+/* Add this CSS to your stylesheet or style block */
+.product-image {
+  position: relative; /* Ensure the container is a positioned parent */
+}
+
+.out-of-stock-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 2; /* Make sure the icon is on top of the image */
+}
+
+.out-of-stock-icon img {
+  max-width: 50px; /* Adjust the size of the icon as needed */
+}
 

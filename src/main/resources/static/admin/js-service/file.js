@@ -1,5 +1,4 @@
-var app = angular.module("app", []);
-app.controller("ctrl", function ($scope, $http) {
+app.controller("ctrls", function ($scope, $http) {
     var urlImage = "http://localhost:8088/pcgearhub/rest/files/images";
 
     $scope.urlImage = function (filename) {

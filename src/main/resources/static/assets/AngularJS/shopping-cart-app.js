@@ -155,52 +155,123 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 			});
 	};
 
+	$http.get('/pcgearhub/api/user')
+		.then(function (response) {
+			$scope.userLogged = response.data;
+			console.log("đã có bnef : " + $scope.userLogged.phone);
+			var currentDate = new Date();
+			var formattedDate = currentDate.getDate() + "" + (currentDate.getMonth() + 1) + "" + currentDate.getFullYear() + "" + currentDate.getHours() + "" + currentDate.getMinutes() + "" + currentDate.getSeconds();
 
-	$scope.order = {
-		orderDate: new Date(),
-		address: "",
-		user: $("#user_id").text(),
-		status: "pending",
-		// phoneNumber: "",
-		get detailedInvoices() {
+			$scope.order = {
+				id: "HD" + formattedDate,
+				orderDate: new Date(),
+				address: "",
+				status: "pending",
+				user: $scope.userLogged,
+				// phoneNumber: "",
+				get detailedInvoices() {
+					return $scope.selectedItems.map(item => {
+						return {
+							product: { id: item.id },
+							quantity: item.qty,
+							paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+						};
 
-			return $scope.selectedItems.map(item => {
-				return {
-					product: { id: item.id },
-					price: item.price,
-					quantity: item.qty,
-					paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value
+					});
+
+				},
+				confirm() {
+					var order = angular.copy(this);
+					if ($scope.selectedItems.length === 0) {
+						Swal.fire(
+							'Không có sản phẩm  thanh toán',
+							'Vui lòng chọn sản phẩm trước khi tiến hành đặt hàng.',
+							'warning'
+						);
+						return; // Stop further execution
+					}
+					//kiểm lỗi người dùng không nhập địa chỉ
+					if (this.address.trim() === "") {
+						Swal.fire(
+							'Địa chỉ trống',
+							'Vui lòng nhập địa chỉ giao hàng trước khi xác nhận đặt hàng.',
+							'warning'
+						);
+						return;
+					}
+
+					let orderIsValid = true;
+					for (const item of $scope.selectedItems) {
+						if (item.qty > item.quantity) {
+							orderIsValid = false;
+							Swal.fire(
+								'Số lượng không hợp lệ',
+								`Sản phẩm "${item.name}" chỉ còn ${item.quantity} sản phẩm.`,
+								'warning'
+							);
+							break;
+						}
+					}
+
+					if (!orderIsValid) {
+						return;
+					}
+					$http.post("/pcgearhub/rest/orders", order).then(resp => {
+
+						// Clear selected items from the cart
+						$scope.selectedItems.forEach(item => {
+							const index = $scope.cart.items.findIndex(cartItem => cartItem.id === item.id);
+							if (index !== -1) {
+								$scope.cart.items.splice(index, 1);
+							}
+						});
+						//cập nhật lại số lượng khi thanh toán thành công
+						$scope.selectedItems.forEach(item => {
+							const updatedItem = angular.copy(item);
+							updatedItem.quantity -= updatedItem.qty; // Subtract the purchased quantity
+							$http.put(`/pcgearhub/rest/product/${updatedItem.id}`, updatedItem)
+								.then(resp => {
+									// Item quantity updated successfully
+								})
+								.catch(error => {
+									console.error("Error updating item quantity:", error);
+								});
+						});
+						// Save cart changes to local storage
+						$scope.cart.saveToLocalStorage();
+
+						// Swal.fire(
+						// 	'Đặt hàng thành công',
+						// 	'',
+						// 	'success'
+						// );
+						this.address = "";
+						// Clear selected items and local storage for them
+						$scope.selectedItems = [];
+						localStorage.removeItem('selectedItems');
+						$scope.cart.loadFormLocalStorage();
+
+						console.log("đât nè " + resp.data.id);
+
+						location.href = "/pcgearhub/ordered-list/details/" + resp.data.id;
+
+
+					}).catch(error => {
+						console.error("Errorssss:", error); // Log error
+						Swal.fire(
+							'Đặt hàng không thành công',
+							'',
+							'error'
+						);
+					});
 
 				}
-			})
-		},
-		confirm() {
+			};
+		})
+		.catch(function (error) {
+			console.error('Error fetching user data:', error);
+		});
 
-			// const phoneNumberInput = document.querySelector('input[name="phoneNumber"]');
-			// $scope.order.phoneNumber = phoneNumberInput ? phoneNumberInput.value : "";
-			var order = angular.copy(this);
-			$http.post("/pcgearhub/rest/orders", order).then(resp => {
-				Swal.fire(
-					'Đặt hàng thành công',
-					'',
-					'success'
-				)
-				$scope.selectedItems = [];
-				localStorage.removeItem('selectedItems');
-				this.saveToLocalStorage();
-				location.href = "/pcgearhub/ordered-list/" + resp.data.id;
-			}).catch(error => {
-				Swal.fire(
-					'Đặt hàng không thành công',
-					'',
-					'error'
-				)
-				console.log(error);
-			})
-
-
-		}
-	}
 	///xử lý lấy các sản phẩm được tích sang trang confirm-info
 	$scope.selectedItems = [];
 	$scope.getSelectedItems = function () {
@@ -217,6 +288,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		// Chuyển sang trang mới
 		window.location.href = '/pcgearhub/confirm-information';
 	};
+
 
 	// Kiểm tra nếu có dữ liệu selectedItems trong Local Storage của trang mới
 	const storedItems = localStorage.getItem('selectedItems');
@@ -290,10 +362,21 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		}, function (error) {
 			console.error('Error fetching products:', error);
 		});
+
+
+
+	//ngăn chặn vào trang chi tiết khi hết sản phẩm
+	$scope.preventNavigation = function ($event) {
+		if ($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+		}
+	};
 	// Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
 	$scope.loadData();
 	//
 	$scope.cart.loadFormLocalStorage();//khởi chạy
+
 
 });
 
@@ -304,6 +387,11 @@ app.controller("loadAll", function ($scope, $http, $location) {
 	$scope.user = {};
 	$scope.items = [];
 	$scope.filenames = [];
+	$scope.userId = '${#request.remoteUser}';
+	console.log($scope.userId + "----------------------------------")
+
+
+
 	$scope.getIDProduct = () => {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
@@ -392,16 +480,17 @@ app.controller("loadAll", function ($scope, $http, $location) {
 	$scope.user = {}
 	$scope.matkhau = false;
 	$scope.id = false;
+	$scope.idUser = "";
 	$scope.items = [];
 
 	$scope.getUser = () => {
-		var currentURL = $location.absUrl();
-		console.log("Current URL:", currentURL);
-		var url = `${host}/users/U001`;
+
+		var url = "http://localhost:8088/pcgearhub/api/user"
 		console.log(url)
 		$http.get(url).then(resp => {
 			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
 			$scope.user = resp.data;
+			$scope.idUser = $scope.user.id
 			console.log($scope.user)
 		}).catch(error => {
 			console.log("Error", error);
@@ -489,6 +578,12 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 	};
 	$scope.cm = {};
+
+	$scope.cm = {};
+	$scope.checkUser = () => {
+
+	}
+	$scope.itemUlike = {};
 	$scope.setLike = (id) => {
 
 		var urls = `${host}/comment/${id}`;
@@ -525,6 +620,33 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	}
+	/*	$scope.setLike2 = (id) => {
+			
+			var urls = `${host}/comment/${id}`;
+			console.log(urls)
+			$http.get(urls).then(resp => {
+				$scope.cm = resp.data;
+				const dateTimeString = $scope.cm.orderDate
+				const dateTime = new Date(dateTimeString);
+				const dateString = dateTime.toISOString().split("T")[0];;
+				$scope.cm;
+				$scope.cm.orderDate = dateString;
+				$scope.cm.likeCount = $scope.cm.likeCount -1;
+				var url = `${host}/comment/${id}`;
+				$http.put(url, $scope.cm).then(resp => {
+					var index = $scope.items.findIndex(item => item.id == id)
+					$scope.items[index] = resp.data;
+					$scope.message(true, "Bạn đã thích bình luận của", "success")
+					console.log("Success", resp);
+					$scope.load_all();
+				}).catch(error => {
+					console.log("Error", error);
+				});
+				console.log($scope.likeCount)
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}*/
 
 	$scope.load_all();
 
@@ -535,6 +657,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 
+/*Trang profile*/
 
 app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.showSuccessMessage = false;
@@ -691,6 +814,15 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 
 
+	app.controller('MainController', ['$scope', function ($scope) {
+		$scope.message = function (animation, title, icon) {
+			toastMixin.fire({
+				animation: animation,
+				title: title,
+				icon: icon
+			});
+		};
+	}]);
 
 
 });
@@ -1010,5 +1142,185 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 
 
+
+});
+app.controller("orderList", function ($scope, $http) {
+	//hiển thị dữ liệu trạng thái pending trong order-list
+	$scope.ordersPending = [];
+	$scope.currentPage = 1;
+	$scope.pageSize = 5; // Số đơn hàng trên mỗi trang
+	$scope.totalPages = 0;
+	$scope.displayedOrders = [];
+
+	$scope.updateDisplayedOrders = function () {
+		const startIndex = ($scope.currentPage - 1) * $scope.pageSize;
+		const endIndex = startIndex + $scope.pageSize;
+		$scope.displayedOrders = $scope.ordersPending.slice(startIndex, endIndex);
+	};
+
+	$http.get('/pcgearhub/rest/order-list/pending')
+		.then(function (response) {
+			$scope.ordersPending = response.data;
+			console.log($scope.ordersPending);
+			// Tính tổng số trang dựa trên số đơn hàng và kích thước trang
+			$scope.totalPages = Math.ceil($scope.ordersPending.length / $scope.pageSize);
+
+			// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
+			$scope.updateDisplayedOrders();
+		})
+		.catch(function (error) {
+			console.error('Error fetching order list:', error);
+		});
+
+	$scope.goToPage = function (pageNumber) {
+		if (pageNumber >= 1 && pageNumber <= $scope.totalPages) {
+			$scope.currentPage = pageNumber;
+			$scope.updateDisplayedOrders();
+		}
+	};
+	// --------------------------------------------------hiển thị dữ liệu của delivery
+	$scope.ordersDelivery = [];
+	$scope.currentDeliveryPage = 1;
+	$scope.deliveryPageSize = 5;
+	$scope.deliveryTotalPages = 1;
+
+	$scope.getDeliveryOrders = function () {
+		$http.get('/pcgearhub/rest/order-list/delivery')
+			.then(function (response) {
+
+				$scope.ordersDelivery = response.data;
+				// Tính tổng số
+				$scope.deliveryTotalPages = Math.ceil($scope.ordersDelivery.length / $scope.deliveryPageSize);
+
+				// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
+				$scope.updateDisplayedDeliveryOrders();
+			})
+			.catch(function (error) {
+				// Xử lý lỗi khi gọi API
+				console.error('Error fetching delivery order list:', error);
+			});
+	};
+
+	// Gọi hàm để lấy danh sách đơn hàng khi trang được tải
+	$scope.getDeliveryOrders();
+
+	// Hàm cập nhật danh sách đơn hàng hiển thị trên trang hiện tại
+	$scope.updateDisplayedDeliveryOrders = function () {
+		var startIndex = ($scope.currentDeliveryPage - 1) * $scope.deliveryPageSize;
+		var endIndex = startIndex + $scope.deliveryPageSize;
+		$scope.displayedDeliveryOrders = $scope.ordersDelivery.slice(startIndex, endIndex);
+	};
+
+	// Hàm chuyển đến trang được chọn
+	$scope.goToDeliveryPage = function (pageNumber) {
+		if (pageNumber >= 1 && pageNumber <= $scope.deliveryTotalPages) {
+			$scope.currentDeliveryPage = pageNumber;
+			$scope.updateDisplayedDeliveryOrders();
+		}
+	};
+	//--------------hiển thị dữ liệ cho complete ---------------------
+	$scope.ordersComplete = [];  // Mảng lưu trữ danh sách đơn hàng đã hoàn tất
+	$scope.currentCompletePage = 1;      // Trang hiện tại
+	$scope.completePageSize = 5;        // Số lượng đơn hàng trên mỗi trang
+	$scope.completeTotalPages = 1;       // Tổng số trang, khởi tạo ban đầu
+
+	// Hàm gọi API để lấy danh sách đơn hàng đã hoàn tất
+	$scope.getCompleteOrders = function () {
+		$http.get('/pcgearhub/rest/order-list/complete')
+			.then(function (response) {
+				// Xử lý phản hồi từ API thành công
+				$scope.ordersComplete = response.data;
+				console.log($scope.ordersComplete);
+
+				// Tính tổng số trang dựa trên số đơn hàng và kích thước trang
+				$scope.completeTotalPages = Math.ceil($scope.ordersComplete.length / $scope.completePageSize);
+
+				// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
+				$scope.updateDisplayedCompleteOrders();
+			})
+			.catch(function (error) {
+				// Xử lý lỗi khi gọi API
+				console.error('Error fetching complete order list:', error);
+			});
+	};
+
+	// Gọi hàm để lấy danh sách đơn hàng khi trang được tải
+	$scope.getCompleteOrders();
+
+	// Hàm cập nhật danh sách đơn hàng hiển thị trên trang hiện tại
+	$scope.updateDisplayedCompleteOrders = function () {
+		var startIndex = ($scope.currentCompletePage - 1) * $scope.completePageSize;
+		var endIndex = startIndex + $scope.completePageSize;
+		$scope.displayedCompleteOrders = $scope.ordersComplete.slice(startIndex, endIndex);
+	};
+
+	// Hàm chuyển đến trang được chọn
+	$scope.goToCompletePage = function (pageNumber) {
+		if (pageNumber >= 1 && pageNumber <= $scope.completeTotalPages) {
+			$scope.currentCompletePage = pageNumber;
+			$scope.updateDisplayedCompleteOrders();
+		}
+	};
+
+
+	//hiển thị dũ liệu cho cancelled
+	$scope.ordersCancelled = [];  // Mảng lưu trữ danh sách đơn hàng đã hủy
+	$scope.currentCancelledPage = 1;      // Trang hiện tại
+	$scope.cancelledPageSize = 5;        // Số lượng đơn hàng trên mỗi trang
+	$scope.cancelledTotalPages = 1;       // Tổng số trang, khởi tạo ban đầu
+
+	// Hàm gọi API để lấy danh sách đơn hàng đã hủy
+	$scope.getCancelledOrders = function () {
+		$http.get('/pcgearhub/rest/order-list/cancelled')
+			.then(function (response) {
+				// Xử lý phản hồi từ API thành công
+				$scope.ordersCancelled = response.data;
+				console.log($scope.ordersCancelled);
+
+				// Tính tổng số trang dựa trên số đơn hàng và kích thước trang
+				$scope.cancelledTotalPages = Math.ceil($scope.ordersCancelled.length / $scope.cancelledPageSize);
+
+				// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
+				$scope.updateDisplayedCancelledOrders();
+			})
+			.catch(function (error) {
+				// Xử lý lỗi khi gọi API
+				console.error('Error fetching cancelled order list:', error);
+			});
+	};
+
+	// Gọi hàm để lấy danh sách đơn hàng khi trang được tải
+	$scope.getCancelledOrders();
+
+	// Hàm cập nhật danh sách đơn hàng hiển thị trên trang hiện tại
+	$scope.updateDisplayedCancelledOrders = function () {
+		var startIndex = ($scope.currentCancelledPage - 1) * $scope.cancelledPageSize;
+		var endIndex = startIndex + $scope.cancelledPageSize;
+		$scope.displayedCancelledOrders = $scope.ordersCancelled.slice(startIndex, endIndex);
+	};
+
+	// Hàm chuyển đến trang được chọn
+	$scope.goToCancelledPage = function (pageNumber) {
+		if (pageNumber >= 1 && pageNumber <= $scope.cancelledTotalPages) {
+			$scope.currentCancelledPage = pageNumber;
+			$scope.updateDisplayedCancelledOrders();
+		}
+	};
+
+
+	$scope.cancelOrder = function(id) {
+		var url = `/pcgearhub/rest/ordered-list/details/` + id; 
+		var data = { status: 'cancelled' };
+  
+		$http.put(url, data)
+		  .then(function(response) {
+			// Handle success, e.g., show a success message
+			console.log('Order cancelled successfully.');
+		  })
+		  .catch(function(error) {
+			// Handle error, e.g., show an error message
+			console.error('Error cancelling order:', error);
+		  });
+	  };
 
 });

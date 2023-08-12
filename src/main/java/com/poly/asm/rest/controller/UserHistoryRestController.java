@@ -2,6 +2,8 @@ package com.poly.asm.rest.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poly.asm.model.UserHistory;
 import com.poly.asm.respository.UserHistoryRepository;
 
-import javax.servlet.http.HttpServlet;
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pcgearhub")
@@ -27,7 +27,7 @@ public class UserHistoryRestController extends HttpServlet {
 	@Autowired
 	UserHistoryRepository dao;
 
-	@GetMapping("/rest/UserHistory")
+	@GetMapping("/rest/UserHistories")
 	public ResponseEntity<List<UserHistory>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}

@@ -1,9 +1,6 @@
 /**
 * 
 */
-let host = "http://localhost:8088/pcgearhub/rest";
-
-const app = angular.module("myApp", []);
 app.controller("ctrl", function($scope, $http) {
 	$scope.pageCount=1;
 	$scope.items = [];

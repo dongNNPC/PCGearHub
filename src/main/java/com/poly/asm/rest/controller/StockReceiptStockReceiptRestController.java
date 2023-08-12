@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.asm.model.Report;
 import com.poly.asm.model.StockReceipt;
 import com.poly.asm.respository.StockReceiptRepository;
 
@@ -65,5 +66,12 @@ public class StockReceiptStockReceiptRestController extends HttpServlet {
 		}
 		dao.deleteById(id);
 		return ResponseEntity.ok().build();
+	}
+
+
+	//tổng phiếu nhập kho
+	@GetMapping("/rest/stockReceipt/getTotalQuantityStock")
+	public List<Report> getTotalQuantityStock(){
+		return dao.getTotalQuantityStock();
 	}
 }

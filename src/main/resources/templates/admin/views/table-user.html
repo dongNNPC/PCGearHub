@@ -10,24 +10,25 @@
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="page-header">
-				<h3 class="page-title">Basic Tables</h3>
+				<h3 class="page-title">Bảng người dùng</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Tables</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Basic
-							tables</li>
+						<li class="breadcrumb-item"><a href="#">Quản lý người
+								dùng</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Bảng
+							dữ liệu</li>
 					</ol>
 				</nav>
 			</div>
 			<div class="row">
 
 				<div class="col-lg-12 grid-margin stretch-card">
-					<div class="card" ng-app="myApp">
+					<div class="card">
 						<div class="card-body" ng-controller="ctrl">
-							<h4 class="card-title">Hoverable Table</h4>
+							<h4 class="card-title">Thông tin người dùng</h4>
 							<p class="card-description">
-								Add class
-								<code>.table-hover</code>
+								Tất cả
+								<code>người dùng</code>
 							</p>
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -37,13 +38,11 @@
 											<th ng-click="sortBy('name')">Tên người dùng</th>
 											<!-- <th ng-click="sortBy('phone')">Số điện thoại	</th> -->
 											<th ng-click="sortBy('email')">Email</th>
-
 											<th ng-click="sortBy('image')">Hình ảnh</th>
 											<th ng-click="sortBy('admin')">Chức vụ</th>
 											<th ng-click="sortBy('status')">Trạng thái</th>
 											<th ng-click="sortBy('confirm')">Tài khoản</th>
-											<th>Edit</th>
-
+											<th>Thao tác</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -52,13 +51,18 @@
 											<td>{{user.name}}</td>
 											<!-- 	<td>{{user.phone}}</td> -->
 											<td>{{user.email}}</td>
-											<td>{{user.image}}</td>
-											<td>{{user.admin}}</td>
-											<td>{{user.status}}</td>
-											<td>{{user.confirm}}</td>
+											<td><img ng-src="{{url(user.image)}}"
+												style="width: 100px; height: 100px" alt=""></td>
+											<td><span ng-if="user.admin">Quản trị viên</span> <span
+												ng-if="!user.admin">Người dùng</span></td>
+											<td><span class="text-success" ng-if="user.status">Còn hoạt động</span> <span class="text-danger"
+												ng-if="!user.status">Không còn hoạt động</span></td>
+
+											<td><span class="text-success" ng-if="user.confirm">Đã xác nhận</span> <span
+											class="text-danger"	ng-if="!user.confirm">Chưa xác nhận</span></td>
 
 											<!-- 	<td><a ng-click="edit(user.id)" th:href="@{|/pcgearhub/admin/form-user/{{user.id}}|}" class="btn btn-primary">Edit</a></td> -->
-											<td ng-click="edit(user.id)"><a href="#">edit </a></td>
+											<td ng-click="edit(user.id)"><a class="btn btn-info" href="#">edit </a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -80,6 +84,7 @@
 									<li class="btn"><a href="#" ng-click="last()"><i
 											class="fas fa-angle-double-right"></i></a></li>
 								</ul>
+
 								<div class="col-sm-4"></div>
 							</div>
 						</div>
@@ -88,8 +93,8 @@
 			</div>
 		</div>
 	</div>
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+	<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
 </body>
 </html>
