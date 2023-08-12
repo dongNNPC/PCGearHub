@@ -1,11 +1,4 @@
-/**
-* 
-*/
-
 app.controller("ctrl", function($scope, $http, $location) {
-
-
-
 	$scope.pageCount = 1;
 	$scope.items = [];
 	$scope.load_all = function() {
@@ -15,8 +8,16 @@ app.controller("ctrl", function($scope, $http, $location) {
 		const id = parts[parts.length - 1];
 		var url = `${host}/detailedInvoices/${id}`;
 		$http.get(url).then(resp => {
-			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.items
 			$scope.items = resp.data;
+			
+			angular.forEach($scope.items, function(detailedInvoice){
+				$scope.invoiceID=detailedInvoice.invoice.id
+				$scope.userName=detailedInvoice.invoice.user.name
+				$scope.orderDate=detailedInvoice.invoice.orderDate
+				return;
+			})
+			
+			
 			/*Tổng số trang*/
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
 			console.log($scope.pageCount)

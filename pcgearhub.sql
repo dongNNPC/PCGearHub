@@ -74,6 +74,7 @@
 	  order_date DATE NOT NULL,
 	  address nvarchar(200),
 	  status NVARCHAR(50) NOT NULL,
+	  node nvarchar(200),
 	  user_id VARCHAR(20) NOT NULL,
 	);
 	go
@@ -250,16 +251,16 @@
 	-- Thêm dữ liệu vào bảng Users
 	INSERT INTO Accounts (id, name, Password, Phone, email, address, image, admin)
 	VALUES 
-	  ('U001', 'Nguyen Van A', '12345678', '0234567890', 'admin@gmail.com', N'Địa chỉ người dùng 1', 'avatar1.jpg', 1),
-	   ('U002', N'Nguyễn Nhựt Đông', '12345678', '0393618987', '0393618987dong@gmail.com', N'Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang', 'avatar2.jpg', 0),
-	  ('U003', N'Trần Tấn Khanh', '12345678', '0987654322', 'khanhttpc03027@fpt.edu.vn', N'Số nhà 10, Đường Trần Hưng Đạo, Quận 8, TP.HCM', 'avatar3.jpg', 0),
-	  ('U004', N'Trần Văn Hoàng', '12345678', '0987654321', 'trantankhanh31102003@gmail.com', N'Số nhà 4, Đường Lê Lợi, Quận 2, TP.HCM', 'avatar4.jpg', 0),
-	  ('U005', N'Lê Thị Minh Anh', '12345678', '0234567890', 'anhle@gmail.com', N'Số nhà 5, Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM', 'avatar5.jpg', 0),
-	  ('U006', N'Phạm Văn Tuấn', '12345678', '0987654321', 'tuantuan@gmail.com', N'Số nhà 6, Đường Trần Phú, Quận 4, TP.HCM', 'avatar-6.jpg', 0),
-	  ('U007', N'Vũ Thị Hương', '12345678', '0123456789', 'huongvu@gmail.com', N'Số nhà 7, Đường Lý Tự Trọng, Quận 5, TP.HCM', 'avatar-7.jpg', 0),
-	  ('U008', N'Ngô Đình Thảo', '12345678', '0987654321', 'thaongo@gmail.com', N'Số nhà 8, Đường Nguyễn Văn Cừ, Quận 6, TP.HCM', 'avatar-8.jpg', 0),
-	  ('U009', N'Trương Văn Thắng', '12345678', '0234567890', 'thangtruong@gmail.com', N'Số nhà 9, Đường Hùng Vương, Quận 7, TP.HCM', 'avatar-9.jpg', 0),
-	  ('U010', N'Nguyễn Thị Mai', '12345678', '0987654321', 'mainguyen@gmail.com', N'Số nhà 10, Đường Trần Hưng Đạo, Quận 8, TP.HCM', 'avatar-10.jpg', 0);
+	  ('U001', 'Nguyen Van A', '12345678', '0234567890', 'admin@gmail.com', N'Địa chỉ người dùng 1', 'avartar1.jpg', 1),
+	   ('U002', N'Nguyễn Nhựt Đông', '12345678', '0393618987', '0393618987dong@gmail.com', N'Ấp hoà phú xã định thành  , huyện thoại sơn tỉnh an giang', 'avartar2.jpg', 0),
+	  ('U003', N'Trần Tấn Khanh', '12345678', '0987654322', 'khanhttpc03027@fpt.edu.vn', N'Số nhà 10, Đường Trần Hưng Đạo, Quận 8, TP.HCM', 'avartar3.jpg', 0),
+	  ('U004', N'Trần Văn Hoàng', '12345678', '0987654321', 'trantankhanh31102003@gmail.com', N'Số nhà 4, Đường Lê Lợi, Quận 2, TP.HCM', 'avartar4.jpg', 0),
+	  ('U005', N'Lê Thị Minh Anh', '12345678', '0234567890', 'anhle@gmail.com', N'Số nhà 5, Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM', 'avartar5.jpg', 0),
+	  ('U006', N'Phạm Văn Tuấn', '12345678', '0987654321', 'tuantuan@gmail.com', N'Số nhà 6, Đường Trần Phú, Quận 4, TP.HCM', 'avartar6.jpg', 0),
+	  ('U007', N'Vũ Thị Hương', '12345678', '0123456789', 'huongvu@gmail.com', N'Số nhà 7, Đường Lý Tự Trọng, Quận 5, TP.HCM', 'avartar7.jpg', 0),
+	  ('U008', N'Ngô Đình Thảo', '12345678', '0987654321', 'thaongo@gmail.com', N'Số nhà 8, Đường Nguyễn Văn Cừ, Quận 6, TP.HCM', 'avartar8.jpg', 0),
+	  ('U009', N'Trương Văn Thắng', '12345678', '0234567890', 'thangtruong@gmail.com', N'Số nhà 9, Đường Hùng Vương, Quận 7, TP.HCM', 'avartar9.jpg', 0),
+	  ('U010', N'Nguyễn Thị Mai', '12345678', '0987654321', 'mainguyen@gmail.com', N'Số nhà 10, Đường Trần Hưng Đạo, Quận 8, TP.HCM', 'avartar10.jpg', 0);
 
 
 	-- Thêm dữ liệu vào bảng Categories
@@ -320,72 +321,74 @@
 	  (N'P002','D001')
 
 	-- Thêm dữ liệu vào bảng Invoices
-	INSERT INTO Invoices (id, order_date,address,status, user_id)
-	VALUES 
-	('I001', '2024-01-10','address1', N'delivery', 'U001'),
-	('I002', '2024-02-09','address1', N'delivery', 'U002'),
-	('I003', '2024-03-12','address1', N'pending', 'U003'),
-	('I004', '2024-04-08','address1', N'delivery', 'U004'),
-	('I005', '2024-05-13', 'address1',N'delivery', 'U003'),
-	('I006', '2024-06-12','address1', N'delivery', 'U004'),
-	('I007', '2024-07-11','address1', N'pending', 'U004'),
-	('I008', '2024-08-07', 'address1',N'delivery', 'U002'),
-	('I009', '2024-09-15', 'address1',N'delivery', 'U004'),
-	('I010', '2024-10-14','address1', N'delivery', 'U003'),
-	('I011', '2024-11-06','address1', N'pending', 'U004'),
-	('I012', '2024-12-05', 'address1',N'delivery', 'U001'),
-	('I013', '2024-01-18', 'address1',N'delivery', 'U003'),
-	('I014', '2024-02-17','address1', N'delivery', 'U003'),
-	('I015', '2024-03-04','address1', N'delivery', 'U002'),
-	('I016', '2024-04-16', 'address1',N'complete', 'U003'),
-	('I017', '2024-05-19', 'address1',N'delivery', 'U002'),
-	('I018', '2024-06-03', 'address1',N'pending', 'U002'),
-	('I019', '2024-07-21', 'address1',N'delivery', 'U002'),
-	('I020', '2024-07-20', 'address1',N'pending', 'U002'),
-	('I021', '2024-01-10', 'address1',N'','U001'),
-	('I022', '2024-02-09', 'address1',N'pending', 'U002'),
-	('I023', '2024-03-12', 'address1',N'complete', 'U003'),
-	('I024', '2024-04-08', 'address1',N'delivery', 'U004'),
-	('I025', '2024-05-13', 'address1',N'delivery', 'U003'),
-	('I026', '2024-08-12','address1', N'pending', 'U004'),
-	('I027', '2024-12-11', 'address1',N'pending', 'U004'),
-	('I028', '2024-11-07', 'address1',N'delivery', 'U002'),
-	('I029', '2024-09-15', 'address1',N'delivery', 'U004'),
-	('I030', '2024-01-14', 'address1',N'delivery', 'U003'),
-	('I031', '2024-02-06','address1', N'pending', 'U004'),
-	('I032', '2024-03-05', 'address1',N'delivery', 'U001'),
-	('I033', '2024-05-18','address1', N'cancelled', 'U003'),
-	('I034', '2024-11-17', 'address1',N'delivery', 'U003'),
-	('I035', '2024-07-04', 'address1',N'cancelled', 'U002'),
-	('I036', '2024-09-16','address1', N'pending', 'U003'),
-	('I037', '2024-01-19','address1', N'cancelled', 'U002'),
-	('I038', '2024-12-03','address1', N'delivery', 'U002'),
-	('I039', '2024-02-21','address1', N'pending', 'U002'),
-	('I040', '2024-03-20', 'address1',N'delivery', 'U002')
-		INSERT INTO Invoices (id, order_date,address, status, user_id)
-	SELECT 'INV001', '2023-01-01','address1', 'pending', 'U002'
-	UNION ALL SELECT 'INV002', '2023-02-01','address1', 'pending', 'U002'
-	UNION ALL SELECT 'INV003', '2023-03-01','address1', 'delivery', 'U002'
-	UNION ALL SELECT 'INV004', '2023-04-01', 'address1','delivery', 'U002'
-	UNION ALL SELECT 'INV005', '2023-05-01', 'address1','delivery', 'U002'
-	UNION ALL SELECT 'INV006', '2023-06-01','address1', 'delivery', 'U003'
-	UNION ALL SELECT 'INV007', '2023-07-01', 'address1','pending', 'U003'
-	UNION ALL SELECT 'INV008', '2023-08-01','address1', 'delivery', 'U003'
-	UNION ALL SELECT 'INV009', '2023-09-01', 'address1','delivery', 'U003'
-	UNION ALL SELECT 'INV010', '2023-10-01','address1', 'delivery', 'U003'
-	UNION ALL SELECT 'INV011', '2023-11-01', 'address1','delivery', 'U003'
-	UNION ALL SELECT 'INV012', '2023-12-01', 'address1','pending', 'U003'
-	UNION ALL SELECT 'INV0022', '2023-02-01','address1', 'delivery', 'U002'
-	UNION ALL SELECT 'INV0032', '2023-03-01', 'address1','pending', 'U002'
-	UNION ALL SELECT 'INV0042', '2023-07-01', 'address1','delivery', 'U004'
-	UNION ALL SELECT 'INV0052', '2023-05-01','address1', 'delivery', 'U002'
-	UNION ALL SELECT 'INV0062', '2023-07-01', 'address1','pending', 'U004'
-	UNION ALL SELECT 'INV0072', '2023-07-01','address1','delivery', 'U004'
-	UNION ALL SELECT 'INV0082', '2023-07-01', 'address1','delivery', 'U004'
-	UNION ALL SELECT 'INV0092', '2023-09-01', 'address1','delivery', 'U004'
-	UNION ALL SELECT 'INV0102', '2023-11-01', 'address1','pending', 'U003'
-	UNION ALL SELECT 'INV0112', '2023-11-01', 'address1','delivery', 'U004'
-	UNION ALL SELECT 'INV0122', '2023-12-01', 'address1','delivery', 'U002';
+	INSERT INTO Invoices (id, order_date, address, status, user_id)
+VALUES 
+('I001', '2022-01-10 08:30:00', 'address1', N'delivery', 'U001'),
+('I002', '2022-02-09 14:45:00', 'address1', N'delivery', 'U002'),
+('I003', '2022-03-12 10:15:00', 'address1', N'pending', 'U003'),
+('I004', '2022-04-08 16:20:00', 'address1', N'delivery', 'U004'),
+('I005', '2022-05-13 12:00:00', 'address1', N'delivery', 'U003'),
+('I006', '2022-06-12 09:30:00', 'address1', N'delivery', 'U004'),
+('I007', '2022-07-11 17:40:00', 'address1', N'pending', 'U004'),
+('I008', '2022-08-07 13:25:00', 'address1', N'delivery', 'U002'),
+('I009', '2022-09-15 11:10:00', 'address1', N'delivery', 'U004'),
+('I010', '2022-10-14 18:15:00', 'address1', N'delivery', 'U003'),
+('I011', '2022-11-06 07:50:00', 'address1', N'pending', 'U004'),
+('I012', '2022-12-05 16:05:00', 'address1', N'delivery', 'U001'),
+('I013', '2022-01-18 09:30:00', 'address1', N'delivery', 'U003'),
+('I014', '2022-02-17 14:15:00', 'address1', N'delivery', 'U003'),
+('I015', '2022-03-04 11:45:00', 'address1', N'delivery', 'U002'),
+('I016', '2022-04-16 10:00:00', 'address1', N'complete', 'U003'),
+('I017', '2022-05-19 15:20:00', 'address1', N'delivery', 'U002'),
+('I018', '2022-06-03 08:10:00', 'address1', N'pending', 'U002'),
+('I019', '2022-07-21 13:30:00', 'address1', N'delivery', 'U002'),
+('I020', '2022-07-20 09:55:00', 'address1', N'pending', 'U002'),
+('I021', '2022-01-10 11:40:00', 'address1', N'pending', 'U001'),
+('I022', '2022-02-09 14:00:00', 'address1', N'pending', 'U002'),
+('I023', '2022-03-12 16:30:00', 'address1', N'complete', 'U003'),
+('I024', '2022-04-08 08:15:00', 'address1', N'delivery', 'U004'),
+('I025', '2022-05-13 10:30:00', 'address1', N'delivery', 'U003'),
+('I026', '2022-08-12 14:45:00', 'address1', N'pending', 'U004'),
+('I027', '2022-12-11 09:20:00', 'address1', N'pending', 'U004'),
+('I028', '2022-11-07 13:55:00', 'address1', N'delivery', 'U002'),
+('I029', '2022-09-15 10:10:00', 'address1', N'delivery', 'U004'),
+('I030', '2022-01-14 15:40:00', 'address1', N'delivery', 'U003'),
+('I031', '2022-02-06 12:25:00', 'address1', N'pending', 'U004'),
+('I032', '2022-03-05 17:30:00', 'address1', N'delivery', 'U001'),
+('I033', '2022-05-18 11:50:00', 'address1', N'cancelled','U003'),
+('I034', '2022-11-17 10:15:00', 'address1', N'delivery', 'U003'),
+('I035', '2022-07-04 13:05:00', 'address1', N'cancelled', 'U002'),
+('I036', '2022-09-16 09:45:00', 'address1', N'pending', 'U003'),
+('I037', '2022-01-19 14:20:00', 'address1', N'cancelled', 'U002'),
+('I038', '2022-12-03 12:30:00', 'address1', N'delivery', 'U002'),
+('I039', '2022-02-21 16:40:00', 'address1', N'pending', 'U002'),
+('I040', '2022-03-20 08:55:00', 'address1', N'delivery', 'U002');
+
+INSERT INTO Invoices (id, order_date, address, status, user_id)
+SELECT 'INV001', '2023-01-01 08:30:00', 'address1', 'pending', 'U002'
+UNION ALL SELECT 'INV002', '2023-02-01 14:45:00', 'address1', 'pending', 'U002'
+UNION ALL SELECT 'INV003', '2023-03-01 10:15:00', 'address1', 'delivery', 'U002'
+UNION ALL SELECT 'INV004', '2023-04-01 16:20:00', 'address1', 'delivery', 'U002'
+UNION ALL SELECT 'INV005', '2023-05-01 12:00:00', 'address1', 'delivery', 'U002'
+UNION ALL SELECT 'INV006', '2023-06-01 09:30:00', 'address1', 'delivery', 'U003'
+UNION ALL SELECT 'INV007', '2023-07-01 17:40:00', 'address1', 'pending', 'U003'
+UNION ALL SELECT 'INV008', '2023-08-01 13:25:00', 'address1', 'delivery', 'U003'
+UNION ALL SELECT 'INV009', '2023-09-01 11:10:00', 'address1', 'delivery', 'U003'
+UNION ALL SELECT 'INV010', '2023-10-01 18:15:00', 'address1', 'delivery', 'U003'
+UNION ALL SELECT 'INV011', '2023-11-01 07:50:00', 'address1', 'delivery', 'U003'
+UNION ALL SELECT 'INV012', '2023-12-01 16:05:00', 'address1', 'pending', 'U003'
+UNION ALL SELECT 'INV0022', '2023-02-01 09:15:00', 'address1', 'delivery', 'U002'
+UNION ALL SELECT 'INV0032', '2023-03-01 15:30:00', 'address1', 'pending', 'U002'
+UNION ALL SELECT 'INV0042', '2023-07-01 14:20:00', 'address1', 'delivery', 'U004'
+UNION ALL SELECT 'INV0052', '2023-05-01 11:30:00', 'address1', 'delivery', 'U002'
+UNION ALL SELECT 'INV0062', '2023-07-01 10:40:00', 'address1', 'pending', 'U004'
+UNION ALL SELECT 'INV0072', '2023-07-01 09:25:00', 'address1', 'delivery', 'U004'
+UNION ALL SELECT 'INV0082', '2023-07-01 18:50:00', 'address1', 'delivery', 'U004'
+UNION ALL SELECT 'INV0092', '2023-09-01 13:15:00', 'address1', 'delivery', 'U004'
+UNION ALL SELECT 'INV0102', '2023-11-01 12:45:00', 'address1', 'pending', 'U003'
+UNION ALL SELECT 'INV0112', '2023-11-01 16:30:00', 'address1', 'delivery', 'U004'
+UNION ALL SELECT 'INV0122', '2023-12-01 14:55:00', 'address1', 'delivery', 'U002';
+
 	-- Thêm dữ liệu vào bảng DetailedInvoices
 	INSERT INTO detailed_invoices (invoice_id, product_id, quantity, payment_method)
 	VALUES 

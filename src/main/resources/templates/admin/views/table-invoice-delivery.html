@@ -37,7 +37,7 @@
 											<th ng-click="sortBy('orderDate')">Ngày Đặt Hàng</th>
 											<th ng-click="sortBy('status')">status</th>
 											<th ng-click="sortBy('name')">Tên người đặt</th>
-											<th>Biên tập</th>
+											<th>Thao tác</th>
 											<th>Xác nhận</th>
 
 										</tr>
@@ -47,7 +47,9 @@
 										<td>{{ $index + 1 }}</td>
 											<td>{{item.id}}</td>
 											<td>{{item.orderDate}}</td>
-											<td class="text-info"> {{item.status}}</td>
+											<td class="text-info">
+											<span ng-if="item.status=='delivery'">Đang giao hàng</span> 
+											</td>
 											<td>{{item.user.name}}</td>
 											<td ng-click="edit(item.id)"><a class="btn btn-info" href="#">Xem chi tiết </a></td>
 											<td ng-click="update(item.id)"><a class="btn btn-success" href="#">Hoàn thành đơn hàng </a></td>

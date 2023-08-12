@@ -10,13 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReportTotalRevenueDetail {
-    private String userName;
-    private String productName;
-    private float productPrice;
-    private int quantity;
-    private Date orderDate;
-    private String paymentMethod;
+	private String userName;
+	private String productName;
+	private float productPrice;
+	private int quantity;
+	private Date orderDate;
+	private String paymentMethod;
 
-   
-    
 }

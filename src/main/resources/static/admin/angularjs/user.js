@@ -72,6 +72,11 @@ $scope.load_user()
 		$scope.currentPage = $scope.pageCount;
 
 	}
+		var url = "http://localhost:8088/pcgearhub/rest/files/images";
+
+	$scope.url = function(filename) {
+		return `${url}/${filename}`
+	}
 
 });
 
