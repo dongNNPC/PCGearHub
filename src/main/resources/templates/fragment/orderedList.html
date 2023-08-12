@@ -83,7 +83,7 @@
                                     <th scope="col">Số điện thoại</th>
                                     <th scope="col">Tên người nhận</th>
                                     <th scope="col">Địa chỉ nhận hàng</th>
-                                    <!-- <th scope="col">thnah toán</th> -->
+                                
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
@@ -95,7 +95,10 @@
                                     <td>{{ order.statusName }}</td>
                                     <td>{{ order.user.phone }}</td>
                                     <td>{{ order.user.name }}</td>
-                                    <td>{{ order.address }}</td>
+                                    <td class="truncate-text" 
+                                    style=" overflow: hidden;white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 20ch;">{{ order.address }}</td>
                                     <td><a ng-href="/pcgearhub/ordered-list/details/{{ order.id }}"><i
                                                 class="fa-solid fa-ellipsis"></i></a></td>
                                 </tr>
@@ -149,7 +152,10 @@
                                     <td>{{ order.statusName }}</td>
                                     <td>{{ order.user.phone }}</td>
                                     <td>{{ order.user.name }}</td>
-                                    <td>{{ order.address }}</td>
+                                    <td class="truncate-text" 
+                                    style=" overflow: hidden;white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 20ch;">{{ order.address }}</td>
                                     <td><a ng-href="/pcgearhub/ordered-list/details/{{ order.id }}"><i
                                                 class="fa-solid fa-ellipsis"></i></a></td>
                                 </tr>
@@ -203,7 +209,10 @@
                                     <td>{{ order.statusName }}</td>
                                     <td>{{ order.user.phone }}</td>
                                     <td>{{ order.user.name }}</td>
-                                    <td>{{ order.address }}</td>
+                                    <td class="truncate-text" 
+                                    style=" overflow: hidden;white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 20ch;">{{ order.address }}</td>
                                     <td><a ng-href="/pcgearhub/ordered-list/details/{{ order.id }}"><i
                                                 class="fa-solid fa-ellipsis"></i></a></td>
                                 </tr>
@@ -255,7 +264,10 @@
                                     <td>{{ order.statusName }}</td>
                                     <td>{{ order.user.phone }}</td>
                                     <td>{{ order.user.name }}</td>
-                                    <td>{{ order.address }}</td>
+                                    <td class="truncate-text" 
+                                    style=" overflow: hidden;white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    max-width: 20ch;">{{ order.address }}</td>
                                     <td><a ng-href="/pcgearhub/ordered-list/details/{{ order.id }}"><i
                                                 class="fa-solid fa-ellipsis"></i></a></td>
                                 </tr>

@@ -40,7 +40,7 @@ top: 0;">
           <div class="search-shop-holine">
             <div class="row">
               <div class="col-md-7">
-                <div class="search">
+                <div class="search" href="#section1">
                   <i class="fa fa-search"></i>
                   <input type="text" class="form-control" ng-model="searchText" ng-change="search(searchText)"
                     placeholder="tìm kiếm sản phẩm ...">
@@ -74,9 +74,10 @@ top: 0;">
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
 
                         style="list-style: none; display: none;">
-                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}">  Trang cá
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile}"> Trang cá
                             nhân </a></li>
-                            <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/ordered-list}"> Xem  đơn hàng </a></li>
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/ordered-list}"> Xem
+                            đơn hàng </a></li>
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi
                             mật
                             khẩu </a></li>

@@ -32,7 +32,7 @@
   </style> -->
 </head>
 
-<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl"  data-spy="scroll" data-target=".navbar" data-offset="50">
 	<div class="page-body-buong">
 		<div class="color-category" style="position: -webkit-sticky; position: sticky; top: 0; z-index: 100;">
 			<header th:replace="~{/fragment/_header :: header}"></header>
@@ -139,6 +139,7 @@
 
 
 <!--Angularjs cdn  -->
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js}"></script>
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>
 <!--Shoping cart-->
 <script th:inline="javascript" th:src="@{/assets/AngularJS/shopping-cart-app.js}"></script>
