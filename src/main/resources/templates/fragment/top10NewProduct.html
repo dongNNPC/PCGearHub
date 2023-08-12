@@ -24,9 +24,9 @@
             </h3>
             <div class="row">
               <div class="col-md-12">
-                <h4>
+                <!-- <h4>
                   <del style="color: #898888;margin-right: 290px; font-size: 13px;">1,000,000đ</del>
-                </h4>
+                </h4> -->
                 <h4 style="font-weight: bold;text-align: start; color: red;">
                   {{p.price | number: 0}} vnđ
                 </h4>
@@ -35,11 +35,10 @@
           </div>
           <button ng-if="p.quantity > 0" ng-click="cart.add(p.id)" onclick="showNotification()" class="button-addtocart" style="margin-bottom: -40px; cursor: pointer;margin-right: 30px;">
             <span class="span-bt-addtocart" style="margin-top: -40px;">
-              <i class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -112px;"></i>
-              <span class="text-bt-addtocart" style="margin-left:6px;">Thêm vào giỏ</span>
+                <i class="icon-addtocart fa-thin fa-basket-shopping" style="color: white; margin-left: -150px;"></i>
+                <span class="text-bt-addtocart" style="margin-right:-50px;"> Thêm vào giỏ</span>
             </span>
-          </button>
-         
+        </button>
         </div>
       </div>
     </div>
