@@ -2808,9 +2808,9 @@ i.fa.fa-plus.css-icon-plus.show:before {
   height: 30px;
   transition: all 0.3s ease;
   font-family: "Quicksand";
-  margin-left: -90px;
+  margin-left: -89px;
   margin-bottom: 20px;
-  margin-top: 10px;
+  margin-top: 7px;
  }
  
  .button-addtocart .span-bt-addtocart {
@@ -2825,7 +2825,7 @@ i.fa.fa-plus.css-icon-plus.show:before {
  
  .button-addtocart .span-bt-addtocart {
   position: relative;
-  top: 1;
+  top: 2;
   margin-left: 10px;
   fill: none;
   stroke-linecap: round;
@@ -2837,7 +2837,7 @@ i.fa.fa-plus.css-icon-plus.show:before {
  }
  
  .button-addtocart:hover:before {
-  width: 260%;
+  width: 350%;
   background: #24388F;
  }
  .text-bt-addtocart{

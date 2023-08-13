@@ -154,14 +154,42 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 				console.error('Error fetching data:', error);
 			});
 	};
+	
+	$scope.cities = [];
+	$scope.selectedCity = null;
+	$scope.selectedDistrict = null;
+	$scope.selectedWard = null;
+	$scope.specificAddress = "";
 
+	var Parameter = {
+		url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+		method: "GET",
+		responseType: "application/json",
+	};
+
+	axios(Parameter).then(function (result) {
+		$scope.cities = result.data;
+	});
+
+	function constructAddress() {
+		if ($scope.selectedCity && $scope.selectedDistrict && $scope.selectedWard) {
+			// Construct the address using selectedCity, selectedDistrict, selectedWard, and specificAddress
+			$scope.order.address = $scope.specificAddress + ', ' + $scope.selectedWard.Name + ', ' + $scope.selectedDistrict.Name + ', ' + $scope.selectedCity.Name;
+		}
+	}
+
+	$scope.$watchGroup(['selectedCity', 'selectedDistrict', 'selectedWard', 'specificAddress'], function () {
+		constructAddress();
+	});
+
+	
 	$http.get('/pcgearhub/api/user')
 		.then(function (response) {
 			$scope.userLogged = response.data;
 			console.log("đã có bnef : " + $scope.userLogged.phone);
 			var currentDate = new Date();
 			var formattedDate = currentDate.getDate() + "" + (currentDate.getMonth() + 1) + "" + currentDate.getFullYear() + "" + currentDate.getHours() + "" + currentDate.getMinutes() + "" + currentDate.getSeconds();
-
+			
 			$scope.order = {
 				id: "HD" + formattedDate,
 				orderDate: new Date(),
@@ -180,6 +208,9 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 					});
 
 				},
+
+				
+			
 				confirm() {
 					var order = angular.copy(this);
 					if ($scope.selectedItems.length === 0) {
@@ -190,11 +221,35 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 						);
 						return; // Stop further execution
 					}
+					if (!$scope.selectedCity) {
+						Swal.fire(
+							'Lỗi',
+							'Vui lòng chọn TỈNH trước khi xác nhận đặt hàng.',
+							'error'
+						);
+						return;
+					}
+					if ( !$scope.selectedDistrict) {
+						Swal.fire(
+							'Lỗi',
+							'Vui lòng QUẬN/HUYỆN trước khi xác nhận đặt hàng.',
+							'error'
+						);
+						return;
+					}
+					if (!$scope.selectedWard) {
+						Swal.fire(
+							'Lỗi',
+							'Vui lòng XÃ/PHƯỜNG trước khi xác nhận đặt hàng.',
+							'error'
+						);
+						return;
+					}
 					//kiểm lỗi người dùng không nhập địa chỉ
-					if (this.address.trim() === "") {
+					if (!$scope.specificAddress) {
 						Swal.fire(
 							'Địa chỉ trống',
-							'Vui lòng nhập địa chỉ giao hàng trước khi xác nhận đặt hàng.',
+							'Vui lòng nhập địa chỉ cụ thể trước khi xác nhận đặt hàng.',
 							'warning'
 						);
 						return;
@@ -1308,19 +1363,32 @@ app.controller("orderList", function ($scope, $http) {
 	};
 
 
-	$scope.cancelOrder = function(id) {
-		var url = `/pcgearhub/rest/ordered-list/details/` + id; 
+	$scope.cancelOrder = function (id) {
+		var url = `/pcgearhub/rest/ordered-list/details/` + id;
 		var data = { status: 'cancelled' };
-  
+
 		$http.put(url, data)
-		  .then(function(response) {
-			// Handle success, e.g., show a success message
-			console.log('Order cancelled successfully.');
+			.then(function (response) {
+				// Handle success, e.g., show a success message
+				console.log('Order cancelled successfully.');
+			})
+			.catch(function (error) {
+				// Handle error, e.g., show an error message
+				console.error('Error cancelling order:', error);
+			});
+	};
+
+	$scope.showSwal = function () {
+		// Show the SweetAlert dialog with custom animation
+		Swal.fire({
+			title: '',
+			showClass: {
+			  popup: 'animate__animated animate__fadeInDown'
+			},
+			hideClass: {
+			  popup: 'animate__animated animate__fadeOutUp'
+			}
 		  })
-		  .catch(function(error) {
-			// Handle error, e.g., show an error message
-			console.error('Error cancelling order:', error);
-		  });
-	  };
+	};
 
 });

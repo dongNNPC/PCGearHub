@@ -1,4 +1,3 @@
-
 app.controller("ctrl", function ($scope, $http, $window,) {
 	$scope.pageCount;
 	$scope.brand = {};

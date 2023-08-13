@@ -35,13 +35,13 @@
         <div class="col-md-3" style="font-weight: bold;">Địa chỉ</div>
       </div>
       <div class="row">
-        <input style="border: none;" class="col-md-3" th:field="*{orderDate}"
-         >
+        <!--  -->
+        <input style="border: none;" class="col-md-3" th:field="*{orderDate}">
         <input style="border: none;" class="col-md-3" th:field="*{id}"></input>
         <span class="col-md-3" th:text="${order.statusName}"></span>
-        <input style="border: none;" class="col-md-3 truncate-text" th:field="*{address}">
-      </div>
+        <input style="border: none; cursor: pointer;" class="col-md-3 truncate-text modal-trigger" th:field="*{address}">
 
+    </div>
       <div class="row">
         <div class="col-md-3 text-black">
           <h4 class="text-black mb-0">Ảnh</h4>
@@ -92,12 +92,53 @@
         <h6>Chúng tôi sẽ gửi email xác nhận vận chuyển khi mặt hàng được vận chuyển! <span
             style="margin-left: 50px;">Call - 974493933</span></h6>
       </div>
+
+
+      <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <h4>địa chỉ giao hàng của bạn là : </h4>
+            <input style="border: none; width: 900px; font-weight: bold; word-wrap: break-word; overflow-wrap: break-word;" th:field="*{address}"> <br>
+
+            <button class="modal-close" id="closeModal">Đóng</button>
+        </div>
+</div>
     </form>
   </main>
   <footer>
     <!-- place footer here -->
   </footer>
   <style>
+    /* styles.css */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
     .formThank {
       display: flex;
       flex-direction: column;
@@ -137,7 +178,27 @@
 
 
   </script>
+  <script>
+   // script.js
+const modalTrigger = document.querySelector('.modal-trigger');
+const modal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('closeModal');
 
+modalTrigger.addEventListener('click', () => {
+    modal.style.display = 'flex';
+});
+
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
