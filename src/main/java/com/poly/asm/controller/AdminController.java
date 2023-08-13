@@ -109,7 +109,6 @@ public class AdminController {
 		return "/admin/views/form-brand";
 	}
 
-
 	@RequestMapping("/table-brand")
 	public String tablebrand() {
 
@@ -128,10 +127,18 @@ public class AdminController {
 		return "/admin/views/table-distinctive";
 	}
 
-
 	@RequestMapping("/table-totalRevenue")
 	public String totalRevenue() {
 
 		return "/admin/views/table-totalRevenue";
 	}
+
+	/* Charts */
+
+	@RequestMapping("/chart")
+	public String chart() {
+
+		return "/admin/views/chart2";
+	}
+
 }

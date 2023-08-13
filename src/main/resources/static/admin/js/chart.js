@@ -5,7 +5,7 @@ $(function() {
    */
   'use strict';
   var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+    labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
     datasets: [{
       label: '# of Votes',
       data: [10, 19, 3, 5, 2, 3],
@@ -86,7 +86,7 @@ $(function() {
     }
   };
 
-  
+  /*
   var doughnutPieData = {
     datasets: [{
       data: [30, 40, 30],
@@ -306,7 +306,7 @@ $(function() {
       options: options
     });
   }
-
+*/
   if ($("#lineChart").length) {
     var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
     var lineChart = new Chart(lineChartCanvas, {
@@ -325,7 +325,7 @@ $(function() {
     });
   }
 
-  if ($("#areachart-multi").length) {
+/*  if ($("#areachart-multi").length) {
     var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
     var multiAreaChart = new Chart(multiAreaCanvas, {
       type: 'line',
@@ -377,5 +377,5 @@ $(function() {
       data: browserTrafficData,
       options: doughnutPieOptions
     });
-  }
+  }*/
 });
