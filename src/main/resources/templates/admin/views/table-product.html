@@ -50,7 +50,8 @@
 										<tr
 											ng-repeat="product in items | orderBy:prop |limitTo:5:begin">
 											<td>{{product.id}}</td>
-											<td>{{product.name}}</td>
+											<td>{{product.name.length > 28 ? product.name.substring(0, 28) + '...'
+												: product.name }}</td>
 											<td>{{product.quantity}}</td>
 											<td>{{product.price}}</td>
 											<td><span class="text-success" ng-if="product.status">Còn
@@ -61,7 +62,7 @@
 
 											<!-- 	<td><a ng-click="edit(user.id)" th:href="@{|/pcgearhub/admin/form-user/{{user.id}}|}" class="btn btn-primary">Edit</a></td> -->
 											<td ng-click="edit(product.id)"><a class="btn btn-info"
-												href="#">edit </a></td>
+												href="#">Chi tiết </a></td>
 										</tr>
 									</tbody>
 								</table>

@@ -52,7 +52,7 @@
 											<!-- 	<td>{{user.phone}}</td> -->
 											<td>{{user.email}}</td>
 											<td><img ng-src="{{url(user.image)}}"
-												style="width: 100px; height: 100px" alt=""></td>
+												style="max-width: 50px;max-height: 50px" alt=""></td>
 											<td><span ng-if="user.admin">Quản trị viên</span> <span
 												ng-if="!user.admin">Người dùng</span></td>
 											<td><span class="text-success" ng-if="user.status">Còn hoạt động</span> <span class="text-danger"
@@ -62,7 +62,7 @@
 											class="text-danger"	ng-if="!user.confirm">Chưa xác nhận</span></td>
 
 											<!-- 	<td><a ng-click="edit(user.id)" th:href="@{|/pcgearhub/admin/form-user/{{user.id}}|}" class="btn btn-primary">Edit</a></td> -->
-											<td ng-click="edit(user.id)"><a class="btn btn-info" href="#">edit </a></td>
+											<td ng-click="edit(user.id)"><a class="btn btn-info" href="#">Chi tiết </a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -93,7 +93,6 @@
 			</div>
 		</div>
 	</div>
-	<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
 	<script th:inline="javascript" th:src="@{/admin/angularjs/user.js}"></script>
 </body>

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.asm.controller.service.OrderService;
 import com.poly.asm.model.Invoice;
+import com.poly.asm.model.MonthlySalesStatistics;
 import com.poly.asm.respository.InvoiceRepository;
 
 @RestController
@@ -39,6 +39,13 @@ public class InvoiceRestController extends HttpServlet {
 	@GetMapping("/rest/invoices")
 	public ResponseEntity<List<Invoice>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
+	}
+
+//Thống kê
+	@GetMapping("/rest/invoices/sales/{year}")
+	public ResponseEntity<List<MonthlySalesStatistics>> getSales(@PathVariable("year") int year) {
+		List<MonthlySalesStatistics> sales = dao.getMonthlySalesStatistics(year);
+		return ResponseEntity.ok(sales);
 	}
 
 	@GetMapping("/rest/invoices/{keyword}")
@@ -95,8 +102,7 @@ public class InvoiceRestController extends HttpServlet {
 		Invoice order = odersv.findById(id);
 
 		double totalPrice = order.getDetailedInvoices().stream()
-				.mapToDouble(detail -> detail.getProduct().getPrice() * detail.getQuantity())
-				.sum();
+				.mapToDouble(detail -> detail.getProduct().getPrice() * detail.getQuantity()).sum();
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("order", order);
