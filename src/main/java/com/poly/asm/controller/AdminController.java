@@ -138,7 +138,7 @@ public class AdminController {
 	@RequestMapping("/chart")
 	public String chart() {
 
-		return "/admin/views/chart2";
+		return "/admin/views/chart";
 	}
 
 }
