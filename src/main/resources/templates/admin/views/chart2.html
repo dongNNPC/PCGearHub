@@ -6,13 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
 <body>
-
-
-
-
-
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="page-header">
@@ -24,26 +18,27 @@
 					</ol>
 				</nav>
 			</div>
-			<div class="row">
+			<div class="row" >
 				<div class="col-lg-6 grid-margin stretch-card" ng-controller="line">
+				
 					<div class="card">
 						<div class="card-body">
-							<h4 class="card-title">Line chart</h4>
+							<h4 class="card-title">Thống kê doanh thu theo tháng</h4>
 							<canvas id="lineChart" style="height: 250px"></canvas>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-6 grid-margin stretch-card">
+				</div>	
+				<div class="col-lg-6 grid-margin stretch-card" ng-controller="bar">
 					<div class="card">
 						<div class="card-body">
-							<h4 class="card-title">Bar chart</h4>
+							<h4 class="card-title">Thống kê doanh thu theo tháng</h4>
 							<canvas id="barChart" style="height: 230px"></canvas>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-6 grid-margin stretch-card">
+				<div class="col-lg-6 grid-margin stretch-card" ng-controller="area">
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title">Area chart</h4>
@@ -51,7 +46,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 grid-margin stretch-card">
+				<div class="col-lg-6 grid-margin stretch-card" ng-controller="doughnutChart">
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title">Doughnut chart</h4>
@@ -60,7 +55,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-lg-6 grid-margin stretch-card">
 					<div class="card">
 						<div class="card-body">
@@ -77,7 +72,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 

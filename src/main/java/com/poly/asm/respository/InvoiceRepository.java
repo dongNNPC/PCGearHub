@@ -14,7 +14,7 @@ import com.poly.asm.model.MonthlySalesStatistics;
 public interface InvoiceRepository extends JpaRepository<Invoice, String> {
 
 //	câu truy vấn in ra số lượng sản phẩm bán đi theo tháng và chọn năm (admin index)
-	@Query("SELECT new com.poly.asm.model.MonthlySalesStatistics(MONTH(i.orderDate), COUNT(*)) FROM Invoice i WHERE i.status = 'pending' AND YEAR(i.orderDate) = :year GROUP BY MONTH(i.orderDate)")
+	@Query("SELECT new com.poly.asm.model.MonthlySalesStatistics(MONTH(i.orderDate), COUNT(*)) FROM Invoice i WHERE i.status = 'complete' AND YEAR(i.orderDate) = :year GROUP BY MONTH(i.orderDate)")
 	List<MonthlySalesStatistics> getMonthlySalesStatistics(@Param("year") int year);
 
 	List<Invoice> findByStatusContainingIgnoreCase(String keyword);

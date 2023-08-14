@@ -41,6 +41,7 @@ public class InvoiceRestController extends HttpServlet {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
+//Thống kê
 	@GetMapping("/rest/invoices/sales/{year}")
 	public ResponseEntity<List<MonthlySalesStatistics>> getSales(@PathVariable("year") int year) {
 		List<MonthlySalesStatistics> sales = dao.getMonthlySalesStatistics(year);
