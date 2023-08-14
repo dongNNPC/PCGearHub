@@ -17,6 +17,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice, String> {
 	@Query("SELECT new com.poly.asm.model.MonthlySalesStatistics(MONTH(i.orderDate), COUNT(*)) FROM Invoice i WHERE i.status = 'complete' AND YEAR(i.orderDate) = :year GROUP BY MONTH(i.orderDate)")
 	List<MonthlySalesStatistics> getMonthlySalesStatistics(@Param("year") int year);
 
+//Lấy ra số năm hiện tại
+	@Query("SELECT DISTINCT YEAR(i.orderDate) FROM Invoice i")
+	List<Integer> findAllDistinctYears();
+
 	List<Invoice> findByStatusContainingIgnoreCase(String keyword);
 
 	@Query("SELECT i FROM Invoice i JOIN i.detailedInvoices d " + "WHERE i.user.id = ?1 AND i.status = 'pending' "

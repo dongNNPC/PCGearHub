@@ -2,8 +2,27 @@
 'use strict';
 app.controller("line", function($scope, $http) {
 	$scope.items = []
+	var url = `${host}/invoices/sales/2023`;
+
+
+	$scope.getAllYear = () => {
+		var url = `${host}/invoices/year`;
+		return $http.get(url).then(resp => {
+			$scope.years = resp.data;
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+
+	$scope.yearChanged = function() {
+		if ($scope.selectedYear) {
+		    url = `${host}/invoices/sales/${$scope.selectedYear}`;
+		    $scope.runLineChart()
+		}
+	};
 	$scope.load = () => {
-		var url = `${host}/invoices/sales/2022`;
+		
 		return $http.get(url).then(resp => {
 			$scope.items = resp.data;
 			console.log("Success", resp);
@@ -32,11 +51,9 @@ app.controller("line", function($scope, $http) {
 		/*		Lấy dữ liệ các tháng*/
 		var countArray = $scope.items.map(item => item.count);
 		console.log(countArray);
-
 		'use strict';
-
 		var data = {
-			labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12444"],
+			labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
 			datasets: [{
 				label: '# of Votes',
 				data: countArray,
@@ -124,6 +141,7 @@ app.controller("line", function($scope, $http) {
 			$scope.line();
 		});
 	}
+	$scope.getAllYear();
 	$scope.runLineChart();
 });
 
@@ -133,7 +151,7 @@ app.controller("bar", function($scope, $http) {
 	$scope.items = []
 
 	$scope.load = () => {
-		var url = `${host}/invoices/sales/2023`;
+		var url = `${host}/invoices/sales/2020`;
 		return $http.get(url).then(resp => {
 			$scope.items = resp.data;
 			console.log("Success", resp);
@@ -159,7 +177,7 @@ app.controller("bar", function($scope, $http) {
 
 		$scope.items = newData;
 		console.log($scope.items);
-		/*Lấy dữ liệ các tháng*/
+		/*Lấy dữ liệu các tháng*/
 		var countArray = $scope.items.map(item => item.count);
 		console.log(countArray);
 		var data = {
@@ -247,7 +265,7 @@ app.controller("bar", function($scope, $http) {
 /*Area Chart (Area Chart)*/
 app.controller("area", function($scope, $http) {
 	$scope.items = []
-	
+
 	$scope.load = () => {
 		var url = `${host}/invoices/sales/2023`;
 		return $http.get(url).then(resp => {
@@ -338,53 +356,53 @@ app.controller("area", function($scope, $http) {
 });
 /*Doughnut chart Chart (Area Chart)*/
 app.controller("doughnutChart", function($scope, $http) {
-	
-  var doughnutPieData = {
-    datasets: [{
-      data: [30, 40, 30],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
-        'rgba(255, 206, 86, 0.5)',
-        'rgba(75, 192, 192, 0.5)',
-        'rgba(153, 102, 255, 0.5)',
-        'rgba(255, 159, 64, 0.5)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-    }],
 
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Pink',
-      'Blue',
-      'Yellow',
-    ]
-  };
-  var doughnutPieOptions = {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    }
-  };
- 
-  // Get context with jQuery - using jQuery's .get() method.
+	var doughnutPieData = {
+		datasets: [{
+			data: [30, 40, 30],
+			backgroundColor: [
+				'rgba(255, 99, 132, 0.5)',
+				'rgba(54, 162, 235, 0.5)',
+				'rgba(255, 206, 86, 0.5)',
+				'rgba(75, 192, 192, 0.5)',
+				'rgba(153, 102, 255, 0.5)',
+				'rgba(255, 159, 64, 0.5)'
+			],
+			borderColor: [
+				'rgba(255,99,132,1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)',
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 159, 64, 1)'
+			],
+		}],
 
-  if ($("#doughnutChart").length) {
-    var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: doughnutPieData,
-      options: doughnutPieOptions
-    });
-  }
+		// These labels appear in the legend and in the tooltips when hovering different arcs
+		labels: [
+			'Pink',
+			'Blue',
+			'Yellow',
+		]
+	};
+	var doughnutPieOptions = {
+		responsive: true,
+		animation: {
+			animateScale: true,
+			animateRotate: true
+		}
+	};
+
+	// Get context with jQuery - using jQuery's .get() method.
+
+	if ($("#doughnutChart").length) {
+		var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+		var doughnutChart = new Chart(doughnutChartCanvas, {
+			type: 'doughnut',
+			data: doughnutPieData,
+			options: doughnutPieOptions
+		});
+	}
 
 	$scope.runLineChart();
 });

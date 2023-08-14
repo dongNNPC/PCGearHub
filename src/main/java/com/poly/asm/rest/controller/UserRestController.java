@@ -32,9 +32,6 @@ public class UserRestController extends HttpServlet {
 	@GetMapping("/rest/users")
 	public ResponseEntity<List<Account>> getAll(Model model, Authentication authentication) {
 		List<Account> accounts = dao.findAll();
-		for (Account account : accounts) {
-			account.setId(authentication.getName());
-		}
 		return ResponseEntity.ok(accounts);
 	}
 
