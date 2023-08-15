@@ -48,6 +48,14 @@ public class InvoiceRestController extends HttpServlet {
 		return ResponseEntity.ok(sales);
 	}
 
+
+	//Thống kê
+	@GetMapping("/rest/invoices/bars/{year}")
+	public ResponseEntity<List<MonthlySalesStatistics>> getBars(@PathVariable("year") int year) {
+		List<MonthlySalesStatistics> bars = dao.getMonthlySalesStatisticsbras(year);
+		return ResponseEntity.ok(bars);
+	}
+
 //Láy ra số năm
 	@GetMapping("/rest/invoices/year")
 	public ResponseEntity<List<Integer>> getSales() {

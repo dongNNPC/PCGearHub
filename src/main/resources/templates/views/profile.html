@@ -43,7 +43,31 @@
 			font-size: inherit;
 			line-height: 1.5;
 		}
+
+		.custom-toast-container {
+			font-size: 20px;
+			/* Tùy chỉnh kích thước phông chữ */
+			height: 502px;
+			/* Tùy chỉnh chiều cao của toast */
+		}
+
+		.custom-toast-title {
+			font-size: 24px;
+			/* Tùy chỉnh kích thước phông chữ cho tiêu đề */
+		}
+
+		.custom-toast-icon {
+			font-size: 20px;
+			/* Tùy chỉnh kích thước phông chữ cho biểu tượng */
+		}
+
+		.custom-toast-title {
+			font-size: 24px;
+			/* Tùy chỉnh kích thước phông chữ cho tiêu đề, thay đổi giá trị theo mong muốn */
+
+		}
 	</style>
+
 	<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
 	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
 	<div class="container" ng-app="shopping-cart-app"
@@ -57,26 +81,33 @@
 
 				<div class="col-md-3">
 					<div class="card">
-					    <div class="card-body">
-					        <h4 class="card-title">Ảnh đại diện</h4>
-					        <hr style="background-color: white;">
-					        <div>
-						   <label for="" title="Double click to delete">
-						       <div class="circular-img">
-							  <img ng-src="{{ url(user.image) }}" ng-click="download(user.image)" ng-dblclick="delete(user.image)" alt="">
-						       </div>
-						   </label>
-						   <div class="form-group mt-3" style="max-width: 304px">
-						       <div class="input-group col-xs-12">
-							  <input type="file" accept="image/*" onchange="angular.element(this).scope().upload(this.files)">
-							  <span class="input-group-append"></span>
-						       </div>
-						   </div>
-					        </div>
-					    </div>
+						<div class="card-body">
+							<h4 class="card-title">Ảnh đại diện</h4>
+							<hr style="background-color: white;">
+							<div>
+								<label for="" title="Double click to delete">
+									<div class="circular-img">
+										<img ng-src="{{ url(user.image) }}"
+											ng-click="download(user.image)"
+											ng-dblclick="delete(user.image)"
+											alt="">
+									</div>
+								</label>
+								<div class="form-group mt-3"
+									style="max-width: 304px">
+									<div class="input-group col-xs-12">
+										<input type="file"
+											accept="image/*"
+											onchange="angular.element(this).scope().upload(this.files)">
+										<span
+											class="input-group-append"></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				     </div>
-				     
+				</div>
+
 
 				<style>
 					.circular-img {
@@ -125,6 +156,7 @@
 											ng-model="user.name"
 											id="exampleInputUsername2"
 											placeholder="Họ và tên">
+											<p ng-show="showErrorName"  style="color: red;"class="error-message">{{errorMessageName}}</p>
 									</div>
 								</div>
 								<div class="form-group row" ng-if="mathkau">
@@ -137,6 +169,7 @@
 											ng-model="user.password"
 											id="exampleInputUsername2"
 											placeholder="Mật khẩu">
+											
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -164,6 +197,7 @@
 											ng-model="user.phone"
 											id="exampleInputMobile"
 											placeholder="Số điện thoại">
+											<p ng-show="showErrorPhone" style="color: red;" class="error-message">{{errorMessagePhone}}</p>
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -176,6 +210,7 @@
 											ng-model="user.address"
 											id="exampleInputMobile"
 											placeholder="Địa chỉ">
+											<p ng-show="showErrorAddress" style="color: red;" class="error-message">{{errorMessageAddress}}</p>
 									</div>
 								</div>
 								<div class="row form-group"
@@ -278,21 +313,7 @@
 			</div>
 
 
-			<!-- Thông báo thành công -->
-			<div class="modal" id="successModal" tabindex="-1" role="dialog" data-backdrop="false">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content" style="background-color: #28a745">
-						<div class="modal-body">{{ successMessage }}</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- Hiển thị thông báo thành công -->
-			<div class="success-message-container" ng-show="showSuccessMessage">
-				<div class="alert alert-success" role="alert">
-					{{ successMessage }}
-				</div>
-			</div>
 
 
 			<!-- Rest of your HTML code remains unchanged -->

@@ -14,9 +14,9 @@
 				<h3 class="page-title">Bảng Danh mục</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Tables</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Basic
-							tables</li>
+						<li class="breadcrumb-item"><a href="#">Quản lý danh mục</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Bảng nhập liệu
+							</li>
 					</ol>
 				</nav>
 			</div>
@@ -26,10 +26,10 @@
 
 					<div class="card" >
 						<div class="card-body" ng-controller="ctrl">
-							<h4 class="card-title">Hoverable Table</h4>
+							<h4 class="card-title">Thông tin danh mục</h4>
 							<p class="card-description">
-								Add class
-								<code>.table-hover</code>
+								Tất cả 
+								<code>danh mục</code>
 							</p>
 							<div class="table-responsive">
 								<table class="table table-hover">
@@ -47,7 +47,7 @@
 												ng-click="sortBy('description')">
 												Mô tả</th>
 
-											<th style="">Edit
+											<th style="">Chi tiết
 											</th>
 
 										</tr>
@@ -64,8 +64,7 @@
 
 											<td
 												ng-click="edit(category.id)">
-												<a href="#">edit
-												</a>
+												<a class="btn btn-info" href="#">Chi tiết </a></td>
 											</td>
 										</tr>
 									</tbody>

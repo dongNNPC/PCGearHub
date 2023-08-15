@@ -1,383 +1,236 @@
 <!DOCTYPE html>
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
-  th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}"
->
-  <head>
-    <meta charset="UTF-8" />
-    <title>Insert title here</title>
-  </head>
-  <body>
-  	<!--modal thư xóa  -->
-	<link rel="stylesheet"
-		th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
-	<link rel="stylesheet" th:href="@{/admin/css/modal.css}">
- 
-    <link
-      th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css}"
-      rel="stylesheet"
-      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" th:href="@{/admin/css/style.css}" />
-    <link rel="stylesheet" th:href="@{/admin/css/form-product.css}" />
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{/admin/layouts/layout :: dynamic(~{::body})}">
 
-    <!-- Plugin css for this page -->
-    <link
-      rel="stylesheet"
-      th:href="@{/admin/vendors/select2/select2.min.css}"
-      type="text/css"
-      media="all"
-    />
-    <link
-      rel="stylesheet"
-      th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}"
-      type="text/css"
-      media="all"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <title>Insert title here</title>
+</head>
 
-    <div class="content-wrapper">
-      <div class="content-wrapper" ng-controller="loadForm">
-        <div class="page-header">
-          <h3 class="page-title">Chỉnh sửa sản phẩm</h3>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Forms</a></li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Form elements
-              </li>
-            </ol>
-          </nav>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Ảnh sản phẩm</h4>
-                <hr style="background-color: white" />
-                <div>
-                  <label for="" ng-repeat="filename in fileNames">
-                    <img ng-src="{{url(filename)}}" style="max-width: 200px" alt="" />
-                  </label>
-                  <div class="form-group mt-3" style="max-width: 304px">
-                    <div class="input-group col-xs-12">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        ng-model="product.image"
-                        onchange="angular.element(this).scope().upload(this.files)"
-                      />
-                      <span class="input-group-append"> </span>
-                    </div>
+<body>
+  <!--modal thư xóa  -->
+  <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+  <link rel="stylesheet" th:href="@{/admin/css/modal.css}">
+
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css}" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+  <link rel="stylesheet" th:href="@{/admin/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/admin/css/form-product.css}" />
+
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" th:href="@{/admin/vendors/select2/select2.min.css}" type="text/css" media="all" />
+  <link rel="stylesheet" th:href="@{/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css}" type="text/css"
+    media="all" />
+
+  <div class="content-wrapper">
+    <div class="content-wrapper" ng-controller="loadForm">
+      <div class="page-header">
+        <h3 class="page-title">Chỉnh sửa sản phẩm</h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Forms</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Form elements
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Ảnh sản phẩm</h4>
+              <hr style="background-color: white" />
+              <div>
+                <label for="" ng-repeat="filename in fileNames">
+                  <img ng-src="{{url(filename)}}" style="max-width: 200px" alt="" />
+                </label>
+                <div class="form-group mt-3" style="max-width: 304px">
+                  <div class="input-group col-xs-12">
+                    <input type="file" accept="image/*" multiple ng-model="product.image"
+                      onchange="angular.element(this).scope().upload(this.files)" />
+                    <span class="input-group-append"> </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="col-md-6 grid-margin stretch-card ms-5">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Nhập thông tin</h4>
+        <div class="col-md-6 grid-margin stretch-card ms-5">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Nhập thông tin</h4>
+              <hr style="background-color: white" />
+              <p class="card-description">Giao diện chỉnh sửa sản phẩm</p>
+              <form class="forms-sample">
+                <div class="form-group row">
+                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Mã sản phẩm</label>
+                  <div class="col-sm-9">
+                    <input ng-model="product.id" type="text" class="form-control" id="exampleInputUsername2"
+                      placeholder="Mã sản phẩm" />
+                    <p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Tên sản phẩm</label>
+                  <div class="col-sm-9">
+                    <input ng-model="product.name" type="text" class="form-control" id="exampleInputUsername2"
+                      placeholder="Tên sản phẩm" />
+                    <p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
+                  </div>  
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Giá</label>
+                  <div class="col-sm-9">
+                    <input ng-model="product.price" type="number" class="form-control" id="exampleInputUsername2"
+                      placeholder="Giá" />
+                    <p ng-show="showErrorPrice" class="error-message">{{errorMessagePrice}}</p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Số lượng</label>
+                  <div class="col-sm-9">
+                    <input ng-model="product.quantity" type="number" class="form-control" id="exampleInputEmail2"
+                      placeholder="Số lượng" />
+                    <p ng-show="showErrorQuantity" class="error-message">{{errorMessageQuantity}}</p>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Mô tả</label>
+                  <textarea style="max-width: 380px; font-size: 12px" ng-model="product.description"
+                    class="form-control" id="exampleTextarea1" cols="40" rows="4"></textarea>
+                </div>
+
+                <div class="row form-group">
+                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Hoạt động</label>
+                  <div class="form-check col-lg-4 ms-2">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="status" ng-model="product.status"
+                        ng-value="true" id="status_true" />
+                      Còn bán
+                    </label>
+                  </div>
+                  <div class="form-check col-lg-4">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="status" ng-model="product.status"
+                        ng-value="false" id="status_false" />
+                      Ngừng kinh doanh
+                    </label>
+                  </div>
+                </div>
+
+                <div class="row form-group">
+                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Danh mục</label>
+                  <select ng-model="product.category.id" class="form-select form-check col-4 ms-2" style="
+                        background-color: black;
+                        color: white;
+                        border: black;
+                      " aria-label="Default select example">
+                    <option ng-repeat="category in categories" ng-value="category.id">
+                      {{category.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="row form-group">
+                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Nhãn hàng</label>
+                  <select id="brand" class="form-select form-check col-4 ms-2" style="
+                        background-color: black;
+                        color: white;
+                        border: black;
+                      " aria-label="Default select example">
+                    <option ng-repeat="stockReceipt in stockReceipts2"
+                      ng-selected="product.id === stockReceipt.product.id" value="{{stockReceipt.brand}}">
+                      {{stockReceipt.brand.name}}
+                    </option>
+                  </select>
+                  <!--   <button ng-click="showBrandOptions()">Hiển thị mảng</button> -->
+                </div>
+
+                <div class="row form-group">
+                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Nhà Cung Cấp</label>
+                  <select id="supplier" class="form-select form-check col-4 ms-2" style="
+                        background-color: black;
+                        color: white;
+                        border: black;
+                      " aria-label="Default select example">
+                    <option ng-repeat="stockReceipt in stockReceipts2"
+                      ng-selected="product.id === stockReceipt.product.id" value="{{stockReceipt.supplier}}">
+                      {{stockReceipt.supplier.name}}
+                    </option>
+
+                  </select>
+                  <!--  <button ng-click="showSupplierOptions()">Hiển thị mảng</button> -->
+                </div>
+
+                <div class="form-group">
+                  <label>Tính đặt biệt của sản phẩm</label>
+                  <select class="js-example-basic-multiple" id="distinctive" multiple="multiple" style="width: 100%">
+                    <option ng-repeat="distinctive in productsDistinctives2"
+                      ng-selected="product.id == distinctive.product.id" value="{{distinctive.distinctive.id}}">
+                      {{distinctive.distinctive.name}}
+                    </option>
+                  </select>
+                  <!--  <button ng-click="showSelectedOptions()">Hiển thị mảng</button> -->
+                </div>
+
                 <hr style="background-color: white" />
-                <p class="card-description">Giao diện chỉnh sửa sản phẩm</p>
-                <form class="forms-sample">
-                  <div class="form-group row">
-                    <label
-                      for="exampleInputUsername2"
-                      class="col-sm-3 col-form-label"
-                      >Mã sản phẩm</label
-                    >
-                    <div class="col-sm-9">
-                      <input
-                        ng-model="product.id"
-                        type="text"
-                        class="form-control"
-                        id="exampleInputUsername2"
-                        placeholder="Mã sản phẩm"
-                      />
-                      <p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label
-                      for="exampleInputUsername2"
-                      class="col-sm-3 col-form-label"
-                      >Tên sản phẩm</label
-                    >
-                    <div class="col-sm-9">
-                      <input
-                        ng-model="product.name"
-                        type="text"
-                        class="form-control"
-                        id="exampleInputUsername2"
-                        placeholder="Tên sản phẩm"
-                      />
-                      <p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label
-                      for="exampleInputUsername2"
-                      class="col-sm-3 col-form-label"
-                      >Giá</label
-                    >
-                    <div class="col-sm-9">
-                      <input
-                        ng-model="product.price"
-                        type="number"
-                        class="form-control"
-                        id="exampleInputUsername2"
-                        placeholder="Giá"
-                      />
-                      <p ng-show="showErrorPrice" class="error-message">{{errorMessagePrice}}</p>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label
-                      for="exampleInputEmail2"
-                      class="col-sm-3 col-form-label"
-                      >Số lượng</label
-                    >
-                    <div class="col-sm-9">
-                      <input
-                        ng-model="product.quantity"
-                        type="number"
-                        class="form-control"
-                        id="exampleInputEmail2"
-                        placeholder="Số lượng"
-                      />
-                      <p ng-show="showErrorQuantity" class="error-message">{{errorMessageQuantity}}</p>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label
-                      for="exampleInputEmail2"
-                      class="col-sm-3 col-form-label"
-                      >Mô tả</label
-                    >
-                    <textarea
-                      style="max-width: 380px; font-size: 12px"
-                      ng-model="product.description"
-                      class="form-control"
-                      id="exampleTextarea1"
-                      cols="40"
-                      rows="4"
-                    ></textarea>
-                  </div>
+                <button ng-click="create()" type="submit" class="btn btn-primary mr-2">
+                  Thêm
+                </button>
+                <button ng-click="update()" type="submit" class="btn btn-success mr-2">
+                  Sửa
+                </button>
 
-                  <div class="row form-group">
-                    <label
-                      for="exampleInputMobile"
-                      class="col-sm-3 col-form-label"
-                      >Hoạt động</label
-                    >
-                    <div class="form-check col-lg-4 ms-2">
-                      <label class="form-check-label">
-                        <input
-                          type="radio"
-                          class="form-check-input"
-                          name="status"
-                          ng-model="product.status"
-                          ng-value="true"
-                          id="status_true"
-                        />
-                        Còn bán
-                      </label>
-                    </div>
-                    <div class="form-check col-lg-4">
-                      <label class="form-check-label">
-                        <input
-                          type="radio"
-                          class="form-check-input"
-                          name="status"
-                          ng-model="product.status"
-                          ng-value="false"
-                          id="status_false"
-                        />
-                        Ngừng kinh doanh
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="row form-group">
-                    <label
-                      for="exampleInputMobile"
-                      class="col-sm-3 col-form-label"
-                      >Danh mục</label
-                    >
-                    <select
-                      ng-model="product.category.id"
-                      class="form-select form-check col-4 ms-2"
-                      style="
-                        background-color: black;
-                        color: white;
-                        border: black;
-                      "
-                      aria-label="Default select example"
-                    >
-                      <option
-                        ng-repeat="category in categories"
-                        ng-value="category.id"
-                      >
-                        {{category.name}}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="row form-group">
-                    <label
-                      for="exampleInputMobile"
-                      class="col-sm-3 col-form-label"
-                      >Nhãn hàng</label
-                    >
-                    <select
-                    id="brand"
-                      class="form-select form-check col-4 ms-2"
-                      style="
-                        background-color: black;
-                        color: white;
-                        border: black;
-                      "
-                      aria-label="Default select example"
-                    >
-                      <option
-                        ng-repeat="stockReceipt in stockReceipts2"
-                        ng-selected="product.id === stockReceipt.product.id"
-                        value="{{stockReceipt.brand}}"
-                      >
-                        {{stockReceipt.brand.name}}
-                      </option>
-                    </select>
-                     <!--   <button ng-click="showBrandOptions()">Hiển thị mảng</button> -->
-                  </div>
-
-                  <div class="row form-group">
-                    <label
-                      for="exampleInputMobile"
-                      class="col-sm-3 col-form-label"
-                      >Nhà Cung Cấp</label
-                    >
-                    <select 
-                    id="supplier"
-                      class="form-select form-check col-4 ms-2"
-                      style="
-                        background-color: black;
-                        color: white;
-                        border: black;
-                      "
-                      aria-label="Default select example"
-                    >
-                      <option
-                        ng-repeat="stockReceipt in stockReceipts2"
-                        ng-selected="product.id === stockReceipt.product.id"
-                        value="{{stockReceipt.supplier}}"
-                      >
-                        {{stockReceipt.supplier.name}}
-                      </option>
-                      
-                    </select>
-                    <!--  <button ng-click="showSupplierOptions()">Hiển thị mảng</button> -->
-                  </div>
-
-                  <div class="form-group">
-                    <label>Tính đặt biệt của sản phẩm</label>
-                    <select
-                      class="js-example-basic-multiple"
-                      id="distinctive"
-                      multiple="multiple"
-                      style="width: 100%"
-                    >
-                      <option
-                        ng-repeat="distinctive in productsDistinctives2"
-                        ng-selected="product.id == distinctive.product.id"
-                        value="{{distinctive.distinctive.id}}"
-                      >
-                        {{distinctive.distinctive.name}}
-                      </option>
-                    </select>
-                    <!--  <button ng-click="showSelectedOptions()">Hiển thị mảng</button> -->
-                  </div>
-
-                  <hr style="background-color: white" />
-                  <button
-                    ng-click="create()"
-                    type="submit"
-                    class="btn btn-primary mr-2"
-                  >
-                    Thêm
-                  </button>
-                  <button
-                    ng-click="update()"
-                    type="submit"
-                    class="btn btn-success mr-2"
-                  >
-                    Sửa
-                  </button>
-
-        <!--    <a href="#myModal" data-toggle="modal"><button type="submit"
+                <!--    <a href="#myModal" data-toggle="modal"><button type="submit"
 										class="btn btn-danger mr-2">Xóa</button></a> -->
-                  <button ng-click="reset()" class="btn btn-dark">
-                    Làm mới
-                  </button>
-                </form>
-                <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
-           
-              
+                <button ng-click="reset()" class="btn btn-dark">
+                  Làm mới
+                </button>
+              </form>
+              <!-- Thêm template Modal thông báo Bootstrap vào phần body -->
+
+
+            </div>
+            <!-- Modal cảnh báo HTML -->
+            <div id="myModal" class="modal fade">
+              <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                  <div class="modal-header flex-column">
+                    <div class="icon-box">
+                      <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Bạn có chắc?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Bạn thật sự muốn xóa sản phẩm</p>
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button ng-click="delete(product.id)" type="submit" class="btn btn-danger mr-2"
+                      data-dismiss="modal">Xóa</button>
+                  </div>
+                </div>
               </div>
-              		<!-- Modal cảnh báo HTML -->
-			<div id="myModal" class="modal fade">
-				<div class="modal-dialog modal-confirm">
-					<div class="modal-content">
-						<div class="modal-header flex-column">
-							<div class="icon-box">
-								<i class="material-icons">&#xE5CD;</i>
-							</div>
-							<h4 class="modal-title w-100">Bạn có chắc?</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<p>Bạn thật sự muốn xóa sản phẩm</p>
-						</div>
-						<div class="modal-footer justify-content-center">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancel</button>
-							<button ng-click="delete(product.id)" type="submit"
-								class="btn btn-danger mr-2" data-dismiss="modal">Xóa</button>
-						</div>
-					</div>
-				</div>
-			</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script
-      th:inline="javascript"
-      th:src="@{/admin/vendors/select2/select2.min.js}"
-    ></script>
-    <script
-      th:inline="javascript"
-      th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"
-    ></script>
-    <script
-      th:inline="javascript"
-      th:src="@{/admin/vendors/js/file-upload.js}"
-    ></script>
-    <script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
-    <script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
+  <script th:inline="javascript" th:src="@{/admin/vendors/select2/select2.min.js}"></script>
+  <script th:inline="javascript" th:src="@{/admin/vendors/typeahead.js/typeahead.bundle.min.js}"></script>
+  <script th:inline="javascript" th:src="@{/admin/vendors/js/file-upload.js}"></script>
+  <script th:inline="javascript" th:src="@{/admin/js/typeahead.js}"></script>
+  <script th:inline="javascript" th:src="@{/admin/js/select2.js}"></script>
 
-    <script></script>
-    <!-- angular -->
+  <script></script>
+  <!-- angular -->
 
-		<script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
-    <script
-      th:inline="javascript"
-      th:src="@{/admin/angularjs/product.js}"
-    ></script>
-  </body>
+  <script th:inline="javascript" th:src="@{/admin/angularjs/main.js}"></script>
+  <script th:inline="javascript" th:src="@{/admin/angularjs/product.js}"></script>
+</body>
+
 </html>

@@ -40,24 +40,25 @@ public class UserService implements UserDetailsService {
 			Account user = userDao.findById(username).get();
 			String role = user.isAdmin() ? "ADMIN" : "USER";
 			a.userAccount(user);
-			return User.withUsername(username).password(pe.encode(user.getPassword())).roles(role).build();
+			return User.withUsername(username).password(pe.encode(user.getPassword())).roles(role)
+					.build();
 		} catch (Exception e) {
 			throw new UsernameNotFoundException("User not found");
 		}
 	}
 
-      public void loginFormOauth2(OAuth2AuthenticationToken oauth2) {
-        String name = oauth2.getPrincipal().getAttribute("name");
-        String email = oauth2.getPrincipal().getAttribute("email");
-        String password = Long.toHexString(System.currentTimeMillis());
+	public void loginFormOauth2(OAuth2AuthenticationToken oauth2) {
+		String name = oauth2.getPrincipal().getAttribute("name");
+		String email = oauth2.getPrincipal().getAttribute("email");
+		String password = Long.toHexString(System.currentTimeMillis());
 
-        UserDetails user = User.withUsername(email)
-                .password(pe.encode(password))
-                .roles("GUEST").build();
+		UserDetails user = User.withUsername(email)
+				.password(pe.encode(password))
+				.roles("GUEST").build();
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
-        SecurityContextHolder.getContext().setAuthentication(auth);
+		SecurityContextHolder.getContext().setAuthentication(auth);
 
-    }
+	}
 }

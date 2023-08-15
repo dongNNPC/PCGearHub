@@ -81,7 +81,15 @@ app.controller("loadForm", function($scope, $location, $http) {
 	$scope.selectedDistinctives = [];
 	/*reset*/
 	$scope.reset = function() {
-		// $scope.product = { confirm: true, status: true, admin: false };
+		$scope.product = {}; // Làm rỗng đối tượng product
+		$scope.showErrorID = false;
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
+		$scope.showErrorPrice = false;
+		$scope.errorMessagePrice = "";
+		$scope.showErrorQuantity = false;
+		$scope.errorMessageQuantity = "";
 	};
 	/*load all*/
 	$scope.load_all = function() {

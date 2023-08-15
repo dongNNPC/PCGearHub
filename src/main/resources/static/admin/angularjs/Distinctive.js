@@ -70,7 +70,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 
 	$scope.reset = function () {
-	
+		$scope.distinctive = {};
 		$scope.showErrorID = false;
 		$scope.errorMessageID = "";
 		$scope.showErrorName = false;
@@ -238,6 +238,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			/*Thông báo thành công*/
 			$scope.message(true, "Xóa thành công", "success")
 		}).catch(error => {
+			$scope.message(true, "Dặc trưng không thể xóa ", "error")
 			console.log("Error", error);
 		});
 	}

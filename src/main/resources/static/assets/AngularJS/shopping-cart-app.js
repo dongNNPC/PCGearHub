@@ -154,7 +154,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 				console.error('Error fetching data:', error);
 			});
 	};
-	
+
 	$scope.cities = [];
 	$scope.selectedCity = null;
 	$scope.selectedDistrict = null;
@@ -182,14 +182,14 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		constructAddress();
 	});
 
-	
+
 	$http.get('/pcgearhub/api/user')
 		.then(function (response) {
 			$scope.userLogged = response.data;
 			console.log("đã có bnef : " + $scope.userLogged.phone);
 			var currentDate = new Date();
 			var formattedDate = currentDate.getDate() + "" + (currentDate.getMonth() + 1) + "" + currentDate.getFullYear() + "" + currentDate.getHours() + "" + currentDate.getMinutes() + "" + currentDate.getSeconds();
-			
+
 			$scope.order = {
 				id: "HD" + formattedDate,
 				orderDate: new Date(),
@@ -209,8 +209,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 
 				},
 
-				
-			
+
+
 				confirm() {
 					var order = angular.copy(this);
 					if ($scope.selectedItems.length === 0) {
@@ -229,7 +229,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 						);
 						return;
 					}
-					if ( !$scope.selectedDistrict) {
+					if (!$scope.selectedDistrict) {
 						Swal.fire(
 							'Lỗi',
 							'Vui lòng QUẬN/HUYỆN trước khi xác nhận đặt hàng.',
@@ -715,9 +715,9 @@ app.controller("loadAll", function ($scope, $http, $location) {
 /*Trang profile*/
 
 app.controller("loadAlls", function ($scope, $http, $location) {
+	$scope.user = {};
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
-
 
 
 	// ẩn
@@ -735,8 +735,20 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 
 	$scope.reset = function () {
-		$scope.user = { confirm: true, status: true, admin: false };
-		$scope.loadData();
+		$scope.user = {};
+		
+		$scope.showErrorID = false;
+		$scope.errorMessageID = "";
+		$scope.showErrorName = false;
+		$scope.errorMessageName = "";
+		$scope.showErrorPassword = false;
+		$scope.errorMessagePassword = "";
+		$scope.showErrorEmail = false;
+		$scope.errorMessageEmail = "";
+		$scope.showErrorPhone = false;
+		$scope.errorMessagePhone = "";
+		$scope.showErrorAddress = false;
+		$scope.errorMessageAddress = "";
 	};
 	/*load all*/
 	$scope.loadData = function () {
@@ -744,10 +756,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
 			$scope.pageCount = Math.ceil($scope.items.length / 5);
-
 			console.log("Success", resp);
-
-			// Gọi các hàm sau khi dữ liệu đã được tải thành công
 			$scope.list();
 			$scope.edit(); // Gọi hàm edit
 		}).catch(error => {
@@ -759,12 +768,10 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.edit = function () {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
-
 		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
 		const id = parts[parts.length - 1];
 		var url = `${host}/users/${id}`;
 		$http.get(url).then(resp => {
-			// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
 			$scope.user = resp.data;
 			console.log("Success", resp);
 			console.log("Success", $scope.user.admin);
@@ -775,39 +782,136 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		});
 	}
 
+
 	$scope.validation = function () {
 		var item = angular.copy($scope.user);
-		$scope.errorMessageEmail = "";
+
+		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
+		var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+		var phoneRegex = /^\d{10}$/;
+
+		var indexPhone = $scope.items.findIndex(itemx => itemx.phone === item.phone);
+		if (!emailRegex.test(item.email)) {
+			$scope.errorMessageEmail = "Email không đúng định dạng.";
+			$scope.showErrorEmail = true;
+			check++;
+		} else {
+			$scope.showErrorEmail = false;
+			$scope.errorMessageEmail = "";
+		}
+
+		if (!alphanumericRegex.test(item.phone)) {
+			$scope.errorMessagePhone = "Số điện thoại phải đúng định dạng.";
+			$scope.showErrorPhone = true;
+			check++;
+		} else if (!phoneRegex.test(item.phone)) {
+			$scope.errorMessagePhone = "Số điện thoại phải đủ 10 kí tự.";
+			$scope.showErrorPhone = true;
+			check++;
+		} else {
+			$scope.showErrorPhone = false;
+			$scope.errorMessagePhone = "";
+		}
+
 		return true;
 	}
 
 
-	$scope.update = function () {
-		if (!$scope.validation()) {
-			// Validation failed, do not proceed with update
-			return;
+	$scope.catcherror = () => {
+		var item = angular.copy($scope.user);
+		var check = 0;
+		if (!item.id) {
+			$scope.errorMessageID = "Không được để trống id.";
+			$scope.showErrorID = true;
+			check++;
+
+		} else {
+			$scope.showErrorID = false;
+			$scope.errorMessageID = "";
+		}
+		if (!item.name) {
+			$scope.errorMessageName = "Không được để trống tên.";
+			$scope.showErrorName = true;
+			check++;
+
+		} else {
+			$scope.showErrorName = false;
+			$scope.errorMessageName = "";
+		}
+		if (!item.password) {
+			$scope.errorMessagePassword = "Không được để trống mật khẩu.";
+			$scope.showErrorPassword = true;
+			check++;
+		} else {
+			$scope.showErrorPassword = false;
+			$scope.errorMessagePassword = "";
+
+		}
+		if (!item.email) {
+			$scope.errorMessageEmail = "Không được để trống email.";
+			$scope.showErrorEmail = true;
+			check++;
+
+		} else {
+			$scope.showErrorEmail = false;
+			$scope.errorMessageEmail = "";
+		}
+		if (!item.phone) {
+			$scope.errorMessagePhone = "Không được để trống số điện thoại.";
+			$scope.showErrorPhone = true;
+			check++;
+
+		} else {
+			$scope.showErrorPhone = false;
+			$scope.errorMessagePhone = "";
 		}
 
+		if (!item.address) {
+			$scope.errorMessageAddress = "Không được để trống địa chỉ.";
+			$scope.showErrorAddress = true;
+			check++;
+		} else {
+			$scope.showErrorAddress = false;
+			$scope.errorMessageAddress = "";
+		}
+		if (check != 0) {
+			return false;
+		}
+		return true;
+	}
+
+	$scope.message = (animation, title, icon) => {
+		toastMixin.fire({
+			animation: animation,
+			title: title,
+			icon: icon,
+			customClass: {
+				container: 'custom-toast-container',
+				title: 'custom-toast-title',
+				icon: 'custom-toast-icon'
+			}
+		});
+	}
+
+
+
+	$scope.update = function () {
 		var item = angular.copy($scope.user);
 		var url = `${host}/users/${$scope.user.id}`;
+		
+		if ($scope.catcherror() == false) {
+			return
+		}
+		if ($scope.validation() == false) {
+			return
+		}
 		$http.put(url, item).then(resp => {
-			$scope.successMessage = "Cập nhật người dùng thành công.";
-			$scope.showSuccessMessage = true;
+
+		
 			localStorage.setItem('uploadedImage', $scope.user.image);
-			// Hiển thị Modal thông báo thành công
-			$("#successModal").modal('show');
 
-			// Tự động ẩn Modal sau 2 giây
-			$timeout(function () {
-				$("#successModal").modal('hide');
-				$scope.showSuccessMessage = false;
-			}, 2000);
-
-			// Ẩn thông báo lỗi nếu không có lỗi
-			$scope.hideError();
-
-			// Hide the radio buttons after a successful update
-			$scope.showRadioButtons = false;
+		
+			$scope.message(true, "Cập nhật thành công", "success")
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -945,36 +1049,36 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 	$scope.hideError = function (errorField) {
 		switch (errorField) {
-		    case 'id':
-		        $scope.showErrorID = false;
-		        $scope.errorMessageID = "";
-		        break;
-		    case 'name':
-		        $scope.showErrorName = false;
-		        $scope.errorMessageName = "";
-		        break;
-		    case 'password':
-		        $scope.showErrorPassword = false;
-		        $scope.errorMessagePassword = "";
-		        break;
-		    case 'confirmPassword':
-		        $scope.showErrorConfirmPassword = false;
-		        $scope.errorMessageConfirmPassword = "";
-		        break;
-		    case 'gmail':
-		        $scope.showErrorEmail = false;
-		        $scope.errorMessageEmail = "";
-		        break;
-		    case 'phone':
-		        $scope.showErrorPhone = false;
-		        $scope.errorMessagePhone = "";
-		        break;
-		    // Thêm các trường khác nếu cần
-		    default:
-		        break;
+			case 'id':
+				$scope.showErrorID = false;
+				$scope.errorMessageID = "";
+				break;
+			case 'name':
+				$scope.showErrorName = false;
+				$scope.errorMessageName = "";
+				break;
+			case 'password':
+				$scope.showErrorPassword = false;
+				$scope.errorMessagePassword = "";
+				break;
+			case 'confirmPassword':
+				$scope.showErrorConfirmPassword = false;
+				$scope.errorMessageConfirmPassword = "";
+				break;
+			case 'gmail':
+				$scope.showErrorEmail = false;
+				$scope.errorMessageEmail = "";
+				break;
+			case 'phone':
+				$scope.showErrorPhone = false;
+				$scope.errorMessagePhone = "";
+				break;
+			// Thêm các trường khác nếu cần
+			default:
+				break;
 		}
-	     };
-	     
+	};
+
 
 	$scope.validation = function () {
 		var item = angular.copy($scope.user);
@@ -1028,10 +1132,6 @@ app.controller("dangky", function ($scope, $http, $location) {
 		} else {
 			$scope.showErrorPhone = false;
 			$scope.errorMessagePhone = "";
-		}
-
-		if (check !== 0) {
-			return false;
 		}
 
 		return true;
@@ -1112,7 +1212,12 @@ app.controller("dangky", function ($scope, $http, $location) {
 		toastMixin.fire({
 			animation: animation,
 			title: title,
-			icon: icon
+			icon: icon,
+			customClass: {
+				container: 'custom-toast-container',
+				title: 'custom-toast-title',
+				icon: 'custom-toast-icon'
+			}
 		});
 	}
 
@@ -1128,9 +1233,9 @@ app.controller("dangky", function ($scope, $http, $location) {
 		if ($scope.catcherror() == false) {
 			return
 		}
-		// if ($scope.validation() == false) {
-		// 	return
-		// }
+		 if ($scope.validation() == false) {
+		 	return
+		 }
 
 		$http.post(url, item).then(resp => {
 			console.log("Success", resp);
@@ -1138,6 +1243,7 @@ app.controller("dangky", function ($scope, $http, $location) {
 			console.log("Error", error);
 			// Rest of your error handling code
 		});
+		
 	};
 
 
@@ -1383,12 +1489,12 @@ app.controller("orderList", function ($scope, $http) {
 		Swal.fire({
 			title: '',
 			showClass: {
-			  popup: 'animate__animated animate__fadeInDown'
+				popup: 'animate__animated animate__fadeInDown'
 			},
 			hideClass: {
-			  popup: 'animate__animated animate__fadeOutUp'
+				popup: 'animate__animated animate__fadeOutUp'
 			}
-		  })
+		})
 	};
 
 });
