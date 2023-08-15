@@ -34,6 +34,7 @@ public class UserRestController extends HttpServlet {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
+	
 	@GetMapping("/rest/users/{id}")
 	public ResponseEntity<Account> getOne(@PathVariable("id") String id) {
 		// check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false

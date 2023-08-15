@@ -28,12 +28,14 @@
 							<div class="row">
 								<h4 class="card-title col-md-8">Bảng chi tiết</h4>
 								<div class="col-md-3">
-										<input type="text" class="form-control text-white"  ng-model="searchText" ng-change="search(searchText)" placeholder="Tìm tên và sản phẩm">
-									
+									<input type="text" class="form-control text-white" ng-model="searchText"
+										ng-change="search(searchText)" placeholder="Tìm tên và sản phẩm">
+
 								</div>
 								<!--  -->
 								<div class="col-md-1">
-									<button class="btn btn-info form-control" data-toggle="modal" data-target="#myModal">
+									<button class="btn btn-info form-control" data-toggle="modal"
+										data-target="#myModal">
 										<i class="fa-solid fa-file-pdf"></i>
 									</button>
 								</div>
@@ -51,6 +53,8 @@
 												Giá</th>
 											<th ng-click="sortBy('email')">
 												Số lượng</th>
+											<th >
+												Tổng tiền</th>
 											<th ng-click="sortBy('địa chỉ')">
 												Ngày mua</th>
 											<th> Phương thức thanh toán</th>
@@ -65,10 +69,12 @@
 											<td>{{ rp.productName.length > 28 ? rp.productName.substring(0, 28) + '...'
 												: rp.productName }}
 											</td>
-
 											<td>{{ rp.productPrice }}
 											</td>
 											<td>{{ rp.quantity }}
+											</td>
+
+											<td>{{ rp.totalPrice }}
 											</td>
 											<td>{{formatDate(rp.orderDate) }}</td>
 
@@ -105,14 +111,18 @@
 										<!-- Modal content-->
 										<div class="modal-content bg-white">
 											<div class="modal-header">
-												<h4 class="text-center text-dark" style="margin-right: 100px;">CHỌN CÁCH XUẤT FILE</h4>							</div>
+												<h4 class="text-center text-dark" style="margin-right: 100px;">CHỌN CÁCH
+													XUẤT FILE</h4>
+											</div>
 											<div class="modal-body text-center ">
-												<button ng-click="generatePDF()" type="button" class="btn btn-success btn-lg "
-													data-dismiss="modal"><i class="fa-solid fa-file"></i> Xuất tất cả 	
+												<button ng-click="generatePDF()" type="button"
+													class="btn btn-success btn-lg " data-dismiss="modal"><i
+														class="fa-solid fa-file"></i> Xuất tất cả
 												</button>
-												
-												<button data-toggle="modal" data-target="#EnterYear" type="button" class="btn btn-info btn-lg"
-													data-dismiss="modal"><i class="fa-solid fa-calendar-days"></i> Chọn năm
+
+												<button data-toggle="modal" data-target="#EnterYear" type="button"
+													class="btn btn-info btn-lg" data-dismiss="modal"><i
+														class="fa-solid fa-calendar-days"></i> Chọn năm
 												</button>
 											</div>
 											<div class="modal-footer">
@@ -130,21 +140,27 @@
 										<!-- Modal content-->
 										<div class="modal-content bg-white">
 											<div class="modal-header">
-												<h4 class="text-center text-dark" style="margin-right: 100px;">Chọn Tháng và Năm</h4>							</div>
+												<h4 class="text-center text-dark" style="margin-right: 100px;">Chọn
+													Tháng và Năm</h4>
+											</div>
 											<div class="modal-body">
-												  <div class="form-group " style="background-color: white;">
+												<div class="form-group " style="background-color: white;">
 													<label for="sel1" class="text-dark">Chọn năm:</label>
-													<select class="form-control bg-white text-dark" style="border: 1px solid black;" id="sel1" ng-model="selectedYear">
+													<select class="form-control bg-white text-dark"
+														style="border: 1px solid black;" id="sel1"
+														ng-model="selectedYear">
 														<option value="">Chọn năm</option>
-														<option ng-repeat="rp in totalRevenueDetails | uniqueYear">{{ rp.orderDate | date:'yyyy' }}</option>
+														<option ng-repeat="rp in totalRevenueDetails | uniqueYear">{{
+															rp.orderDate | date:'yyyy' }}</option>
 													</select>
-												  </div>
+												</div>
 
 												<button type="button" class="btn btn-success float-right"
-												ng-click="exportDataByYear()" 	data-dismiss="modal"><i class="fa-solid fa-download"></i> Xuất 	
+													ng-click="exportDataByYear()" data-dismiss="modal"><i
+														class="fa-solid fa-download"></i> Xuất
 												</button>
-												
-												
+
+
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
