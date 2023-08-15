@@ -24,19 +24,19 @@ public interface InvoiceRepository extends JpaRepository<Invoice, String> {
 	List<Invoice> findByStatusContainingIgnoreCase(String keyword);
 
 	@Query("SELECT i FROM Invoice i JOIN i.detailedInvoices d " + "WHERE i.user.id = ?1 AND i.status = 'pending' "
-			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id " + "ORDER BY i.orderDate DESC")
+			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id, i.node " + "ORDER BY i.orderDate DESC")
 	List<Invoice> findByUsernameStatusPending(String username);
 
-	@Query("SELECT i FROM Invoice i WHERE i.user.id=?1 and status = 'delivery'"
-			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id " + "ORDER BY i.orderDate DESC")
+	@Query("SELECT i FROM Invoice i WHERE i.user.id = ?1 AND i.status = 'delivery' "
+			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id, i.node " + "ORDER BY i.orderDate DESC")
 	List<Invoice> findByUsernameStatusDelivery(String username);
 
-	@Query("SELECT i FROM Invoice i WHERE i.user.id=?1 and status = 'complete'"
-			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id " + "ORDER BY i.orderDate DESC")
+	@Query("SELECT i FROM Invoice i WHERE i.user.id = ?1 AND i.status = 'complete' "
+			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id, i.node " + "ORDER BY i.orderDate DESC")
 	List<Invoice> findByUsernameStatusComplete(String username);
 
-	@Query("SELECT i FROM Invoice i WHERE i.user.id=?1 and status = 'cancelled'"
-			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id " + "ORDER BY i.orderDate DESC")
+	@Query("SELECT i FROM Invoice i WHERE i.user.id = ?1 AND i.status = 'cancelled' "
+			+ "GROUP BY i.id, i.orderDate, i.address, i.status, i.user.id, i.node " + "ORDER BY i.orderDate DESC")
 	List<Invoice> findByUsernameStatusCancelled(String username);
 
 }

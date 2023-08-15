@@ -73,7 +73,11 @@
 				<div 
 					class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
 					aria-labelledby="messageDropdown"  style="max-height: 400px; overflow-y: auto; "  >
-					<h6 class="p-3 mb-0">Lịch sử tương tác</h6>
+					<div class="row">
+						<h6 class="p-3 mb-0">Lịch sử tương tác</h6>
+					<a class="mb-0 p-3" href="#myModalHis" data-toggle="modal">Xem thêm</a>
+					</div>
+				
 					<div ng-repeat="item in usersHostories| orderBy:'-historyDate'">
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item preview-item">
@@ -91,7 +95,9 @@
 					</div>
 
 					<div class="dropdown-divider"></div>
+					
 					<p class="p-3 mb-0 text-center">{{lengthMessageHis}} new messages</p>
+						 	
 				</div></li>
 			<li class="nav-item dropdown border-left"><a
 				class="nav-link count-indicator dropdown-toggle"
@@ -215,6 +221,7 @@
 			<span class="mdi mdi-format-line-spacing"></span>
 		</button>
 	</div>
+	
 
 	<script
 		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js}"></script>

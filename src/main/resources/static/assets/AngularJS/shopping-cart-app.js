@@ -1,8 +1,8 @@
 let host = "http://localhost:8088/pcgearhub/rest";
 
 const app = angular.module("shopping-cart-app", []);
-app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeout) {
-	$scope.url = function (filename) {
+app.controller("shopping-cart-ctrl", function($scope, $location, $http, $timeout) {
+	$scope.url = function(filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -116,26 +116,26 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	$scope.products = []; // Mảng chứa danh sách sản phẩm
 
 	// Tính tổng số trang dựa vào số lượng sản phẩm và số sản phẩm trên mỗi trang
-	$scope.calculateTotalPages = function () {
+	$scope.calculateTotalPages = function() {
 		$scope.totalPages = Math.ceil($scope.products.length / $scope.productsPerPage);
 	};
 
 	// Lấy danh sách sản phẩm hiển thị trên trang hiện tại
-	$scope.getCurrentPageProducts = function () {
+	$scope.getCurrentPageProducts = function() {
 		const startIndex = ($scope.currentPage - 1) * $scope.productsPerPage;
 		const endIndex = startIndex + $scope.productsPerPage;
 		return $scope.products.slice(startIndex, endIndex);
 	};
 
 	// Phương thức này được gọi khi người dùng chọn trang mới
-	$scope.changePage = function (page) {
+	$scope.changePage = function(page) {
 		if (page >= 1 && page <= $scope.totalPages) {
 			$scope.currentPage = page;
 		}
 	};
 
 	// Tạo một mảng các trang để hiển thị trong thanh phân trang
-	$scope.getPagesArray = function () {
+	$scope.getPagesArray = function() {
 		const pages = [];
 		for (let i = 1; i <= $scope.totalPages; i++) {
 			pages.push(i);
@@ -144,17 +144,17 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	};
 
 	// Hàm này được gọi khi dữ liệu được tải lên trang
-	$scope.loadData = function () {
+	$scope.loadData = function() {
 		$http.get('/pcgearhub/rest/products')
-			.then(function (response) {
+			.then(function(response) {
 				$scope.products = response.data;
 				$scope.calculateTotalPages(); // Tính tổng số trang sau khi nhận dữ liệu
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				console.error('Error fetching data:', error);
 			});
 	};
-	
+
 	$scope.cities = [];
 	$scope.selectedCity = null;
 	$scope.selectedDistrict = null;
@@ -167,7 +167,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		responseType: "application/json",
 	};
 
-	axios(Parameter).then(function (result) {
+	axios(Parameter).then(function(result) {
 		$scope.cities = result.data;
 	});
 
@@ -178,18 +178,18 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		}
 	}
 
-	$scope.$watchGroup(['selectedCity', 'selectedDistrict', 'selectedWard', 'specificAddress'], function () {
+	$scope.$watchGroup(['selectedCity', 'selectedDistrict', 'selectedWard', 'specificAddress'], function() {
 		constructAddress();
 	});
 
-	
+
 	$http.get('/pcgearhub/api/user')
-		.then(function (response) {
+		.then(function(response) {
 			$scope.userLogged = response.data;
 			console.log("đã có bnef : " + $scope.userLogged.phone);
 			var currentDate = new Date();
 			var formattedDate = currentDate.getDate() + "" + (currentDate.getMonth() + 1) + "" + currentDate.getFullYear() + "" + currentDate.getHours() + "" + currentDate.getMinutes() + "" + currentDate.getSeconds();
-			
+
 			$scope.order = {
 				id: "HD" + formattedDate,
 				orderDate: new Date(),
@@ -209,8 +209,8 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 
 				},
 
-				
-			
+
+
 				confirm() {
 					var order = angular.copy(this);
 					if ($scope.selectedItems.length === 0) {
@@ -229,7 +229,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 						);
 						return;
 					}
-					if ( !$scope.selectedDistrict) {
+					if (!$scope.selectedDistrict) {
 						Swal.fire(
 							'Lỗi',
 							'Vui lòng QUẬN/HUYỆN trước khi xác nhận đặt hàng.',
@@ -323,13 +323,13 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 				}
 			};
 		})
-		.catch(function (error) {
+		.catch(function(error) {
 			console.error('Error fetching user data:', error);
 		});
 
 	///xử lý lấy các sản phẩm được tích sang trang confirm-info
 	$scope.selectedItems = [];
-	$scope.getSelectedItems = function () {
+	$scope.getSelectedItems = function() {
 		$scope.selectedItems = [];
 		for (var i = 0; i < $scope.cart.items.length; i++) {
 			if ($scope.cart.items[i].checked) {
@@ -351,7 +351,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		$scope.selectedItems = JSON.parse(storedItems);
 	}
 
-	$scope.getTotalAmountConfirm = function () {//tổng tiền trong trang confirm-info.html
+	$scope.getTotalAmountConfirm = function() {//tổng tiền trong trang confirm-info.html
 		let totalAmount = 0;
 		for (let i = 0; i < $scope.selectedItems.length; i++) {
 			const item = $scope.selectedItems[i];
@@ -381,7 +381,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 			});
 	};
 
-	$scope.showConfirmation = function () {
+	$scope.showConfirmation = function() {
 		// Hiển thị hộp thoại xác nhận
 		Swal.fire({
 			title: 'Bạn có chắc ?',
@@ -412,16 +412,16 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 	//hiển thị top 10 sản phảm mới về
 	$scope.top10new = [];
 	$http.get('/pcgearhub/rest/products/top10new')
-		.then(function (response) {
+		.then(function(response) {
 			$scope.top10new = response.data.slice(0, 8);
-		}, function (error) {
+		}, function(error) {
 			console.error('Error fetching products:', error);
 		});
 
 
 
 	//ngăn chặn vào trang chi tiết khi hết sản phẩm
-	$scope.preventNavigation = function ($event) {
+	$scope.preventNavigation = function($event) {
 		if ($event) {
 			$event.preventDefault();
 			$event.stopPropagation();
@@ -436,7 +436,7 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 });
 
 // Trang commets
-app.controller("loadAll", function ($scope, $http, $location) {
+app.controller("loadAll", function($scope, $http, $location) {
 	let hostComment = "http://localhost:8088/pcgearhub/rest/comments";
 	$scope.pageCount;
 	$scope.user = {};
@@ -455,7 +455,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 		const id = parts[parts.length - 1];
 		return id;
 	}
-	$scope.load_all = function () {
+	$scope.load_all = function() {
 		var id = $scope.getIDProduct();
 		var url = `${hostComment}/product/${id}`;
 
@@ -464,11 +464,11 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.items = resp.data;
 			$scope.users = [];
 
-			angular.forEach($scope.items, function (item) {
+			angular.forEach($scope.items, function(item) {
 				$scope.users.push(item.user);
 				console.log($scope.users)
 			})
-			angular.forEach($scope.users, function (item) {
+			angular.forEach($scope.users, function(item) {
 				$scope.filenames.push(item.image)
 			})
 			/*Tổng số trang*/
@@ -479,7 +479,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			console.log("Error", error);
 		});
 	};
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		var url = "http://localhost:8088/pcgearhub/rest/files/images";
 		return `${url}/${filename}`
 
@@ -489,7 +489,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 	$scope.currentPage = 1;
-	$scope.sortBy = function (prop) {
+	$scope.sortBy = function(prop) {
 		$scope.prop = prop
 	}
 
@@ -497,18 +497,18 @@ app.controller("loadAll", function ($scope, $http, $location) {
 	$scope.begin = 0;
 	console.log($scope.pageCount)
 
-	$scope.first = function () {
+	$scope.first = function() {
 		$scope.begin = 0;
 		$scope.currentPage = 1; // Set currentPage to the first page
 	}
-	$scope.prev = function () {
+	$scope.prev = function() {
 		console.log($scope.begin)
 		if ($scope.begin > 0) {
 			$scope.begin -= 3;
 			$scope.currentPage--;
 		}
 	}
-	$scope.next = function () {
+	$scope.next = function() {
 		console.log($scope.begin)
 
 		console.log(($scope.pageCount - 1) * 3)
@@ -518,7 +518,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 			$scope.currentPage++;
 		}
 	}
-	$scope.last = function () {
+	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 3;
 		$scope.currentPage = $scope.pageCount;
 	}
@@ -598,7 +598,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 
 
-	$scope.create = function () {
+	$scope.create = function() {
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -714,7 +714,7 @@ app.controller("loadAll", function ($scope, $http, $location) {
 
 /*Trang profile*/
 
-app.controller("loadAlls", function ($scope, $http, $location) {
+app.controller("loadAlls", function($scope, $http, $location) {
 	$scope.showSuccessMessage = false;
 	$scope.successMessage = "";
 
@@ -729,17 +729,17 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 	// Khi bạn muốn ẩn phần tử Chức vụ, chỉ cần thay đổi giá trị của biến showRoleSection
 	// Ví dụ:
-	$scope.hideRoleSection = function () {
+	$scope.hideRoleSection = function() {
 		$scope.showRoleSection = false;
 	};
 
 
-	$scope.reset = function () {
+	$scope.reset = function() {
 		$scope.user = { confirm: true, status: true, admin: false };
 		$scope.loadData();
 	};
 	/*load all*/
-	$scope.loadData = function () {
+	$scope.loadData = function() {
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
@@ -756,7 +756,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	};
 
 	/*edit*/
-	$scope.edit = function () {
+	$scope.edit = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -775,14 +775,14 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		});
 	}
 
-	$scope.validation = function () {
+	$scope.validation = function() {
 		var item = angular.copy($scope.user);
 		$scope.errorMessageEmail = "";
 		return true;
 	}
 
 
-	$scope.update = function () {
+	$scope.update = function() {
 		if (!$scope.validation()) {
 			// Validation failed, do not proceed with update
 			return;
@@ -798,7 +798,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 			$("#successModal").modal('show');
 
 			// Tự động ẩn Modal sau 2 giây
-			$timeout(function () {
+			$timeout(function() {
 				$("#successModal").modal('hide');
 				$scope.showSuccessMessage = false;
 			}, 2000);
@@ -817,11 +817,11 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		return `${url}/${filename}`
 	}
 
-	$scope.list = function () {
+	$scope.list = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -848,7 +848,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	};
 
 
-	$scope.upload = function (files) {
+	$scope.upload = function(files) {
 		$scope.user.image = files[0].name;
 		var form = new FormData();
 		for (var i = 0; i < files.length; i++) {
@@ -869,8 +869,8 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 
 
-	app.controller('MainController', ['$scope', function ($scope) {
-		$scope.message = function (animation, title, icon) {
+	app.controller('MainController', ['$scope', function($scope) {
+		$scope.message = function(animation, title, icon) {
 			toastMixin.fire({
 				animation: animation,
 				title: title,
@@ -886,7 +886,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 // dang ky
 
 
-app.controller("dangky", function ($scope, $http, $location) {
+app.controller("dangky", function($scope, $http, $location) {
 	let host = "http://localhost:8088/pcgearhub/rest";
 
 
@@ -900,12 +900,12 @@ app.controller("dangky", function ($scope, $http, $location) {
 	};
 
 
-	$scope.reset = function () {
+	$scope.reset = function() {
 		$scope.user = { confirm: true, status: true, admin: false };
 		$scope.loadData();
 	};
 	/*load all*/
-	$scope.loadData = function () {
+	$scope.loadData = function() {
 		var url = `${host}/users`;
 		$http.get(url).then(resp => {
 			$scope.items = resp.data;
@@ -922,7 +922,7 @@ app.controller("dangky", function ($scope, $http, $location) {
 	};
 
 	/*edit*/
-	$scope.edit = function () {
+	$scope.edit = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -943,40 +943,40 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 
 
-	$scope.hideError = function (errorField) {
+	$scope.hideError = function(errorField) {
 		switch (errorField) {
-		    case 'id':
-		        $scope.showErrorID = false;
-		        $scope.errorMessageID = "";
-		        break;
-		    case 'name':
-		        $scope.showErrorName = false;
-		        $scope.errorMessageName = "";
-		        break;
-		    case 'password':
-		        $scope.showErrorPassword = false;
-		        $scope.errorMessagePassword = "";
-		        break;
-		    case 'confirmPassword':
-		        $scope.showErrorConfirmPassword = false;
-		        $scope.errorMessageConfirmPassword = "";
-		        break;
-		    case 'gmail':
-		        $scope.showErrorEmail = false;
-		        $scope.errorMessageEmail = "";
-		        break;
-		    case 'phone':
-		        $scope.showErrorPhone = false;
-		        $scope.errorMessagePhone = "";
-		        break;
-		    // Thêm các trường khác nếu cần
-		    default:
-		        break;
+			case 'id':
+				$scope.showErrorID = false;
+				$scope.errorMessageID = "";
+				break;
+			case 'name':
+				$scope.showErrorName = false;
+				$scope.errorMessageName = "";
+				break;
+			case 'password':
+				$scope.showErrorPassword = false;
+				$scope.errorMessagePassword = "";
+				break;
+			case 'confirmPassword':
+				$scope.showErrorConfirmPassword = false;
+				$scope.errorMessageConfirmPassword = "";
+				break;
+			case 'gmail':
+				$scope.showErrorEmail = false;
+				$scope.errorMessageEmail = "";
+				break;
+			case 'phone':
+				$scope.showErrorPhone = false;
+				$scope.errorMessagePhone = "";
+				break;
+			// Thêm các trường khác nếu cần
+			default:
+				break;
 		}
-	     };
-	     
+	};
 
-	$scope.validation = function () {
+
+	$scope.validation = function() {
 		var item = angular.copy($scope.user);
 
 		var alphanumericRegex = /^[a-zA-Z0-9]*$/;
@@ -1118,7 +1118,7 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 
 
-	$scope.create = function () {
+	$scope.create = function() {
 		if (!$scope.user.address) {
 			$scope.user.address = 'defaultAddress';
 		}
@@ -1144,11 +1144,11 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 	var url = "http://localhost:8088/pcgearhub/rest/files/images";
 
-	$scope.url = function (filename) {
+	$scope.url = function(filename) {
 		return `${url}/${filename}`
 	}
 
-	$scope.list = function () {
+	$scope.list = function() {
 		var currentURL = $location.absUrl();
 		console.log("Current URL:", currentURL);
 
@@ -1175,7 +1175,7 @@ app.controller("dangky", function ($scope, $http, $location) {
 	};
 
 
-	$scope.upload = function (files) {
+	$scope.upload = function(files) {
 		$scope.user.image = files[0].name;
 		var form = new FormData();
 		for (var i = 0; i < files.length; i++) {
@@ -1199,7 +1199,7 @@ app.controller("dangky", function ($scope, $http, $location) {
 
 
 });
-app.controller("orderList", function ($scope, $http) {
+app.controller("orderList", function($scope, $http) {
 	//hiển thị dữ liệu trạng thái pending trong order-list
 	$scope.ordersPending = [];
 	$scope.currentPage = 1;
@@ -1207,14 +1207,14 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.totalPages = 0;
 	$scope.displayedOrders = [];
 
-	$scope.updateDisplayedOrders = function () {
+	$scope.updateDisplayedOrders = function() {
 		const startIndex = ($scope.currentPage - 1) * $scope.pageSize;
 		const endIndex = startIndex + $scope.pageSize;
 		$scope.displayedOrders = $scope.ordersPending.slice(startIndex, endIndex);
 	};
 
 	$http.get('/pcgearhub/rest/order-list/pending')
-		.then(function (response) {
+		.then(function(response) {
 			$scope.ordersPending = response.data;
 			console.log($scope.ordersPending);
 			// Tính tổng số trang dựa trên số đơn hàng và kích thước trang
@@ -1223,11 +1223,11 @@ app.controller("orderList", function ($scope, $http) {
 			// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
 			$scope.updateDisplayedOrders();
 		})
-		.catch(function (error) {
+		.catch(function(error) {
 			console.error('Error fetching order list:', error);
 		});
 
-	$scope.goToPage = function (pageNumber) {
+	$scope.goToPage = function(pageNumber) {
 		if (pageNumber >= 1 && pageNumber <= $scope.totalPages) {
 			$scope.currentPage = pageNumber;
 			$scope.updateDisplayedOrders();
@@ -1239,9 +1239,9 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.deliveryPageSize = 5;
 	$scope.deliveryTotalPages = 1;
 
-	$scope.getDeliveryOrders = function () {
+	$scope.getDeliveryOrders = function() {
 		$http.get('/pcgearhub/rest/order-list/delivery')
-			.then(function (response) {
+			.then(function(response) {
 
 				$scope.ordersDelivery = response.data;
 				// Tính tổng số
@@ -1250,7 +1250,7 @@ app.controller("orderList", function ($scope, $http) {
 				// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
 				$scope.updateDisplayedDeliveryOrders();
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				// Xử lý lỗi khi gọi API
 				console.error('Error fetching delivery order list:', error);
 			});
@@ -1260,14 +1260,14 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.getDeliveryOrders();
 
 	// Hàm cập nhật danh sách đơn hàng hiển thị trên trang hiện tại
-	$scope.updateDisplayedDeliveryOrders = function () {
+	$scope.updateDisplayedDeliveryOrders = function() {
 		var startIndex = ($scope.currentDeliveryPage - 1) * $scope.deliveryPageSize;
 		var endIndex = startIndex + $scope.deliveryPageSize;
 		$scope.displayedDeliveryOrders = $scope.ordersDelivery.slice(startIndex, endIndex);
 	};
 
 	// Hàm chuyển đến trang được chọn
-	$scope.goToDeliveryPage = function (pageNumber) {
+	$scope.goToDeliveryPage = function(pageNumber) {
 		if (pageNumber >= 1 && pageNumber <= $scope.deliveryTotalPages) {
 			$scope.currentDeliveryPage = pageNumber;
 			$scope.updateDisplayedDeliveryOrders();
@@ -1280,9 +1280,9 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.completeTotalPages = 1;       // Tổng số trang, khởi tạo ban đầu
 
 	// Hàm gọi API để lấy danh sách đơn hàng đã hoàn tất
-	$scope.getCompleteOrders = function () {
+	$scope.getCompleteOrders = function() {
 		$http.get('/pcgearhub/rest/order-list/complete')
-			.then(function (response) {
+			.then(function(response) {
 				// Xử lý phản hồi từ API thành công
 				$scope.ordersComplete = response.data;
 				console.log($scope.ordersComplete);
@@ -1293,7 +1293,7 @@ app.controller("orderList", function ($scope, $http) {
 				// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
 				$scope.updateDisplayedCompleteOrders();
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				// Xử lý lỗi khi gọi API
 				console.error('Error fetching complete order list:', error);
 			});
@@ -1303,14 +1303,14 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.getCompleteOrders();
 
 	// Hàm cập nhật danh sách đơn hàng hiển thị trên trang hiện tại
-	$scope.updateDisplayedCompleteOrders = function () {
+	$scope.updateDisplayedCompleteOrders = function() {
 		var startIndex = ($scope.currentCompletePage - 1) * $scope.completePageSize;
 		var endIndex = startIndex + $scope.completePageSize;
 		$scope.displayedCompleteOrders = $scope.ordersComplete.slice(startIndex, endIndex);
 	};
 
 	// Hàm chuyển đến trang được chọn
-	$scope.goToCompletePage = function (pageNumber) {
+	$scope.goToCompletePage = function(pageNumber) {
 		if (pageNumber >= 1 && pageNumber <= $scope.completeTotalPages) {
 			$scope.currentCompletePage = pageNumber;
 			$scope.updateDisplayedCompleteOrders();
@@ -1325,9 +1325,9 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.cancelledTotalPages = 1;       // Tổng số trang, khởi tạo ban đầu
 
 	// Hàm gọi API để lấy danh sách đơn hàng đã hủy
-	$scope.getCancelledOrders = function () {
+	$scope.getCancelledOrders = function() {
 		$http.get('/pcgearhub/rest/order-list/cancelled')
-			.then(function (response) {
+			.then(function(response) {
 				// Xử lý phản hồi từ API thành công
 				$scope.ordersCancelled = response.data;
 				console.log($scope.ordersCancelled);
@@ -1338,7 +1338,7 @@ app.controller("orderList", function ($scope, $http) {
 				// Hiển thị các đơn hàng trên trang đầu tiên ban đầu
 				$scope.updateDisplayedCancelledOrders();
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				// Xử lý lỗi khi gọi API
 				console.error('Error fetching cancelled order list:', error);
 			});
@@ -1348,14 +1348,14 @@ app.controller("orderList", function ($scope, $http) {
 	$scope.getCancelledOrders();
 
 	// Hàm cập nhật danh sách đơn hàng hiển thị trên trang hiện tại
-	$scope.updateDisplayedCancelledOrders = function () {
+	$scope.updateDisplayedCancelledOrders = function() {
 		var startIndex = ($scope.currentCancelledPage - 1) * $scope.cancelledPageSize;
 		var endIndex = startIndex + $scope.cancelledPageSize;
 		$scope.displayedCancelledOrders = $scope.ordersCancelled.slice(startIndex, endIndex);
 	};
 
 	// Hàm chuyển đến trang được chọn
-	$scope.goToCancelledPage = function (pageNumber) {
+	$scope.goToCancelledPage = function(pageNumber) {
 		if (pageNumber >= 1 && pageNumber <= $scope.cancelledTotalPages) {
 			$scope.currentCancelledPage = pageNumber;
 			$scope.updateDisplayedCancelledOrders();
@@ -1363,32 +1363,97 @@ app.controller("orderList", function ($scope, $http) {
 	};
 
 
-	$scope.cancelOrder = function (id) {
+	$scope.cancelOrder = function(id) {
 		var url = `/pcgearhub/rest/ordered-list/details/` + id;
 		var data = { status: 'cancelled' };
 
 		$http.put(url, data)
-			.then(function (response) {
+			.then(function(response) {
 				// Handle success, e.g., show a success message
 				console.log('Order cancelled successfully.');
 			})
-			.catch(function (error) {
+			.catch(function(error) {
 				// Handle error, e.g., show an error message
 				console.error('Error cancelling order:', error);
 			});
 	};
 
-	$scope.showSwal = function () {
+	$scope.showSwal = function() {
 		// Show the SweetAlert dialog with custom animation
 		Swal.fire({
 			title: '',
 			showClass: {
-			  popup: 'animate__animated animate__fadeInDown'
+				popup: 'animate__animated animate__fadeInDown'
 			},
 			hideClass: {
-			  popup: 'animate__animated animate__fadeOutUp'
+				popup: 'animate__animated animate__fadeOutUp'
 			}
-		  })
+		})
 	};
+
+
+	$scope.cancelledOrder = (id) => {
+		console.log($scope.nodes + "000000")
+		var urlID = `http://localhost:8088/pcgearhub/rest/invoice/${id}`;
+		$http.get(urlID).then(resp => {
+			$scope.invoice = resp.data;
+			console.log("Success", resp);
+			console.log($scope.invoice)
+			var invoice = angular.copy($scope.invoice);
+			invoice.status = "cancelled"
+			invoice.node = "Chưa xác định"
+			$http.put(urlID, invoice).then(resp => {
+				var index = $scope.displayedOrders.findIndex(item => item.id == invoice.id)
+				if (index !== -1) {
+					$scope.displayedOrders.splice(index, 1); // Xóa phần tử tại index
+				}
+				console.log("Success", resp);
+				/*Cập nhật lại số lượng sản phẩm*/
+				$scope.updateQuantityProduct(invoice.id)
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+
+	$scope.updateQuantityProduct = (invoiceID) => {
+		var detailedInvoiceByInvoice = [];
+		var detailedInvoices = "http://localhost:8088/pcgearhub/rest/detailedInvoices";
+		var urlDetailedInvoices = `${detailedInvoices}`;
+
+		$http.get(urlDetailedInvoices).then(resp => {
+			$scope.detailedInvoices = resp.data;
+			angular.forEach($scope.detailedInvoices, function(detailedInvoice) {
+				if (detailedInvoice.invoice.id == invoiceID) {
+					detailedInvoiceByInvoice.push(detailedInvoice);
+				}
+			});
+
+			for (var i = 0; i < detailedInvoiceByInvoice.length; i++) {
+				var detailedInvoice = detailedInvoiceByInvoice[i];
+				var urlProduct = `http://localhost:8088/pcgearhub/rest/product/${detailedInvoice.product.id}`;
+
+				console.log(urlProduct);
+				console.log(detailedInvoice.product);
+
+				var updatedProduct = angular.copy(detailedInvoice.product);
+				updatedProduct.quantity += detailedInvoice.quantity;
+
+				$http.put(urlProduct, updatedProduct).then(resp => {
+					console.log("Success", resp);
+				}).catch(error => {
+					console.log("Error", error);
+				});
+			}
+
+			console.log(detailedInvoiceByInvoice);
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+
 
 });

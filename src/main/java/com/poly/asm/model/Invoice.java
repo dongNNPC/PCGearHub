@@ -28,8 +28,8 @@ public class Invoice {
 	@Id
 	private String id;
 
-//	@Temporal(TemporalType.DATE)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
 	private String address;
 	private String status;

@@ -83,6 +83,7 @@ app.controller("ctrl", function($scope, $http) {
 				}
 				console.log("Success", resp);
 				/*Thông báo thành công*/
+					$scope.history("Đã chuyển trạng thái của đơn hàng "+ id+" sang đã giao hàng")
 				$scope.message(true, "Chuyển trạng thái sang đã hoàn thành đơn hàng thành công", "success")
 			}).catch(error => {
 				console.log("Error", error);
@@ -91,5 +92,53 @@ app.controller("ctrl", function($scope, $http) {
 			console.log("Error", error);
 		});
 	}
+	
+	
+	
+		$scope.history = (title) => {
+		/*lấy ngày*/
+		var currentDate = new Date();
+		var year = currentDate.getFullYear();
+		var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Thêm số 0 vào trước tháng nếu cần
+		var day = currentDate.getDate().toString().padStart(2, '0'); // Thêm số 0 vào trước ngày nếu cần
+
+		var formattedDate = year + '-' + month + '-' + day;
+		console.log(formattedDate)
+		/*Lấy giờ*/
+		/*TIME*/
+		var currentDate = new Date();
+		var hours = currentDate.getHours();
+		var minutes = currentDate.getMinutes();
+		var seconds = currentDate.getSeconds();
+
+		var timeString = hours + ":" + minutes + ":" + seconds;
+		console.log(timeString);
+		var urlUser = `http://localhost:8088/pcgearhub/api/user`;
+		$http.get(urlUser).then(resp => {
+			$scope.info = resp.data;
+
+			var urlHistory = "http://localhost:8088/pcgearhub/rest/UserHistory"
+			console.log($scope.info.id)
+
+
+			var history = {
+				note: $scope.info.name+" "+ title,
+				historyDate: formattedDate,
+				historyTime: timeString,
+				user: $scope.info
+
+			};
+			console.log(history)
+			$http.post(urlHistory, history).then(resp => {
+				console.log("Success", resp);
+
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+	
 
 });
