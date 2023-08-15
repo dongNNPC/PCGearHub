@@ -9,14 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Report {
+public class ReportRevenue_Quantity {
     @Id
-	private String id ;
-	private int totalUser;
-	private long totalQuantity ;
-	private long totalInventory;
-	private double totalRevenue;
-	private long totalODer;
+    private double totalRevenue;
+	private long totalQuantity;
 	
-
 }

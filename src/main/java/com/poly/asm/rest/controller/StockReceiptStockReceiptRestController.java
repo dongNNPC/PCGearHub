@@ -69,9 +69,9 @@ public class StockReceiptStockReceiptRestController extends HttpServlet {
 	}
 
 
-	//tổng phiếu nhập kho
-	@GetMapping("/rest/stockReceipt/getTotalQuantityStock")
-	public List<Report> getTotalQuantityStock(){
-		return dao.getTotalQuantityStock();
-	}
+	// //tổng phiếu nhập kho
+	// @GetMapping("/rest/stockReceipt/getTotalQuantityStock")
+	// public List<Report> getTotalQuantityStock(){
+	// 	return dao.getTotalQuantityStock();
+	// }
 }

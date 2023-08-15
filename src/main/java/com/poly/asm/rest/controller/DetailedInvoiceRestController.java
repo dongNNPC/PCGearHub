@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.model.DetailedInvoice;
 import com.poly.asm.model.Report;
+import com.poly.asm.model.ReportRevenue_Quantity;
 import com.poly.asm.model.ReportTotalRevenueDetail;
 import com.poly.asm.respository.DetailedInvoiceRepository;
 
@@ -83,7 +84,7 @@ public class DetailedInvoiceRestController extends HttpServlet {
 
 
 	 @GetMapping("/rest/detailedInvoice/totalRevenue")
-    public List<Report> getTotalRevenueAll() {
+    public List<ReportRevenue_Quantity> getTotalRevenueAll() {
         return dao.getTotalRevenueAll();
     }
 
@@ -92,8 +93,8 @@ public class DetailedInvoiceRestController extends HttpServlet {
         return dao.getReportTotalRevenueDetails();
     }
 
-	 @GetMapping("/rest/detailedInvoice/totalRevenueDetails/search/{name}")
-    public List<ReportTotalRevenueDetail> getReportsBySearch(@PathVariable("name") String name) {
-        return dao.getReportTotalRevenueDetailsBySearch(name);
-    }
+	//  @GetMapping("/rest/detailedInvoice/totalRevenueDetails/search/{name}")
+    // public List<ReportTotalRevenueDetail> getReportsBySearch(@PathVariable("name") String name) {
+    //     return dao.getReportTotalRevenueDetailsBySearch(name);
+    // }
 }
