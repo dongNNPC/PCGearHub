@@ -1194,6 +1194,7 @@ app.controller("dangky", function($scope, $http, $location) {
 		}
 
 		var item = angular.copy($scope.user);
+		item.confirm=false;
 		var url = `${host}/users`;
 		if ($scope.catcherror() == false) {
 			return

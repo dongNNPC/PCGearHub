@@ -136,6 +136,12 @@
 	history_time nvarchar (20) not null,
 	user_id varchar(20) not null,
 	);
+	--Tạo bảng user histories
+	create table mail_codes(
+	id int Identity(1,1) not null,
+	code_node Nvarchar(200),
+		user_id varchar(20) not null,
+	);
 
 
 	--II. Tạo Khóa chính
@@ -195,7 +201,10 @@
 	-- Thêm khóa chính cho bảng DetailedInvoices
 	ALTER TABLE Detailed_invoices
 	ADD CONSTRAINT PK_detailed_invoices PRIMARY KEY (id);
-
+	go
+		-- Thêm khóa chính cho bảng code
+		ALTER TABLE mail_codes
+	ADD CONSTRAINT PK_mail_codes PRIMARY KEY (id);
 	--III. Tạo khóa ngoại 
 
 
@@ -242,7 +251,10 @@
 
 	-- thêm liên kết khóa ngoại cho bảng history
 	alter table  user_Histories add constraint FK_user_Histories_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id)
+	
+	-- thêm liên kết khóa ngoại cho bảng mail_codes
 
+	alter table  mail_codes add constraint FK_mail_codes_Accounts FOREIGN KEY (user_id) REFERENCES Accounts(id)
 		-- thêm liên kết khóa ngoại cho bảng products_distinctives
 	alter table  products_distinctives add constraint FK_products_distinctives_product FOREIGN KEY (product_id) REFERENCES products(id)
 	alter table  products_distinctives add constraint FK_products_distinctives_distinctives FOREIGN KEY (distinctive_id) REFERENCES distinctives(id)
