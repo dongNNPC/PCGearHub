@@ -46,7 +46,7 @@
 										<tr ng-repeat="item in items | orderBy:prop |limitTo:5:begin">
 										<td>{{ $index + 1 }}</td>
 											<td>{{item.id}}</td>
-											<td>{{item.orderDate}}</td>
+											<td>{{item.orderDate | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
 											<td class="text-info">
 											<span ng-if="item.status=='delivery'">Đang giao hàng</span> 
 											</td>

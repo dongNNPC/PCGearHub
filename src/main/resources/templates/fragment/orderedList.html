@@ -97,7 +97,7 @@
 									<td scope="row">{{ (currentPage - 1) * pageSize + $index +
 										1 }}</td>
 									<td>{{ order.id }}</td>
-									<td>{{ order.orderDate }}</td>
+									<td>{{ order.orderDate | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
 									<td>{{ order.statusName }}</td>
 									<td>{{ order.user.phone }}</td>
 									<td>{{ order.user.name }}</td>
