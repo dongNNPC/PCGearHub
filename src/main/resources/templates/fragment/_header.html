@@ -1,6 +1,7 @@
-<header id="header-site" class="header" style="position: -webkit-sticky;
+<header  id="header-site" class="header" style="position: -webkit-sticky;
 position: sticky;
 top: 0;">
+  <!-- <span class="d-none" th:attr="data-user-remoteuser=${#request.remoteUser != null ? #request.remoteUser : -1 }"></span> -->
   <div class="top-header up-main" style="background-color: rgb(0, 0, 0); color: #ffffff;">
     <div class="container">
       <div class="row">
@@ -77,8 +78,9 @@ top: 0;">
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
 
                         style="list-style: none; display: none;">
-                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile/__${#request.remoteUser}__}">  Trang cá
+                        <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/profile/{{user.id}}}">  Trang cá
                             nhân </a></li>
+                            <!-- /__${#request.remoteUser}__ -->
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/ordered-list}"> Xem
                             đơn hàng </a></li>
                         <li><a class="dropdown-item" style="color: #686868" th:href="@{/pcgearhub/change-password}"> Đổi

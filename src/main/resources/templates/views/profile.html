@@ -87,11 +87,24 @@
 							<div>
 								<label for="" title="Double click to delete">
 									<div class="circular-img">
-										<img ng-src="{{ url(user.image) }}"
+										<img ng-hide="user.image.includes('https://')"
+											ng-src="{{ url(user.image) }}"
 											ng-click="download(user.image)"
 											ng-dblclick="delete(user.image)"
 											alt="">
+
+										<img ng-if="user.image != null && user.image.includes('https://')  "
+											src="{{user.image }}"
+											ng-click="download(user.image)"
+											ng-dblclick="delete(user.image)"
+											alt="">
+
+
 									</div>
+
+
+
+
 								</label>
 								<div class="form-group mt-3"
 									style="max-width: 304px">
@@ -156,7 +169,11 @@
 											ng-model="user.name"
 											id="exampleInputUsername2"
 											placeholder="Họ và tên">
-											<p ng-show="showErrorName"  style="color: red;"class="error-message">{{errorMessageName}}</p>
+										<p ng-show="showErrorName"
+											style="color: red;"
+											class="error-message">
+											{{errorMessageName}}
+										</p>
 									</div>
 								</div>
 								<div class="form-group row" ng-if="mathkau">
@@ -169,7 +186,7 @@
 											ng-model="user.password"
 											id="exampleInputUsername2"
 											placeholder="Mật khẩu">
-											
+
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -197,7 +214,11 @@
 											ng-model="user.phone"
 											id="exampleInputMobile"
 											placeholder="Số điện thoại">
-											<p ng-show="showErrorPhone" style="color: red;" class="error-message">{{errorMessagePhone}}</p>
+										<p ng-show="showErrorPhone"
+											style="color: red;"
+											class="error-message">
+											{{errorMessagePhone}}
+										</p>
 									</div>
 								</div>
 								<div class="form-group row"> <label
@@ -210,7 +231,11 @@
 											ng-model="user.address"
 											id="exampleInputMobile"
 											placeholder="Địa chỉ">
-											<p ng-show="showErrorAddress" style="color: red;" class="error-message">{{errorMessageAddress}}</p>
+										<p ng-show="showErrorAddress"
+											style="color: red;"
+											class="error-message">
+											{{errorMessageAddress}}
+										</p>
 									</div>
 								</div>
 								<div class="row form-group"

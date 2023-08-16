@@ -11,7 +11,7 @@
 	  id VARCHAR(20) NOT NULL,
 	  name NVARCHAR(50) NOT NULL,
 	  Password VARCHAR(20) NOT NULL,
-	  Phone VARCHAR(10) Not null,
+	  Phone VARCHAR(10),
 	  email NVARCHAR(100) unique NOT NULL,
 	  address NVARCHAR(200),
 	  image NVARCHAR(200),

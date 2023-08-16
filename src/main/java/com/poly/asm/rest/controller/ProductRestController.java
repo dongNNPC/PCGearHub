@@ -29,26 +29,24 @@ import javax.servlet.http.HttpServlet;
 @RequestMapping("/pcgearhub")
 public class ProductRestController extends HttpServlet {
 	@Autowired
-	ProductRepository dao; 
-	//@Autowired ProductService productService;
+	ProductRepository dao;
+	// @Autowired ProductService productService;
 
 	@GetMapping("/rest/products")
 	public ResponseEntity<List<Product>> getAll(Model model) {
 		return ResponseEntity.ok(dao.findAll());
 	}
 
-
-
 	@GetMapping("/rest/product/{id}")
 	public ResponseEntity<Product> getOne(@PathVariable("id") String id) {
-//check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false	
+		// check xem id cs tồn tại trong cơ sở dữ liệu hay không trả về true or false
 		if (!dao.existsById(id)) {
 			return ResponseEntity.notFound().build();
 
 		}
 		return ResponseEntity.ok(dao.findById(id).get());
 	}
-//	Tìm danh mục theo category
+	// Tìm danh mục theo category
 
 	@GetMapping("/rest/product/{id}/category")
 	public ResponseEntity<Category> getCategoryByProductId(@PathVariable("id") String id) {
@@ -65,7 +63,7 @@ public class ProductRestController extends HttpServlet {
 	}
 
 	@PostMapping("/rest/product")
-//	đưa dữ liệu consumer lên rest API @requesstBody
+	// đưa dữ liệu consumer lên rest API @requesstBody
 	public ResponseEntity<Product> post(@RequestBody Product product) {
 		if (dao.existsById(product.getId())) {
 			return ResponseEntity.badRequest().build();
@@ -92,17 +90,23 @@ public class ProductRestController extends HttpServlet {
 		return ResponseEntity.ok().build();
 	}
 
-
-	//tìm kiêm sản phẩm trong trang index
+	// tìm kiêm sản phẩm trong trang index
 	@GetMapping("/rest/products/search/{name}")
-    public ResponseEntity<List<Product>> searchProductsByName(@PathVariable(name = "name") String name) {
-        List<Product> searchResults = dao.findProductsByNameAll(name);
-        return ResponseEntity.ok(searchResults);
-    }
+	public ResponseEntity<List<Product>> searchProductsByName(@PathVariable(name = "name") String name) {
+		List<Product> searchResults = dao.findProductsByNameAll(name);
+		return ResponseEntity.ok(searchResults);
+	}
 
 	@GetMapping("/rest/products/top10new")
-    public ResponseEntity<List<Top10NewProducts>> getTop10NewProducts() {
-        List<Top10NewProducts> top10NewProducts = dao.findProductsAndStockReceipts();
-        return ResponseEntity.ok(top10NewProducts);
-    }
+	public ResponseEntity<List<Top10NewProducts>> getTop10NewProducts() {
+		List<Top10NewProducts> top10NewProducts = dao.findProductsAndStockReceipts();
+		return ResponseEntity.ok(top10NewProducts);
+	}
+
+
+
+	@GetMapping("/rest/productByCategory/{id}")
+	public ResponseEntity<List<Product>> getProductByCategory(@PathVariable(name = "id") String id) {
+		return ResponseEntity.ok(dao.findProductsByCategory(id));
+	}
 }

@@ -8,4 +8,5 @@ import com.poly.asm.model.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, String> {
 	// Các phương thức truy vấn tùy chỉnh nếu cần
+	
 }

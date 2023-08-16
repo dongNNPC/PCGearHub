@@ -12,8 +12,14 @@ top: 0;margin-top: -30px;">
             <h3 class="title-category">DANH MỤC SẢN PHẨM<i class="fa fa-bars"></i></h3>
           </div>
           <div class="nav-category-home hello">
-            <ul>
+            <ul ng-repeat="c in category">
               <li>
+                <a  ng-click="loadNames(c.id)" style="width: calc(100% - 30px);"><img
+                  th:src="@{/assets/images/logo/img-495041.png}" alt="PC WORKSTATION">{{c.name}}</a>
+              </li>
+            </ul>
+
+              <!-- <li>
                 <a href="cpu-bo-vi-xu-ly.html" style="width: calc(100% - 30px);"><img
                     th:src="@{/assets/images/logo/img-495041.png}" alt="PC WORKSTATION">PC
                   WORKSTATION</a>
@@ -24,7 +30,7 @@ top: 0;margin-top: -30px;">
                   <div class="row">
                     <div class="vertical-groups">
                       <div class="mega-group">
-                        <!-- <h4 class="mega-group-header"><span>Thương hiệu</span></h4> -->
+                         <h4 class="mega-group-header"><span>Thương hiệu</span></h4>
                         <ul class="group-link-default">
                           <li><a href="pchl-intel-workstation.html">PC INTEL
                               WORKSTATION</a></li>
@@ -41,8 +47,8 @@ top: 0;margin-top: -30px;">
                     </div>
                   </div>
                 </div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="#" style="width: calc(100% - 30px);"><img th:src="@{/assets/images/logo/cpu.jpg}"
                     alt="CPU - BỘ VI XỬ LÝ">CPU - BỘ
                   VI
@@ -53,7 +59,7 @@ top: 0;margin-top: -30px;">
                   <div class="row">
                     <div class="vertical-groups">
                       <div class="mega-group">
-                        <!-- <h4 class="mega-group-header"><span>Thương hiệu</span></h4> -->
+                        <h4 class="mega-group-header"><span>Thương hiệu</span></h4>
                         <ul class="group-link-default">
                           <li> <a href="#">CPU Intel</a></li>
                           <li> <a href="#">CPU AMD</a></li>
@@ -62,23 +68,23 @@ top: 0;margin-top: -30px;">
                     </div>
                   </div>
                 </div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="#"><img th:src="@{/assets/images/logo/computer-game-computer-game-gaming-pc-playing-18.png}"
                     alt="PC GAMING">PC GAMING</a>
 
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="#"><img th:src="@{/assets/images/logo/mainboard.png}" alt="MAINBOARD - BO MẠCH CHỦ">MAINBOARD - BO
                   MẠCH CHỦ</a>
 
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="#"><img th:src="@{/assets/images/logo/vga.png}" alt="VGA - CARD MÀN HÌNH">VGA -
                   CARD MÀN HÌNH</a>
 
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="#" style="width: calc(100% - 30px);"><img th:src="@{/assets/images/logo/computer-chip2-2-512.png}"
                     alt="LINH KIỆN MÁY TÍNH">LINH
                   KIỆN MÁY TÍNH</a>
@@ -88,7 +94,7 @@ top: 0;margin-top: -30px;">
                   <div class="row">
                     <div class="vertical-groups">
                       <div class="mega-group">
-                        <!-- <h4 class="mega-group-header"><span>Thương hiệu</span></h4> -->
+                     <h4 class="mega-group-header"><span>Thương hiệu</span></h4> 
                         <ul class="group-link-default">
                           <li><a href="ram-bo-nho-trong.html">RAM - BỘ NHỚ
                               TRONG</a></li>
@@ -110,14 +116,14 @@ top: 0;margin-top: -30px;">
                     </div>
                   </div>
                 </div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="man-hinh-may-tinh.html"><img
                     th:src="@{/assets/images/logo/kisspng-imac-computer-icons-desktop-computers-monitors-5ad21ec6060fd8.1982121415237198780248.jpg}"
                     alt="MÀN HÌNH MÁY TÍNH">MÀN HÌNH MÁY TÍNH</a>
 
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="gaming-gear-cooling.html" style="width: calc(100% - 30px);"><img
                     th:src="@{/assets/images/logo/kisspng-computer-keyboard-computer-icons-vector-graphics-c-shortcut-key-svg-png-icon-free-download-14-333-5c684fd0b7feb9.0934393015503400487537.jpg}"
                     alt="TẢN NHIỆT - GAMING GEAR">TẢN NHIỆT - GAMING GEAR</a>
@@ -127,7 +133,7 @@ top: 0;margin-top: -30px;">
                   <div class="row">
                     <div class="vertical-groups">
                       <div class="mega-group">
-                        <!-- <h4 class="mega-group-header"><span>Thương hiệu</span></h4> -->
+                         <h4 class="mega-group-header"><span>Thương hiệu</span></h4> 
                         <ul class="group-link-default">
                           <li><a href="chuot-game.html">CHUỘT GAME</a></li>
                           <li><a href="ban-phim-game.html">BÀN PHÍM GAME</a></li>
@@ -139,8 +145,8 @@ top: 0;margin-top: -30px;">
                     </div>
                   </div>
                 </div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="thiet-bi-luu-tru.html" style="width: calc(100% - 30px);"><img
                     th:src="@{/assets/images/logo/paintball-bag-case-storage-equipment-128.png}"
                     alt="THIẾT BỊ LƯU TRỮ">THIẾT BỊ LƯU TRỮ</a>
@@ -150,7 +156,7 @@ top: 0;margin-top: -30px;">
                   <div class="row">
                     <div class="vertical-groups">
                       <div class="mega-group">
-                        <!-- <h4 class="mega-group-header"><span>Thương hiệu</span></h4> -->
+             
                         <ul class="group-link-default">
                           <li><a href="thiet-bi-luu-tru-usb.html">THIẾT BỊ LƯU TRỮ
                               USB</a></li>
@@ -161,8 +167,8 @@ top: 0;margin-top: -30px;">
                     </div>
                   </div>
                 </div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <a href="#" style="width: calc(100% - 30px);"><img th:src="@{/assets/images/logo/phat-wifi.png}"
                     alt="THIẾT BỊ MẠNG">THIẾT
                   BỊ
@@ -173,7 +179,7 @@ top: 0;margin-top: -30px;">
                   <div class="row">
                     <div class="vertical-groups">
                       <div class="mega-group">
-                        <!-- <h4 class="mega-group-header"><span>Thương hiệu</span></h4> -->
+            
                         <ul class="group-link-default">
                           <li><a href="switch.html">SWITCH</a></li>
                           <li><a href="thiet-bi-mang-khong-day.html">THIẾT BỊ MẠNG
@@ -183,9 +189,8 @@ top: 0;margin-top: -30px;">
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> -->
 
-            </ul>
           </div>
         </div>
 

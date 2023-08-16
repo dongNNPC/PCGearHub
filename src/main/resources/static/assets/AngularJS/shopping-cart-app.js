@@ -428,9 +428,44 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		}
 	};
 	// Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
+
+
 	$scope.loadData();
+
 	//
 	$scope.cart.loadFormLocalStorage();//khởi chạy
+
+
+
+	// let host = "http://localhost:8088/pcgearhub/rest";
+
+	$scope.load_all_category = function () {
+		var url = `${host}/categories`;
+		$http.get(url).then(resp => {
+			$scope.category = resp.data;
+			console.log("Successssssssssss", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	};
+
+	$scope.productByCategory =[]
+	$scope.loadNames = function (name) {
+		// $scope.productByCategory.push(name)
+		var url = `${host}/productByCategory/${name}`;
+		$http.get(url).then(resp => {
+			// $scope.alo = "ká";
+			$scope.productByCategory = resp.data.slice(0, 8);
+			console.log("danh muc", $scope.productByCategory);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+		console.log("danh muc", $scope.productByCategory);
+	}; 
+	// $scope.loadNames('C003')
+	$scope.load_all_category();
+
+
 
 
 });
@@ -736,7 +771,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 
 	$scope.reset = function () {
 		$scope.user = {};
-		
+
 		$scope.showErrorID = false;
 		$scope.errorMessageID = "";
 		$scope.showErrorName = false;
@@ -898,7 +933,7 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 	$scope.update = function () {
 		var item = angular.copy($scope.user);
 		var url = `${host}/users/${$scope.user.id}`;
-		
+
 		if ($scope.catcherror() == false) {
 			return
 		}
@@ -907,10 +942,10 @@ app.controller("loadAlls", function ($scope, $http, $location) {
 		}
 		$http.put(url, item).then(resp => {
 
-		
+
 			localStorage.setItem('uploadedImage', $scope.user.image);
 
-		
+
 			$scope.message(true, "Cập nhật thành công", "success")
 		}).catch(error => {
 			console.log("Error", error);
@@ -1233,9 +1268,9 @@ app.controller("dangky", function ($scope, $http, $location) {
 		if ($scope.catcherror() == false) {
 			return
 		}
-		 if ($scope.validation() == false) {
-		 	return
-		 }
+		if ($scope.validation() == false) {
+			return
+		}
 
 		$http.post(url, item).then(resp => {
 			console.log("Success", resp);
@@ -1243,7 +1278,7 @@ app.controller("dangky", function ($scope, $http, $location) {
 			console.log("Error", error);
 			// Rest of your error handling code
 		});
-		
+
 	};
 
 
@@ -1496,5 +1531,12 @@ app.controller("orderList", function ($scope, $http) {
 			}
 		})
 	};
+
+});
+
+
+// do danh muc 
+
+app.controller("loadFormdanhmuc", function ($scope, $location, $http) {
 
 });
