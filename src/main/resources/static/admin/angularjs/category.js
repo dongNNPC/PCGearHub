@@ -73,15 +73,14 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 
 	$scope.reset = function () {
-		// Clear error messages and indicators
+		$scope.category = {}; // Làm rỗng đối tượng category
 		$scope.showErrorID = false;
 		$scope.errorMessageID = "";
 		$scope.showErrorName = false;
 		$scope.errorMessageName = "";
 		$scope.showErrorDescription = false;
 		$scope.errorMessageDescription = "";
-
-	};
+	     };
 
 	/*load all*/
 	$scope.load_all = function () {
@@ -259,7 +258,9 @@ app.controller("loadForm", function ($scope, $location, $http) {
 			/*Thông báo thành công*/
 			$scope.message(true, "Xóa thành công", "success")
 		}).catch(error => {
+			$scope.message(true, "Danh mục này đang tồn tại sản phẩm", "errorx")
 			console.log("Error", error);
+			
 		});
 	}
 

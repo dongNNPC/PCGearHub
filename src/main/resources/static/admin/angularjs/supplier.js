@@ -66,7 +66,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 
 	/*reset*/
 	$scope.reset = function () {
-	
+		$scope.supplier = {};
 		$scope.showErrorID = false;
 		$scope.errorMessageID = "";
 		$scope.showErrorName = false;

@@ -67,6 +67,7 @@ app.controller("loadForm", function ($scope, $location, $http) {
 	$scope.reset = function () {
 
 		// Clear error messages and indicators
+		$scope.brand = {};
 		$scope.showErrorID = false;
 		$scope.errorMessageID = "";
 		$scope.showErrorName = false;

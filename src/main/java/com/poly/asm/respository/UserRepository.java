@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<Account, String> {
 	@Query("SELECT DISTINCT a FROM Account a " + "JOIN a.invoices i " + "WHERE LOWER(i.status) LIKE %:keyword%")
 	List<Account> findUsersWithKeywordInInvoiceStatus(String keyword);
 
+	Account findByEmail(String email);
+
 }

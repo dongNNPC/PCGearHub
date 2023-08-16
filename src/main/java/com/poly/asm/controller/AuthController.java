@@ -56,7 +56,7 @@ public class AuthController {
     @RequestMapping("/oauth2/login/success")
     public String success(OAuth2AuthenticationToken oauth2) {
         userService.loginFormOauth2(oauth2);
-        return "pcgearhub/index";
+        return "redirect:/pcgearhub/index";
 
     }
 }

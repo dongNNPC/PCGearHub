@@ -11,7 +11,7 @@
 	  id VARCHAR(20) NOT NULL,
 	  name NVARCHAR(50) NOT NULL,
 	  Password VARCHAR(20) NOT NULL,
-	  Phone VARCHAR(10) Not null,
+	  Phone VARCHAR(10),
 	  email NVARCHAR(100) unique NOT NULL,
 	  address NVARCHAR(200),
 	  image NVARCHAR(200),
@@ -71,7 +71,7 @@
 	-- Tạo bảng Invoices
 	CREATE TABLE Invoices (
 	  id VARCHAR(20) NOT NULL,
-	  order_date DATE NOT NULL,
+	  order_date DATETIME NOT NULL,
 	  address nvarchar(200),
 	  status NVARCHAR(50) NOT NULL,
 	  node nvarchar(200),
@@ -278,28 +278,52 @@
 	-- Thêm dữ liệu vào bảng Categories
 	INSERT INTO Categories (id, name, description)
 	VALUES 
-	  ('C001', N'Giày thể thao', N'Mô tả danh mục 1'),
-	  ('C002', N'Giày cao gót', N'Mô tả danh mục 2')
+	  ('C001', N'Balo', N'Mô tả danh mục 1'),
+	  ('C002', N'Bàn phím', N'Mô tả danh mục 2'),
+	   ('C003', N'Lót chuột', N'Mô tả danh mục 2'),
+	    ('C004', N'Chuột', N'Mô tả danh mục 2'),
+		 ('C005', N'Tay nghe', N'Mô tả danh mục 2'),
+		  ('C006', N'Sạc dự phòng', N'Mô tả danh mục 2'),
+		   ('C007', N'Dây nguồn', N'Mô tả danh mục 2'),
+		    ('C008', N'Tản nhiệt', N'Mô tả danh mục 2'),
+			 ('C009', N'Cổng sạc', N'Mô tả danh mục 2'),
+			  ('C010', N'Pin loptop', N'Mô tả danh mục 2'),
 
 		-- Thêm dữ liệu vào bảng distinctives
 	INSERT INTO distinctives(id, name)
 	VALUES 
-	  ('D001', N'Đặt trưng 1'),
-	  ('D002', N'Đặt trưng 2')
+	  ('D001', N'Có dây'),
+	  ('D002', N'Không giây')
 
+	  -- thêm dữ liệu cho bảng distinctives
+
+INSERT INTO distinctives (id, name)
+VALUES 
+  ('D1', 'Chống nước'),
+  ('D2', 'Chống bụi'),
+  ('D3', 'Chống xước');
 
 	-- Thêm dữ liệu vào bảng Brands
 	INSERT INTO Brands (id, name, phone_number,email,address)
 	VALUES
-	  ('B001', 'Nike', '0829232859','Nike@gmail.com','Địa chỉ nike'),
-	 ('B002', 'Guci', '0829232858','Gu@gmail.com','Địa chỉ gu')
-
+	  ('B001', 'Asus', '0829232859','Nike@gmail.com','Địa chỉ nike'),
+	 ('B002', 'Logitech', '0829232811','lo@gmail.com','Địa chỉ gu'),
+	   ('B003', 'HP', '0829232829','hp@gmail.com','Địa chỉ nike'),
+	 ('B004', 'Acer', '0829232848','acer@gmail.com','Địa chỉ gu'),
+	('B005', 'Linovo','0987567889','lino@gmail.com','Địa chỉ nike'),
+	 ('B006', 'Apple', '0829232812','ap@gmail.com','Địa chỉ gu')
 	 	-- Thêm dữ liệu vào bảng suppliers
 	INSERT INTO suppliers(id, name, phone_number,email,address)
 
 	VALUES
-	  ('S001', 'nhà cung cấp 1', '0829232822','ncc1@gmail.com','Địa chỉ ncc1'),
-	 ('S002', 'Nhà Cung cấp 2', '0829232833','ncc2@gmail.com','Địa chỉ ncc2')
+	  ('S001', 'Digi-Key Electronics', '0829232222','digi1@gmail.com','Địa chỉ ncc1'),
+	 ('S002', 'Mouser Electronics', '0829232333','mousser2@gmail.com','Địa chỉ ncc2'),
+	  ('S003', 'Newark', '0829234822','newwark@gmail.com','Địa chỉ ncc1'),
+	 ('S004', 'Arrow Electronics', '0829235833','arrow@gmail.com','Địa chỉ ncc2'),
+	  ('S005', 'Avnet', '0829232622','avnet1@gmail.com','Địa chỉ ncc1'),
+	 ('S006', 'RS Components', '0827232833','components2@gmail.com','Địa chỉ ncc2'),
+	  ('S007', 'SparkFun Electronics', '0129232822','sparkfun@gmail.com','Địa chỉ ncc1'),
+	 ('S008', 'Jameco Electronics', '0829932833','jamaco@gmail.com','Địa chỉ ncc2')
 
 	-- Thêm dữ liệu vào bảng Products
 	INSERT INTO Products (id, name, quantity, price, description, status,image1,image2, category_id)
@@ -555,13 +579,7 @@ VALUES
 ('I039', 'P019', 2, N'Thanh toán khi nhận hàng'),
 ('I040', 'P020', 3, N'Thanh toán khi nhận hàng')
 
--- thêm dữ liệu cho bảng distinctives
 
-INSERT INTO distinctives (id, name)
-VALUES 
-  ('D1', 'Tính chất 1'),
-  ('D2', 'Tính chất 2'),
-  ('D3', 'Tính chất 3');
 
   --Thêm dữ liệu cho bảng products_distinctives
 

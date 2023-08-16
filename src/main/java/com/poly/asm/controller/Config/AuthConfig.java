@@ -31,15 +31,17 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
-	// Phân quyền sử dụng và hình thức đăng nhập
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// CSRF,CORS - chia sẽ từ bên ngoài và truy cập
 		http.csrf().disable().cors().disable();
 
-		http.authorizeRequests(requests -> requests.antMatchers("/pcgearhub/admin/**").hasRole("ADMIN")
-				.antMatchers("/pcgearhub/profile/**", "/pcgearhub/confirm-information").hasAnyRole("ADMIN", "USER"));
+		http.authorizeRequests(requests -> requests.antMatchers("/pcgearhub/admin/**")
+				.hasRole("ADMIN")
+				.antMatchers("/pcgearhub/profile/**", "/pcgearhub/confirm-information")
+				// .antMatchers("/pcgearhub/index").permitAll();
+				.hasAnyRole("ADMIN", "USER"));
 
 		// nếu không đúng vai trò vào đường dẫn
 		http.exceptionHandling(handling -> handling.accessDeniedPage("/auth/access/denied"));
@@ -54,15 +56,13 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 		// dang xuat
 		http.logout(logout -> logout.logoutUrl("/auth/logoff/success").logoutSuccessUrl("/auth/logout"));
 
-
-                http.oauth2Login(login -> login
-                                .loginPage("/pcgearhub/account")
-                                .defaultSuccessUrl("/pcgearhub/index", true)
-                                .failureUrl("/auth/login/error")
-                                .authorizationEndpoint()
-                                .baseUri("/oauth2/authorization"));
+		http.oauth2Login(login -> login
+				.loginPage("/pcgearhub/account")
+				.defaultSuccessUrl("/oauth2/login/success", true)
+				.failureUrl("/auth/login/error")
+				.authorizationEndpoint()
+				.baseUri("/oauth2/authorization"));
 
 	}
-        
 
 }

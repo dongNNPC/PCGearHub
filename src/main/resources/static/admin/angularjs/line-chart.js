@@ -147,11 +147,28 @@ app.controller("line", function($scope, $http) {
 
 /*Bar Chart (Bar Chart)*/
 app.controller("bar", function($scope, $http) {
-
 	$scope.items = []
+	var url = `${host}/invoices/bars/2022`;
 
+
+	$scope.getAllYear = () => {
+		var url = `${host}/invoices/year`;
+		return $http.get(url).then(resp => {
+			$scope.years = resp.data;
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+	}
+
+	$scope.yearChanged = function() {
+		if ($scope.selectedYear) {
+		    url = `${host}/invoices/bars/${$scope.selectedYear}`;
+		    $scope.runLineChart()
+		}
+	};
 	$scope.load = () => {
-		var url = `${host}/invoices/sales/2020`;
+		
 		return $http.get(url).then(resp => {
 			$scope.items = resp.data;
 			console.log("Success", resp);
@@ -179,11 +196,11 @@ app.controller("bar", function($scope, $http) {
 		console.log($scope.items);
 		/*Lấy dữ liệu các tháng*/
 		var countArray = $scope.items.map(item => item.count);
-		console.log(countArray);
+		console.log(countArray); 
 		var data = {
-			labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+			labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
 			datasets: [{
-				label: '# of Votes',
+				label: 'Số lần hủy',
 				data: countArray,
 				backgroundColor: [
 					'rgba(255,99,132,1)',

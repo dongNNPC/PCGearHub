@@ -15,6 +15,30 @@
 
 </head>
 <body>
+    <style>
+        	.custom-toast-container {
+			font-size: 20px;
+			/* Tùy chỉnh kích thước phông chữ */
+			height: 502px;
+			/* Tùy chỉnh chiều cao của toast */
+		}
+
+		.custom-toast-title {
+			font-size: 24px;
+			/* Tùy chỉnh kích thước phông chữ cho tiêu đề */
+		}
+
+		.custom-toast-icon {
+			font-size: 20px;
+			/* Tùy chỉnh kích thước phông chữ cho biểu tượng */
+		}
+
+		.custom-toast-title {
+			font-size: 24px;
+			/* Tùy chỉnh kích thước phông chữ cho tiêu đề, thay đổi giá trị theo mong muốn */
+
+		}
+    </style>
     <main class="d-flex justify-content-center mt-2" style="height: 1000px; margin-top: 40px;" ng-controller="dangky">
 
         <form class="form">
@@ -30,12 +54,12 @@
                         </path>
                     </g>
                 </svg>
-                <input type="text" class="input" ng-model="user.id" id="exampleInputUserID" placeholder="ID"
+                <input type="text" class="input" ng-model="user.id" id="exampleInputUserID" placeholder="Tên tài khoản"
                     ng-change="hideError('id')">
 
 
             </div>
-            <p ng-show="showErrorID" class="error-message">{{errorMessageID}}</p>
+            <p ng-show="showErrorID" style="color: red;"class="error-message">{{errorMessageID}}</p>
             <div class="flex-column">
 
             </div>
@@ -51,7 +75,7 @@
                     placeholder="Họ và tên" ng-change="hideError('name')">
 
             </div>
-            <p ng-show="showErrorName" class="error-message">{{errorMessageName}}</p>
+            <p ng-show="showErrorName" style="color: red;"class="error-message">{{errorMessageName}}</p>
 
 
             <div class="flex-column">
@@ -70,7 +94,7 @@
                     placeholder="Mật khẩu" ng-change="hideError('password')">
                     
             </div>
-            <p ng-show="showErrorPassword" class="error-message">{{errorMessagePassword}}</p>
+            <p ng-show="showErrorPassword"style="color: red;" class="error-message">{{errorMessagePassword}}</p>
             <div class="inputForm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="-64 0 512 512" height="20">
                     <path
@@ -84,8 +108,8 @@
                     ng-change="hideError('confirmPassword')">
 
             </div>
-            <p ng-show="showErrorEmail" class="error-message">{{errorMessagePassword}}</p>
-            <div class="alert alert-danger" ng-show="user.password !== confirmPassword && confirmPassword">
+            <p ng-show="showErrorEmail" style="color: red;" class="error-message">{{errorMessagePassword}}</p>
+            <div class="alert alert-danger" style="color: red;" ng-show="user.password !== confirmPassword && confirmPassword">
                 Mật khẩu không trùng khớp.
             </div>
 
@@ -106,7 +130,7 @@
                     placeholder="Email" ng-change="hideError('gmail')">
 
             </div>
-            <p ng-show="showErrorEmail" class="error-message">{{errorMessageEmail}}</p>
+            <p ng-show="showErrorEmail" style="color: red;"class="error-message">{{errorMessageEmail}}</p>
             <!-- sssssssssssssssss -->
             <div class="flex-column">
 
@@ -123,7 +147,7 @@
                     placeholder="Số điện thoại" ng-change="hideError('phone')">
 
             </div>
-            <p ng-show="showErrorPhone" class="error-message">{{errorMessagePhone}}</p>
+            <p ng-show="showErrorPhone"style="color: red;" class="error-message">{{errorMessagePhone}}</p>
             <!-- sssssssssssssssss -->
             <div class="flex-column">
 
