@@ -43,7 +43,8 @@
 							<p>
 								Tình trạng: <i
 									style="color: #F1B501; font-family: Quicksand; font-weight: bold; font-size: 20px;"
-									th:text="*{status} ? 'Còn hàng' : 'Hết hàng'">Còn hàng</i> | còn : <span th:text="*{quantity}"></span> sản phẩm
+									th:text="*{status} ? 'Còn hàng' : 'Hết hàng'">Còn hàng</i> |
+								còn : <span th:text="*{quantity}"></span> sản phẩm
 							</p>
 
 
@@ -72,8 +73,8 @@
 								</span>
 
 							</div>
-							<a class="btn-login"
-								style="margin-top: 20px; width: 400px;">Thêm vào giỏ </a>
+							<a class="btn-login" style="margin-top: 20px; width: 400px;">Thêm
+								vào giỏ </a>
 
 							<div class="mt-5">
 								<div class="fw-bold" style="margin-top: 20px;">
@@ -131,23 +132,22 @@
 			<div class="row">
 				<div class="col-sm-8">
 					<form>
-							<h3 class="pull-left">New Comment</h3>
-							<button ng-click="create()" type="submit"
-								class="btn btn-primary pull-right">Gửi</button>
-							<fieldset>
-								<div class="row">
-									<div class="col-sm-3 col-lg-2 hidden-xs">
-										<img class="img-responsive"
-											src="https://bootdey.com/img/Content/avatar/avatar1.png"
-											alt="">
-									</div>
-									<div class="form-group col-xs-12 col-sm-9 col-lg-10">
-										<textarea class="form-control" id="message"
-											ng-model="comment.content" placeholder="Your message"
-											required=""></textarea>
-									</div>
+						<h3 class="pull-left">New Comment</h3>
+						<button ng-click="create()" type="submit"
+							class="btn btn-primary pull-right">Gửi</button>
+						<fieldset>
+							<div class="row">
+								<div class="col-sm-3 col-lg-2 hidden-xs">
+									<img ng-src="{{url(user.image)}}" style="max-width: 100px"
+										alt="" />
 								</div>
-							</fieldset>
+								<div class="form-group col-xs-12 col-sm-9 col-lg-10">
+									<textarea class="form-control" id="message"
+										ng-model="comment.content" placeholder="Your message"
+										required=""></textarea>
+								</div>
+							</div>
+						</fieldset>
 					</form>
 					<!-- 	<button class="first">Bottom Toast</button>
 					<button class="second">Animated Toast</button>
@@ -157,7 +157,8 @@
 
 					<!-- COMMENT 1 - START -->
 					<div>
-						<div class="media" ng-repeat="item in items | orderBy:'-orderDate' |limitTo:3:begin">
+						<div class="media"
+							ng-repeat="item in items | orderBy:'-orderDate' |limitTo:3:begin">
 							<a class="pull-left" href="#"><img
 								ng-src="{{url(item.user.image)}}" style="max-width: 50px" alt="" /></a>
 							<div class="media-body">
@@ -169,8 +170,13 @@
 									<li><i class="fa fa-thumbs-up"></i>{{item.likeCount}}</li>
 								</ul>
 								<ul class="list-unstyled list-inline media-detail pull-right">
-									<li class=""><a href="" ng-click="setLike(item.id)">Like</a></li>
-									<li class=""><a href="">Reply</a></li>
+									<li ng-if="status" class=""><a href=""
+										ng-click="statusSetlike(item.id)"><i
+											class="fas fa-thumbs-up"></i></a></li>
+									<li ng-if="!status" class=""><a href=""
+										ng-click="statusSetlike(item.id)"><i
+											class="fas fa-thumbs-down"></i></a></li>
+								<!-- 	<li class=""><a href="">Reply</a></li> -->
 								</ul>
 							</div>
 						</div>

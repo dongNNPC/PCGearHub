@@ -47,10 +47,10 @@ app.controller("ctrl", function($scope, $http, $window,) {
 	$scope.last = function() {
 		$scope.begin = ($scope.pageCount - 1) * 5;
 		$scope.currentPage = $scope.pageCount;
-		
+
 	}
-	
-		// Phần Đặt trưng
+
+	// Phần Đặt trưng
 
 
 	//Thực hiện tải toàn bộ products
@@ -80,8 +80,49 @@ app.controller("loadForm", function($scope, $location, $http) {
 	// Khởi tạo biến $scope.selectedDistinctives là một mảng để lưu trữ các option đã chọn
 	$scope.selectedDistinctives = [];
 	/*reset*/
+	$scope.checkUrlForm=()=>{
+		var currentURL = $location.absUrl();
+		console.log("Current URL:", currentURL);
+		var parts = currentURL.split('/'); // Tách đường dẫn thành mảng các phần tử
+		const id = parts[parts.length - 1];
+		if(id=="PNull"){
+				var url = `${host}/product/P006`;
+		$http.get(url).then(resp => {
+			
+			$scope.product = resp.data;
+			$scope.product.name=""
+			$scope.product.id=""
+			$scope.product.price=""
+			$scope.product.quantity=""
+			$scope.product.description=""
+			$scope.listCategory();
+			$scope.listStockReceipt()
+			$scope.listProductDistinctive();
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
+		}
+	}
+	$scope.checkUrlForm()
+	
 	$scope.reset = function() {
-		// $scope.product = { confirm: true, status: true, admin: false };
+		var url = `${host}/product/P006`;
+		$http.get(url).then(resp => {
+			
+			$scope.product = resp.data;
+			$scope.product.name=""
+			$scope.product.id=""
+			$scope.product.price=""
+			$scope.product.quantity=""
+			$scope.product.description=""
+			$scope.listCategory();
+			$scope.listStockReceipt()
+			$scope.listProductDistinctive();
+			console.log("Success", resp);
+		}).catch(error => {
+			console.log("Error", error);
+		});
 	};
 	/*load all*/
 	$scope.load_all = function() {
@@ -247,7 +288,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 		if (!item.id) {
 			$scope.errorMessageID = "Không được để trống id.";
 			$scope.showErrorID = true;
-			check ++;
+			check++;
 
 		} else {
 			$scope.showErrorID = false;
@@ -280,7 +321,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			$scope.showErrorQuantity = false;
 			$scope.errorMessageQuantity = "";
 		}
-				if (check != 0) {
+		if (check != 0) {
 			return false
 		}
 
@@ -376,11 +417,11 @@ app.controller("loadForm", function($scope, $location, $http) {
 		var url = `${host}/product`;
 		item.image1 = $scope.fileNames[0]
 		item.image2 = $scope.fileNames[1]
-		if(item.image1==null){
-			item.image1="product-default1.jpg"
+		if (item.image1 == null) {
+			item.image1 = "product-default1.jpg"
 		}
-		if(item.image2==null){
-			item.image2="product-default2.jpg"
+		if (item.image2 == null) {
+			item.image2 = "product-default2.jpg"
 		}
 		if ($scope.catcherror() == false) {
 			return
@@ -473,7 +514,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 			}).catch(error => {
 				console.log("Error", error);
 			});
-				$scope.history("Đã thêm sản sản phẩm" + item.id)
+			$scope.history("Đã thêm sản sản phẩm" + item.id)
 		}).catch(error => {
 			console.log("Error", error);
 		});
@@ -545,7 +586,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 					console.log("Error", error);
 				});
 			});
-	$scope.history("Đã cập nhật lại sản phẩm" + item.id)
+			$scope.history("Đã cập nhật lại sản phẩm" + item.id)
 
 		}).catch(error => {
 			console.log("Error", error);
@@ -601,7 +642,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 
 
 	}
-	
+
 	$scope.history = (title) => {
 		/*lấy ngày*/
 		var currentDate = new Date();
@@ -629,7 +670,7 @@ app.controller("loadForm", function($scope, $location, $http) {
 
 
 			var history = {
-				note: $scope.info.name+" "+ title,
+				note: $scope.info.name + " " + title,
 				historyDate: formattedDate,
 				historyTime: timeString,
 				user: $scope.info
@@ -647,6 +688,6 @@ app.controller("loadForm", function($scope, $location, $http) {
 		});
 	}
 	$scope.load_all();
-	
+
 
 });

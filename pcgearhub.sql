@@ -314,11 +314,7 @@
 	  ('P020', N'Leopold FC660C Silent Blue Grey', 50, 260000, N'Tính nhất quán là chìa khóa để xây dựng sức mạnh và sức bền. Những đôi giày chạy bộ Reebok dành cho nam này giúp bạn đạt được tiến bộ ổn định với lớp đệm Floatride Energy Foam mang lại cảm giác nhẹ nhàng và một chuyến đi êm ái, nhạy bén. Lưới phía trên thoải mái và thoáng khí.',1,'LeopoldFC660C.png','LeopoldFC660C2.png', 'C001')
  
  
-	  		-- Thêm dữ liệu vào bảng products_distinctives
-	INSERT INTO products_distinctives(product_id,distinctive_id)
-	VALUES 
-	  ( N'P001','D001'),
-	  (N'P002','D001')
+
 
 	-- Thêm dữ liệu vào bảng Invoices
 	INSERT INTO Invoices (id, order_date, address, status, user_id)
@@ -562,7 +558,19 @@ VALUES
   ('P001', 'D1'),
   ('P001', 'D2'),
   ('P002', 'D2'),
-  ('P003', 'D3');
+  ('P003', 'D3'),
+    ('P006', 'D1'),
+  ('P006', 'D2'),
+  ('P006', 'D3');
+
+  	 -- Thêm dữ liệu vào bảng products_distinctives
+	INSERT INTO products_distinctives(product_id,distinctive_id)
+	VALUES 
+	  ( N'P001','D001'),
+	  ( N'P001','D002'),
+	  (N'P002','D001'),
+	  	( N'P006','D001'),
+	   ( N'P006','D002')
 
   --Thêm dữ liệu cho bảng comments
   

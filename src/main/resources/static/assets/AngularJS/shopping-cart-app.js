@@ -639,6 +639,76 @@ app.controller("loadAll", function($scope, $http, $location) {
 
 	}
 	$scope.itemUlike = {};
+
+	$scope.status=true
+	$scope.statusSetlike = (id) => {
+		console.log()
+		if ($scope.status == true) {
+			var urls = `${host}/comment/${id}`;
+			console.log(urls)
+			$http.get(urls).then(resp => {
+				// nếu có kết quả trả về thì nó sẽ nằm trong resp và đưa vào $scope.form
+				$scope.cm = resp.data;
+				const dateTimeString = $scope.cm.orderDate
+				const dateTime = new Date(dateTimeString);
+				const dateString = dateTime.toISOString().split("T")[0];;
+				$scope.cm;
+				$scope.cm.orderDate = dateString;
+				$scope.cm.likeCount = $scope.cm.likeCount + 1;
+
+				var url = `${host}/comment/${id}`;
+
+				$http.put(url, $scope.cm).then(resp => {
+					var index = $scope.items.findIndex(item => item.id == id)
+
+					/*Tìm được vị trí thì cập nhật lại sinh viên*/
+					$scope.items[index] = resp.data;
+
+
+					$scope.message(true, "Bạn đã thích bình luận của", "success")
+					console.log("Success", resp);
+
+					$scope.load_all();
+					$scope.status = false
+				}).catch(error => {
+					console.log("Error", error);
+				});
+
+				console.log($scope.likeCount)
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}
+		if ($scope.status == false) {
+			var urls = `${host}/comment/${id}`;
+			console.log(urls)
+			$http.get(urls).then(resp => {
+				$scope.cm = resp.data;
+				const dateTimeString = $scope.cm.orderDate
+				const dateTime = new Date(dateTimeString);
+				const dateString = dateTime.toISOString().split("T")[0];;
+				$scope.cm;
+				$scope.cm.orderDate = dateString;
+				$scope.cm.likeCount = $scope.cm.likeCount - 1;
+				var url = `${host}/comment/${id}`;
+				$http.put(url, $scope.cm).then(resp => {
+					var index = $scope.items.findIndex(item => item.id == id)
+					$scope.items[index] = resp.data;
+					$scope.message(true, "Bạn đã thích bình luận của", "success")
+					console.log("Success", resp);
+					$scope.load_all();
+					$scope.status = true
+				}).catch(error => {
+					console.log("Error", error);
+				});
+				console.log($scope.likeCount)
+			}).catch(error => {
+				console.log("Error", error);
+			});
+		}
+	}
+
+
 	$scope.setLike = (id) => {
 
 		var urls = `${host}/comment/${id}`;
@@ -1391,8 +1461,23 @@ app.controller("orderList", function($scope, $http) {
 		})
 	};
 
-
-	$scope.cancelledOrder = (id) => {
+  $scope.showInputDialog = function(id) {
+        Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Lý do hủy đơn',
+          inputPlaceholder: 'Nhập lý do hủy đơn...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true
+        }).then(function(result) {
+          if (result.isConfirmed && result.value) {
+		
+        $scope.cancelledOrder(id,result.value)
+          }
+        });
+}
+	$scope.cancelledOrder = (id,result) => {
 		console.log($scope.nodes + "000000")
 		var urlID = `http://localhost:8088/pcgearhub/rest/invoice/${id}`;
 		$http.get(urlID).then(resp => {
@@ -1401,7 +1486,7 @@ app.controller("orderList", function($scope, $http) {
 			console.log($scope.invoice)
 			var invoice = angular.copy($scope.invoice);
 			invoice.status = "cancelled"
-			invoice.node = "Chưa xác định"
+			invoice.node = result
 			$http.put(urlID, invoice).then(resp => {
 				var index = $scope.displayedOrders.findIndex(item => item.id == invoice.id)
 				if (index !== -1) {

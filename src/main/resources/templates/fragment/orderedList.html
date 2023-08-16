@@ -107,10 +107,10 @@
 									<td><a
 										ng-href="/pcgearhub/ordered-list/details/{{ order.id }}"><i
 											class="fa-solid fa-ellipsis"></i></a></td>
+											<!--  ng-click="cancelledOrder(order.id)" -->
 									<td>
-										<button ng-click="cancelledOrder(order.id)" type="submit"
-											class="btn btn-danger mr-2" data-dismiss="modal">Hủy
-											đơn</button>
+									
+											        <button type="submit" class="btn btn-danger mr-2" ng-click="showInputDialog(order.id)">Hủy đơn</button>
 									</td>
 								</tr>
 							</tbody>
