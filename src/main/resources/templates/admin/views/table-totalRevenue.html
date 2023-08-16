@@ -26,14 +26,22 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<h4 class="card-title col-md-8">Bảng chi tiết</h4>
-								<div class="col-md-3">
-										<input type="text" class="form-control text-white"  ng-model="searchText" ng-change="search(searchText)" placeholder="Tìm tên và sản phẩm">
-									
+								<h4 class="card-title col-md-6">Bảng chi tiết</h4>
+								<div class="col-md-2">
+									<input type="date" class="form-control text-white" ng-model="startDate"	>
+									<span ng-show="showStartDate" class="text-danger">{{MessageStartDate}}</span>
+								</div>
+								<div class="col-md-2">
+									<input type="date" class="form-control text-white" ng-model="endDate" >
+									<span ng-show="showEndDate" class="text-danger">{{MessageEndDate}}</span>
+								</div>
+								<div class="col-md-1">
+									<button type="date" class="form-control text-white btn-white" ng-click="date()" >Tìm</button>										
 								</div>
 								<!--  -->
 								<div class="col-md-1">
-									<button class="btn btn-info form-control" data-toggle="modal" data-target="#myModal">
+									<button class="btn btn-info form-control" data-toggle="modal" ng-click="generatePDF()"
+										data-target="#myModal">
 										<i class="fa-solid fa-file-pdf"></i>
 									</button>
 								</div>
@@ -42,39 +50,27 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th ng-click="sortBy('id')">
-												Tên người mua
+											<th ng-click="sortBy('usetotalPurchaseAmountrName')">
+												Số lượng đơn hàng
 											</th>
-											<th ng-click="sortBy('name')">
-												Tên sản phẩm </th>
-											<th ng-click="sortBy('phoneNumber')">
-												Giá</th>
-											<th ng-click="sortBy('email')">
-												Số lượng</th>
-											<th ng-click="sortBy('địa chỉ')">
-												Ngày mua</th>
-											<th> Phương thức thanh toán</th>
-
+											<th ng-click="sortBy('totalNumberWarehouses')">
+												Số lượng sản phẩm </th>
+											<th ng-click="sortBy('orderDate')">
+												Ngày đặt</th>
+											<th ng-click="sortBy('totalRevenue')">
+												Tổng tiền</th>
 
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="rp in totalRevenueDetails | orderBy:prop |limitTo:5:begin">
-											<td>{{ rp.userName }}
+											<td>{{ rp.usetotalPurchaseAmountrName }}
 											</td>
-											<td>{{ rp.productName.length > 28 ? rp.productName.substring(0, 28) + '...'
-												: rp.productName }}
+											<td>{{ rp.totalNumberWarehouses }}
 											</td>
-
-											<td>{{ rp.productPrice }}
+											<td>{{ rp.orderDate  | date: 'dd-MM-yyyy' }}
 											</td>
-											<td>{{ rp.quantity }}
-											</td>
-											<td>{{formatDate(rp.orderDate) }}</td>
-
-											<td>
-												{{ rp.paymentMethod}}
-
+											<td>{{ rp.totalRevenue  }}
 											</td>
 										</tr>
 									</tbody>
@@ -100,61 +96,8 @@
 								<div class="col-sm-4"></div>
 
 								<!-- Modal  xuất file-->
-								<div id="myModal" class="modal fade" role="dialog">
-									<div class="modal-dialog">
-										<!-- Modal content-->
-										<div class="modal-content bg-white">
-											<div class="modal-header">
-												<h4 class="text-center text-dark" style="margin-right: 100px;">CHỌN CÁCH XUẤT FILE</h4>							</div>
-											<div class="modal-body text-center ">
-												<button ng-click="generatePDF()" type="button" class="btn btn-success btn-lg "
-													data-dismiss="modal"><i class="fa-solid fa-file"></i> Xuất tất cả 	
-												</button>
-												
-												<button data-toggle="modal" data-target="#EnterYear" type="button" class="btn btn-info btn-lg"
-													data-dismiss="modal"><i class="fa-solid fa-calendar-days"></i> Chọn năm
-												</button>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close
-												</button>
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<!-- modal nhập năm và tháng -->
-								<div id="EnterYear" class="modal fade" role="dialog">
-									<div class="modal-dialog">
-										<!-- Modal content-->
-										<div class="modal-content bg-white">
-											<div class="modal-header">
-												<h4 class="text-center text-dark" style="margin-right: 100px;">Chọn Tháng và Năm</h4>							</div>
-											<div class="modal-body">
-												  <div class="form-group " style="background-color: white;">
-													<label for="sel1" class="text-dark">Chọn năm:</label>
-													<select class="form-control bg-white text-dark" style="border: 1px solid black;" id="sel1" ng-model="selectedYear">
-														<option value="">Chọn năm</option>
-														<option ng-repeat="rp in totalRevenueDetails | uniqueYear">{{ rp.orderDate | date:'yyyy' }}</option>
-													</select>
-												  </div>
-
-												<button type="button" class="btn btn-success float-right"
-												ng-click="exportDataByYear()" 	data-dismiss="modal"><i class="fa-solid fa-download"></i> Xuất 	
-												</button>
-												
-												
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close
-												</button>
-											</div>
-										</div>
-
-									</div>
-								</div>
+								
+								
 							</div>
 						</div>
 					</div>

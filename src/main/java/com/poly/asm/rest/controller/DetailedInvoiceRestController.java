@@ -1,10 +1,12 @@
 package com.poly.asm.rest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poly.asm.model.DetailedInvoice;
 import com.poly.asm.model.Report;
+import com.poly.asm.model.ReportRevenue_Quantity;
 import com.poly.asm.model.ReportTotalRevenueDetail;
 import com.poly.asm.respository.DetailedInvoiceRepository;
 
@@ -83,7 +86,7 @@ public class DetailedInvoiceRestController extends HttpServlet {
 
 
 	 @GetMapping("/rest/detailedInvoice/totalRevenue")
-    public List<Report> getTotalRevenueAll() {
+    public List<ReportRevenue_Quantity> getTotalRevenueAll() {
         return dao.getTotalRevenueAll();
     }
 
@@ -92,8 +95,17 @@ public class DetailedInvoiceRestController extends HttpServlet {
         return dao.getReportTotalRevenueDetails();
     }
 
-	 @GetMapping("/rest/detailedInvoice/totalRevenueDetails/search/{name}")
-    public List<ReportTotalRevenueDetail> getReportsBySearch(@PathVariable("name") String name) {
-        return dao.getReportTotalRevenueDetailsBySearch(name);
+	@GetMapping("/rest/favoriteProduct/{startdate}/{enddate}")
+    public ResponseEntity<List<ReportTotalRevenueDetail>> getDateFavorite(
+        @PathVariable("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+        @PathVariable("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+    ) {
+        List<ReportTotalRevenueDetail> favorites = dao.findTotalRevenueDetails(startDate, endDate);
+        return ResponseEntity.ok(favorites);
     }
+
+	//  @GetMapping("/rest/detailedInvoice/totalRevenueDetails/search/{name}")
+    // public List<ReportTotalRevenueDetail> getReportsBySearch(@PathVariable("name") String name) {
+    //     return dao.getReportTotalRevenueDetailsBySearch(name);
+    // }
 }

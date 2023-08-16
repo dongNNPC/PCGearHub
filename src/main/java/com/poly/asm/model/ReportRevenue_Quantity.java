@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Report {
+public class ReportRevenue_Quantity {
     @Id
-	private long totalUser;
-
+    private double totalRevenue;
+	private long totalQuantity;
 	
-
 }

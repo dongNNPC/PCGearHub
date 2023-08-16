@@ -13,7 +13,7 @@ import com.poly.asm.model.Report;
 @Service
 public interface UserRepository extends JpaRepository<Account, String> {
 	// Các phương thức truy vấn tùy chỉnh nếu cần
-	@Query("SELECT new com.poly.asm.model.Report( COUNT(u.id) AS totalUser ) " + " FROM Account u  WHERE admin = 0")
+	@Query("SELECT new com.poly.asm.model.Report( COUNT(u.id)  ) " + " FROM Account u  WHERE admin = 0")
 	List<Report> getTotalUser();
 
 	@Query("SELECT DISTINCT a FROM Account a " + "JOIN a.invoices i " + "WHERE LOWER(i.status) LIKE %:keyword%")
