@@ -3,6 +3,7 @@ package com.poly.asm.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,8 +30,11 @@ public class Invoice {
 	private String id;
 
 //	@Temporal(TemporalType.DATE)
+
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="order_date")
 	private Date orderDate;
+	
 	private String address;
 	private String status;
 	private String node;

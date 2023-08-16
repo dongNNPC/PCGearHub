@@ -1,5 +1,6 @@
 package com.poly.asm.respository;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,12 +22,18 @@ public interface DetailedInvoiceRepository extends JpaRepository<DetailedInvoice
 
 
 @Query("SELECT new com.poly.asm.model.ReportTotalRevenueDetail(" +
-        " Count(d.quantity)   , Count(p.quantity) , i.orderDate , sum(p.price * d.quantity) ) " +
+        " Count(d.id)   , SUM(d.quantity) , i.orderDate , sum(p.price * d.quantity) ) " +
        " from Invoice i  join i.detailedInvoices d join d.product p" +
        " where i.status = 'complete' " +
        " group by i.orderDate ")
 List<ReportTotalRevenueDetail> getReportTotalRevenueDetails();
 
+@Query("SELECT new com.poly.asm.model.ReportTotalRevenueDetail(" +
+        " Count(d.id)   , SUM(d.quantity) , i.orderDate , sum(p.price * d.quantity) ) " +
+       " from Invoice i  join i.detailedInvoices d join d.product p" +
+       " where i.status = 'complete'  AND  i.orderDate BETWEEN ?1 AND ?2 " +
+       " group by i.orderDate ")
+List<ReportTotalRevenueDetail> findTotalRevenueDetails(Date startDate , Date endDate);
 
      
 

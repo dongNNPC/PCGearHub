@@ -1,10 +1,12 @@
 package com.poly.asm.rest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -91,6 +93,15 @@ public class DetailedInvoiceRestController extends HttpServlet {
 	@GetMapping("/rest/detailedInvoice/totalRevenueDetails")
     public List<ReportTotalRevenueDetail> gettotalRevenueDetails() {
         return dao.getReportTotalRevenueDetails();
+    }
+
+	@GetMapping("/rest/favoriteProduct/{startdate}/{enddate}")
+    public ResponseEntity<List<ReportTotalRevenueDetail>> getDateFavorite(
+        @PathVariable("startdate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+        @PathVariable("enddate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+    ) {
+        List<ReportTotalRevenueDetail> favorites = dao.findTotalRevenueDetails(startDate, endDate);
+        return ResponseEntity.ok(favorites);
     }
 
 	//  @GetMapping("/rest/detailedInvoice/totalRevenueDetails/search/{name}")

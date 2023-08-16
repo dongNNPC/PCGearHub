@@ -13,7 +13,7 @@ app.controller('ReportController', function ($scope, $http, $filter) {
     //tổng phiếu nhập kho trong index
     $http.get(`${host}/stockReceipt/getTotalQuantityStock`)
         .then(function (response) {
-            $scope.reportsTotalQuantity = response.data;
+            $scope.reportsTotalStock = response.data;
         })
         .catch(function (error) {
             console.error('Error loading data:', error);
@@ -23,6 +23,7 @@ app.controller('ReportController', function ($scope, $http, $filter) {
      $http.get(`${host}/users/getTotalUser`)
      .then(function (response) {
          $scope.reportsUser = response.data;
+         generatePDF();
      })
      .catch(function (error) {
          console.error('Error loading data:', error);
@@ -100,39 +101,32 @@ app.controller('ReportController', function ($scope, $http, $filter) {
         return $filter('date')(date, 'dd-MM-yyyy');
     };
 
-    $scope.generatePDF =  ()=> {
-        var totalRevenue = 0;
-        for (var i = 0; i < $scope.totalRevenueDetails.length; i++) {
-            totalRevenue += $scope.totalRevenueDetails[i].productPrice * $scope.totalRevenueDetails[i].quantity;
-        }
-
+    $scope.generatePDF = () => {
         var tableBody = $scope.totalRevenueDetails.map(rp => [
-            rp.userName,
-            rp.productName,
-            rp.productPrice,
-            rp.quantity,
+            rp.usetotalPurchaseAmountrName,
+            rp.totalNumberWarehouses,
             $scope.formatDate(rp.orderDate),
-            rp.paymentMethod
+            $filter('number')(rp.totalRevenue, 0) + ' vnđ'
         ]);
-
+    
+        var total = $scope.totalRevenueDetails.reduce((acc, rp) => acc + rp.totalRevenue, 0);
+    
         var docDefinition = {
             content: [
                 { text: 'THỐNG KÊ TỔNG DOANH THU', style: 'header' },
                 { text: '---------------------0--------------------', alignment: 'center' }, // Đường ngang
-                { text: 'Tổng doanh thu là: ' + $filter('number')(totalRevenue, 0) + 'vnđ', alignment: 'right', bold: true },
+                { text: 'Tổng doanh thu là: ' + $filter('number')(total, 0) + ' vnđ', alignment: 'right', bold: true },
                 { text: '              ' },
                 {
                     table: {
                         headerRows: 1,
-                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+                        widths: ['auto', 'auto', 'auto', 'auto'],
                         body: [
                             [
-                                { text: 'Tên người mua', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Tên sản phẩm', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Giá', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Số lượng', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Ngày mua', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Phương thức thanh toán', bold: true, fillColor: '#f2f2f2' }
+                                { text: 'Số lượng đơn hàng', bold: true, fillColor: '#f2f2f2' },
+                                { text: 'Số lượng sản phẩm', bold: true, fillColor: '#f2f2f2' },
+                                { text: 'Ngày đặt', bold: true, fillColor: '#f2f2f2' },
+                                { text: 'Tổng tiền', bold: true, fillColor: '#f2f2f2' },
                             ],
                             ...tableBody
                         ],
@@ -148,74 +142,11 @@ app.controller('ReportController', function ($scope, $http, $filter) {
                 }
             }
         };
-
+    
         pdfMake.createPdf(docDefinition).download('thong_ke_doanh_thu.pdf');
-
-
-
     };
+    
 
-    //thống kê theo năm
-    $scope.exportDataByYear =  ()=> {
-        var selectedYear = parseInt($scope.selectedYear);
-
-        // Filter the data based on the selected year
-        var filteredData = $scope.totalRevenueDetails.filter(function (rp) {
-            return parseInt(rp.orderDate.substring(0, 4)) === selectedYear;
-
-        });
-        console.log(filteredData)
-
-        var totalRevenue = 0;
-        for (var i = 0; i < filteredData.length; i++) {
-            totalRevenue += filteredData[i].productPrice * filteredData[i].quantity;
-        }
-
-        var tableBody = filteredData.map(rp => [
-            rp.userName,
-            rp.productName,
-            rp.productPrice,
-            rp.quantity,
-            $scope.formatDate(rp.orderDate),
-            rp.paymentMethod
-        ]);
-
-        var docDefinition = {
-            content: [
-                { text: 'THỐNG KÊ TỔNG DOANH THU NĂM ' + selectedYear, style: 'header' },
-                { text: '---------------------0--------------------', alignment: 'center' }, // Đường ngang
-                { text: 'Tổng doanh thu là: ' + $filter('number')(totalRevenue, 0) + 'vnđ', alignment: 'right', bold: true },
-                { text: '              ' },
-                {
-                    table: {
-                        headerRows: 1,
-                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
-                        body: [
-                            [
-                                { text: 'Tên người mua', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Tên sản phẩm', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Giá', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Số lượng', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Ngày mua', bold: true, fillColor: '#f2f2f2' },
-                                { text: 'Phương thức thanh toán', bold: true, fillColor: '#f2f2f2' }
-                            ],
-                            ...tableBody
-                        ],
-                        bodyStyles: { border: undefined },
-                    }
-                }
-            ],
-            styles: {
-                header: {
-                    fontSize: 18,
-                    bold: true,
-                    alignment: 'center'
-                }
-            }
-        };
-
-        pdfMake.createPdf(docDefinition).download(`thong_ke_doanh_thu_${selectedYear}.pdf`);
-    };
 
     //tìm kiếm sản phẩm trong index
     $scope.search = (name) => {
@@ -239,6 +170,61 @@ app.controller('ReportController', function ($scope, $http, $filter) {
                 console.log("Error_edit", error);
             });
     };
+
+    $scope.date = () => {
+        const formattedStartDate = $filter("date")($scope.startDate, "yyyy-MM-dd");
+        const formattedEndDate = $filter("date")($scope.endDate, "yyyy-MM-dd");
+    
+        var valid = true;
+    
+        if (!formattedStartDate) {
+          $scope.MessageStartDate = "Vui lòng chọn từ ngày";
+          $scope.showStartDate = true;
+          valid = false;
+        } else {
+          $scope.MessageStartDate = "";
+          $scope.showStartDate = false;
+        }
+    
+        if (!formattedEndDate) {
+          $scope.MessageEndDate = "Vui lòng chọn Đến ngày";
+          $scope.showEndDate = true;
+          valid = false;
+        } else {
+          $scope.MessageEndDate = "";
+          $scope.showEndDate = false;
+        }
+    
+        //
+        if (formattedStartDate && formattedEndDate) {
+          var fromDate = new Date(formattedStartDate);
+          var toDate = new Date(formattedEndDate);
+    
+          if (fromDate > toDate) {
+            $scope.MessageStartDate = "Từ ngày không được nhỏ hơn Đến ngày";
+            $scope.MessageEndDate = "Đến ngày không được lớn hơn Từ ngày";
+            $scope.showStartDate = true;
+            $scope.showEndDate = true;
+            valid = false;
+          }
+        }
+    
+        if (valid) {
+          var url = `${host}/favoriteProduct/${formattedStartDate}/${formattedEndDate}`;
+          $http({
+            method: "GET",
+            url: url,
+          })
+            .then((resp) => {
+              $scope.totalRevenueDetails = resp.data;
+              console.log("search", resp);
+            })
+            .catch((error) => {
+              console.log("Error_edit", error);
+            });
+        }
+        
+      };
 
 });
 app.filter('uniqueYear',  () =>{
