@@ -52,8 +52,9 @@
 											<td class="text-danger">
 											<span ng-if="item.status=='cancelled'">Đã hủy</span> 
 											</td>
-											<td>{{item.node}}</td>
 											<td>{{item.user.name}}</td>
+											<td>{{item.node}}</td>
+											
 											<td ng-click="edit(item.id)"><a class="btn btn-info" href="#">Xem chi tiết </a></td>
 										</tr>
 									</tbody>

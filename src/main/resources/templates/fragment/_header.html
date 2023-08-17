@@ -70,10 +70,12 @@ top: 0;">
                     <li ng-if="!userLogged"><a th:href="@{/pcgearhub/sign-in}" rel="">Đăng ký</a></li>
 
                    
-                   <span  ng-if="userLogged" >xin chào : {{user.name}}</span>
+                   <span  ng-if="userLogged" >xin chào :
+                    {{ (user.name.substring(user.name.lastIndexOf(" ") + 1)).normalize('NFC') }}
+                   </span>
                    
                     <li onmouseover="showDropdown()" onmouseout="hideDropdown()"><a href="#" rel="nofollow"> &ensp;
-                    <a  href="">Tài khoản của tôi&ensp;<i class="fa-solid fa-arrow-down"></i></a></i></a></span>
+                    <a  href="">Tài khoản&ensp;<i class="fa-solid fa-arrow-down"></i></a></i></a></span>
                   
                       <ul id="dropdownMenu" class="dropdown-menu fade-up bg-light"
 

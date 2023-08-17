@@ -32,6 +32,8 @@
                         <h3 style="font-weight: bold;font-size: 20px;">Giỏ hàng của bạn</h3>
                         <h4 ng-show="cart.count > 0" class="mb-0 text-muted">Bạn đang có <span
                             style="color: black;font-weight: bold;">{{cart.count}} sản phẩm </span> trong giỏ hàng</h4>
+                            <span id="error-message" style="color: red; font-weight: bold;"></span>
+
                         <div class="row" ng-show="cart.count > 0">
                           <div class="col-md-9">
                             <input class="form-check-input" type="checkbox" value="" id="" ng-model="checkAll"
