@@ -90,7 +90,8 @@
                     </div>
                     <div class="mb-3" style="margin-top: 10px;">
                         <label for="address">Nhập địa chỉ cụ thể:</label>
-                        <input type="text" class="form-control" id="address" ng-model="specificAddress" placeholder="Số nhà, tổ,...">
+                        <input type="text" class="form-control" id="address" ng-model="specificAddress"
+                            placeholder="Số nhà, tổ,...">
                         <small id="helpId" class="form-text text-muted"></small>
                     </div>
                     <!--ẩn Ngày  giao   -->
@@ -109,15 +110,37 @@
                     <div>
                         <div class="form-check">
                             <input class="form-check-input" data-bs-toggle="collapse" data-bs-target="#demo"
-                                type="radio" name="paymentMethod" value=" Thanh toán chuyển khoản"
+                                type="radio" name="paymentMethod" value="Thanh toán chuyển khoản"
                                 id="thanhToanChuyenKhoan">
-                            <label class="form-check-label" for="thanhToanChuyenKhoan">
+                            <label class="form-check-label" for="thanhToanChuyenKhoan" data-bs-toggle="collapse"
+                                data-bs-target="#demo">
                                 Thanh toán chuyển khoản
                             </label>
                         </div>
                         <br>
-                    </div>
+                        <div id="demo" class="collapse row">
+                            <div class="form-check col-md-4">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="momoRadio" ng-model="selectedBankName" value="MoMo">
+                                <label class="form-check-label" for="momoRadio">
+                                    <img ng-src="/assets/Icon/MoMo.png" width="50px" height="50px">
+                                </label>
+                            </div>
 
+                            <div class="form-check col-md-4">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="mbbankRadio" ng-model="selectedBankName" value="Mbbank">
+                                <label class="form-check-label" for="mbbankRadio">
+                                    <img ng-src="/assets/Icon/mbbank.png" width="100px" height="100px">
+                                </label>
+                            </div>
+                            <div class="form-check col-md-4">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="vietcombankRadio" ng-model="selectedBankName" value="Vietcombank">
+                                <label class="form-check-label" for="vietcombankRadio">
+                                    <img ng-src="/assets/Icon/vietcombank.png" width="100px" height="100px">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
 
                     <!-- th:text="${#request.remoteUser}" -->
                     <a ng-click="order.confirm()" class="btn-login" style="margin-left: 350px;width: 300px;">Xác nhận

@@ -39,9 +39,10 @@
         <input style="border: none;" class="col-md-3" th:field="*{orderDate}">
         <input style="border: none;" class="col-md-3" th:field="*{id}"></input>
         <span class="col-md-3" th:text="${order.statusName}"></span>
-        <input style="border: none; cursor: pointer;" class="col-md-3 truncate-text modal-trigger" th:field="*{address}">
+        <input style="border: none; cursor: pointer;" class="col-md-3 truncate-text modal-trigger"
+          th:field="*{address}">
 
-    </div>
+      </div>
       <div class="row">
         <div class="col-md-3 text-black">
           <h4 class="text-black mb-0">Ảnh</h4>
@@ -54,27 +55,33 @@
           <h4 class="text-black mb-0" style="text-align: end;">Tổng tiền </h4>
         </div>
       </div>
-      <div class="row" th:each="detail : *{detailedInvoices}" th:object="${detail}">
-        <div class="col-md-3"><img th:src="@{|/assets/images/products/*{product.image1}}" width="80px" height="70px"
-            style="border-radius: 5px; margin-left: -20px;"></div>
-        <div class="col-md-6">
-          <h6 style="margin-left: -10px; max-width: 400px;" class="text-black mb-0"> [[*{product.name}]]
-            <br>
-            <p style="color: red; font-weight: bold; margin-top: 5px;">
-              Giá: [[${#numbers.formatDecimal(detail.product.price, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ |
-              Số lượng: [[${detail.quantity}]]
-            </p>
-          </h6>
-        </div>
+      <div style="max-height: 300px; overflow-y: auto;overflow-x: hidden;">
+        <div class="row" th:each="detail : *{detailedInvoices}" th:object="${detail}">
+          <div class="col-md-3"><img th:src="@{|/assets/images/products/*{product.image1}}" width="80px" height="70px"
+              style="border-radius: 5px; margin-left: -20px;"></div>
+          <div class="col-md-6">
+            <h6 style="margin-left: -10px; max-width: 400px;" class="text-black mb-0"> [[*{product.name}]]
+              <br>
+              <p style="color: red; font-weight: bold; margin-top: 5px;">
+                Giá: [[${#numbers.formatDecimal(detail.product.price, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ |
+                Số lượng: [[${detail.quantity}]]
+              </p>
+            </h6>
+          </div>
 
-        <div class="col-md-3">
-          <p style="font-weight: bold;text-align: end;">
-            [[${#numbers.formatDecimal(detail.product.price * detail.quantity, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ
-          </p>
+          <div class="col-md-3">
+            <p style="font-weight: bold;text-align: end;">
+              [[${#numbers.formatDecimal(detail.product.price * detail.quantity, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ
+            </p>
+          </div>
+          <br>
+          <div class="col-md-12">
+              <div> Phương thức :  <span style="margin-right: -50px;">  [[${detail.paymentMethod}]]</span></div>
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-8" style="margin-left: -10px;font-weight: bold;">
+        <div class="col-md-8" style="font-weight: bold;">
           Tổng tất cả tiền :
         </div>
         <div class="col-md-4">
@@ -82,9 +89,8 @@
             [[${#numbers.formatDecimal(totalPrice, 0, 'WHITESPACE', 0, 'POINT')}]] vnđ</span>
         </div>
       </div>
-      <h6></h6> 
- 
-     
+
+
       <div>
         <h6>Cám ơn đã quý khác đã mua hàng<span style="margin-left: 360px;">Trợ giúp ?</span></h6>
         <h6>Chúng tôi sẽ gửi email xác nhận vận chuyển khi mặt hàng được vận chuyển! <span
@@ -94,12 +100,14 @@
 
       <div class="modal-overlay" id="modal">
         <div class="modal-content">
-            <h4>địa chỉ giao hàng của bạn là : </h4>
-            <input style="border: none; width: 900px; font-weight: bold; word-wrap: break-word; overflow-wrap: break-word;" th:field="*{address}"> <br>
+          <h4>địa chỉ giao hàng của bạn là : </h4>
+          <input
+            style="border: none; width: 900px; font-weight: bold; word-wrap: break-word; overflow-wrap: break-word;"
+            th:field="*{address}"> <br>
 
-            <button class="modal-close" id="closeModal">Đóng</button>
+          <button class="modal-close" id="closeModal">Đóng</button>
         </div>
-</div>
+      </div>
     </form>
   </main>
   <footer>
@@ -107,35 +115,35 @@
   </footer>
   <style>
     /* styles.css */
-.modal-overlay {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-}
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
 
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
 
-.modal-close {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
+    .modal-close {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
 
     .formThank {
       display: flex;
@@ -143,14 +151,12 @@
       gap: 10px;
       background-color: #ffffff;
       padding: 30px;
-      width: 680px;
+      width: 700px;
       margin-left: 330px;
       border-radius: 20px;
       margin-top: 20px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-
-
     }
 
     .truncate-text {
@@ -177,24 +183,24 @@
 
   </script>
   <script>
-   // script.js
-const modalTrigger = document.querySelector('.modal-trigger');
-const modal = document.getElementById('modal');
-const closeModalBtn = document.getElementById('closeModal');
+    // script.js
+    const modalTrigger = document.querySelector('.modal-trigger');
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
 
-modalTrigger.addEventListener('click', () => {
-    modal.style.display = 'flex';
-});
+    modalTrigger.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
 
-closeModalBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
+    closeModalBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
 
-window.addEventListener('click', (event) => {
-    if (event.target === modal) {
+    window.addEventListener('click', (event) => {
+      if (event.target === modal) {
         modal.style.display = 'none';
-    }
-});
+      }
+    });
 
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
