@@ -713,7 +713,22 @@ app.controller("shopping-cart-ctrl", function ($scope, $location, $http, $timeou
 		});
 	};
 
+	var methodExecuted = false;
 
+	// Phương thức thực hiện chỉ một lần
+	function executeOnce() {
+	  if (!methodExecuted) {
+		// Lấy thẻ span theo ID
+		var paymentMethodSpan = document.getElementById("paymentMethod");
+  
+		// Thực hiện thay đổi trong thẻ span
+		paymentMethodSpan.innerHTML = "Thay đổi nội dung phương thức";
+  
+		// Đánh dấu biến cờ là đã thực hiện
+		methodExecuted = true;
+	  }
+	}
+  
 	
 	// Gọi hàm loadData để tải dữ liệu lên trang index ban đầu
 	$scope.loadData();
