@@ -36,8 +36,9 @@
 										<th>STT</th>
 											<th ng-click="sortBy('id')">Mã hóa đơn</th>
 											<th ng-click="sortBy('orderDate')">Ngày Đặt Hàng</th>
-											<th ng-click="sortBy('status')">status</th>
+											<th ng-click="sortBy('status')">Trạng thái</th>
 											<th ng-click="sortBy('name')">Tên người đặt</th>
+											<th>Lý do hủy đơn</th>
 											<th>Thao tác</th>
 						
 
@@ -47,10 +48,11 @@
 										<tr ng-repeat="item in items | orderBy:prop |limitTo:5:begin">
 										<td>{{ $index + 1 }}</td>
 											<td>{{item.id}}</td>
-											<td>{{item.orderDate}}</td>
+											<td>{{item.orderDate | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
 											<td class="text-danger">
 											<span ng-if="item.status=='cancelled'">Đã hủy</span> 
 											</td>
+											<td>{{item.node}}</td>
 											<td>{{item.user.name}}</td>
 											<td ng-click="edit(item.id)"><a class="btn btn-info" href="#">Xem chi tiết </a></td>
 										</tr>

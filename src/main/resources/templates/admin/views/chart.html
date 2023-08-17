@@ -10,7 +10,7 @@
 	<div class="main-panel">
 		<div class="content-wrapper">
 			<div class="page-header">
-				<h3 class="page-title">Chart-js</h3>
+				<h3 class="page-title">Biểu đồ thống kê</h3>
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Charts</a></li>
@@ -41,12 +41,21 @@
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title">Thống kê Tổng số hóa đơn đã hủy theo tháng</h4>
+								<div class="d-flex justify-content-end mb-3">
+								<select class="form-select" aria-label="Default select example"
+									ng-model="selectedYear" ng-change="yearChanged()"
+									style="background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 0.375rem 1.75rem 0.375rem 0.75rem; font-size: 1rem; color: #495057; appearance: none;">
+									<option value="">Chọn năm</option>
+									<option ng-repeat="year in years" value="{{ year }}">{{
+										year }}</option>
+								</select>
+							</div>
 							<canvas id="barChart" style="height: 230px"></canvas>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
+		<!-- 	<div class="row">
 				<div class="col-lg-6 grid-margin stretch-card" ng-controller="area">
 					<div class="card">
 						<div class="card-body">
@@ -64,7 +73,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<!-- <div class="row">
 				<div class="col-lg-6 grid-margin stretch-card">
 					<div class="card">

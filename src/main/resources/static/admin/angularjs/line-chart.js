@@ -17,12 +17,12 @@ app.controller("line", function($scope, $http) {
 
 	$scope.yearChanged = function() {
 		if ($scope.selectedYear) {
-		    url = `${host}/invoices/sales/${$scope.selectedYear}`;
-		    $scope.runLineChart()
+			url = `${host}/invoices/sales/${$scope.selectedYear}`;
+			$scope.runLineChart()
 		}
 	};
 	$scope.load = () => {
-		
+
 		return $http.get(url).then(resp => {
 			$scope.items = resp.data;
 			console.log("Success", resp);
@@ -148,7 +148,7 @@ app.controller("line", function($scope, $http) {
 /*Bar Chart (Bar Chart)*/
 app.controller("bar", function($scope, $http) {
 	$scope.items = []
-	var url = `${host}/invoices/bars/2022`;
+	var url = `${host}/invoices/bars/2023`;
 
 
 	$scope.getAllYear = () => {
@@ -163,12 +163,12 @@ app.controller("bar", function($scope, $http) {
 
 	$scope.yearChanged = function() {
 		if ($scope.selectedYear) {
-		    url = `${host}/invoices/bars/${$scope.selectedYear}`;
-		    $scope.runLineChart()
+			url = `${host}/invoices/bars/${$scope.selectedYear}`;
+			$scope.runLineChart()
 		}
 	};
 	$scope.load = () => {
-		
+
 		return $http.get(url).then(resp => {
 			$scope.items = resp.data;
 			console.log("Success", resp);
@@ -196,7 +196,7 @@ app.controller("bar", function($scope, $http) {
 		console.log($scope.items);
 		/*Lấy dữ liệu các tháng*/
 		var countArray = $scope.items.map(item => item.count);
-		console.log(countArray); 
+		console.log(countArray);
 		var data = {
 			labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
 			datasets: [{
@@ -277,6 +277,7 @@ app.controller("bar", function($scope, $http) {
 			$scope.line();
 		});
 	}
+		$scope.getAllYear();
 	$scope.runLineChart();
 });
 /*Area Chart (Area Chart)*/

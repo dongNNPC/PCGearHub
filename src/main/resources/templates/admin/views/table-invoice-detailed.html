@@ -43,6 +43,7 @@
 											<th>STT</th>
 										
 										
+											<th ng-click="sortBy('nameProduct')">Mã sản phẩm</th>
 											<th ng-click="sortBy('nameProduct')">Tên Tên sản phẩm</th>
 											<th ng-click="sortBy('nameProduct')">Hình ảnh</th>
 											<th ng-click="sortBy('price')">Giá</th>
@@ -57,7 +58,9 @@
 											<td>{{ $index + 1 }}</td>
 										
 									
-											<td>{{item.product.name}}</td>
+											<td>{{item.product.id}}</td>
+											<td>{{item.product.name.length > 28 ? item.product.name.substring(0, 28) + '...'
+												: item.product.name }}</td>
 											<td><img ng-src="{{url(item.product.image1)}}" style="width: 100px; height: 100px" alt=""></td>
 											<td>{{item.product.price}}</td>
 											<td>{{item.quantity}}</td>

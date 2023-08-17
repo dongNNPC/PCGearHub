@@ -287,7 +287,7 @@
 		   ('C007', N'Dây nguồn', N'Mô tả danh mục 2'),
 		    ('C008', N'Tản nhiệt', N'Mô tả danh mục 2'),
 			 ('C009', N'Cổng sạc', N'Mô tả danh mục 2'),
-			  ('C010', N'Pin loptop', N'Mô tả danh mục 2'),
+			  ('C010', N'Pin loptop', N'Mô tả danh mục 2')
 
 		-- Thêm dữ liệu vào bảng distinctives
 	INSERT INTO distinctives(id, name)
@@ -299,9 +299,9 @@
 
 INSERT INTO distinctives (id, name)
 VALUES 
-  ('D1', 'Chống nước'),
-  ('D2', 'Chống bụi'),
-  ('D3', 'Chống xước');
+  ('D1', N'Chống nước'),
+  ('D2', N'Chống bụi'),
+  ('D3', N'Chống xước');
 
 	-- Thêm dữ liệu vào bảng Brands
 	INSERT INTO Brands (id, name, phone_number,email,address)
